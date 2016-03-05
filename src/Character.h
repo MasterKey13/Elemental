@@ -1,5 +1,6 @@
 #pragma once
 #include "oxygine-framework.h"
+#include <string>
 using namespace oxygine;
 
 #define FIRST_NAME_MAX_CHAR 10
@@ -14,22 +15,21 @@ class Character : public Actor
 public:
 	Character();
 
-	void init(char *firstName, char *lastName, char *nickname); //with a nickname
-	void init(char *firstName, char *lastName); //without a nickname
+	void init(std::string firstName, std::string lastName, std::string nickname = ""); //with a nickname
 
-	void setFirstName(char *firstName); //set first name
-	void setLastName(char *lastName); //set last name
-	void setNickname(char *nickname); //set nickname
-
-	char *getFirstName(); //get first name
-	char *getLastName(); //get last name
-	char *getNickname(); //get nickname
+	void setFirstName(std::string firstName); //set first name
+	void setLastName(std::string lastName); //set last name
+	void setNickname(std::string nickName); //set nickname
+	
+	std::string getFirstName(); //get first name
+	std::string getLastName(); //get last name
+	std::string getNickname(); //get nickname
 
 private:
 	void doUpdate(const UpdateState &us); //update function
 
 	int _credits; //amount of credits
-	char *_firstName; //first name
-	char *_lastName; //last name
-	char *_nickname; //nickname
+	std::string _firstName; //first name
+	std::string _lastName; //last name
+	std::string _nickname; //nickname
 };

@@ -27,7 +27,7 @@ void Game::init()
 
 	//create a Player and attach it to the Ship
 	_player = new Player;
-	_player->init("Heiko", "Evilyn", "");
+	_player->init("Heiko", "Evilyn");
 	_player->attachTo(_playerShip);
 
 	//set the ship's captain
