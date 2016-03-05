@@ -3,10 +3,6 @@
 #include <string>
 using namespace oxygine;
 
-#define FIRST_NAME_MAX_CHAR 10
-#define LAST_NAME_MAX_CHAR 10
-#define NICKNAME_MAX_CHAR 10
-
 //Declare smart pointers
 DECLARE_SMART(Character, spCharacter);
 
@@ -15,7 +11,7 @@ class Character : public Actor
 public:
 	Character();
 
-	void init(std::string firstName, std::string lastName, std::string nickname = ""); //with a nickname
+	void init(std::string firstName, std::string lastName, std::string nickname); //with a nickname
 
 	void setFirstName(std::string firstName); //set first name
 	void setLastName(std::string lastName); //set last name
