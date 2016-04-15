@@ -1,4 +1,4 @@
-#include "Ship.h"
+#include "ship.h"
 
 Ship::Ship()
 {

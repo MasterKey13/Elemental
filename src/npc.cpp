@@ -1,5 +1,5 @@
 #include "setup.h"
-#include "NPC.h"
+#include "npc.h"
 
 NPC::NPC()
 {

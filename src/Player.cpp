@@ -1,5 +1,5 @@
 #include "setup.h"
-#include "Player.h"
+#include "player.h"
 
 Player::Player()
 {

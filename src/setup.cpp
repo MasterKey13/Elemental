@@ -1,6 +1,6 @@
 #include "oxygine-framework.h"
 #include <functional>
-#include "Game.h"
+#include "game.h"
 #include "resources.h"
 using namespace oxygine;
 

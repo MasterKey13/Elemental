@@ -1,5 +1,5 @@
 #include "setup.h"
-#include "Settlement.h"
+#include "settlement.h"
 
 Settlement::Settlement()
 {
