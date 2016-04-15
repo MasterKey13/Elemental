@@ -1,17 +1,21 @@
+/*
+Author: Alexander Mastryukov
+License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+*/
+
 #pragma once
 #include "oxygine-framework.h"
-using namespace oxygine;
 
-//Declare smart pointers
+using namespace oxygine;
 
 class TravelBar : public Actor
 {
-public:
-	TravelBar();
+  public:
+	  TravelBar();
 
-	void init();
+	  void init();
 
 
-private:
-	spSprite _bar;
+  private:
+	  spSprite _bar;
 };

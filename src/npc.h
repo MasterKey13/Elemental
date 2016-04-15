@@ -1,6 +1,12 @@
+/*
+Author: Alexander Mastryukov
+License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+*/
+
 #pragma once
 #include "oxygine-framework.h"
-#include "Character.h"
+#include "character.h"
+
 using namespace oxygine;
 
 //Declare smart pointers
@@ -8,10 +14,10 @@ DECLARE_SMART(NPC, spNPC);
 
 class NPC : public Character
 {
-public:
-	NPC();
-	void init();
+  public:
+	  NPC();
+	  void init();
 
-private:
+  private:
 
 };

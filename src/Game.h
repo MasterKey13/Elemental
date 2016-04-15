@@ -1,3 +1,8 @@
+/*
+Author: Alexander Mastryukov
+License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+*/
+
 #pragma once
 #include "oxygine-framework.h"
 #include "space.h"
@@ -6,6 +11,7 @@
 #include "character.h"
 #include "player.h"
 #include "travel_bar.h"
+
 using namespace oxygine;
 
 //Declare smart pointers
@@ -18,17 +24,17 @@ DECLARE_SMART(TravelBar, spTravelBar);
 
 class Game : public Actor
 {
-public:
-	Game();
+  public:
+	  Game();
 
-	void init();
+	  void init();
 
-private:
-	void doUpdate(const UpdateState &us);
+  private:
+	  void doUpdate(const UpdateState &us);
 
-	spSpace _space; 
-	spShip _player_ship; 
-	spLocation _location;
-	spCharacter _player; 
-	spTravelBar _travel_bar; 
+	  spSpace _space; 
+	  spShip _player_ship; 
+	  spLocation _location;
+	  spCharacter _player; 
+	  spTravelBar _travel_bar; 
 };

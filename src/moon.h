@@ -5,15 +5,16 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
+#include "celestial_body.h"
 
 using namespace oxygine;
 
-class SolarSystem : public Actor
+class Moon : public CelestialBody
 {
   public:
-	  SolarSystem();
+    Moon();
 
-	  void init();
+    void init();
 
   private:
 

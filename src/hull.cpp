@@ -4,14 +4,10 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 */
 
 #include "setup.h"
-#include "celestial_body.h"
+#include "hull.h"
+#include "item.h"
 
-CelestialBody::CelestialBody()
-{
-
-}
-
-void CelestialBody::init()
+Hull::Hull()
 {
 
 }
