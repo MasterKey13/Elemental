@@ -1,11 +1,11 @@
 #pragma once
 #include "oxygine-framework.h"
-#include "Space.h"
-#include "Ship.h"
-#include "Location.h"
-#include "Character.h"
-#include "Player.h"
-#include "TravelBar.h"
+#include "space.h"
+#include "ship.h"
+#include "location.h"
+#include "character.h"
+#include "player.h"
+#include "travel_bar.h"
 using namespace oxygine;
 
 //Declare smart pointers
@@ -26,9 +26,9 @@ public:
 private:
 	void doUpdate(const UpdateState &us);
 
-	spSpace _space;
-	spShip _playerShip;
+	spSpace _space; 
+	spShip _player_ship; 
 	spLocation _location;
-	spCharacter _player;
-	spTravelBar _travelBar;
+	spCharacter _player; 
+	spTravelBar _travel_bar; 
 };

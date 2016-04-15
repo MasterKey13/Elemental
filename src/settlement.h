@@ -3,10 +3,10 @@
 
 using namespace oxygine;
 
-class Item : public Actor
+class Settlement : public Actor
 {
 public:
-	Item();
+	Settlement();
 
 	void init();
 };

@@ -5,6 +5,13 @@ Ship::Ship()
 
 }
 
+/*
+Initialize a Ship
+  (string) name of the ship
+  (int) starting x location of the ship
+  (int) starting y location of the ship
+  (string) serial number of the ship - UNIQUE!
+*/
 void Ship::init(std::string name, int x, int y, std::string serial)
 {
 	setName(name); //set ship name (default)
@@ -20,14 +27,12 @@ void Ship::setName(std::string name)
 
 void Ship::setCoordinates(int x, int y)
 {	
-	//set coordinates
 	_x = x;
 	_y = y;
 }
 
 void Ship::setCaptain(spCharacter *captain)
 {
-	//set the captain of the ship
 	_captain = captain;
 }
 
@@ -43,6 +48,6 @@ std::string Ship::getName()
 
 void Ship::doUpdate(const UpdateState &us)
 {
-	//display ship name
+	//display ship name (debug)
 	DebugActor::instance->addDebugString("%s [%s]\n", this->_name.c_str(), this->_serial.c_str());
 }

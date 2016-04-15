@@ -5,15 +5,19 @@ Space::Space()
 
 }
 
+/*
+Initialize the Space
+  (int) starting x coordinate
+  (int) starting y coordinate
+*/
 void Space::init(int x, int y)
 {
-	//set some starting location
 	_setCoordinates(x, y);
 }
 
 void Space::doUpdate(const UpdateState & us)
 {
-	//display the current loaded space location
+	//display the current loaded space location (debug)
 	DebugActor::instance->addDebugString("x: %d y: %d\n", this->_currentX, this->_currentY);
 }
 
@@ -29,7 +33,6 @@ int Space::getY()
 
 void Space::_setCoordinates(int x, int y)
 {
-	//set the coordinates
 	_currentX = x;
 	_currentY = y;
 }

@@ -1,27 +1,34 @@
 #include "setup.h"
-#include "Character.h"
+#include "character.h"
 
 Character::Character()
 {
 
 }
 
-void Character::init(std::string firstName, std::string lastName, std::string nickname)
+/*
+Initialize a Character
+  (string) first name
+  (string) last name
+  (string) nickname - empty string if no nickname
+*/
+void Character::init(std::string first_name, 
+                     std::string last_name, 
+                     std::string nickname)
 {
-	//set the first, last and nickname
-	setFirstName(firstName);
-	setLastName(lastName);
+  setFirstName(first_name);
+	setLastName(last_name);
 	setNickname(nickname);
 }
 
-void Character::setFirstName(std::string firstName)
+void Character::setFirstName(std::string first_name)
 {
-	_firstName = firstName;
+	_first_name = first_name;
 }
 
-void Character::setLastName(std::string lastName)
+void Character::setLastName(std::string last_name)
 {
-	_lastName = lastName;
+	_last_name = last_name;
 }
 
 void Character::setNickname(std::string nickname)
@@ -31,12 +38,12 @@ void Character::setNickname(std::string nickname)
 
 std::string Character::getFirstName()
 {
-	return _firstName;
+	return _first_name;
 }
 
 std::string Character::getLastName()
 {
-	return _lastName;
+	return _last_name;
 }
 
 std::string Character::getNickname()
@@ -46,7 +53,9 @@ std::string Character::getNickname()
 
 void Character::doUpdate(const UpdateState & us)
 {
-	//debug names
+	//debug the names
 	DebugActor::instance->addDebugString("%s, %s: %s\n",
-				this->_firstName.c_str(), this->_lastName.c_str(), this->_nickname.c_str());
+	                    this->_first_name.c_str(), 
+                      this->_last_name.c_str(), 
+                      this->_nickname.c_str());
 }

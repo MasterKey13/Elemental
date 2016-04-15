@@ -1,5 +1,5 @@
 #include "setup.h"
-#include "TravelBar.h"
+#include "travel_bar.h"
 
 TravelBar::TravelBar()
 {
@@ -8,7 +8,7 @@ TravelBar::TravelBar()
 
 void TravelBar::init()
 {
-	//initialize the travel bar
+  //test bar for now for debugging
 	_bar = new ColorRectSprite;
 	_bar->setSize(500, 50);
 	_bar->attachTo(this);

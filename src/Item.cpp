@@ -1,12 +1,12 @@
 #include "setup.h"
-#include "Item.h"
+#include "item.h"
 
 Item::Item()
 {
 
 }
 
-void Item::_init()
+void Item::init()
 {
 
 }

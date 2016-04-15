@@ -18,25 +18,25 @@ void Game::init()
 	_location->attachTo(this);
 
 	//create new Ship and attach it to the location
-	_playerShip = new Ship;
-	_playerShip->init("Shogun", _space->getX(), _space->getY(), "F4T455");
-	_playerShip->attachTo(this);
+	_player_ship = new Ship;
+	_player_ship->init("Shogun", _space->getX(), _space->getY(), "F4T455");
+	_player_ship->attachTo(this);
 
 	//add the ship to the location
-	_location->addShip(&_playerShip);
+	_location->addShip(&_player_ship);
 
 	//create a Player and attach it to the Ship
 	_player = new Player;
 	_player->init("Heiko", "Evilyn", "");
-	_player->attachTo(_playerShip);
+	_player->attachTo(_player_ship);
 
 	//set the ship's captain
-	_playerShip->setCaptain(&_player);
+	_player_ship->setCaptain(&_player);
 
 	//create a TravelBar
-	_travelBar = new TravelBar;
-	_travelBar->init();
-	_travelBar->attachTo(this);
+	_travel_bar = new TravelBar;
+	_travel_bar->init();
+	_travel_bar->attachTo(this);
 }
 
 void Game::doUpdate(const UpdateState &us)

@@ -11,11 +11,13 @@ class Character : public Actor
 public:
 	Character();
 
-	void init(std::string firstName, std::string lastName, std::string nickname); //with a nickname
+	void init(std::string first_name, 
+            std::string last_name, 
+            std::string nickname);
 
-	void setFirstName(std::string firstName); //set first name
-	void setLastName(std::string lastName); //set last name
-	void setNickname(std::string nickName); //set nickname
+	void setFirstName(std::string first_name); //set first name
+	void setLastName(std::string last_name); //set last name
+	void setNickname(std::string nickname); //set nickname
 	
 	std::string getFirstName(); //get first name
 	std::string getLastName(); //get last name
@@ -25,7 +27,7 @@ private:
 	void doUpdate(const UpdateState &us); //update function
 
 	int _credits; //amount of credits
-	std::string _firstName; //first name
-	std::string _lastName; //last name
+	std::string _first_name; //first name
+	std::string _last_name; //last name
 	std::string _nickname; //nickname
 };

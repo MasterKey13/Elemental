@@ -22,7 +22,7 @@ private:
 
 	int _x, _y;
 	spShip *_ships; //Ships at this location
-	int _shipCount; //keeps track of how many ships there are at the location
-	int _shipLimit; //how many ships this location can hold
+	int _ship_count; //keeps track of how many ships there are at the location
+	int _ship_limit; //how many ships this location can hold
 	void _setCoordinates(int x, int y); //sets the coordinates
 };
