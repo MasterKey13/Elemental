@@ -9,8 +9,8 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 using namespace oxygine;
 
 //constants for maximum travelable space (0-999 in x and y)
-#define X_MAX 999
-#define Y_MAX 999
+#define X_MAX 99
+#define Y_MAX 99
 
 //Declare smart pointers
 DECLARE_SMART(Space, spSpace);

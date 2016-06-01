@@ -32,16 +32,17 @@ void Game::init()
 
 	//create a Player and attach it to the Ship
 	_player = new Player;
-	_player->init("Heiko", "Evilyn", "");
+	_player->init("Heiko", "Evilyn", "", 10);
 	_player->attachTo(_player_ship);
 
 	//set the ship's captain
 	_player_ship->setCaptain(&_player);
 
-	//create a TravelBar
-	_travel_bar = new TravelBar;
-	_travel_bar->init();
-	_travel_bar->attachTo(this);
+  //set up the GUI
+  _GUI = new GUI;
+  _GUI->init();
+  _GUI->setPosition(300,200);
+  _GUI->attachTo(this);
 }
 
 void Game::doUpdate(const UpdateState &us)

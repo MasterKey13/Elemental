@@ -6,6 +6,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #pragma once
 #include "oxygine-framework.h"
 #include <string>
+#include "item.h"
 
 using namespace oxygine;
 
@@ -19,21 +20,28 @@ class Character : public Actor
 
 	  void init(std::string first_name, 
               std::string last_name, 
-              std::string nickname);
+              std::string nickname,
+              int inventory_limit);
 
-	  void setFirstName(std::string first_name); //set first name
-	  void setLastName(std::string last_name); //set last name
-	  void setNickname(std::string nickname); //set nickname
+    //name setters
+	  void setFirstName(std::string first_name);
+	  void setLastName(std::string last_name);
+	  void setNickname(std::string nickname);
 	
-	  std::string getFirstName(); //get first name
-	  std::string getLastName(); //get last name
-	  std::string getNickname(); //get nickname
+    //name getters
+	  std::string getFirstName();
+	  std::string getLastName();
+	  std::string getNickname();
 
   private:
-	  void doUpdate(const UpdateState &us); //update function
+	  void doUpdate(const UpdateState &us);
 
-	  int _credits; //amount of credits
-	  std::string _first_name; //first name
-	  std::string _last_name; //last name
-	  std::string _nickname; //nickname
+    //name stuff
+	  std::string _first_name;
+	  std::string _last_name;
+	  std::string _nickname;
+    
+    //inventory stuff
+    spItem *_inventory;
+    int _inventory_limit;
 };

@@ -10,7 +10,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "location.h"
 #include "character.h"
 #include "player.h"
-#include "travel_bar.h"
+#include "gui.h"
 
 using namespace oxygine;
 
@@ -36,5 +36,5 @@ class Game : public Actor
 	  spShip _player_ship; 
 	  spLocation _location;
 	  spCharacter _player; 
-	  spTravelBar _travel_bar; 
+    spGUI _GUI;
 };

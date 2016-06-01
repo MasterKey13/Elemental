@@ -16,14 +16,21 @@ Initialize a Character
   (string) first name
   (string) last name
   (string) nickname - empty string if no nickname
+  (int) inventory limit of character
 */
 void Character::init(std::string first_name, 
                      std::string last_name, 
-                     std::string nickname)
+                     std::string nickname,
+                     int inventory_limit)
 {
+  //set character names
   setFirstName(first_name);
 	setLastName(last_name);
 	setNickname(nickname);
+
+  //set up the inventory
+  _inventory_limit = inventory_limit;
+  _inventory = new spItem[_inventory_limit];
 }
 
 void Character::setFirstName(std::string first_name)
