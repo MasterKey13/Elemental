@@ -13,8 +13,13 @@ GUI::GUI()
 
 void GUI::init()
 {
+  //set up the bottom right location (travel) panel
   _locationPanel = new LocationPanel();
   _locationPanel->init();
+  _locationPanel->setPosition(getStage()->getWidth() - 
+                              _locationPanel->getWidth(), 
+                              getStage()->getHeight() - 
+                              _locationPanel->getHeight());
 
   addChild(_locationPanel);
 }

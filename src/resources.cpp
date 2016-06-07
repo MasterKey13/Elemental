@@ -14,7 +14,7 @@ namespace resources
 
 	void load()
 	{
-		//load our resources
+		//load UI resources
 		ui.loadXML("xml/ui.xml");
 	}
 

@@ -41,7 +41,7 @@ void Game::init()
   //set up the GUI
   _GUI = new GUI;
   _GUI->init();
-  _GUI->setPosition(300,200);
+  _GUI->setPosition(0,0);
   _GUI->attachTo(this);
 }
 

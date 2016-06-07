@@ -5,6 +5,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
+#include "resources.h"
 
 using namespace oxygine;
 
@@ -20,7 +21,7 @@ public:
 
 private:
   spColorRectSprite _box;
-  spColorRectSprite _grid[10][10];
+  spSprite _grid[10][10];
   spColorRectSprite _nav_buttons[4];
   void _boxSetUp();
   void _gridSetUp();

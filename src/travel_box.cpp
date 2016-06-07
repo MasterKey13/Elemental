@@ -44,10 +44,10 @@ void TravelBox::_gridSetUp()
   {
     for (int j = 0; j < 10; j++)
     {
-      _grid[i][j] = new ColorRectSprite;
-      _grid[i][j]->setSize(grid_size, grid_size);
+      _grid[i][j] = new Sprite;
+      _grid[i][j]->setResAnim(resources::ui.getResAnim("nav_grid"));
+      _grid[i][j]->setScale(1.0f);
       _grid[i][j]->setPosition(offset_x, offset_y);
-      _grid[i][j]->setColor(Color::DarkGray);
 
       addChild(_grid[i][j]);
 

@@ -11,7 +11,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 using namespace oxygine;
 
 //Declare constants
-#define GRID_SIZE 20
+#define GRID_SIZE 16
 
 //Declare smart pointers
 DECLARE_SMART(LocationPanel, spLocationPanel);

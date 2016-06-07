@@ -36,6 +36,6 @@ void setup_update()
 //called each frame from entry_point.cpp
 void setup_destroy()
 {
-    //free previously loaded resources
-	resources::free();
+  //free previously loaded resources
+	resources::ui.free();
 }

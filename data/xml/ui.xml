@@ -1,4 +1,10 @@
 <?xml version="1.0"?>
 <resources>
-	
+	<set path = "images/ui" />
+  <set scale_factor = "0.5f" />
+  
+  	<atlas>
+      <image file="nav_grid.png"/>
+      <image file="nav_arrow_button.png"/>		
+    </atlas>
 </resources>

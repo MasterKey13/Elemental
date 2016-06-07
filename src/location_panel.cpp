@@ -19,6 +19,9 @@ void LocationPanel::init()
   _panelSetUp();
   _travelBoxSetUp();
   _panelButtonSetUp();
+
+  //set its size to the panel border size for GUI placement
+  setSize(_panel->getSize());
 }
 
 //set up the panel itself
