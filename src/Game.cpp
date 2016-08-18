@@ -37,12 +37,6 @@ void Game::init()
 
 	//set the ship's captain
 	_player_ship->setCaptain(&_player);
-
-  //set up the GUI
-  _GUI = new GUI;
-  _GUI->init();
-  _GUI->setPosition(0,0);
-  _GUI->attachTo(this);
 }
 
 void Game::doUpdate(const UpdateState &us)
