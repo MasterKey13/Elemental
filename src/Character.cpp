@@ -25,12 +25,15 @@ void Character::init(std::string first_name,
 {
   //set character names
   setFirstName(first_name);
-	setLastName(last_name);
-	setNickname(nickname);
+  setLastName(last_name);
+  setNickname(nickname);
 
-  //set up the inventory
-  _inventory_limit = inventory_limit;
-  _inventory = new spItem[_inventory_limit];
+  //log creation of character
+  log::messageln("\n[NEW CHARACTER]\nFirst Name: %s\nLast Name: %s\nNickname: %s\n", 
+					this->getFirstName().c_str(),
+					this->getLastName().c_str(),
+					this->getNickname().c_str());
+          
 }
 
 void Character::setFirstName(std::string first_name)
@@ -65,9 +68,5 @@ std::string Character::getNickname()
 
 void Character::doUpdate(const UpdateState & us)
 {
-	//debug the names
-	DebugActor::instance->addDebugString("%s, %s: %s\n",
-	                    this->_first_name.c_str(), 
-                      this->_last_name.c_str(), 
-                      this->_nickname.c_str());
+
 }

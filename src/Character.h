@@ -40,8 +40,4 @@ class Character : public Actor
 	  std::string _first_name;
 	  std::string _last_name;
 	  std::string _nickname;
-    
-    //inventory stuff
-    spItem *_inventory;
-    int _inventory_limit;
 };

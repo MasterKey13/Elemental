@@ -15,14 +15,41 @@ Initialize a Ship
   (string) name of the ship
   (int) starting x location of the ship
   (int) starting y location of the ship
-  (string) serial number of the ship - UNIQUE!
+  (int) evasion level of the ship
+  (int) maximum inventory capacity
+  (int) maximum fuel capacity
+  (int) starting fuel level
+  (spCharacter) captain of the ship (null if not provided)
 */
-void Ship::init(std::string name, int x, int y, std::string serial)
+void Ship::init(std::string name, int x, int y, int evasion, int inventory_cap, int fuel_cap, int fuel_level, spCharacter captain)
 {
-	setName(name); //set ship name (default)
-	setCoordinates(x, y); //set default coordinates of the ship
-	setCaptain(nullptr); //set no captain at start
-	_serial = serial; //ship's unique serial number
+	setName(name);
+	setCoordinates(x, y);
+  setEvasion(evasion);
+  setInventoryCap(inventory_cap);
+  setFuelCap(fuel_cap);
+  setFuelLevel(fuel_level);
+  setCaptain(captain);
+
+	//log ship creation
+  log::messageln("\n[NEW SHIP]\nName: %s\nFuel: %d/%d\nEvasion: %d",
+    this->getName().c_str(),
+    this->getFuelLevel(),
+    this->getFuelCap(),
+    this->getEvasion());
+
+  if (_captain)
+  {
+    log::message("Captain: %s %s", 
+      this->getCaptain()->getFirstName().c_str(),
+      this->getCaptain()->getLastName().c_str());
+  }
+  else 
+  {
+    log::message("Captain: none");
+  }
+
+  log::message("\n\n");
 }
 
 void Ship::setName(std::string name)
@@ -36,14 +63,29 @@ void Ship::setCoordinates(int x, int y)
 	_y = y;
 }
 
-void Ship::setCaptain(spCharacter *captain)
+void Ship::setEvasion(int evasion)
 {
-	_captain = captain;
+  _evasion = evasion;
 }
 
-std::string Ship::getSerial()
+void Ship::setInventoryCap(int inventory_cap)
 {
-	return _serial;
+  _inventory_cap = inventory_cap;
+}
+
+void Ship::setFuelCap(int fuel_cap)
+{
+  _fuel_cap = fuel_cap;
+}
+
+void Ship::setFuelLevel(int fuel_level)
+{
+  _fuel_level = fuel_level;
+}
+
+void Ship::setCaptain(spCharacter captain)
+{
+  _captain = captain;
 }
 
 std::string Ship::getName()
@@ -51,8 +93,32 @@ std::string Ship::getName()
 	return _name;
 }
 
+int Ship::getFuelLevel()
+{
+  return _fuel_level;
+}
+
+int Ship::getFuelCap()
+{
+  return _fuel_cap;
+}
+
+int Ship::getEvasion()
+{
+  return _evasion;
+}
+
+spCharacter Ship::getCaptain()
+{
+  return _captain;
+}
+
+void Ship::travelTo(int x, int y)
+{
+  
+}
+
 void Ship::doUpdate(const UpdateState &us)
 {
-	//display ship name (debug)
-	DebugActor::instance->addDebugString("%s [%s]\n", this->_name.c_str(), this->_serial.c_str());
+
 }

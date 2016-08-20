@@ -18,7 +18,7 @@ DECLARE_SMART(Game, spGame);
 DECLARE_SMART(Space, spSpace);
 DECLARE_SMART(Ship, spShip);
 DECLARE_SMART(Location, spLocation);
-DECLARE_SMART(Player, spPlayer);
+DECLARE_SMART(Character, spCharacter);
 
 class Game : public Actor
 {

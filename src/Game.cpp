@@ -22,21 +22,16 @@ void Game::init()
 	_location->init(_space->getX(), _space->getY(), 5);
 	_location->attachTo(this);
 
+  //create a Player and attach it to the Ship
+  _player = new Player;
+  _player->init("Heiko", "Evilyn", "", 10);
+
 	//create new Ship and attach it to the location
 	_player_ship = new Ship;
-	_player_ship->init("Shogun", _space->getX(), _space->getY(), "F4T455");
+	_player_ship->init("Shogun", _space->getX(), _space->getY(), 2, 3, 100, 100, _player);
 	_player_ship->attachTo(this);
 
-	//add the ship to the location
-	_location->addShip(&_player_ship);
-
-	//create a Player and attach it to the Ship
-	_player = new Player;
-	_player->init("Heiko", "Evilyn", "", 10);
-	_player->attachTo(_player_ship);
-
-	//set the ship's captain
-	_player_ship->setCaptain(&_player);
+  _player->attachTo(_player_ship);
 }
 
 void Game::doUpdate(const UpdateState &us)
