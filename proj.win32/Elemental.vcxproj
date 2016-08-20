@@ -130,7 +130,6 @@
     <ClCompile Include="..\src\shell.cpp" />
     <ClCompile Include="..\src\ship.cpp" />
     <ClCompile Include="..\src\solar_system.cpp" />
-    <ClCompile Include="..\src\space.cpp" />
     <ClCompile Include="..\src\star.cpp" />
     <ClCompile Include="..\src\weapon.cpp" />
   </ItemGroup>
@@ -154,7 +153,6 @@
     <ClInclude Include="..\src\shell.h" />
     <ClInclude Include="..\src\ship.h" />
     <ClInclude Include="..\src\solar_system.h" />
-    <ClInclude Include="..\src\space.h" />
     <ClInclude Include="..\src\star.h" />
     <ClInclude Include="..\src\weapon.h" />
   </ItemGroup>
