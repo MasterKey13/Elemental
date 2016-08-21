@@ -10,30 +10,29 @@ Ship::Ship()
 
 }
 
-/*
-Initialize a Ship
-  (string) name of the ship
-  (int) starting x location of the ship
-  (int) starting y location of the ship
-  (int) evasion level of the ship
-  (int) maximum inventory capacity
-  (int) maximum fuel capacity
-  (int) starting fuel level
-  (spCharacter) captain of the ship (nullptr if not provided)
-*/
-void Ship::init(std::string name, int x, int y, int evasion, int inventory_cap, float fuel_cap, float fuel_level, spCharacter captain)
+void Ship::init(
+  std::string name,
+  int x, int y,
+  int chem_cap,
+  int inventory_cap, 
+  float fuel_cap, 
+  float fuel_level,
+  int evasion,
+  spCharacter captain)
 {
 	setName(name);
-  setEvasion(evasion);
   setInventoryCap(inventory_cap);
+  setChemCap(chem_cap),
   setFuelCap(fuel_cap);
   setFuelLevel(fuel_level);
+  setEvasion(evasion);
   setCaptain(captain);
   setCoordinates(x, y);
 
 	//log ship creation
-  log::messageln("\n[NEW SHIP]\nName: %s\nFuel: %.2f/%.2f\nEvasion: %d",
+  log::messageln("\n[NEW SHIP]\nName: %s\nChem Max: %d\nFuel: %.2f/%.2f\nEvasion: %d",
     this->getName().c_str(),
+    this->getChemCap(),
     this->getFuelLevel(),
     this->getFuelCap(),
     this->getEvasion());
@@ -63,7 +62,12 @@ void Ship::setCoordinates(int x, int y)
 	_yPos = y;
 
   //log location update
-  log::messageln("\n[NEW COORDINATES]\n%d, %d\n", _xPos, _yPos);
+  log::messageln("\n[NEW COORDINATES] %d, %d\n", _xPos, _yPos);
+}
+
+void Ship::setChemCap(int chem_cap)
+{
+  _chem_cap = chem_cap;
 }
 
 void Ship::setEvasion(int evasion)
@@ -126,6 +130,11 @@ int Ship::getYPos()
   return _yPos;
 }
 
+int Ship::getChemCap()
+{
+  return _chem_cap;
+}
+
 void Ship::travelTo(int x, int y)
 {
   float travelCost = sqrt((float)(pow((_xPos - x), 2) + pow((_yPos - y), 2)));
@@ -144,7 +153,7 @@ void Ship::travelTo(int x, int y)
   }
   else
   {
-    log::message("\nThe ship cannot travel that far!\n\n");
+    log::message("\nThe ship cannot travel that far!\n");
   }
 }
 
