@@ -9,6 +9,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "location.h"
 #include "character.h"
 #include "player.h"
+#include "item.h"
 
 using namespace oxygine;
 
@@ -17,6 +18,7 @@ DECLARE_SMART(Game, spGame);
 DECLARE_SMART(Ship, spShip);
 DECLARE_SMART(Location, spLocation);
 DECLARE_SMART(Character, spCharacter);
+DECLARE_SMART(Item, spItem);
 
 class Game : public Actor
 {
@@ -31,4 +33,5 @@ class Game : public Actor
 	  spShip _player_ship; 
 	  spLocation _location;
 	  spCharacter _player; 
+    spItem _item;
 };

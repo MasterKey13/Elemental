@@ -71,7 +71,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\Alexander\Documents\Elemental\Oxygine\oxygine-framework\oxygine\src;C:\Users\Alexander\Documents\Elemental\Oxygine\SDL\include;C:\Users\Alexander\Documents\Elemental\Oxygine\oxygine-framework\oxygine\third_party\win32\pthreads\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\STORAGE\Projects\Elemental\Repos\Oxygine\oxygine-framework\oxygine\src;E:\STORAGE\Projects\Elemental\Repos\Oxygine\SDL\include;E:\STORAGE\Projects\Elemental\Repos\Oxygine\oxygine-framework\oxygine\third_party\win32\pthreads\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

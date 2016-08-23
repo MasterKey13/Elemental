@@ -65,7 +65,7 @@ class Ship : public Item
 	  spCharacter _captain; //captain of the ship
     int _evasion; //ship's evasion level
     int _chem_cap; //capacity of total atomic mass
-    int _chem[10]; //chemical elements stored on the ship
+    int _chem[120]; //chemical elements stored on the ship
     int _inventory_cap; //inventory capacity
     std::vector<spItem> _inventory; //inventory
     float _fuel_level; //fuel level of the ship

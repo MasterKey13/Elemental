@@ -46,6 +46,7 @@ class Character : public Actor
 	  std::string getFirstName();
 	  std::string getLastName();
 	  std::string getNickname();
+    std::string getFullName();
     std::string getType();
     int getInventoryCap();
     std::string getFaction();

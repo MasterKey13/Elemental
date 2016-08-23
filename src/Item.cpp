@@ -11,7 +11,114 @@ Item::Item()
 
 }
 
-void Item::init()
+void Item::init(
+  int ID, 
+  std::string name, 
+  int size, 
+  int rarity, 
+  std::string brand, 
+  std::string model)
 {
+  this->setID(ID);
+  this->setName(name);
+  this->setSize(size);
+  this->setRarity(rarity);
+  this->setCompositionDefault();
 
+  if (brand.length() > 0)
+  {
+    this->setBrand(brand);
+  }
+
+  if (model.length() > 0)
+  {
+    this->setModel(model);
+  }
+
+  //log item creation
+  log::messageln("\n[NEW ITEM]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\n",
+    this->getID(),
+    this->getName().c_str(),
+    this->getSize(),
+    this->getRarity(),
+    this->getBrand().c_str(),
+    this->getModel().c_str());
+}
+
+void Item::setID(int ID)
+{
+  _itemID = ID;
+}
+
+void Item::setName(std::string name)
+{
+  _name = name;
+}
+
+void Item::setBrand(std::string brand)
+{
+  _brand = brand;
+}
+
+void Item::setModel(std::string model)
+{
+  _model = model;
+}
+
+void Item::setSize(int size)
+{
+  _size = size;
+}
+
+void Item::setComposition(int element, int abundance)
+{
+  _composition[element] = abundance;
+}
+
+void Item::setCompositionDefault()
+{
+  for (int i = 0; i < 120; i++)
+  {
+    _composition[i] = 0;
+  }
+}
+
+void Item::setRarity(int rarity)
+{
+  _rarity = rarity;
+}
+
+int Item::getID()
+{
+  return _itemID;
+}
+
+std::string Item::getName()
+{
+  return _name;
+}
+
+std::string Item::getBrand()
+{
+  return _brand;
+}
+
+std::string Item::getModel()
+{
+  return _model;
+}
+
+int Item::getSize()
+{
+  return _size;
+}
+
+int Item::getComposition(int element)
+{
+  return _composition[element];
+}
+
+int Item::getRarity()
+{
+  return _rarity;
 }

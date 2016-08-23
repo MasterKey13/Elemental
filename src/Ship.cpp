@@ -39,9 +39,8 @@ void Ship::init(
 
   if (_captain)
   {
-    log::message("Captain: %s %s", 
-      this->getCaptain()->getFirstName().c_str(),
-      this->getCaptain()->getLastName().c_str());
+    log::message("Captain: %s", 
+      this->getCaptain()->getFullName().c_str());
   }
   else 
   {
@@ -62,7 +61,7 @@ void Ship::setCoordinates(int x, int y)
 	_yPos = y;
 
   //log location update
-  log::messageln("\n[NEW COORDINATES] %d, %d\n", _xPos, _yPos);
+  log::messageln("\n[NEW COORDINATES]\n%d, %d\n", _xPos, _yPos);
 }
 
 void Ship::setChemCap(int chem_cap)
@@ -145,11 +144,11 @@ void Ship::travelTo(int x, int y)
     setFuelLevel(getFuelLevel() - travelCost);
 
     //log travel success and display ship info again
-    log::messageln("\n[SHIP TRAVEL]\nName: %s\nFuel: %.2f/%.2f\nEvasion: %d\n",
+    log::messageln("\n[SHIP TRAVEL]\nName: %s\nFuel: %.2f/%.2f\nCaptain: %s\n",
       this->getName().c_str(),
       this->getFuelLevel(),
       this->getFuelCap(),
-      this->getEvasion());
+      this->getCaptain()->getFullName().c_str());
   }
   else
   {

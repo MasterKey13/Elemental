@@ -26,9 +26,10 @@ void Game::init()
   _location->init(_player_ship->getXPos(), _player_ship->getYPos(), 5);
   _location->attachTo(this);
 
-  _player->kill("drowning");
-
-  _player_ship->travelTo(100, 100);
+  //create a new Item
+  _item = new Item();
+  _item->init(1, "Apple", 1, 1, "Applauza");
+  _item->attachTo(this);
 }
 
 void Game::doUpdate(const UpdateState &us)

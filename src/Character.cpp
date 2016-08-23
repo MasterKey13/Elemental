@@ -114,6 +114,11 @@ std::string Character::getNickname()
 	return _nickname;
 }
 
+std::string Character::getFullName()
+{
+  return getFirstName() + ' ' + getLastName();
+}
+
 std::string Character::getType()
 {
   return _type;
