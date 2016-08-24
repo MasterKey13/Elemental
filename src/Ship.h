@@ -7,11 +7,11 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "oxygine-framework.h"
 #include "character.h"
 #include "item.h"
+#include "armor.h"
 
 #include <string>
 #include <cmath>
 #include <vector>
-
 
 using namespace oxygine;
 
@@ -19,6 +19,10 @@ using namespace oxygine;
 DECLARE_SMART(Ship, spShip);
 DECLARE_SMART(Character, spCharacter);
 DECLARE_SMART(Item, spItem);
+DECLARE_SMART(Armor, spArmor);
+DECLARE_SMART(Hull, spHull);
+DECLARE_SMART(Battery, spBattery);
+DECLARE_SMART(Engine, spEngine);
 
 class Ship : public Item
 {
@@ -33,7 +37,11 @@ class Ship : public Item
       float fuel_cap, 
       float fuel_level, 
       int evasion,
-      spCharacter captain = nullptr);
+      spHull hull,
+      spBattery battery,
+      spEngine engine,
+      spCharacter captain = nullptr,
+      spArmor armor = nullptr);
 	 
     //SETTERS
     void setName(std::string name);
@@ -44,6 +52,10 @@ class Ship : public Item
     void setFuelLevel(float fuel_level);
     void setEvasion(int evasion);
     void setCaptain(spCharacter captain);
+    void setArmor(spArmor armor);
+    void setHull(spHull hull);
+    void setBattery(spBattery battery);
+    void setEngine(spEngine engine);
 
     //GETTERS
 	  std::string getName();
@@ -54,6 +66,10 @@ class Ship : public Item
     float getFuelCap();
     int getEvasion();
     spCharacter getCaptain();
+    spArmor getArmor();
+    spHull getHull();
+    spBattery getBattery();
+    spEngine getEngine();
 
     void travelTo(int x, int y); //travel the ship to a certain location
 
@@ -71,8 +87,10 @@ class Ship : public Item
     float _fuel_level; //fuel level of the ship
     float _fuel_cap; //fuel tank capacity (maximum)
 
+    spArmor _armor; //ship's armor slot
+    spHull _hull; //hull of the ship
+    spBattery _battery; //battery of the ship
+    spEngine _engine;//engine of the ship
+
     //weapons used by the ship
-    //hull of the ship
-    //battery of the ship
-    //engine of the ship
 };

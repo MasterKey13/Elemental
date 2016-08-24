@@ -4,6 +4,10 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 */
 
 #include "ship.h"
+#include "armor.h"
+#include "hull.h"
+#include "battery.h"
+#include "engine.h"
 
 Ship::Ship()
 {
@@ -18,7 +22,11 @@ void Ship::init(
   float fuel_cap, 
   float fuel_level,
   int evasion,
-  spCharacter captain)
+  spHull hull,
+  spBattery battery,
+  spEngine engine,
+  spCharacter captain,
+  spArmor armor)
 {
 	setName(name);
   setInventoryCap(inventory_cap);
@@ -26,16 +34,25 @@ void Ship::init(
   setFuelCap(fuel_cap);
   setFuelLevel(fuel_level);
   setEvasion(evasion);
+  setHull(hull);
+  setBattery(battery);
+  setEngine(engine);
   setCaptain(captain);
   setCoordinates(x, y);
 
 	//log ship creation
-  log::messageln("\n[NEW SHIP]\nName: %s\nChem Max: %d\nFuel: %.2f/%.2f\nEvasion: %d",
+  log::messageln("\n[NEW SHIP]\nName: %s\nChem Max: %d\nFuel: %.2f/%.2f\nEvasion: %d\nHull HP: %d/%d\nEngine HP: %d/%d\nBattery HP: %d/%d\n",
     this->getName().c_str(),
     this->getChemCap(),
     this->getFuelLevel(),
     this->getFuelCap(),
-    this->getEvasion());
+    this->getEvasion(),
+    this->getHull()->getHitPoints(),
+    this->getHull()->getHitPointsCap(),
+    this->getEngine()->getHitPoints(),
+    this->getEngine()->getHitPointsCap(),
+    this->getBattery()->getHitPoints(),
+    this->getBattery()->getHitPointsCap());
 
   if (_captain)
   {
@@ -94,6 +111,26 @@ void Ship::setCaptain(spCharacter captain)
   _captain = captain;
 }
 
+void Ship::setArmor(spArmor armor)
+{
+  _armor = armor;
+}
+
+void Ship::setHull(spHull hull)
+{
+  _hull = hull;
+}
+
+void Ship::setBattery(spBattery battery)
+{
+  _battery = battery;
+}
+
+void Ship::setEngine(spEngine engine)
+{
+  _engine = engine;
+}
+
 std::string Ship::getName()
 {
 	return _name;
@@ -117,6 +154,27 @@ int Ship::getEvasion()
 spCharacter Ship::getCaptain()
 {
   return _captain;
+}
+
+spArmor Ship::getArmor()
+{
+  if (_armor) { return _armor; }
+  else { return nullptr; }
+}
+
+spHull Ship::getHull()
+{
+  return _hull;
+}
+
+spBattery Ship::getBattery()
+{
+  return _battery;
+}
+
+spEngine Ship::getEngine()
+{
+  return _engine;
 }
 
 int Ship::getXPos()

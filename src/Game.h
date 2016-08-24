@@ -10,6 +10,10 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "character.h"
 #include "player.h"
 #include "item.h"
+#include "hull.h"
+#include "armor.h"
+#include "battery.h"
+#include "engine.h"
 
 using namespace oxygine;
 
@@ -19,6 +23,10 @@ DECLARE_SMART(Ship, spShip);
 DECLARE_SMART(Location, spLocation);
 DECLARE_SMART(Character, spCharacter);
 DECLARE_SMART(Item, spItem);
+DECLARE_SMART(Armor, spArmor);
+DECLARE_SMART(Hull, spHull);
+DECLARE_SMART(Battery, spBattery);
+DECLARE_SMART(Engine, spEngine);
 
 class Game : public Actor
 {
@@ -34,4 +42,9 @@ class Game : public Actor
 	  spLocation _location;
 	  spCharacter _player; 
     spItem _item;
+
+    spHull _hull;
+    spArmor _armor;
+    spEngine _engine;
+    spBattery _battery;
 };

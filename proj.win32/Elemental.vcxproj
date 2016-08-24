@@ -71,7 +71,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>E:\STORAGE\Projects\Elemental\Repos\Oxygine\oxygine-framework\oxygine\src;E:\STORAGE\Projects\Elemental\Repos\Oxygine\SDL\include;E:\STORAGE\Projects\Elemental\Repos\Oxygine\oxygine-framework\oxygine\third_party\win32\pthreads\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\Alexander\Documents\Elemental\Oxygine\oxygine-framework\oxygine\third_party\win32\pthreads\include;C:\Users\Alexander\Documents\Elemental\Oxygine\SDL\include;C:\Users\Alexander\Documents\Elemental\Oxygine\oxygine-framework\oxygine\src;E:\STORAGE\Projects\Elemental\Repos\Oxygine\oxygine-framework\oxygine\src;E:\STORAGE\Projects\Elemental\Repos\Oxygine\SDL\include;E:\STORAGE\Projects\Elemental\Repos\Oxygine\oxygine-framework\oxygine\third_party\win32\pthreads\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -127,7 +127,6 @@
     <ClCompile Include="..\src\resources.cpp" />
     <ClCompile Include="..\src\settlement.cpp" />
     <ClCompile Include="..\src\setup.cpp" />
-    <ClCompile Include="..\src\shell.cpp" />
     <ClCompile Include="..\src\ship.cpp" />
     <ClCompile Include="..\src\solar_system.cpp" />
     <ClCompile Include="..\src\star.cpp" />
@@ -150,7 +149,6 @@
     <ClInclude Include="..\src\resources.h" />
     <ClInclude Include="..\src\settlement.h" />
     <ClInclude Include="..\src\setup.h" />
-    <ClInclude Include="..\src\shell.h" />
     <ClInclude Include="..\src\ship.h" />
     <ClInclude Include="..\src\solar_system.h" />
     <ClInclude Include="..\src\star.h" />
