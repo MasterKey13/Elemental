@@ -4,6 +4,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 */
 
 #include "game.h"
+#include "armor.h"
 
 Game::Game()
 {
@@ -27,6 +28,11 @@ void Game::init()
   //create Ship Engine
   _engine = new Engine();
   _engine->init(4, 3, 1, 100, 100, "", "VRUM", "B-3");
+
+  //create armor
+  _armor = new Armor();
+  _armor->init(6, "Weak Aluminum Pad", 2, 1, "Protech", "LITE-2");
+  _armor->setDamageResistance(Armor::Electrical, 2);
 
 	//create new Ship and attach it to the location
 	_player_ship = new Ship();

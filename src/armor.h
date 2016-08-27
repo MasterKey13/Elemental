@@ -17,6 +17,23 @@ class Armor : public Item
   public:
     Armor();
 
-  private:
+    enum DamageType { Ballistic, Electrical, Radioactive, Chemical };
 
+    void init(
+      int ID,
+      std::string name,
+      int size,
+      int rarity,
+      std::string brand = "",
+      std::string model = "");
+
+    //GETTERS
+    int getDamageResistance(DamageType damage_type);
+
+    //SETTERS
+    void setDamageResistance(DamageType damage_type, int damage_resistance);
+    void setDamageResistanceDefault();
+
+  private:
+    int _damage_resistance[4];
 };
