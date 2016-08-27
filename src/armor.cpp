@@ -37,8 +37,12 @@ void Armor::init(
     this->setModel(model);
   }
 
-  //log armor creation
-  log::messageln("\n[NEW ARMOR]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\nBallRes: %d\nElectrRes: %d\nRadRes: %d\nChemRes: %d\n",
+  log();
+}
+
+void Armor::log()
+{
+  log::messageln("\n[ARMOR]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\nBallRes: %d\nElectrRes: %d\nRadRes: %d\nChemRes: %d\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),

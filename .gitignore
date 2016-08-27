@@ -214,3 +214,4 @@ ModelManifest.xml
 proj.win32/Elemental.vcxproj.filters
 /proj.win32/Debug_v140_xp
 *.db
+/proj.win32/Elemental.VC.VC.opendb

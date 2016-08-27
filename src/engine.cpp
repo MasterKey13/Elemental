@@ -40,8 +40,12 @@ void Engine::init(
     this->setModel(model);
   }
 
-  //log hull creation
-  log::messageln("\n[NEW ENGINE]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\nHP: %d/%d\n",
+  log();
+}
+
+void Engine::log()
+{
+  log::messageln("\n[ENGINE]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\nHP: %d/%d\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),

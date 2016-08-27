@@ -26,6 +26,8 @@ class Item : public Actor
       std::string brand = "",
       std::string model = "");
 
+    void log();
+
     //SETTERS
     void setID(int ID);
     void setName(std::string name);

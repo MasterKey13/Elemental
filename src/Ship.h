@@ -42,6 +42,8 @@ class Ship : public Item
       spEngine engine,
       spCharacter captain = nullptr,
       spArmor armor = nullptr);
+
+    void log();
 	 
     //SETTERS
     void setName(std::string name);

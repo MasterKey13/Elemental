@@ -35,8 +35,12 @@ void Item::init(
     this->setModel(model);
   }
 
-  //log item creation
-  log::messageln("\n[NEW ITEM]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\n",
+  log();
+}
+
+void Item::log()
+{
+  log::messageln("\n[ITEM]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),

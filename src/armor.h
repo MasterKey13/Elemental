@@ -27,6 +27,8 @@ class Armor : public Item
       std::string brand = "",
       std::string model = "");
 
+    void log();
+
     //GETTERS
     int getDamageResistance(DamageType damage_type);
 

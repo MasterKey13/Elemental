@@ -30,6 +30,8 @@ class Battery : public Item
       std::string name = "",
       std::string brand = "",
       std::string model = "");
+
+    void log();
     
     //GETTERS
     int getHitPoints();

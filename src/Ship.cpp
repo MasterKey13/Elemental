@@ -40,8 +40,12 @@ void Ship::init(
   setCaptain(captain);
   setCoordinates(x, y);
 
-	//log ship creation
-  log::messageln("\n[NEW SHIP]\nName: %s\nChem Max: %d\nFuel: %.2f/%.2f\nEvasion: %d\nHull HP: %d/%d\nEngine HP: %d/%d\nBattery HP: %d/%d\n",
+  log();
+}
+
+void Ship::log()
+{
+  log::messageln("\n[SHIP]\nName: %s\nChem Max: %d\nFuel: %.2f/%.2f\nEvasion: %d\nHull HP: %d/%d\nEngine HP: %d/%d\nBattery HP: %d/%d\n",
     this->getName().c_str(),
     this->getChemCap(),
     this->getFuelLevel(),
@@ -56,10 +60,10 @@ void Ship::init(
 
   if (_captain)
   {
-    log::message("Captain: %s", 
+    log::message("Captain: %s",
       this->getCaptain()->getFullName().c_str());
   }
-  else 
+  else
   {
     log::message("Captain: none");
   }

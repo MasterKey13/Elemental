@@ -44,8 +44,12 @@ void Battery::init(
     this->setModel(model);
   }
 
-  //log item creation
-  log::messageln("\n[NEW BATTERY]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\nPower: %d/%d\nHP: %d/%d\n",
+  log();
+}
+
+void Battery::log()
+{
+  log::messageln("\n[BATTERY]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\nPower: %d/%d\nHP: %d/%d\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),

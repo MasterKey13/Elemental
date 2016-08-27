@@ -29,6 +29,8 @@ class Hull : public Item
       std::string brand = "",
       std::string model = "");
 
+    void log();
+
     //GETTERS
     int getHitPoints();
     int getHitPointsCap();

@@ -30,6 +30,8 @@ class Character : public Actor
       int strength
       );
 
+    void log();
+
     //SETTERS
 	  void setFirstName(std::string first_name);
 	  void setLastName(std::string last_name);

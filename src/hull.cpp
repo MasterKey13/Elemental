@@ -40,8 +40,12 @@ void Hull::init(
     this->setModel(model);
   }
 
-  //log hull creation
-  log::messageln("\n[NEW HULL]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\nHP: %d/%d\n",
+  log();
+}
+
+void Hull::log()
+{
+  log::messageln("\n[HULL]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\nHP: %d/%d\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),
