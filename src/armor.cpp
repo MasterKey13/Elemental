@@ -17,6 +17,10 @@ void Armor::init(
   std::string name, 
   int size, 
   int rarity,
+  int ballistic_res,
+  int electrical_res,
+  int radioactive_res,
+  int chemical_res,
   std::string brand, 
   std::string model)
 {
@@ -25,7 +29,11 @@ void Armor::init(
   this->setSize(size);
   this->setRarity(rarity);
   this->setCompositionDefault();
-  this->setDamageResistanceDefault();
+
+  setDamageResistance(Ballistic, ballistic_res);
+  setDamageResistance(Electrical, electrical_res);
+  setDamageResistance(Radioactive, radioactive_res);
+  setDamageResistance(Chemical, chemical_res);
 
   if (brand.length() > 0)
   {
@@ -63,12 +71,4 @@ int Armor::getDamageResistance(DamageType damage_type)
 void Armor::setDamageResistance(DamageType damage_type, int damage_resistance)
 {
   _damage_resistance[damage_type] = damage_resistance;
-}
-
-void Armor::setDamageResistanceDefault()
-{
-  setDamageResistance(Ballistic, 0);
-  setDamageResistance(Electrical, 0);
-  setDamageResistance(Radioactive, 0);
-  setDamageResistance(Chemical, 0);
 }

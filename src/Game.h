@@ -14,6 +14,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "armor.h"
 #include "battery.h"
 #include "engine.h"
+#include "weapon.h"
 
 using namespace oxygine;
 
@@ -27,6 +28,7 @@ DECLARE_SMART(Armor, spArmor);
 DECLARE_SMART(Hull, spHull);
 DECLARE_SMART(Battery, spBattery);
 DECLARE_SMART(Engine, spEngine);
+DECLARE_SMART(Weapon, spWeapon);
 
 class Game : public Actor
 {
@@ -47,4 +49,5 @@ class Game : public Actor
     spArmor _armor;
     spEngine _engine;
     spBattery _battery;
+    spWeapon _weapon;
 };

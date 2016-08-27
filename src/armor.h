@@ -24,6 +24,10 @@ class Armor : public Item
       std::string name,
       int size,
       int rarity,
+      int ballistic_res = 0,
+      int electrical_res = 0,
+      int radioactive_res = 0,
+      int chemical_res = 0,
       std::string brand = "",
       std::string model = "");
 
@@ -34,7 +38,6 @@ class Armor : public Item
 
     //SETTERS
     void setDamageResistance(DamageType damage_type, int damage_resistance);
-    void setDamageResistanceDefault();
 
   private:
     int _damage_resistance[4];

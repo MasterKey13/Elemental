@@ -39,8 +39,7 @@ void Character::init(
 
 void Character::log()
 {
-  //log creation of character
-  log::messageln("\n[NEW CHARACTER]\nFirst Name: %s\nLast Name: %s\nNickname: %s\nType: %s\nInventory Cap: %d\nFaction: %s\nIntelligence: %d\nDiscourse: %d\nStrength: %d\nStatus: %s\n",
+  log::messageln("\n[CHARACTER]\nFirst Name: %s\nLast Name: %s\nNickname: %s\nType: %s\nInventory Cap: %d\nFaction: %s\nIntelligence: %d\nDiscourse: %d\nStrength: %d\nStatus: %s\n",
     this->getFirstName().c_str(),
     this->getLastName().c_str(),
     this->getNickname().c_str(),

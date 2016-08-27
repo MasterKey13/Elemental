@@ -31,8 +31,12 @@ void Game::init()
 
   //create armor
   _armor = new Armor();
-  _armor->init(6, "Weak Aluminum Pad", 2, 1, "Protech", "LITE-2");
+  _armor->init(6, "Weak Aluminum Pad", 2, 1, 3, 1, 0, 2, "PADD", "D2");
   _armor->setDamageResistance(Armor::Electrical, 2);
+
+  //create weapon
+  _weapon = new Weapon();
+  _weapon->init(8, 1, 2, 10, 120, 3, 1, 0, 0, "", "Earth Germany", "MastaBlasta");
 
 	//create new Ship and attach it to the location
 	_player_ship = new Ship();
