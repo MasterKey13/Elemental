@@ -47,6 +47,11 @@ void Game::init()
   _location = new Location();
   _location->init(_player_ship->getXPos(), _player_ship->getYPos(), 5);
   _location->attachTo(this);
+
+  //create a new star
+  _star = new CelestialBody();
+  _star->init(334235666, 23454221, 50000, 8000000, "Star");
+  _star->attachTo(this);
 }
 
 void Game::doUpdate(const UpdateState &us)

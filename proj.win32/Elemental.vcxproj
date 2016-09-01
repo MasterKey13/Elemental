@@ -126,8 +126,6 @@
     <ClCompile Include="..\src\settlement.cpp" />
     <ClCompile Include="..\src\setup.cpp" />
     <ClCompile Include="..\src\ship.cpp" />
-    <ClCompile Include="..\src\solar_system.cpp" />
-    <ClCompile Include="..\src\star.cpp" />
     <ClCompile Include="..\src\weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -146,8 +144,6 @@
     <ClInclude Include="..\src\settlement.h" />
     <ClInclude Include="..\src\setup.h" />
     <ClInclude Include="..\src\ship.h" />
-    <ClInclude Include="..\src\solar_system.h" />
-    <ClInclude Include="..\src\star.h" />
     <ClInclude Include="..\src\weapon.h" />
   </ItemGroup>
   <ItemGroup>

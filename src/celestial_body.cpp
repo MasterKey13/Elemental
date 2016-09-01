@@ -11,9 +11,33 @@ CelestialBody::CelestialBody()
 
 }
 
-void CelestialBody::init()
+void CelestialBody::init(
+  int radius,
+  int mass,
+  int surface_temp,
+  int effective_temp,
+  std::string type)
 {
+  setRadius(radius);
+  setMass(mass);
+  setSurfaceTemp(surface_temp);
+  setEffectiveTemp(effective_temp);
+  setType(type);
 
+  setCompositionDefault();
+  setAtmosphereCompositionDefault();
+
+  log();
+}
+
+void CelestialBody::log()
+{
+  log::messageln("\n[CELESTIAL BODY]\nRadius: %d\nMass: %d\nSurface Temp: %d\nEffective Temp: %d\nType: %s\n",
+    this->getRadius(),
+    this->getMass(),
+    this->getSurfaceTemp(),
+    this->getEffectiveTemp(),
+    this->getType().c_str());
 }
 
 void CelestialBody::setRadius(int radius)
@@ -34,6 +58,11 @@ void CelestialBody::setSurfaceTemp(int temp)
 void CelestialBody::setEffectiveTemp(int temp)
 {
   _effective_temp = temp;
+}
+
+void CelestialBody::setType(std::string type)
+{
+  _type = type;
 }
 
 void CelestialBody::setComposition(int element, int abundance)
@@ -64,7 +93,7 @@ void CelestialBody::setAtmosphereCompositionDefault()
 
 int CelestialBody::getRadius()
 {
-  return _radius;`
+  return _radius;
 }
 
 int CelestialBody::getMass()
@@ -80,6 +109,11 @@ int CelestialBody::getSurfaceTemp()
 int CelestialBody::getEffectiveTemp()
 {
   return _effective_temp;
+}
+
+std::string CelestialBody::getType()
+{
+  return _type;
 }
 
 int CelestialBody::getComposition(int element)

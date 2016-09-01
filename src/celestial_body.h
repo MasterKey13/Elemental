@@ -6,6 +6,8 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #pragma once
 #include "oxygine-framework.h"
 
+#include <string>
+
 #include "ship.h"
 
 using namespace oxygine;
@@ -17,13 +19,22 @@ class CelestialBody : public Actor
   public:
     CelestialBody();
 
-	  void init();
+	  void init(
+      int radius,
+      int mass,
+      int surface_temp,
+      int effective_temp,
+      std::string type
+    );
+
+    void log();
 
     //SETTERS
     void setRadius(int radius);
     void setMass(int mass);
     void setSurfaceTemp(int temp);
     void setEffectiveTemp(int temp);
+    void setType(std::string type);
     void setComposition(int element, int abundance);
     void setCompositionDefault();
     void setAtmosphereComposition(int element, int abundance);
@@ -34,6 +45,7 @@ class CelestialBody : public Actor
     int getMass();
     int getSurfaceTemp();
     int getEffectiveTemp();
+    std::string getType();
     int getComposition(int element);
     int getAtmosphereComposition(int element);
 
@@ -42,6 +54,7 @@ class CelestialBody : public Actor
     int _mass;
     int _surface_temp;
     int _effective_temp;
+    std::string _type;
     int _composition[120];
     int _atmosphere_composition[120];
 
