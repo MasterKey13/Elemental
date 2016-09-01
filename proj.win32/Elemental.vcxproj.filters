@@ -72,12 +72,6 @@
     <ClCompile Include="..\src\star.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\planet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\moon.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\setup.h">
@@ -132,12 +126,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\star.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\planet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\moon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

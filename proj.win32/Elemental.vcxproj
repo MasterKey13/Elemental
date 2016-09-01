@@ -120,9 +120,7 @@
     <ClCompile Include="..\src\hull.cpp" />
     <ClCompile Include="..\src\item.cpp" />
     <ClCompile Include="..\src\location.cpp" />
-    <ClCompile Include="..\src\moon.cpp" />
     <ClCompile Include="..\src\npc.cpp" />
-    <ClCompile Include="..\src\planet.cpp" />
     <ClCompile Include="..\src\player.cpp" />
     <ClCompile Include="..\src\resources.cpp" />
     <ClCompile Include="..\src\settlement.cpp" />
@@ -142,9 +140,7 @@
     <ClInclude Include="..\src\hull.h" />
     <ClInclude Include="..\src\item.h" />
     <ClInclude Include="..\src\location.h" />
-    <ClInclude Include="..\src\moon.h" />
     <ClInclude Include="..\src\npc.h" />
-    <ClInclude Include="..\src\planet.h" />
     <ClInclude Include="..\src\player.h" />
     <ClInclude Include="..\src\resources.h" />
     <ClInclude Include="..\src\settlement.h" />
