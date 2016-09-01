@@ -31,6 +31,7 @@ DECLARE_SMART(Battery, spBattery);
 DECLARE_SMART(Engine, spEngine);
 DECLARE_SMART(Weapon, spWeapon);
 DECLARE_SMART(CelestialBody, spCelestialBody);
+DECLARE_SMART(Mine, spMine);
 
 class Game : public Actor
 {
@@ -54,4 +55,5 @@ class Game : public Actor
     spWeapon _weapon;
 
     spCelestialBody _star;
+    spMine _mine;
 };

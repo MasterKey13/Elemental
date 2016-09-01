@@ -45,7 +45,7 @@ void Ship::init(
 
 void Ship::log()
 {
-  log::messageln("\n[SHIP]\nName: %s\nChem Max: %d\nFuel: %.2f/%.2f\nEvasion: %d\nHull HP: %d/%d\nEngine HP: %d/%d\nBattery HP: %d/%d\n",
+  log::messageln("\n[SHIP]\nName: %s\nChem Max: %d\nFuel: %.2f/%.2f\nEvasion: %d\nHull HP: %d/%d\nEngine HP: %d/%d\nBattery HP: %d/%d",
     this->getName().c_str(),
     this->getChemCap(),
     this->getFuelLevel(),

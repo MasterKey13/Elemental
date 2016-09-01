@@ -48,7 +48,6 @@ class Item : public Actor
     int getRarity();
 
   private:
-
     int _itemID;
     std::string _name;
     std::string _brand;

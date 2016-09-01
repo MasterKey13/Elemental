@@ -48,10 +48,15 @@ void Game::init()
   _location->init(_player_ship->getXPos(), _player_ship->getYPos(), 5);
   _location->attachTo(this);
 
-  //create a new star
+  //create a new Star
   _star = new CelestialBody();
   _star->init(334235666, 23454221, 50000, 8000000, "Star");
   _star->attachTo(this);
+
+  //create a new Mine
+  _mine = new Mine();
+  _mine->init(3234, "Generic Mine", 50, 7, 1023, "MineX", "1c");
+  _mine->attachTo(this);
 }
 
 void Game::doUpdate(const UpdateState &us)

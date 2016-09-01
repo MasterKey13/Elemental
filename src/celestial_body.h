@@ -5,14 +5,16 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
-
 #include <string>
-
 #include "ship.h"
+#include "mine.h"
+#include "settlement.h"
 
 using namespace oxygine;
 
 DECLARE_SMART(Ship, spShip);
+DECLARE_SMART(Mine, spMine);
+DECLARE_SMART(Settlement, spSettlement);
 
 class CelestialBody : public Actor
 {
@@ -58,6 +60,12 @@ class CelestialBody : public Actor
     int _composition[120];
     int _atmosphere_composition[120];
 
-    //TODO: implement getters/setters and stuff for this later
-    spShip* _ships[];
+    //TODO: implement getters/setters for this later
+    spShip* _ships[10];
+
+    //TODO: implement getters/setters and validation for mines
+    spMine* _mines[10];
+
+    //TODO: implement getters/setters and validation for settlements
+    spSettlement* _settlements[10];
 };
