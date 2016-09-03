@@ -15,6 +15,7 @@ using namespace oxygine;
 DECLARE_SMART(Ship, spShip);
 DECLARE_SMART(Mine, spMine);
 DECLARE_SMART(Settlement, spSettlement);
+DECLARE_SMART(CelestialBody, spCelestialBody);
 
 class CelestialBody : public Actor
 {
@@ -22,50 +23,56 @@ class CelestialBody : public Actor
     CelestialBody();
 
 	  void init(
-      int radius,
-      int mass,
-      int surface_temp,
-      int effective_temp,
-      std::string type
+      float radius,
+      float mass, 
+      int surface_temp, //in Kelvin
+      std::string type //types = "Planet", "Star", "White Dwarf", "Black Hole", "Moon"
     );
 
     void log();
 
     //SETTERS
-    void setRadius(int radius);
-    void setMass(int mass);
+    void setRadius(float radius);
+    void setMass(float mass);
     void setSurfaceTemp(int temp);
-    void setEffectiveTemp(int temp);
-    void setType(std::string type);
+    void setType(std::string type); 
     void setComposition(int element, int abundance);
     void setCompositionDefault();
     void setAtmosphereComposition(int element, int abundance);
     void setAtmosphereCompositionDefault();
    
     //GETTERS
-    int getRadius();
-    int getMass();
+    float getRadius();
+    float getMass();
     int getSurfaceTemp();
-    int getEffectiveTemp();
     std::string getType();
     int getComposition(int element);
     int getAtmosphereComposition(int element);
 
+    //randomized generation functions
+    void generateStar();
+
   private:
-    int _radius;
-    int _mass;
+    float _radius;
+    float _mass;
     int _surface_temp;
-    int _effective_temp;
     std::string _type;
     int _composition[120];
     int _atmosphere_composition[120];
 
-    //TODO: implement getters/setters for this later
+    //TODO: implement getters/setters for orbiting planets/moons
+    spCelestialBody* _orbit[10];
+    int _orbit_count;
+
+    //TODO: implement getters/setters for ships later
     spShip* _ships[10];
+    int _ship_count;
 
     //TODO: implement getters/setters and validation for mines
     spMine* _mines[10];
+    int _mine_count;
 
     //TODO: implement getters/setters and validation for settlements
     spSettlement* _settlements[10];
+    int _settlement_count;
 };

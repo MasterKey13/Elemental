@@ -45,12 +45,12 @@ void Game::init()
 
   //create a new Location and attach it
   _location = new Location();
-  _location->init(_player_ship->getXPos(), _player_ship->getYPos(), 5);
+  _location->init(_player_ship->getXPos(), _player_ship->getYPos());
   _location->attachTo(this);
 
   //create a new Star
   _star = new CelestialBody();
-  _star->init(334235666, 23454221, 50000, 8000000, "Star");
+  _star->init(1.0f, 1.0f, 5777, "Star");
   _star->attachTo(this);
 
   //create a new Mine

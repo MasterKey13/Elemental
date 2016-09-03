@@ -18,15 +18,20 @@ class Location : public Actor
   public:
 	  Location();
 
-	  void init(int x, int y, int shipLimit);
+	  void init(int x, int y);
+
+    //SETTERS
+    void setCoordinates(int x, int y); //sets the coordinates
+
+    //GETTERS
+    int getXCoordinate();
+    int getYCoordinate();
 
   private:
 	  void doUpdate(const UpdateState &us);
 
-	  //will have Solar Systems in here at some point
-
 	  int _x, _y;
-	  int _ship_count; //keeps track of how many ships there are at the location
-	  int _ship_limit; //how many ships this location can hold
-	  void _setCoordinates(int x, int y); //sets the coordinates
+	  int _ship_count = 0; //keeps track of how many ships there are at the location
+
+    spShip* _ships[10];
 };

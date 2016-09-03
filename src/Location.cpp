@@ -15,22 +15,29 @@ Location::Location()
 Initialize a Location
   (int) x coordinate of the location
   (int) y coordinate of the location
-  (int) maximum number of ships that can be at this location
 */
-void Location::init(int x, int y, int shipLimit)
+void Location::init(int x, int y)
 {
-	_setCoordinates(x,y); //set coordinates
-	_ship_limit = shipLimit; //set the ship limit variable
-	_ship_count = 0; //set the counter to 0
-}	
+	setCoordinates(x,y); //set coordinates
+}
+
+void Location::setCoordinates(int x, int y)
+{
+  _x = x;
+  _y = y;
+}
+
+int Location::getXCoordinate()
+{
+  return _x;
+}
+
+int Location::getYCoordinate()
+{
+  return _y;
+}
 
 void Location::doUpdate(const UpdateState &us)
 {
 	
-}
-
-void Location::_setCoordinates(int x, int y)
-{
-	_x = x;
-	_y = y;
 }
