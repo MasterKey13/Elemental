@@ -5,6 +5,8 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #include "setup.h"
 #include "celestial_body.h"
+#include <stdlib.h>
+#include <time.h>  
 
 CelestialBody::CelestialBody()
 {
@@ -14,12 +16,12 @@ CelestialBody::CelestialBody()
 void CelestialBody::init(
   float radius,
   float mass,
-  int surface_temp,
+  int temp,
   std::string type)
 {
   setRadius(radius);
   setMass(mass);
-  setSurfaceTemp(surface_temp);
+  setTemp(temp);
   setType(type);
 
   setCompositionDefault();
@@ -30,10 +32,10 @@ void CelestialBody::init(
 
 void CelestialBody::log()
 {
-  log::messageln("\n[CELESTIAL BODY]\nRadius: %.2f\nMass: %.2f\nSurface Temp: %d\nType: %s\n",
+  log::messageln("\n[CELESTIAL BODY]\nRadius: %.2f\nMass: %.2f\nTemp: %d\nType: %s\n",
     this->getRadius(),
     this->getMass(),
-    this->getSurfaceTemp(),
+    this->getTemp(),
     this->getType().c_str());
 }
 
@@ -47,9 +49,9 @@ void CelestialBody::setMass(float mass)
   _mass = mass;
 }
 
-void CelestialBody::setSurfaceTemp(int temp)
+void CelestialBody::setTemp(int temp)
 {
-  _surface_temp = temp;
+  _temp = temp;
 }
 
 void CelestialBody::setType(std::string type)
@@ -93,9 +95,9 @@ float CelestialBody::getMass()
   return _mass;
 }
 
-int CelestialBody::getSurfaceTemp()
+int CelestialBody::getTemp()
 {
-  return _surface_temp;
+  return _temp;
 }
 
 std::string CelestialBody::getType()
@@ -115,5 +117,27 @@ int CelestialBody::getAtmosphereComposition(int element)
 
 void CelestialBody::generateStar()
 {
+  srand(time(NULL)); //random seed
+  int gen = rand() % 9999;
 
+  //90% chance to generate a main sequence star
+  if (gen < 9000)
+  {
+    int gen_main = rand() % 999;
+
+    //73% chance to generate a red main sequence star
+    if (gen_main < 730)
+    {
+      setMass((rand() % 275 + 75) * 0.001f); //0.075 - 0.35Mo
+      setTemp(rand() % 1300 + 2400); //2400 - 3700K
+      setRadius((rand() % 52 + 8) * 0.01f); //0.08 - 0.6Ro
+    }
+    //12% chance to generate an orange main sequence star
+    else if (gen_main >= 730 && gen_main < 850)
+    {
+      setMass((rand() % 35 + 45) * 0.01f); //0.45 - 0.8Mo
+      setTemp(rand() % 1500 + 3700); //3700 - 5200K
+      setRadius((rand() % 3 + 7) * 0.1f); //0.7 - 1Ro
+    }
+  }
 }

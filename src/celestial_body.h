@@ -25,7 +25,7 @@ class CelestialBody : public Actor
 	  void init(
       float radius,
       float mass, 
-      int surface_temp, //in Kelvin
+      int temp, //in Kelvin
       std::string type //types = "Planet", "Star", "White Dwarf", "Black Hole", "Moon"
     );
 
@@ -34,7 +34,7 @@ class CelestialBody : public Actor
     //SETTERS
     void setRadius(float radius);
     void setMass(float mass);
-    void setSurfaceTemp(int temp);
+    void setTemp(int temp);
     void setType(std::string type); 
     void setComposition(int element, int abundance);
     void setCompositionDefault();
@@ -44,7 +44,7 @@ class CelestialBody : public Actor
     //GETTERS
     float getRadius();
     float getMass();
-    int getSurfaceTemp();
+    int getTemp();
     std::string getType();
     int getComposition(int element);
     int getAtmosphereComposition(int element);
@@ -55,7 +55,7 @@ class CelestialBody : public Actor
   private:
     float _radius;
     float _mass;
-    int _surface_temp;
+    int _temp;
     std::string _type;
     int _composition[120];
     int _atmosphere_composition[120];
