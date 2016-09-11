@@ -51,6 +51,7 @@ class CelestialBody : public Actor
 
     //randomized generation functions
     void generateStar();
+    void generatePlanet();
 
   private:
     float _radius;
@@ -60,9 +61,11 @@ class CelestialBody : public Actor
     int _composition[120];
     int _atmosphere_composition[120];
 
-    //TODO: implement getters/setters for orbiting planets/moons
+    //TODO: implement getters/setters for orbiting star/planets/moons
     spCelestialBody* _orbit[10];
+    spCelestialBody* _partners[2];
     int _orbit_count;
+    int _partner_count;
 
     //TODO: implement getters/setters for ships later
     spShip* _ships[10];
