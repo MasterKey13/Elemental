@@ -240,10 +240,39 @@ void CelestialBody::generateStar()
   }
 
   //we won't be extracting anything from stars (yet?)
+  setCompositionDefault();
   setAtmosphereCompositionDefault();
 }
 
-void CelestialBody::generatePlanet()
+void CelestialBody::generatePlanet(int distance)
 {
+  for (int i = 0; i < 100; i++)
+  {
+    srand(time(NULL));
+    int gen = rand() % 1000;
 
+    //7.0% chance to generate any planet
+    if (gen <= 70)
+    {
+      int jovian_gen = rand() % 1000;
+
+      //14.0 + loopnum % chance to generate a jovian planet
+      //at the current distance
+      if (jovian_gen < (140 + i * 100))
+      {
+        setType("Jovian Planet");
+        setMass((rand() % 15000 + 1000) * 0.01f); //10.00 - 150.00Me
+        setTemp(rand() % 100 + (800 / i)); //1 - 800K + random under 100 related to distance
+        setRadius((rand() % 10000 + 1) * 0.01f); //1.00 - 100.00Re
+      
+        //we won't be extracting anything from jovians (yet?)
+        setCompositionDefault();
+        setAtmosphereCompositionDefault();
+      }
+      else //generate terrestrial planet
+      {
+
+      }
+    }
+  }
 }

@@ -51,7 +51,7 @@ class CelestialBody : public Actor
 
     //randomized generation functions
     void generateStar();
-    void generatePlanet();
+    void generatePlanet(int distance);
 
   private:
     float _radius;
