@@ -17,6 +17,8 @@ DECLARE_SMART(Mine, spMine);
 DECLARE_SMART(Settlement, spSettlement);
 DECLARE_SMART(CelestialBody, spCelestialBody);
 
+#define MAX_ELEMENTS 50
+
 class CelestialBody : public Actor
 {
   public:
@@ -53,13 +55,15 @@ class CelestialBody : public Actor
     void generateStar();
     void generatePlanet(int distance);
 
+    void generateTerrestrialDistribution();
+
   private:
     float _radius;
     float _mass;
     int _temp;
     std::string _type;
-    int _composition[120];
-    int _atmosphere_composition[120];
+    int _composition[MAX_ELEMENTS];
+    int _atmosphere_composition[MAX_ELEMENTS];
 
     //TODO: implement getters/setters for orbiting star/planets/moons
     spCelestialBody* _orbit[10];

@@ -50,13 +50,18 @@ void Game::init()
 
   //create a new Star
   _star = new CelestialBody();
-  _star->init(1.0f, 1.0f, 5777, "Star");
+  _star->generateStar();
   _star->attachTo(this);
 
   //create a new Mine
   _mine = new Mine();
   _mine->init(3234, "Generic Mine", 50, 7, 1023, "MineX", "1c");
   _mine->attachTo(this);
+
+  //create a new Planet
+  _planet = new CelestialBody();
+  _planet->generatePlanet(3);
+  _planet->attachTo(_star);
 }
 
 void Game::doUpdate(const UpdateState &us)

@@ -10,7 +10,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 CelestialBody::CelestialBody()
 {
-
+  srand(time(NULL));
 }
 
 void CelestialBody::init(
@@ -32,11 +32,21 @@ void CelestialBody::init(
 
 void CelestialBody::log()
 {
-  log::messageln("\n[CELESTIAL BODY]\nRadius: %.2f\nMass: %.2f\nTemp: %d\nType: %s\n",
+  log::messageln("\n[CELESTIAL BODY]\nRadius: %.2f\nMass: %.2f\nTemp: %d\nType: %s",
     this->getRadius(),
     this->getMass(),
     this->getTemp(),
     this->getType().c_str());
+
+  int totalComposition = 0;
+
+  for (int i = 0; i < MAX_ELEMENTS; i++)
+  {
+    totalComposition = totalComposition + getComposition(i);
+    log::message("[%d] %d\n", i, getComposition(i));
+  }
+
+  log::messageln("Total: %d\n", totalComposition);
 }
 
 void CelestialBody::setRadius(float radius)
@@ -61,12 +71,15 @@ void CelestialBody::setType(std::string type)
 
 void CelestialBody::setComposition(int element, int abundance)
 {
-  _composition[element] = abundance;
+  if (element < MAX_ELEMENTS)
+  {
+    _composition[element] = abundance;
+  }
 }
 
 void CelestialBody::setCompositionDefault()
 {
-  for (int i = 0; i < 120; i++)
+  for (int i = 0; i < MAX_ELEMENTS; i++)
   {
     _composition[i] = 0;
   }
@@ -74,12 +87,15 @@ void CelestialBody::setCompositionDefault()
 
 void CelestialBody::setAtmosphereComposition(int element, int abundance)
 {
-  _atmosphere_composition[element] = abundance;
+  if (element < MAX_ELEMENTS)
+  {
+    _atmosphere_composition[element] = abundance;
+  }
 }
 
 void CelestialBody::setAtmosphereCompositionDefault()
 {
-  for (int i = 0; i < 120; i++)
+  for (int i = 0; i < MAX_ELEMENTS; i++)
   {
     _atmosphere_composition[i] = 0;
   }
@@ -115,9 +131,68 @@ int CelestialBody::getAtmosphereComposition(int element)
   return _atmosphere_composition[element];
 }
 
+void CelestialBody::generateTerrestrialDistribution()
+{
+  //set to default at the start
+  setCompositionDefault();
+  setAtmosphereCompositionDefault();
+
+  //create planet composition percentages
+  int primary = rand() % 30 + 360; //36% - 39%
+  int secondary = rand() % 30 + 220; //22% - 25%
+  int tertiary = rand() % 20 + 180; //18% - 20%
+  int quaternary = rand() % 20 + 130; //13% - 15%
+  int remaining = 1000 - primary - secondary - tertiary - quaternary; //1% - 11%
+  
+  //primary distribution loop
+  for (int p = 0; p < primary; p++)
+  {
+    //randomly distribute among elements id 5-8
+    int element_index = rand() % 3 + 5;
+    setComposition(element_index, 
+      getComposition(element_index) + 1);
+  }
+
+  //secondary distribution loop
+  for (int s = 0; s < primary; s++)
+  {
+    //randomly distribute among elements id 10-16
+    int element_index = rand() % 6 + 10;
+    setComposition(element_index,
+      getComposition(element_index) + 1);
+  }
+
+  //tertiary distribution loop
+  for (int t = 0; t < primary; t++)
+  {
+    //randomly distribute among elements id 18-22
+    int element_index = rand() % 4 + 18;
+    setComposition(element_index,
+      getComposition(element_index) + 1);
+  }
+
+  //quaternary  distribution loop
+  for (int q = 0; q < quaternary; q++)
+  {
+    //randomly distribute among elements id 23-27
+    int element_index = rand() % 4 + 23;
+    setComposition(element_index,
+      getComposition(element_index) + 1);
+  }
+
+  //remaining  distribution loop
+  for (int r = 0; r < remaining; r++)
+  {
+    //randomly distribute among elements id 0-49
+    int element_index = rand() % 50;
+    setComposition(element_index,
+      getComposition(element_index) + 1);
+  }
+}
+
+
 void CelestialBody::generateStar()
 {
-  srand(time(NULL));
   int gen = rand() % 9999;
 
   //90% chance to generate a main sequence star
@@ -242,13 +317,14 @@ void CelestialBody::generateStar()
   //we won't be extracting anything from stars (yet?)
   setCompositionDefault();
   setAtmosphereCompositionDefault();
+
+  log();
 }
 
 void CelestialBody::generatePlanet(int distance)
 {
   for (int i = 0; i < 100; i++)
   {
-    srand(time(NULL));
     int gen = rand() % 1000;
 
     //7.0% chance to generate any planet
@@ -258,21 +334,29 @@ void CelestialBody::generatePlanet(int distance)
 
       //14.0 + loopnum % chance to generate a jovian planet
       //at the current distance
-      if (jovian_gen < (140 + i * 100))
+      if (jovian_gen < (140 + i * 10))
       {
         setType("Jovian Planet");
-        setMass((rand() % 15000 + 1000) * 0.01f); //10.00 - 150.00Me
+        setMass((rand() % 15000 + 1000) * 0.01f); //10.00 - 160.00Me
         setTemp(rand() % 100 + (800 / i)); //1 - 800K + random under 100 related to distance
         setRadius((rand() % 10000 + 1) * 0.01f); //1.00 - 100.00Re
-      
+
         //we won't be extracting anything from jovians (yet?)
         setCompositionDefault();
         setAtmosphereCompositionDefault();
       }
       else //generate terrestrial planet
       {
+        setType("Terrestrial Planet");
+        setMass((rand() % 740 + 10) * 0.01f); //0.1 - 7.5Me
+        setTemp((rand() % 700 + 50)); //50 - 750K + random under 100 related to distance
+        setRadius((rand() % 290 + 10) * 0.01f); //0.1 - 3.0Me
 
+        //generate planet chemical distribution
+        generateTerrestrialDistribution();
       }
+
+      log();
     }
   }
 }
