@@ -10,7 +10,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 CelestialBody::CelestialBody()
 {
-  srand(time(NULL));
+  srand(time(0));
 }
 
 void CelestialBody::init(
@@ -45,8 +45,6 @@ void CelestialBody::log()
     totalComposition = totalComposition + getComposition(i);
     log::message("[%d] %d\n", i, getComposition(i));
   }
-
-  log::messageln("Total: %d\n", totalComposition);
 }
 
 void CelestialBody::setRadius(float radius)
@@ -318,45 +316,59 @@ void CelestialBody::generateStar()
   setCompositionDefault();
   setAtmosphereCompositionDefault();
 
+  //generate planets in orbit
+  int orbiter_index = 0;
+
+  for (int distance = 0; distance < 100; distance++)
+  {
+    int gen_planet = rand() % 1000;
+
+    log::messageln("%d : %d\n", distance, gen_planet);
+
+    //7.0% chance to generate any planet
+    if (gen_planet <= 70)
+    {
+      _orbit[orbiter_index] = new CelestialBody();
+      _orbit[orbiter_index]->generatePlanet(distance);
+      orbiter_index++;
+    }
+  }
+
   log();
 }
 
 void CelestialBody::generatePlanet(int distance)
 {
-  for (int i = 0; i < 100; i++)
+  int jovian_gen = rand() % 1000;
+
+  //14.0 + loopnum % chance to generate a jovian planet
+  //at the current distance
+  if (jovian_gen < (140 + distance * 10))
   {
-    int gen = rand() % 1000;
+    setType("Jovian Planet");
+    setMass((rand() % 15000 + 1000) * 0.01f); //10.00 - 160.00Me
+    setTemp(rand() % 100 + (800 / distance)); //1 - 800K + random under 100 related to distance
+    setRadius((rand() % 10000 + 1) * 0.01f); //1.00 - 100.00Re
 
-    //7.0% chance to generate any planet
-    if (gen <= 70)
-    {
-      int jovian_gen = rand() % 1000;
-
-      //14.0 + loopnum % chance to generate a jovian planet
-      //at the current distance
-      if (jovian_gen < (140 + i * 10))
-      {
-        setType("Jovian Planet");
-        setMass((rand() % 15000 + 1000) * 0.01f); //10.00 - 160.00Me
-        setTemp(rand() % 100 + (800 / i)); //1 - 800K + random under 100 related to distance
-        setRadius((rand() % 10000 + 1) * 0.01f); //1.00 - 100.00Re
-
-        //we won't be extracting anything from jovians (yet?)
-        setCompositionDefault();
-        setAtmosphereCompositionDefault();
-      }
-      else //generate terrestrial planet
-      {
-        setType("Terrestrial Planet");
-        setMass((rand() % 740 + 10) * 0.01f); //0.1 - 7.5Me
-        setTemp((rand() % 700 + 50)); //50 - 750K + random under 100 related to distance
-        setRadius((rand() % 290 + 10) * 0.01f); //0.1 - 3.0Me
-
-        //generate planet chemical distribution
-        generateTerrestrialDistribution();
-      }
-
-      log();
-    }
+    //we won't be extracting anything from jovians (yet?)
+    setCompositionDefault();
+    setAtmosphereCompositionDefault();
   }
+  else //generate terrestrial planet
+  {
+    setType("Terrestrial Planet");
+    setMass((rand() % 740 + 10) * 0.01f); //0.1 - 7.5Me
+    setTemp((rand() % 700 + 50)); //50 - 750K + random under 100 related to distance
+    setRadius((rand() % 290 + 10) * 0.01f); //0.1 - 3.0Me
+
+    //generate planet chemical distribution
+    generateTerrestrialDistribution();
+  }
+
+  log();
+}
+
+void CelestialBody::generateMoon()
+{
+
 }

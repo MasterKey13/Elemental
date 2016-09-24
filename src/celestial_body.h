@@ -54,6 +54,7 @@ class CelestialBody : public Actor
     //randomized generation functions
     void generateStar();
     void generatePlanet(int distance);
+    void generateMoon();
 
     void generateTerrestrialDistribution();
 
@@ -66,20 +67,20 @@ class CelestialBody : public Actor
     int _atmosphere_composition[MAX_ELEMENTS];
 
     //TODO: implement getters/setters for orbiting star/planets/moons
-    spCelestialBody* _orbit[10];
-    spCelestialBody* _partners[2];
+    spCelestialBody _orbit[100];
+    spCelestialBody _partners[2];
     int _orbit_count;
     int _partner_count;
 
     //TODO: implement getters/setters for ships later
-    spShip* _ships[10];
+    spShip _ships[10];
     int _ship_count;
 
     //TODO: implement getters/setters and validation for mines
-    spMine* _mines[10];
+    spMine _mines[10];
     int _mine_count;
 
     //TODO: implement getters/setters and validation for settlements
-    spSettlement* _settlements[10];
+    spSettlement _settlements[10];
     int _settlement_count;
 };

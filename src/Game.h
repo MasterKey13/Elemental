@@ -56,5 +56,4 @@ class Game : public Actor
 
     spCelestialBody _star;
     spMine _mine;
-    spCelestialBody _planet;
 };
