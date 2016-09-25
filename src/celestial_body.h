@@ -46,6 +46,7 @@ class CelestialBody : public Actor
     void setAtmosphereComposition(int element, int abundance);
     void setAtmosphereCompositionDefault();
     void setDistanceFromCenter(int distance);
+    void setParentBody(spCelestialBody parent);
    
     //GETTERS
     float getRadius();
@@ -55,6 +56,8 @@ class CelestialBody : public Actor
     int getComposition(int element);
     int getAtmosphereComposition(int element);
     int getDistanceFromCenter();
+    int getOrbitCount();
+    spCelestialBody getParentBody();
 
     //randomized generation functions
     void generateStar();
@@ -72,11 +75,11 @@ class CelestialBody : public Actor
     int _composition[MAX_ELEMENTS];
     int _atmosphere_composition[MAX_ELEMENTS];
 
-    //TODO: implement getters/setters for orbiting star/planets/moons
+    //Orbit-related methods and variables
     spCelestialBody _orbit[100];
-    spCelestialBody _partners[2];
+    spCelestialBody _parent;
     int _orbit_count;
-    int _partner_count;
+    void addOrbiter(spCelestialBody orbiter);
 
     //TODO: implement getters/setters for ships later
     spShip _ships[10];

@@ -6,8 +6,11 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #pragma once
 #include "oxygine-framework.h"
 #include "item.h"
+#include "celestial_body.h"
 
 using namespace oxygine;
+
+DECLARE_SMART(CelestialBody, spCelestialBody);
 
 class Mine : public Item
 {
@@ -37,4 +40,5 @@ class Mine : public Item
   private:
     int _storage_capacity;
     int _storage[120];
+    spCelestialBody _parent;
 };

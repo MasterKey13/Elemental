@@ -65,6 +65,10 @@ void CelestialBody::log()
     i++;
   }
 
+  if (this->getParentBody() != NULL)
+  {
+    log::messageln("PARENT MASS: %.2f\n", this->getParentBody()->getMass());
+  }
   log::message("\n");
 }
 
@@ -160,6 +164,27 @@ int CelestialBody::getDistanceFromCenter()
   return _distance_from_center;
 }
 
+int CelestialBody::getOrbitCount()
+{
+  return _orbit_count;
+}
+
+void CelestialBody::addOrbiter(spCelestialBody orbiter)
+{
+  _orbit[_orbit_count] = orbiter;
+  _orbit_count++;
+}
+
+void CelestialBody::setParentBody(spCelestialBody parent)
+{
+  _parent = parent;
+}
+
+spCelestialBody CelestialBody::getParentBody()
+{
+  return _parent;
+}
+
 void CelestialBody::generateTerrestrialDistribution()
 {
   //set to default at the start
@@ -172,13 +197,13 @@ void CelestialBody::generateTerrestrialDistribution()
   int tertiary = rand() % 20 + 180; //18% - 20%
   int quaternary = rand() % 20 + 130; //13% - 15%
   int remaining = 1000 - primary - secondary - tertiary - quaternary; //1% - 11%
-  
-  //primary distribution loop
+
+                                                                      //primary distribution loop
   for (int p = 0; p < primary; p++)
   {
     //randomly distribute among elements id 5-8
     int element_index = rand() % 3 + 5;
-    setComposition(element_index, 
+    setComposition(element_index,
       getComposition(element_index) + 1);
   }
 
@@ -218,7 +243,6 @@ void CelestialBody::generateTerrestrialDistribution()
       getComposition(element_index) + 1);
   }
 }
-
 
 void CelestialBody::generateStar()
 {
@@ -347,11 +371,12 @@ void CelestialBody::generateStar()
   setCompositionDefault();
   setAtmosphereCompositionDefault();
   setDistanceFromCenter(0);
+  setParentBody(NULL);
 
   log();
 
   //generate planets in orbit
-  int orbiter_index = 0;
+  _orbit_count = 0;
 
   for (int distance = 1; distance < 101; distance++)
   {
@@ -360,9 +385,11 @@ void CelestialBody::generateStar()
     //7.0% chance to generate a planet at this index
     if (planet_gen <= 70)
     {
-      _orbit[orbiter_index] = new CelestialBody();
-      _orbit[orbiter_index]->generatePlanet(distance);
-      orbiter_index++;
+      spCelestialBody planet = new CelestialBody();
+      addOrbiter(planet);
+      planet->setParentBody(this);
+
+      planet->generatePlanet(distance);
     }
   }
 }
@@ -399,20 +426,21 @@ void CelestialBody::generatePlanet(int distance)
 
   log();
 
-  //generate moons in orbit
-  int orbiter_index = 0;
+  //generate planets in orbit
+  _orbit_count = 0;
 
   for (int distance_moon = 1; distance_moon < 11; distance_moon++)
   {
     int moon_gen = rand() % 1000;
 
-    //15.0% chance to generate a moon at this index
-    if (moon_gen <= 150)
+    //14.0% chance to generate a planet at this index
+    if (moon_gen <= 140)
     {
-      _orbit[orbiter_index] = new CelestialBody();
-      log::message("giving moon temp %d from %s\n", this->getTemp(), this->getType().c_str());
-      _orbit[orbiter_index]->generateMoon(getMass(), getTemp(), getRadius(), distance_moon);
-      orbiter_index++;
+      spCelestialBody moon = new CelestialBody();
+      this->addOrbiter(moon);
+      moon->setParentBody(this);
+
+      moon->generateMoon(this->getMass(), this->getTemp(), this->getRadius(), distance_moon);
     }
   }
 }
