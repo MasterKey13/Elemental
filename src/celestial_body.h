@@ -18,6 +18,9 @@ DECLARE_SMART(Settlement, spSettlement);
 DECLARE_SMART(CelestialBody, spCelestialBody);
 
 #define MAX_ELEMENTS 50
+#define SUN_RADIUS 695700 //KM
+#define EARTH_RADIUS 6371 //KM
+
 
 class CelestialBody : public Actor
 {
@@ -42,6 +45,7 @@ class CelestialBody : public Actor
     void setCompositionDefault();
     void setAtmosphereComposition(int element, int abundance);
     void setAtmosphereCompositionDefault();
+    void setDistanceFromCenter(int distance);
    
     //GETTERS
     float getRadius();
@@ -50,11 +54,12 @@ class CelestialBody : public Actor
     std::string getType();
     int getComposition(int element);
     int getAtmosphereComposition(int element);
+    int getDistanceFromCenter();
 
     //randomized generation functions
     void generateStar();
     void generatePlanet(int distance);
-    void generateMoon();
+    void generateMoon(float mass, int temp, float radius, int distance);
 
     void generateTerrestrialDistribution();
 
@@ -63,6 +68,7 @@ class CelestialBody : public Actor
     float _mass;
     int _temp;
     std::string _type;
+    int _distance_from_center;
     int _composition[MAX_ELEMENTS];
     int _atmosphere_composition[MAX_ELEMENTS];
 

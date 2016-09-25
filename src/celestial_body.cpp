@@ -10,7 +10,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 CelestialBody::CelestialBody()
 {
-  srand(time(0));
+  
 }
 
 void CelestialBody::init(
@@ -32,18 +32,28 @@ void CelestialBody::init(
 
 void CelestialBody::log()
 {
-  log::messageln("\n[CELESTIAL BODY]\nRadius: %.2f\nMass: %.2f\nTemp: %d\nType: %s",
+  log::messageln("\n[CELESTIAL BODY]\nType: %s\nRadius: %.2f\nMass: %.2f\nTemp: %dK (%dC)\nDistance: %d",
+    this->getType().c_str(),
     this->getRadius(),
     this->getMass(),
     this->getTemp(),
-    this->getType().c_str());
+    this->getTemp() - 274,
+    this->getDistanceFromCenter());
 
   int totalComposition = 0;
 
-  for (int i = 0; i < MAX_ELEMENTS; i++)
+  for (int i = 0; i < MAX_ELEMENTS; i += 5)
   {
     totalComposition = totalComposition + getComposition(i);
-    log::message("[%d] %d\n", i, getComposition(i));
+    if (getComposition(i) != 0)
+    {
+      log::message("[%d]%d\t\t[%d]%d\t\t[%d]%d\t\t[%d]%d\t\t[%d]%d\n", 
+        i, getComposition(i),
+        i + 1, getComposition(i + 1),
+        i + 2, getComposition(i + 2), 
+        i + 3, getComposition(i + 3), 
+        i + 4, getComposition(i + 4));
+    }
   }
 }
 
@@ -99,6 +109,11 @@ void CelestialBody::setAtmosphereCompositionDefault()
   }
 }
 
+void CelestialBody::setDistanceFromCenter(int distance)
+{
+  _distance_from_center = distance;
+}
+
 float CelestialBody::getRadius()
 {
   return _radius;
@@ -127,6 +142,11 @@ int CelestialBody::getComposition(int element)
 int CelestialBody::getAtmosphereComposition(int element)
 {
   return _atmosphere_composition[element];
+}
+
+int CelestialBody::getDistanceFromCenter()
+{
+  return _distance_from_center;
 }
 
 void CelestialBody::generateTerrestrialDistribution()
@@ -315,26 +335,25 @@ void CelestialBody::generateStar()
   //we won't be extracting anything from stars (yet?)
   setCompositionDefault();
   setAtmosphereCompositionDefault();
+  setDistanceFromCenter(0);
+
+  log();
 
   //generate planets in orbit
   int orbiter_index = 0;
 
-  for (int distance = 0; distance < 100; distance++)
+  for (int distance = 1; distance < 101; distance++)
   {
-    int gen_planet = rand() % 1000;
+    int planet_gen = rand() % 1000;
 
-    log::messageln("%d : %d\n", distance, gen_planet);
-
-    //7.0% chance to generate any planet
-    if (gen_planet <= 70)
+    //7.0% chance to generate a planet at this index
+    if (planet_gen <= 70)
     {
       _orbit[orbiter_index] = new CelestialBody();
       _orbit[orbiter_index]->generatePlanet(distance);
       orbiter_index++;
     }
   }
-
-  log();
 }
 
 void CelestialBody::generatePlanet(int distance)
@@ -346,9 +365,9 @@ void CelestialBody::generatePlanet(int distance)
   if (jovian_gen < (140 + distance * 10))
   {
     setType("Jovian Planet");
-    setMass((rand() % 15000 + 1000) * 0.01f); //10.00 - 160.00Me
-    setTemp(rand() % 100 + (800 / distance)); //1 - 800K + random under 100 related to distance
-    setRadius((rand() % 10000 + 1) * 0.01f); //1.00 - 100.00Re
+    setMass((rand() % 150000 + 10000) * 0.001f); //10.00 - 160.00Me
+    setTemp(rand() % 100 + (800 / distance)); //1 - 800K related to distance + random under 100
+    setRadius((rand() % 100000 + 10) * 0.001f); //1.00 - 100.00Re
 
     //we won't be extracting anything from jovians (yet?)
     setCompositionDefault();
@@ -357,18 +376,45 @@ void CelestialBody::generatePlanet(int distance)
   else //generate terrestrial planet
   {
     setType("Terrestrial Planet");
-    setMass((rand() % 740 + 10) * 0.01f); //0.1 - 7.5Me
-    setTemp((rand() % 700 + 50)); //50 - 750K + random under 100 related to distance
-    setRadius((rand() % 290 + 10) * 0.01f); //0.1 - 3.0Me
+    setMass((rand() % 7400 + 100) * 0.001f); //0.1 - 7.5Me
+    setTemp(rand() % 100 + (750 / distance)); //50 - 650K related to distance + random under 100 
+    setRadius((rand() % 2900 + 100) * 0.001f); //0.1 - 3.0Me
 
-    //generate planet chemical distribution
+    //generate terrestrial chemical distribution
     generateTerrestrialDistribution();
+  }
+
+  setDistanceFromCenter(distance);
+
+  //generate moons in orbit
+  int orbiter_index = 0;
+
+  for (int distance_moon = 1; distance_moon < 11; distance_moon++)
+  {
+    int moon_gen = rand() % 1000;
+
+    //15.0% chance to generate a moon at this index
+    if (moon_gen <= 150)
+    {
+      _orbit[orbiter_index] = new CelestialBody();
+      _orbit[orbiter_index]->generateMoon(getMass(), getTemp(), getRadius(), distance_moon);
+      orbiter_index++;
+    }
   }
 
   log();
 }
 
-void CelestialBody::generateMoon()
+void CelestialBody::generateMoon(float mass, int temp, float radius, int distance)
 {
+  setType("Moon");
+  setMass(((rand() % 450 + 50) * 0.0001f) * mass); //0.005 - 0.05 mass of its parent
+  setTemp(std::max(rand() % 25 + temp - 17, 1)); //deviation of 25 degrees to its parent, deviated on the colder side
+  setRadius(((rand() % 250 + 50) * 0.0001f) * radius); //0.005 - 0.03 radius of its parent
+  setDistanceFromCenter(distance);
 
+  //generate terrestrial chemical distribution
+  generateTerrestrialDistribution();
+
+  log();
 }
