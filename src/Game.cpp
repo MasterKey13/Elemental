@@ -8,7 +8,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Game::Game()
 {
-
+  srand(time(0));
 }
 
 void Game::init()
@@ -50,9 +50,9 @@ void Game::init()
 
   //create a new Star
   _star = new CelestialBody();
-  _star->init(1.0f, 1.0f, 5777, "Star");
+  _star->generateStar();
   _star->attachTo(this);
-
+  
   //create a new Mine
   _mine = new Mine();
   _mine->init(3234, "Generic Mine", 50, 7, 1023, "MineX", "1c");

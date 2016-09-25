@@ -17,6 +17,11 @@ DECLARE_SMART(Mine, spMine);
 DECLARE_SMART(Settlement, spSettlement);
 DECLARE_SMART(CelestialBody, spCelestialBody);
 
+#define MAX_ELEMENTS 50
+#define SUN_RADIUS 695700 //KM
+#define EARTH_RADIUS 6371 //KM
+
+
 class CelestialBody : public Actor
 {
   public:
@@ -40,6 +45,7 @@ class CelestialBody : public Actor
     void setCompositionDefault();
     void setAtmosphereComposition(int element, int abundance);
     void setAtmosphereCompositionDefault();
+    void setDistanceFromCenter(int distance);
    
     //GETTERS
     float getRadius();
@@ -48,31 +54,39 @@ class CelestialBody : public Actor
     std::string getType();
     int getComposition(int element);
     int getAtmosphereComposition(int element);
+    int getDistanceFromCenter();
 
     //randomized generation functions
     void generateStar();
+    void generatePlanet(int distance);
+    void generateMoon(float mass, int temp, float radius, int distance);
+
+    void generateTerrestrialDistribution();
 
   private:
     float _radius;
     float _mass;
     int _temp;
     std::string _type;
-    int _composition[120];
-    int _atmosphere_composition[120];
+    int _distance_from_center;
+    int _composition[MAX_ELEMENTS];
+    int _atmosphere_composition[MAX_ELEMENTS];
 
-    //TODO: implement getters/setters for orbiting planets/moons
-    spCelestialBody* _orbit[10];
+    //TODO: implement getters/setters for orbiting star/planets/moons
+    spCelestialBody _orbit[100];
+    spCelestialBody _partners[2];
     int _orbit_count;
+    int _partner_count;
 
     //TODO: implement getters/setters for ships later
-    spShip* _ships[10];
+    spShip _ships[10];
     int _ship_count;
 
     //TODO: implement getters/setters and validation for mines
-    spMine* _mines[10];
+    spMine _mines[10];
     int _mine_count;
 
     //TODO: implement getters/setters and validation for settlements
-    spSettlement* _settlements[10];
+    spSettlement _settlements[10];
     int _settlement_count;
 };
