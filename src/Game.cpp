@@ -52,7 +52,7 @@ void Game::init()
   _star = new CelestialBody();
   _star->generateStar();
   _star->attachTo(this);
-
+  
   //create a new Mine
   _mine = new Mine();
   _mine->init(3234, "Generic Mine", 50, 7, 1023, "MineX", "1c");

@@ -42,19 +42,30 @@ void CelestialBody::log()
 
   int totalComposition = 0;
 
-  for (int i = 0; i < MAX_ELEMENTS; i += 5)
+  int i = 0, j = 0;
+  while(i < MAX_ELEMENTS)
   {
-    totalComposition = totalComposition + getComposition(i);
     if (getComposition(i) != 0)
     {
-      log::message("[%d]%d\t\t[%d]%d\t\t[%d]%d\t\t[%d]%d\t\t[%d]%d\n", 
-        i, getComposition(i),
-        i + 1, getComposition(i + 1),
-        i + 2, getComposition(i + 2), 
-        i + 3, getComposition(i + 3), 
-        i + 4, getComposition(i + 4));
+      totalComposition = totalComposition + getComposition(i);
+      log::message("[%d]%d", i, getComposition(i));
+
+      if (j % 5 != 0)
+      {
+        log::message("\t\t");
+      }
+      else
+      {
+        log::message("\n");
+      }
+
+      j++;
     }
+
+    i++;
   }
+
+  log::message("\n");
 }
 
 void CelestialBody::setRadius(float radius)
@@ -386,6 +397,8 @@ void CelestialBody::generatePlanet(int distance)
 
   setDistanceFromCenter(distance);
 
+  log();
+
   //generate moons in orbit
   int orbiter_index = 0;
 
@@ -397,19 +410,18 @@ void CelestialBody::generatePlanet(int distance)
     if (moon_gen <= 150)
     {
       _orbit[orbiter_index] = new CelestialBody();
+      log::message("giving moon temp %d from %s\n", this->getTemp(), this->getType().c_str());
       _orbit[orbiter_index]->generateMoon(getMass(), getTemp(), getRadius(), distance_moon);
       orbiter_index++;
     }
   }
-
-  log();
 }
 
 void CelestialBody::generateMoon(float mass, int temp, float radius, int distance)
 {
   setType("Moon");
   setMass(((rand() % 450 + 50) * 0.0001f) * mass); //0.005 - 0.05 mass of its parent
-  setTemp(std::max(rand() % 25 + temp - 17, 1)); //deviation of 25 degrees to its parent, deviated on the colder side
+  setTemp(std::max(rand() % 45 + temp - 20, 1)); //deviation of 25 degrees to its parent, deviated on the colder side
   setRadius(((rand() % 250 + 50) * 0.0001f) * radius); //0.005 - 0.03 radius of its parent
   setDistanceFromCenter(distance);
 
