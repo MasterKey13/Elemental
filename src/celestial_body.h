@@ -86,7 +86,7 @@ class CelestialBody : public Actor
     int _ship_count;
 
     //TODO: implement getters/setters and validation for mines
-    spMine _mines[10];
+    spMine _mines[100];
     int _mine_count;
 
     //TODO: implement getters/setters and validation for settlements

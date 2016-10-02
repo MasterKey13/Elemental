@@ -10,6 +10,8 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 using namespace oxygine;
 
+#define MAX_ELEMENTS 50
+
 DECLARE_SMART(CelestialBody, spCelestialBody);
 
 class Mine : public Item
@@ -21,7 +23,8 @@ class Mine : public Item
       int ID,
       std::string name,
       int size,
-      int rarity,
+      int efficiency,
+      int reliability,
       int storage_capacity,
       std::string brand = "",
       std::string model = "");
@@ -31,14 +34,27 @@ class Mine : public Item
     //SETTERS
     void setStorageCapacity(int cap);
     void setStorage(int element, int amount);
+    void setEfficiency(int efficiency);
+    void setReliability(int reliability);
     void setStorageDefault();
+    void setCurrentTotalStorage(int amount);
+    void setHostBody(spCelestialBody host);
 
     //GETTERS
     int getStorageCapacity();
     int getStorage(int element);
+    int getEfficiency();
+    int getReliability();
+    int getCurrentStorage();
+    spCelestialBody getHostBody();
+
+    void extract();
 
   private:
     int _storage_capacity;
-    int _storage[120];
-    spCelestialBody _parent;
+    int _efficiency; //extraction multiplier, how efficiently it mines
+    int _reliability; //chance that it will extract an element (from 0 - 10000, where 10000 = 100.00%)
+    int _storage[MAX_ELEMENTS];
+    int _current_total_storage;
+    spCelestialBody _host;
 };
