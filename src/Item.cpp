@@ -14,15 +14,13 @@ Item::Item()
 void Item::init(
   int ID, 
   std::string name, 
-  int size, 
-  int rarity, 
+  int size,
   std::string brand, 
   std::string model)
 {
   this->setID(ID);
   this->setName(name);
   this->setSize(size);
-  this->setRarity(rarity);
   this->setCompositionDefault();
 
   if (brand.length() > 0)
@@ -40,11 +38,10 @@ void Item::init(
 
 void Item::log()
 {
-  log::messageln("\n[ITEM]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\n",
+  log::messageln("\n[ITEM]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),
-    this->getRarity(),
     this->getBrand().c_str(),
     this->getModel().c_str());
 }
@@ -87,11 +84,6 @@ void Item::setCompositionDefault()
   }
 }
 
-void Item::setRarity(int rarity)
-{
-  _rarity = rarity;
-}
-
 int Item::getID()
 {
   return _itemID;
@@ -120,9 +112,4 @@ int Item::getSize()
 int Item::getComposition(int element)
 {
   return _composition[element];
-}
-
-int Item::getRarity()
-{
-  return _rarity;
 }

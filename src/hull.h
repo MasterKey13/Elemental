@@ -22,7 +22,6 @@ class Hull : public Item
     void init(
       int ID,
       int size,
-      int rarity,
       int hitpoints,
       int hitpoints_cap,
       std::string name = "",

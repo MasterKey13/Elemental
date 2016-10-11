@@ -19,24 +19,24 @@ void Game::init()
 
   //create Ship Hull
   _hull = new Hull();
-  _hull->init(2, 2, 3, 100, 100, "", "Chronoz", "X32B");
+  _hull->init(2, 2, 100, 100, "", "Chronoz", "X32B");
 
   //create Ship Battery
   _battery = new Battery();
-  _battery->init(3, 1, 1, 150, 150, 100, 100, "", "Bate-X", "Vogue");
+  _battery->init(3, 1, 150, 150, 100, 100, "", "Bate-X", "Vogue");
 
   //create Ship Engine
   _engine = new Engine();
-  _engine->init(4, 3, 1, 100, 100, "", "VRUM", "B-3");
+  _engine->init(4, 3, 100, 100, "", "VRUM", "B-3");
 
   //create armor
   _armor = new Armor();
-  _armor->init(6, "Weak Aluminum Pad", 2, 1, 3, 1, 0, 2, "PADD", "D2");
+  _armor->init(6, "Weak Aluminum Pad", 1, 1, 1, 0, 2, "PADD", "D2");
   _armor->setDamageResistance(Armor::Electrical, 2);
 
   //create weapon
   _weapon = new Weapon();
-  _weapon->init(8, 1, 2, 10, 120, 3, 1, 0, 0, "", "Earth Germany", "MastaBlasta");
+  _weapon->init(8, 1, 10, 120, 3, 1, 0, 0, "", "Earth Germany", "MastaBlasta");
 
 	//create new Ship and attach it to the location
 	_player_ship = new Ship();

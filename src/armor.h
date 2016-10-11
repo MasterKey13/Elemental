@@ -23,7 +23,6 @@ class Armor : public Item
       int ID,
       std::string name,
       int size,
-      int rarity,
       int ballistic_res = 0,
       int electrical_res = 0,
       int radioactive_res = 0,

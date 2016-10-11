@@ -22,7 +22,6 @@ class Weapon : public Item
     void init(
       int ID,
       int size,
-      int rarity,
       int hitpoints,
       int hitpoints_cap,
       int ballistic_dmg = 0,

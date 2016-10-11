@@ -22,7 +22,6 @@ class Item : public Actor
       int ID,
       std::string name,
       int size,
-      int rarity,
       std::string brand = "",
       std::string model = "");
 
@@ -36,7 +35,6 @@ class Item : public Actor
     void setSize(int size);
     void setComposition(int element, int abundance);
     void setCompositionDefault(); //sets composition to all 0s
-    void setRarity(int rarity);
 
     //GETTERS
     int getID();
@@ -45,7 +43,6 @@ class Item : public Actor
     std::string getModel();
     int getSize();
     int getComposition(int element);
-    int getRarity();
 
   private:
     int _itemID;
@@ -54,5 +51,4 @@ class Item : public Actor
     std::string _model;
     int _size;
     int _composition[120];
-    int _rarity;
 };

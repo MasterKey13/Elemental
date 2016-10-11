@@ -15,7 +15,6 @@ Battery::Battery()
 void Battery::init(
   int ID,
   int size,
-  int rarity,
   int power,
   int power_cap,
   int hitpoints,
@@ -27,7 +26,6 @@ void Battery::init(
   this->setID(ID);
   this->setName(name);
   this->setSize(size);
-  this->setRarity(rarity);
   this->setPower(power);
   this->setPowerCap(power_cap);
   this->setHitPoints(hitpoints);
@@ -49,11 +47,10 @@ void Battery::init(
 
 void Battery::log()
 {
-  log::messageln("\n[BATTERY]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\nPower: %d/%d\nHP: %d/%d\n",
+  log::messageln("\n[BATTERY]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\nPower: %d/%d\nHP: %d/%d\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),
-    this->getRarity(),
     this->getBrand().c_str(),
     this->getModel().c_str(),
     this->getPower(),

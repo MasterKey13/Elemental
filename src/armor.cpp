@@ -12,11 +12,16 @@ Armor::Armor()
 
 }
 
+/*
+Initliazes a custom armor piece
+  (int) ID number for item
+  (std::string) name of the armor piece
+  (int) size of the item
+*/
 void Armor::init(
   int ID,
   std::string name, 
-  int size, 
-  int rarity,
+  int size,
   int ballistic_res,
   int electrical_res,
   int radioactive_res,
@@ -27,7 +32,6 @@ void Armor::init(
   this->setID(ID);
   this->setName(name);
   this->setSize(size);
-  this->setRarity(rarity);
   this->setCompositionDefault();
 
   setDamageResistance(Ballistic, ballistic_res);
@@ -50,11 +54,10 @@ void Armor::init(
 
 void Armor::log()
 {
-  log::messageln("\n[ARMOR]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\nBallRes: %d\nElectrRes: %d\nRadRes: %d\nChemRes: %d\n",
+  log::messageln("\n[ARMOR]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\nBallRes: %d\nElectrRes: %d\nRadRes: %d\nChemRes: %d\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),
-    this->getRarity(),
     this->getBrand().c_str(),
     this->getModel().c_str(),
     this->getDamageResistance(Ballistic),

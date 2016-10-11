@@ -22,7 +22,6 @@ class Battery : public Item
     void init(
       int ID,
       int size,
-      int rarity,
       int power,
       int power_cap,
       int hitpoints,

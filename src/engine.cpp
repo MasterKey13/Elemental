@@ -15,7 +15,6 @@ Engine::Engine()
 void Engine::init(
   int ID,
   int size,
-  int rarity,
   int hitpoints,
   int hitpoints_cap,
   std::string name,
@@ -25,7 +24,6 @@ void Engine::init(
   this->setID(ID);
   this->setName(name);
   this->setSize(size);
-  this->setRarity(rarity);
   this->setHitPoints(hitpoints);
   this->setHitPointsCap(hitpoints_cap);
   this->setCompositionDefault();
@@ -45,11 +43,10 @@ void Engine::init(
 
 void Engine::log()
 {
-  log::messageln("\n[ENGINE]\nID: %d\nName: %s\nSize: %d\nRarity: %d\nBrand: %s\nModel: %s\nHP: %d/%d\n",
+  log::messageln("\n[ENGINE]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\nHP: %d/%d\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),
-    this->getRarity(),
     this->getBrand().c_str(),
     this->getModel().c_str(),
     this->getHitPoints(),
