@@ -18,6 +18,8 @@ DECLARE_SMART(Settlement, spSettlement);
 DECLARE_SMART(CelestialBody, spCelestialBody);
 
 #define MAX_ELEMENTS 50
+#define MAX_MINES 100
+#define MAX_ORBITERS 100
 #define SUN_RADIUS 695700 //KM
 #define EARTH_RADIUS 6371 //KM
 
@@ -57,7 +59,14 @@ class CelestialBody : public Actor
     int getAtmosphereComposition(int element);
     int getDistanceFromCenter();
     int getOrbitCount();
+    int getMineCount();
     spCelestialBody getParentBody();
+
+    //Orbit-related public methods and vars
+    void addOrbiter(spCelestialBody orbiter);
+
+    //Mine-related public methods and vars
+    void addMine(spMine mine);
 
     //randomized generation functions
     void generateStar();
@@ -75,19 +84,18 @@ class CelestialBody : public Actor
     int _composition[MAX_ELEMENTS];
     int _atmosphere_composition[MAX_ELEMENTS];
 
-    //Orbit-related methods and variables
-    spCelestialBody _orbit[100];
+    //Orbit-related private methods and variables
+    spCelestialBody _orbit[MAX_ORBITERS];
     spCelestialBody _parent;
-    int _orbit_count;
-    void addOrbiter(spCelestialBody orbiter);
+    int _orbit_count = 0;
+
+    //Mine-related private methods and variables
+    spMine _mines[MAX_MINES];
+    int _mine_count = 0;
 
     //TODO: implement getters/setters for ships later
     spShip _ships[10];
     int _ship_count;
-
-    //TODO: implement getters/setters and validation for mines
-    spMine _mines[100];
-    int _mine_count;
 
     //TODO: implement getters/setters and validation for settlements
     spSettlement _settlements[10];

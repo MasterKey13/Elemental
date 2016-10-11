@@ -30,15 +30,17 @@ void CelestialBody::init(
   log();
 }
 
+//Logs all relevant information for a celestial body
 void CelestialBody::log()
 {
-  log::messageln("\n[CELESTIAL BODY]\nType: %s\nRadius: %.2f\nMass: %.2f\nTemp: %dK (%dC)\nDistance: %d",
+  log::messageln("\n[CELESTIAL BODY]\nType: %s\nRadius: %.2f\nMass: %.2f\nTemp: %dK (%dC)\nDistance: %d\nMine Count: %d",
     this->getType().c_str(),
     this->getRadius(),
     this->getMass(),
     this->getTemp(),
     this->getTemp() - 274,
-    this->getDistanceFromCenter());
+    this->getDistanceFromCenter(),
+    this->getMineCount());
 
   int totalComposition = 0;
 
@@ -129,6 +131,11 @@ void CelestialBody::setDistanceFromCenter(int distance)
   _distance_from_center = distance;
 }
 
+void CelestialBody::setParentBody(spCelestialBody parent)
+{
+  _parent = parent;
+}
+
 float CelestialBody::getRadius()
 {
   return _radius;
@@ -169,15 +176,27 @@ int CelestialBody::getOrbitCount()
   return _orbit_count;
 }
 
-void CelestialBody::addOrbiter(spCelestialBody orbiter)
+int CelestialBody::getMineCount()
 {
-  _orbit[_orbit_count] = orbiter;
-  _orbit_count++;
+  return _mine_count;
 }
 
-void CelestialBody::setParentBody(spCelestialBody parent)
+void CelestialBody::addOrbiter(spCelestialBody orbiter)
 {
-  _parent = parent;
+  if (getOrbitCount() < MAX_ORBITERS)
+  {
+    _orbit[_orbit_count] = orbiter;
+    _orbit_count++;
+  }
+}
+
+void CelestialBody::addMine(spMine mine)
+{
+  if (getMineCount() < MAX_MINES)
+  {
+    _mines[_mine_count] = mine;
+    _mine_count++;
+  }
 }
 
 spCelestialBody CelestialBody::getParentBody()
@@ -198,7 +217,7 @@ void CelestialBody::generateTerrestrialDistribution()
   int quaternary = rand() % 20 + 130; //13% - 15%
   int remaining = 1000 - primary - secondary - tertiary - quaternary; //1% - 11%
 
-                                                                      //primary distribution loop
+  //primary distribution loop
   for (int p = 0; p < primary; p++)
   {
     //randomly distribute among elements id 5-8
@@ -376,8 +395,6 @@ void CelestialBody::generateStar()
   log();
 
   //generate planets in orbit
-  _orbit_count = 0;
-
   for (int distance = 1; distance < 101; distance++)
   {
     int planet_gen = rand() % 1000;

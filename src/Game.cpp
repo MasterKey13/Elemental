@@ -63,6 +63,7 @@ void Game::init()
   _mine->init(3234, "Generic Mine", 50, 1, 1000, 1023, "MineX", "1c");
   _mine->attachTo(this);
   _mine->setHostBody(_planet);
+  _planet->addMine(_mine);
   _mine->extract();
 }
 
