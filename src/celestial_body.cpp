@@ -204,6 +204,14 @@ spCelestialBody CelestialBody::getParentBody()
   return _parent;
 }
 
+spMine CelestialBody::getMine(int index)
+{
+  if (index < MAX_MINES && _mines[index])
+  {
+    return _mines[index];
+  }
+}
+
 void CelestialBody::generateTerrestrialDistribution()
 {
   //set to default at the start

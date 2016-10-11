@@ -61,6 +61,7 @@ class CelestialBody : public Actor
     int getOrbitCount();
     int getMineCount();
     spCelestialBody getParentBody();
+    spMine getMine(int index);
 
     //Orbit-related public methods and vars
     void addOrbiter(spCelestialBody orbiter);
