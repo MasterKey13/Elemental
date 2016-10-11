@@ -12,11 +12,16 @@ Armor::Armor()
 
 }
 
-/*
-Initliazes a custom armor piece
-  (int) ID number for item
-  (std::string) name of the armor piece
-  (int) size of the item
+//! Manual initalization function for custom armor pieces
+/*!
+\param ID ID of the item
+\param name armor piece name
+\param size size of the armor piece
+\param ballistic_res ballistic resistance of the armor piece
+\param electical_res electrical resistance of the armor piece
+\param chemical_res chemical resistance of the armor piece
+\param brand brand of the armor piece
+\param model model of the armor piece
 */
 void Armor::init(
   int ID,
