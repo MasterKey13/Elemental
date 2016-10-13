@@ -13,6 +13,13 @@ CelestialBody::CelestialBody()
   
 }
 
+//! Manual initalization function for custom celestial objects used for debugging
+/*!
+\param radius radius of the celestial body (relative to the Sun's radius for stars and Earth's radius for planets and moons)
+\param mass mass of the celestial body (relative to the Sun's mass for stars and Earth's mass for planets and moons)
+\param temp surface temperature of the celestial body (in Kelvin)
+\param type of celestial body (Red Dwarf Star, Black Hole, Pulsar, Terrestrial Planet, Moon, etc)
+*/
 void CelestialBody::init(
   float radius,
   float mass,
@@ -30,7 +37,6 @@ void CelestialBody::init(
   log();
 }
 
-//Logs all relevant information for a celestial body
 void CelestialBody::log()
 {
   log::messageln("\n[CELESTIAL BODY]\nType: %s\nRadius: %.2f\nMass: %.2f\nTemp: %dK (%dC)\nDistance: %d\nMine Count: %d",
@@ -94,6 +100,11 @@ void CelestialBody::setType(std::string type)
   _type = type;
 }
 
+//! Set the abundance of a chemical element that can be found and mined on the celestial body's surface
+/*!
+\param element element id for which to set the abundance
+\param abundance the amount of specified element
+*/
 void CelestialBody::setComposition(int element, int abundance)
 {
   if (element < MAX_ELEMENTS)
@@ -102,6 +113,7 @@ void CelestialBody::setComposition(int element, int abundance)
   }
 }
 
+//! Sets all element abundances to 0
 void CelestialBody::setCompositionDefault()
 {
   for (int i = 0; i < MAX_ELEMENTS; i++)
@@ -110,6 +122,11 @@ void CelestialBody::setCompositionDefault()
   }
 }
 
+//! Set the abundance of a chemical element that can be found in the celestial body's atmosphere
+/*!
+\param element element id for which to set the abundance
+\param abundance the amount of specified element
+*/
 void CelestialBody::setAtmosphereComposition(int element, int abundance)
 {
   if (element < MAX_ELEMENTS)
@@ -118,6 +135,7 @@ void CelestialBody::setAtmosphereComposition(int element, int abundance)
   }
 }
 
+//! Sets all element abundances to 0
 void CelestialBody::setAtmosphereCompositionDefault()
 {
   for (int i = 0; i < MAX_ELEMENTS; i++)
@@ -126,11 +144,19 @@ void CelestialBody::setAtmosphereCompositionDefault()
   }
 }
 
+//! Sets distance of celestial body from its parent 
+/*!
+\param distance distance from the parent body (0-100)
+*/
 void CelestialBody::setDistanceFromCenter(int distance)
 {
   _distance_from_center = distance;
 }
 
+//! Sets the parent body of the celestial body (another celestial body which it orbits)
+/*!
+\param parent the celestial body which it orbits
+*/
 void CelestialBody::setParentBody(spCelestialBody parent)
 {
   _parent = parent;
@@ -156,14 +182,28 @@ std::string CelestialBody::getType()
   return _type;
 }
 
+//! Returns the abundance of given element on the surface
+/*!
+\param element index of the element for which to find abundance
+*/
 int CelestialBody::getComposition(int element)
 {
-  return _composition[element];
+  if (element < MAX_ELEMENTS)
+  {
+    return _composition[element];
+  }
 }
 
+//! Returns the abundance of given element in the atmosphere
+/*!
+\param element index of the element for which to find abundance
+*/
 int CelestialBody::getAtmosphereComposition(int element)
 {
-  return _atmosphere_composition[element];
+  if (element < MAX_ELEMENTS)
+  {
+    return _atmosphere_composition[element];
+  }
 }
 
 int CelestialBody::getDistanceFromCenter()
@@ -181,6 +221,10 @@ int CelestialBody::getMineCount()
   return _mine_count;
 }
 
+//! Add a new celestial body to the orbit
+/*!
+\param orbiter smart pointer to the celestial body which to add to the orbit
+*/
 void CelestialBody::addOrbiter(spCelestialBody orbiter)
 {
   if (getOrbitCount() < MAX_ORBITERS)
@@ -190,6 +234,10 @@ void CelestialBody::addOrbiter(spCelestialBody orbiter)
   }
 }
 
+//! Add a new mine to the surface
+/*!
+\param mine smart pointer to the mine which to add
+*/
 void CelestialBody::addMine(spMine mine)
 {
   if (getMineCount() < MAX_MINES)
@@ -204,6 +252,10 @@ spCelestialBody CelestialBody::getParentBody()
   return _parent;
 }
 
+//! Return a smart pointer to the mine at given index
+/*!
+\param index the index of the mine to return
+*/
 spMine CelestialBody::getMine(int index)
 {
   if (index < MAX_MINES && _mines[index])
@@ -212,6 +264,7 @@ spMine CelestialBody::getMine(int index)
   }
 }
 
+//! Generate distribution of chemicals found on the surface for terrestrial bodies such as planets and moons
 void CelestialBody::generateTerrestrialDistribution()
 {
   //set to default at the start
@@ -271,6 +324,7 @@ void CelestialBody::generateTerrestrialDistribution()
   }
 }
 
+//! Generate a new star along with a random amount of randomly-generated orbiting planets and its surface's chemical distribution
 void CelestialBody::generateStar()
 {
   int gen = rand() % 9999;
@@ -419,6 +473,10 @@ void CelestialBody::generateStar()
   }
 }
 
+//! Generate a new planet along with a random amount of randomly-generated orbiting moons and its surface's chemical distribution
+/*!
+\param distance distance from parent body (0 if no parent body)
+*/
 void CelestialBody::generatePlanet(int distance)
 {
   int jovian_gen = rand() % 1000;
@@ -470,6 +528,13 @@ void CelestialBody::generatePlanet(int distance)
   }
 }
 
+//! Generate a new moon and its surface's chemical distribution
+/*!
+\param mass mass of the moon
+\param temp surface temperature of the moon
+\param radius radius of the moon in Earth radii
+\param distance distance from its parent body
+*/
 void CelestialBody::generateMoon(float mass, int temp, float radius, int distance)
 {
   setType("Moon");

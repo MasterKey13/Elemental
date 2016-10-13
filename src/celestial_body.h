@@ -32,8 +32,8 @@ class CelestialBody : public Actor
 	  void init(
       float radius,
       float mass, 
-      int temp, //in Kelvin
-      std::string type //types = "Planet", "Star", "White Dwarf", "Black Hole", "Moon"
+      int temp,
+      std::string type
     );
 
     void log();
@@ -73,7 +73,6 @@ class CelestialBody : public Actor
     void generateStar();
     void generatePlanet(int distance);
     void generateMoon(float mass, int temp, float radius, int distance);
-
     void generateTerrestrialDistribution();
 
   private:

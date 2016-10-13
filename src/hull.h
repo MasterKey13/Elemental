@@ -44,5 +44,4 @@ class Hull : public Item
     int _hitpoints;
     int _hitpoints_cap;
     spArmor _armor;
-
 };

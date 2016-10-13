@@ -34,7 +34,7 @@ class Item : public Actor
     void setModel(std::string model);
     void setSize(int size);
     void setComposition(int element, int abundance);
-    void setCompositionDefault(); //sets composition to all 0s
+    void setCompositionDefault();
 
     //GETTERS
     int getID();

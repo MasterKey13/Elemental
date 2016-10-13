@@ -15,7 +15,7 @@ void Game::init()
 {
   //create a Player and attach it to the Ship
   _player = new Player();
-  _player->init("Heiko", "Evilyn", "", "Human", 5, "none", 4, 3, 2);
+  _player->init("Heiko", "Evilyn", "", "Human", 5, "none", 4, 10, 2, 6);
 
   //create Ship Hull
   _hull = new Hull();

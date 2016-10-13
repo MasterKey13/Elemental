@@ -15,6 +15,8 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 using namespace oxygine;
 
+#define MAX_ELEMENTS 50
+
 //Declare smart pointers
 DECLARE_SMART(Ship, spShip);
 DECLARE_SMART(Character, spCharacter);
@@ -40,8 +42,7 @@ class Ship : public Item
       spHull hull,
       spBattery battery,
       spEngine engine,
-      spCharacter captain = nullptr,
-      spArmor armor = nullptr);
+      spCharacter captain = nullptr);
 
     void log();
 	 
@@ -54,7 +55,6 @@ class Ship : public Item
     void setFuelLevel(float fuel_level);
     void setEvasion(int evasion);
     void setCaptain(spCharacter captain);
-    void setArmor(spArmor armor);
     void setHull(spHull hull);
     void setBattery(spBattery battery);
     void setEngine(spEngine engine);
@@ -68,31 +68,29 @@ class Ship : public Item
     float getFuelCap();
     int getEvasion();
     spCharacter getCaptain();
-    spArmor getArmor();
     spHull getHull();
     spBattery getBattery();
     spEngine getEngine();
 
-    void travelTo(int x, int y); //travel the ship to a certain location
+    void travelTo(int x, int y);
 
   private:
 	  void doUpdate(const UpdateState &us);
 
-	  int _xPos, _yPos; //coordinates of the ship
-	  std::string _name; //name of the ship
-	  spCharacter _captain; //captain of the ship
-    int _evasion; //ship's evasion level
-    int _chem_cap; //capacity of total atomic mass
-    int _chem[120]; //chemical elements stored on the ship
-    int _inventory_cap; //inventory capacity
-    std::vector<spItem> _inventory; //inventory
-    float _fuel_level; //fuel level of the ship
-    float _fuel_cap; //fuel tank capacity (maximum)
+	  int _xPos, _yPos;
+	  std::string _name; 
+	  spCharacter _captain;
+    int _evasion; 
+    int _chem_cap;
+    int _chem[MAX_ELEMENTS];
+    int _inventory_cap; 
+    std::vector<spItem> _inventory; 
+    float _fuel_level; 
+    float _fuel_cap;
 
-    spArmor _armor; //ship's armor slot
-    spHull _hull; //hull of the ship
-    spBattery _battery; //battery of the ship
-    spEngine _engine;//engine of the ship
+    spHull _hull;
+    spBattery _battery;
+    spEngine _engine;
 
-    //weapons used by the ship
+    //TODO: weapons used by the ship
 };

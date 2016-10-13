@@ -25,6 +25,7 @@ class Character : public Actor
       std::string type,
       int inventory_cap,
       std::string faction,
+      int hostility,
       int intelligence,
       int discourse,
       int strength
@@ -39,6 +40,7 @@ class Character : public Actor
     void setType(std::string type);
     void setInventoryCap(int inventory_cap);
     void setFaction(std::string faction);
+    void setHostility(int hostility);
     void setIntelligence(int intelligence);
     void setDiscourse(int discourse);
     void setStrength(int strength);
@@ -52,6 +54,7 @@ class Character : public Actor
     std::string getType();
     int getInventoryCap();
     std::string getFaction();
+    int getHostility();
     int getIntelligence();
     int getDiscourse();
     int getStrength();
@@ -67,13 +70,13 @@ class Character : public Actor
 	  std::string _last_name;
 	  std::string _nickname;
 
-    std::string _status; //character's status (alive, dead, injured)
-    std::string _type; //type, or race, of character (human, android, etc)
-    int _inventory_cap; //inventory capacity
-    std::vector<spItem> _inventory; //inventory
-    std::string _faction; //character's faction
-    int _hostility; //how hostile they are to their enemies
-    int _intelligence; //how intelligent they are
-    int _discourse; //also known as "charisma"
-    int _strength; //physical strength
+    std::string _status;
+    std::string _type;
+    int _inventory_cap;
+    std::vector<spItem> _inventory;
+    std::string _faction;
+    int _hostility;
+    int _intelligence;
+    int _discourse; //aka "charisma"
+    int _strength;
 };

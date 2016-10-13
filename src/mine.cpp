@@ -10,7 +10,17 @@ Mine::Mine()
 {
 
 }
-
+//! Initialize a custom mine with given parameters
+/*!
+\param ID ID of the item (mine)
+\param name name of the item (mine)
+\param size size of the mine
+\param efficiency how efficiently the mine mines (2 mines twice as much as 1, 3 mines 3 times as much, etc)
+\param reliability how reliable the mine is when it mines each element (0 mines nothing, 10000 mines 100.00%)
+\param storage_capacity the capacity of the mine
+\param brand the brand name of the mine
+\pram model model name of the mine
+*/
 void Mine::init(
   int ID,
   std::string name,
@@ -113,11 +123,13 @@ int Mine::getCurrentStorage()
   return _current_total_storage;
 }
 
+//! Returns a smart pointer to the CelestialBody on which it is installed
 spCelestialBody Mine::getHostBody()
 {
   return _host;
 }
 
+//! Extracts elements from its host body based on its attributes
 void Mine::extract()
 {
   if (getHostBody() != NULL)

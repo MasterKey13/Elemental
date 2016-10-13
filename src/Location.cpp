@@ -11,14 +11,14 @@ Location::Location()
 
 }
 
-/*
-Initialize a Location
-  (int) x coordinate of the location
-  (int) y coordinate of the location
+//! Initializes a custom location at given x and y coordinates
+/*!
+\param x x-coordinate
+\param y y-coordinate
 */
 void Location::init(int x, int y)
 {
-	setCoordinates(x,y); //set coordinates
+	setCoordinates(x,y);
 }
 
 void Location::setCoordinates(int x, int y)
@@ -37,6 +37,10 @@ int Location::getYCoordinate()
   return _y;
 }
 
+//! Add a ship to the location
+/*!
+\param ship smart pointer to the ship to add to the current location
+*/
 void Location::addShip(spShip ship)
 {
   if (_ship_count < MAX_SHIPS)
@@ -46,6 +50,10 @@ void Location::addShip(spShip ship)
   }
 }
 
+//! Return ship at this location at the given index
+/*!
+\param index index at which the ship is located
+*/
 spShip Location::getShip(int index)
 {
   if (index < MAX_SHIPS && _ships[index])
@@ -54,6 +62,7 @@ spShip Location::getShip(int index)
   }
 }
 
+//! Randomly generate a location and its contents (stars, planets, ships, etc)
 void Location::generateLocation()
 {
   //65.0% chance that star or planet will be generated

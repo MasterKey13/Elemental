@@ -11,6 +11,14 @@ Item::Item()
 
 }
 
+//! Initialize a custom item with given parameters
+/*!
+\param ID ID of the item (weapon)
+\param name name of the item (weapon)
+\param size size of the mine
+\param brand the brand name of the mine
+\pram model model name of the mine
+*/
 void Item::init(
   int ID, 
   std::string name, 

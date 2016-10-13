@@ -17,7 +17,13 @@ class Armor : public Item
   public:
     Armor();
 
-    enum DamageType { Ballistic, Electrical, Radioactive, Chemical };
+    enum DamageType
+    {
+      Ballistic,
+      Electrical,
+      Radioactive,
+      Chemical
+    };
 
     void init(
       int ID,
@@ -33,10 +39,10 @@ class Armor : public Item
     void log();
 
     //GETTERS
-    int getDamageResistance(DamageType damage_type);
+    int getDamageResistance(DamageType type);
 
     //SETTERS
-    void setDamageResistance(DamageType damage_type, int damage_resistance);
+    void setDamageResistance(DamageType type, int resistance);
 
   private:
     int _damage_resistance[4];

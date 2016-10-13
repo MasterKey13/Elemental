@@ -17,7 +17,13 @@ class Weapon : public Item
   public:
     Weapon();
 
-    enum DamageType { Ballistic, Electrical, Radioactive, Chemical };
+    enum DamageType
+    {
+      Ballistic,
+      Electrical,
+      Radioactive,
+      Chemical
+    };
 
     void init(
       int ID,
@@ -35,10 +41,10 @@ class Weapon : public Item
     void log();
 
     //GETTERS
-    int getDamageResistance(DamageType damage_type);
+    int getDamage(DamageType damage_type);
 
     //SETTERS
-    void setDamageResistance(DamageType damage_type, int damage_resistance);
+    void setDamage(DamageType damage_type, int damage_resistance);
 
   private:
     int _AP_cost;

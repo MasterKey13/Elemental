@@ -12,6 +12,16 @@ Engine::Engine()
 
 }
 
+//! Initialize a custom ship engine
+/*!
+\param ID ID of the item
+\param size size of the engine
+\param hitpoints starting amount of hitpoints
+\param hitpoints_cap maximum hitpoints capacity
+\param name name of the item
+\param brand brand name of the engine
+\param model model name of the engine
+*/
 void Engine::init(
   int ID,
   int size,
@@ -63,6 +73,7 @@ int Engine::getHitPointsCap()
   return _hitpoints_cap;
 }
 
+//! Return the armor piece covering the engine, if one exists, otherwise return nullptr
 spArmor Engine::getArmor()
 {
   if (_armor) { return _armor; }

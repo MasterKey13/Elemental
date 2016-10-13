@@ -11,6 +11,19 @@ Character::Character()
 
 }
 
+//! Initializes a custom Character with given parameterss
+/*!
+\param first_name first name of the character
+\param last_name last name of the character
+\param nickname nickname of the character, optional
+\param type race of character, ie. human, android, etc
+\param inventory_cap maximum inventory capacity
+\param faction faction to which the character aligns
+\param hostility how hostile this character is to other characters
+\param intelligence how intelligent the character is
+\param discourse the level of this character's social skills
+\param strength physical strength of the character
+*/
 void Character::init(
   std::string first_name,
   std::string last_name,
@@ -18,6 +31,7 @@ void Character::init(
   std::string type,
   int inventory_cap,
   std::string faction,
+  int hostility,
   int intelligence,
   int discourse,
   int strength)
@@ -30,6 +44,7 @@ void Character::init(
   setType(type);
   setInventoryCap(inventory_cap);
   setFaction(faction);
+  setHostility(hostility);
   setIntelligence(intelligence);
   setDiscourse(discourse);
   setStrength(strength);
@@ -82,6 +97,11 @@ void Character::setFaction(std::string faction)
   _faction = faction;
 }
 
+void Character::setHostility(int hostility)
+{
+  _hostility = hostility;
+}
+
 void Character::setIntelligence(int intelligence)
 {
   _intelligence = intelligence;
@@ -97,6 +117,10 @@ void Character::setStrength(int strength)
   _strength = strength;
 }
 
+//! Set the status of the character
+/*!
+\param status status of the character ("alive", "deceased", "injured", etc)
+*/
 void Character::setStatus(std::string status)
 {
   _status = status;
@@ -137,6 +161,11 @@ std::string Character::getFaction()
   return _faction;
 }
 
+int Character::getHostility()
+{
+  return _hostility;
+}
+
 int Character::getIntelligence()
 {
   return _intelligence;
@@ -152,11 +181,17 @@ int Character::getStrength()
   return _strength;
 }
 
+//! Get the health status of the character
+
 std::string Character::getStatus()
 {
   return _status;
 }
 
+//! Kills the character using specified death type and log it
+/*!
+\param death type of death ("drowning", "assassination", "natural causes", etc.)
+*/
 void Character::kill(std::string death)
 {
   _status = "dead by " + death;

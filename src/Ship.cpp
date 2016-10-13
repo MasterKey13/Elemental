@@ -14,6 +14,20 @@ Ship::Ship()
 
 }
 
+//! Initialize a custom ship with given parameters
+/*!
+\param name name of the item (ship)
+\param x starting x-coordinate of the ship
+\param y starting y-coordinate of the ship
+\param chem_cap maximum amount of chemical storage
+\param fuel_cap maximum amount of fuel
+\param fuel_level current amount of fuel
+\param evasion chances to evade attacks
+\param hull the hull of the ship
+\param battery the battery of the ship
+\param engine the engine of the ship
+\param captain the captain of the ship
+*/
 void Ship::init(
   std::string name,
   int x, int y,
@@ -25,8 +39,7 @@ void Ship::init(
   spHull hull,
   spBattery battery,
   spEngine engine,
-  spCharacter captain,
-  spArmor armor)
+  spCharacter captain)
 {
 	setName(name);
   setInventoryCap(inventory_cap);
@@ -115,11 +128,6 @@ void Ship::setCaptain(spCharacter captain)
   _captain = captain;
 }
 
-void Ship::setArmor(spArmor armor)
-{
-  _armor = armor;
-}
-
 void Ship::setHull(spHull hull)
 {
   _hull = hull;
@@ -160,12 +168,6 @@ spCharacter Ship::getCaptain()
   return _captain;
 }
 
-spArmor Ship::getArmor()
-{
-  if (_armor) { return _armor; }
-  else { return nullptr; }
-}
-
 spHull Ship::getHull()
 {
   return _hull;
@@ -196,6 +198,11 @@ int Ship::getChemCap()
   return _chem_cap;
 }
 
+//! Travel the ship to a given location, if exists and if there is enough fuel
+/*!
+\param x x-coordinate of the new location
+\param y y-coordinate of the new location
+*/
 void Ship::travelTo(int x, int y)
 {
   float travelCost = sqrt((float)(pow((_xPos - x), 2) + pow((_yPos - y), 2)));

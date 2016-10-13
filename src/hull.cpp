@@ -12,6 +12,16 @@ Hull::Hull()
 
 }
 
+//! Initialize a custom ship hull with given parameters
+/*!
+\param ID ID of the item (hull)
+\param size size of the item (hull)
+\param hitpoints the starting amount of hitpoints
+\param hitpoints_cap the maximum amount of hitpoints
+\param name name of the item (hull)
+\param brand the brand name of the hull
+\pram model model name of the hull
+*/
 void Hull::init(
   int ID,
   int size,
@@ -62,7 +72,7 @@ int Hull::getHitPointsCap()
 {
   return _hitpoints_cap;
 }
-
+//! Return the armor piece covering the hull, if one exists, otherwise return nullptr
 spArmor Hull::getArmor()
 {
   if (_armor) { return _armor; }

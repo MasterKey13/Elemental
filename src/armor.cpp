@@ -12,18 +12,19 @@ Armor::Armor()
 
 }
 
-//! Manual initalization function for custom armor pieces
+//! Manual initalization function for custom armor pieces used for debugging
 /*!
-\param ID ID of the item
-\param name armor piece name
-\param size size of the armor piece
-\param ballistic_res ballistic resistance of the armor piece
-\param electical_res electrical resistance of the armor piece
-\param chemical_res chemical resistance of the armor piece
-\param brand brand of the armor piece
-\param model model of the armor piece
+  \param ID unique item ID
+  \param name name of the item
+  \param size size of the item
+  \param ballistic_res ballistic resistance
+  \param electical_res electrical resistance
+  \param chemical_res chemical resistance
+  \param brand bran name
+  \param model model name
 */
-void Armor::init(
+void Armor::init
+(
   int ID,
   std::string name, 
   int size,
@@ -32,7 +33,8 @@ void Armor::init(
   int radioactive_res,
   int chemical_res,
   std::string brand, 
-  std::string model)
+  std::string model
+)
 {
   this->setID(ID);
   this->setName(name);
@@ -71,12 +73,12 @@ void Armor::log()
     this->getDamageResistance(Chemical));
 }
 
-int Armor::getDamageResistance(DamageType damage_type)
+int Armor::getDamageResistance(DamageType type)
 {
-  return _damage_resistance[damage_type];
+  return _damage_resistance[type];
 }
 
-void Armor::setDamageResistance(DamageType damage_type, int damage_resistance)
+void Armor::setDamageResistance(DamageType type, int resistance)
 {
-  _damage_resistance[damage_type] = damage_resistance;
+  _damage_resistance[type] = resistance;
 }

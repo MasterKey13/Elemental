@@ -12,6 +12,18 @@ Battery::Battery()
 
 }
 
+//! Manual initalization function for custom ship batteries used for debugging
+/*!
+\param ID unique item ID
+\param size size of the item
+\param power initial battery power level
+\param power_cap maximum battery power level
+\param hitpoints initial amount of hitpoints the battery has
+\param hitpoints_cap maximum amount of hitpoints the battery can have
+\param name name of the item
+\param brand brandname of the battery
+\param model modelname of the battery
+*/
 void Battery::init(
   int ID,
   int size,
@@ -79,6 +91,7 @@ int Battery::getPowerCap()
   return _power_cap;
 }
 
+//! Return a smart pointer to the armor piece covering the battery (nullptr if none)
 spArmor Battery::getArmor()
 {
   if (_armor) { return _armor; }
