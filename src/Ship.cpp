@@ -44,6 +44,7 @@ void Ship::init(
 	setName(name);
   setInventoryCap(inventory_cap);
   setChemCap(chem_cap),
+  setChemDefault(),
   setFuelCap(fuel_cap);
   setFuelLevel(fuel_level);
   setEvasion(evasion);
@@ -73,15 +74,13 @@ void Ship::log()
 
   if (_captain)
   {
-    log::message("Captain: %s",
+    log::messageln("Captain: %s\n",
       this->getCaptain()->getFullName().c_str());
   }
   else
   {
-    log::message("Captain: none");
+    log::messageln("Captain: none\n");
   }
-
-  log::message("\n\n");
 }
 
 void Ship::setName(std::string name)
@@ -101,6 +100,22 @@ void Ship::setCoordinates(int x, int y)
 void Ship::setChemCap(int chem_cap)
 {
   _chem_cap = chem_cap;
+}
+
+void Ship::setChemAmount(int element, int amount)
+{
+  if (element <= MAX_ELEMENTS)
+  {
+    _chem[element] = amount;
+  }
+}
+
+void Ship::setChemDefault()
+{
+  for (int i = 0; i < MAX_ELEMENTS; i++)
+  {
+    _chem[i] = 0;
+  }
 }
 
 void Ship::setEvasion(int evasion)
@@ -161,6 +176,11 @@ float Ship::getFuelCap()
 int Ship::getEvasion()
 {
   return _evasion;
+}
+
+int Ship::getChemAmount(int element)
+{
+  return _chem[element];
 }
 
 spCharacter Ship::getCaptain()

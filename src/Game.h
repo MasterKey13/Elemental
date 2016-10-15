@@ -16,6 +16,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "engine.h"
 #include "weapon.h"
 #include "celestial_body.h"
+#include "synthesizer.h"
 
 using namespace oxygine;
 
@@ -32,6 +33,7 @@ DECLARE_SMART(Engine, spEngine);
 DECLARE_SMART(Weapon, spWeapon);
 DECLARE_SMART(CelestialBody, spCelestialBody);
 DECLARE_SMART(Mine, spMine);
+DECLARE_SMART(Synthesizer, spSynthesizer);
 
 class Game : public Actor
 {
@@ -57,4 +59,6 @@ class Game : public Actor
     spCelestialBody _star;
     spCelestialBody _planet;
     spMine _mine;
+
+    spSynthesizer _synth;
 };

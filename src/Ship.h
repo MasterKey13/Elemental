@@ -26,7 +26,7 @@ DECLARE_SMART(Hull, spHull);
 DECLARE_SMART(Battery, spBattery);
 DECLARE_SMART(Engine, spEngine);
 
-class Ship : public Item
+class Ship : public Actor
 {
   public:
 	  Ship();
@@ -50,6 +50,8 @@ class Ship : public Item
     void setName(std::string name);
     void setCoordinates(int x, int y);
     void setChemCap(int chem_cap);
+    void setChemAmount(int element, int amount);
+    void setChemDefault();
     void setInventoryCap(int inventory_cap);
     void setFuelCap(float fuel_cap);
     void setFuelLevel(float fuel_level);
@@ -67,6 +69,7 @@ class Ship : public Item
     float getFuelLevel();
     float getFuelCap();
     int getEvasion();
+    int getChemAmount(int element);
     spCharacter getCaptain();
     spHull getHull();
     spBattery getBattery();

@@ -10,6 +10,7 @@ Mine::Mine()
 {
 
 }
+
 //! Initialize a custom mine with given parameters
 /*!
 \param ID ID of the item (mine)

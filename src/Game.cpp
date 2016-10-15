@@ -65,6 +65,18 @@ void Game::init()
   _mine->setHostBody(_planet);
   _planet->addMine(_mine);
   _mine->extract();
+
+  //create new Item
+  _item = new Item();
+  _item->init(99, "Spoon", 1, "Sp00Nz", "Steel");
+  _item->setCompositionDefault();
+  _item->setComposition(4, 12);
+
+  //create new Synthesizer
+  _synth = new Synthesizer();
+  _synth->setSize(2);
+  _synth->setHostShip(_player_ship);
+  _synth->decomposeItem(_item);
 }
 
 void Game::doUpdate(const UpdateState &us)
