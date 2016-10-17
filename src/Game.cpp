@@ -8,7 +8,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Game::Game()
 {
-  srand(time(0));
+  srand((unsigned int)time(NULL));
 }
 
 void Game::init()

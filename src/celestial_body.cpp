@@ -192,6 +192,8 @@ int CelestialBody::getComposition(int element)
   {
     return _composition[element];
   }
+
+  return -1;
 }
 
 //! Returns the abundance of given element in the atmosphere
@@ -204,6 +206,8 @@ int CelestialBody::getAtmosphereComposition(int element)
   {
     return _atmosphere_composition[element];
   }
+
+  return -1;
 }
 
 int CelestialBody::getDistanceFromCenter()
@@ -262,6 +266,8 @@ spMine CelestialBody::getMine(int index)
   {
     return _mines[index];
   }
+
+  return nullptr;
 }
 
 //! Generate distribution of chemicals found on the surface for terrestrial bodies such as planets and moons

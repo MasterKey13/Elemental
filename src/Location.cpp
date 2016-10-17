@@ -60,6 +60,8 @@ spShip Location::getShip(int index)
   {
     return _ships[index];
   }
+
+  return nullptr;
 }
 
 //! Randomly generate a location and its contents (stars, planets, ships, etc)
