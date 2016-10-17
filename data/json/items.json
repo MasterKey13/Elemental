@@ -1,0 +1,14 @@
+{
+  "stuff": 1,
+
+  "items": [
+    {
+      "id": 1,
+      "name": "spoon"
+    },
+    {
+      "id": 2,
+      "name": "fork"
+    }
+  ]
+}

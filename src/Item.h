@@ -6,6 +6,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #pragma once
 #include "oxygine-framework.h"
 #include <string>
+#include "json/json.h"
 
 //declare smart pointer
 DECLARE_SMART(Item, spItem);
@@ -23,6 +24,8 @@ class Item : public Actor
       int size,
       std::string brand = "",
       std::string model = "");
+
+    void initByID(int id);
 
     void log();
 

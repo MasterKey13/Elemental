@@ -77,6 +77,10 @@ void Game::init()
   _synth->setSize(2);
   _synth->setHostShip(_player_ship);
   _synth->decomposeItem(_item);
+
+  //new loaded-from-file item
+  _file_item = new Item();
+  _file_item->initByID(1);
 }
 
 void Game::doUpdate(const UpdateState &us)

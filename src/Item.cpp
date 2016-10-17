@@ -44,6 +44,25 @@ void Item::init(
   log();
 }
 
+void Item::initByID(int id)
+{
+  //load file to buffer
+  file::buffer bf;
+  file::read("json/items.json", bf);
+
+  //parse
+  Json::Reader reader;
+  Json::Value value;
+  reader.parse((char*)&bf.front(), (char*)&bf.front() + bf.size(), value, false);
+
+  Json::Value items = value["items"];
+
+  for (int i = 0; i < items.size(); i++)
+  {
+    log::messageln("FOUND ID: %d", items[i]["id"].asInt());
+  }
+}
+
 void Item::log()
 {
   log::messageln("\n[ITEM]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\n",

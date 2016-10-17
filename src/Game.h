@@ -61,4 +61,6 @@ class Game : public Actor
     spMine _mine;
 
     spSynthesizer _synth;
+
+    spItem _file_item;
 };
