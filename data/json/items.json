@@ -1,14 +1,17 @@
 {
-  "stuff": 1,
-
   "items": [
     {
       "id": 1,
-      "name": "spoon"
-    },
-    {
-      "id": 2,
-      "name": "fork"
+      "name": "Heinrich Debit Card",
+      "size": 1,
+      "brand": "Bank of Earth",
+      "model": "",
+      "craftable": false,
+      "composition": {
+          "0": 200,
+          "5": 500,
+          "23": 400
+        }
     }
   ]
 }

@@ -13,18 +13,20 @@ Item::Item()
 
 //! Initialize a custom item with given parameters
 /*!
-\param ID ID of the item (weapon)
-\param name name of the item (weapon)
-\param size size of the mine
-\param brand the brand name of the mine
-\pram model model name of the mine
+\param ID ID of the item
+\param name name of the item
+\param size size of the item
+\param brand the brand name of the item
+\param model model name of the item
+\param craftable whether the item is craftable
 */
 void Item::init(
   int ID, 
   std::string name, 
   int size,
   std::string brand, 
-  std::string model)
+  std::string model,
+  bool craftable)
 {
   this->setID(ID);
   this->setName(name);
@@ -40,11 +42,17 @@ void Item::init(
   {
     this->setModel(model);
   }
+  
+  this->setCraftable(craftable);
 
   log();
 }
 
-void Item::initByID(int id)
+//! Initialize an item by ID (load from item definition file items.json)
+/*!
+\param ID ID of the item
+*/
+void Item::initByID(int ID)
 {
   //load file to buffer
   file::buffer bf;
@@ -57,20 +65,39 @@ void Item::initByID(int id)
 
   Json::Value items = value["items"];
 
+  //go through the json file and find the item by ID
   for (int i = 0; i < items.size(); i++)
   {
-    log::messageln("FOUND ID: %d", items[i]["id"].asInt());
+    if (items[i]["id"].asInt() == ID)
+    {
+      //initialize the item
+      init(
+        ID,
+        items[i]["name"].asCString(),
+        items[i]["size"].asInt(),
+        items[i]["brand"].asCString(),
+        items[i]["model"].asCString(),
+        items[i]["craftable"].asBool()
+        );
+
+      //load the defined elemental composition
+      for (int j = 0; j < 50; j++)
+      {
+        setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
+      }
+    }
   }
 }
 
 void Item::log()
 {
-  log::messageln("\n[ITEM]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\n",
+  log::messageln("\n[ITEM]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\nCraftable: %s\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),
     this->getBrand().c_str(),
-    this->getModel().c_str());
+    this->getModel().c_str(),
+    (this->getCraftable() ? "true" : "false"));
 }
 
 void Item::setID(int ID)
@@ -111,6 +138,11 @@ void Item::setCompositionDefault()
   }
 }
 
+void Item::setCraftable(bool craftable)
+{
+  _craftable = false;
+}
+
 int Item::getID()
 {
   return _itemID;
@@ -139,4 +171,9 @@ int Item::getSize()
 int Item::getComposition(int element)
 {
   return _composition[element];
+}
+
+bool Item::getCraftable()
+{
+  return _craftable;
 }
