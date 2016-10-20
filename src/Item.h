@@ -20,8 +20,9 @@ class Item : public Actor
 
     void init(
       int ID,
-      std::string name,
       int size,
+      std::string name = "",
+      std::string desc = "",
       std::string brand = "",
       std::string model = "",
       bool craftable = false);
@@ -33,6 +34,7 @@ class Item : public Actor
     //SETTERS
     void setID(int ID);
     void setName(std::string name);
+    void setDescription(std::string desc);
     void setBrand(std::string brand);
     void setModel(std::string model);
     void setSize(int size);
@@ -43,6 +45,7 @@ class Item : public Actor
     //GETTERS
     int getID();
     std::string getName();
+    std::string getDescription();
     std::string getBrand();
     std::string getModel();
     int getSize();
@@ -52,6 +55,7 @@ class Item : public Actor
   private:
     int _itemID;
     std::string _name;
+    std::string _desc;
     std::string _brand;
     std::string _model;
     int _size;

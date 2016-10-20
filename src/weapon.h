@@ -6,6 +6,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #pragma once
 #include "oxygine-framework.h"
 #include "item.h"
+#include "json/json.h"
 
 using namespace oxygine;
 
@@ -35,8 +36,11 @@ class Weapon : public Item
       int radioactive_dmg = 0,
       int chemical_dmg = 0,
       std::string name = "",
+      std::string desc = "",
       std::string brand = "",
       std::string model = "");
+
+    void initByID(int ID);
 
     void log();
 

@@ -14,16 +14,18 @@ Item::Item()
 //! Initialize a custom item with given parameters
 /*!
 \param ID ID of the item
-\param name name of the item
 \param size size of the item
+\param name name of the item
+\param desc description of the item
 \param brand the brand name of the item
 \param model model name of the item
 \param craftable whether the item is craftable
 */
 void Item::init(
   int ID, 
-  std::string name, 
   int size,
+  std::string name,
+  std::string desc,
   std::string brand, 
   std::string model,
   bool craftable)
@@ -31,6 +33,7 @@ void Item::init(
   this->setID(ID);
   this->setName(name);
   this->setSize(size);
+  this->setDescription(desc);
   this->setCompositionDefault();
 
   if (brand.length() > 0)
@@ -73,8 +76,9 @@ void Item::initByID(int ID)
       //initialize the item
       init(
         ID,
-        items[i]["name"].asCString(),
         items[i]["size"].asInt(),
+        items[i]["name"].asCString(),
+        items[i]["description"].asCString(),
         items[i]["brand"].asCString(),
         items[i]["model"].asCString(),
         items[i]["craftable"].asBool()
@@ -108,6 +112,11 @@ void Item::setID(int ID)
 void Item::setName(std::string name)
 {
   _name = name;
+}
+
+void Item::setDescription(std::string desc)
+{
+  _desc = desc;
 }
 
 void Item::setBrand(std::string brand)
@@ -151,6 +160,11 @@ int Item::getID()
 std::string Item::getName()
 {
   return _name;
+}
+
+std::string Item::getDescription()
+{
+  return _desc;
 }
 
 std::string Item::getBrand()

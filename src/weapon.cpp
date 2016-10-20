@@ -15,7 +15,7 @@ Weapon::Weapon()
 //! Initialize a custom weapon with given parameters
 /*!
 \param ID ID of the item (weapon)
-\param size size of the mine
+\param size size of the weapon
 \param hitpoints the amount of hitpoints the weapon starts with
 \param hitpoints_cap the maximum amount of hitpoints
 \param ballistic_dmg the amount of ballistic damage the weapon deals
@@ -23,8 +23,9 @@ Weapon::Weapon()
 \param radioactive_dmg the amount of radioactive damage the weapon deals
 \param chemical_dmg the amount of chemical damage the weapon deals
 \param name name of the item (weapon)
-\param brand the brand name of the mine
-\pram model model name of the mine
+\param desc description of the item (weapon)
+\param brand the brand name of the weapon
+\pram model model name of the weapon
 */
 void Weapon::init(
   int ID, 
@@ -36,6 +37,7 @@ void Weapon::init(
   int radioactive_dmg,
   int chemical_dmg,
   std::string name, 
+  std::string desc,
   std::string brand, 
   std::string model)
 {
@@ -55,6 +57,48 @@ void Weapon::init(
   }
 
   log();
+}
+
+void Weapon::initByID(int ID)
+{
+  //load file to buffer
+  file::buffer bf;
+  file::read("json/weapons.json", bf);
+
+  //parse
+  Json::Reader reader;
+  Json::Value value;
+  reader.parse((char*)&bf.front(), (char*)&bf.front() + bf.size(), value, false);
+
+  Json::Value weapons = value["weapons"];
+
+  //go through the json file and find the weapon by ID
+  for (int i = 0; i < weapons.size(); i++)
+  {
+    if (weapons[i]["id"].asInt() == ID)
+    {
+      //initialize the weapon
+      init(
+        ID,
+        weapons[i]["size"].asInt(),
+        weapons[i]["hitpoints"].asInt(),
+        weapons[i]["hitpoints"].asInt(),
+        weapons[i]["ballistic_dmg"].asInt(),
+        weapons[i]["electrical_dmg"].asInt(),
+        weapons[i]["radioactive_dmg"].asInt(),
+        weapons[i]["chemical_dmg"].asInt(),
+        weapons[i]["name"].asCString(),
+        weapons[i]["brand"].asCString(),
+        weapons[i]["model"].asCString()
+      );
+
+      //load the defined elemental composition
+      for (int j = 0; j < 50; j++)
+      {
+        setComposition(j, weapons[i]["composition"][std::to_string(j)].asInt());
+      }
+    }
+  }
 }
 
 void Weapon::log()

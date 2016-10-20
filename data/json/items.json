@@ -3,14 +3,31 @@
     {
       "id": 1,
       "name": "Heinrich Debit Card",
+      "description": "A solid steel alloy card with an embedded chip used to track debit account balance for the Bank of Earth.",
       "size": 1,
       "brand": "Bank of Earth",
       "model": "",
       "craftable": false,
       "composition": {
-          "0": 200,
-          "5": 500,
-          "23": 400
+          "0": 15,
+          "5": 25,
+          "13": 10,
+          "23": 60
+        }
+    },
+    {
+      "id": 2,
+      "name": "United Americas: A Complete History",
+      "description": "A brief yet complete history of United America written by Strompf Lucas in 2300.",
+      "size": 1,
+      "brand": "Unipublish",
+      "model": "",
+      "craftable": false,
+      "composition": {
+          "0": 60,
+          "5": 220,
+          "6": 35,
+          "7": 25
         }
     }
   ]

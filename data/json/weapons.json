@@ -1,0 +1,37 @@
+{
+  "weapons": [
+    {
+      "id": 1,
+      "name": "Mini Ballistic Cannon",
+      "hitpoints": 50,
+      "ballistic_dmg": 77,
+      "electrical_dmg": 0,
+      "radioactive_dmg": 0,
+      "chemical_dmg": 0,
+      "brand": "Americast",
+      "model": "AU-17"
+    },
+    {
+      "id": 2,
+      "name": "Electron Agitator",
+      "hitpoints": 66,
+      "ballistic_dmg": 77,
+      "electrical_dmg": 0,
+      "radioactive_dmg": 0,
+      "chemical_dmg": 0,
+      "brand": "Eurofed",
+      "model": "MK-III"
+    },
+    {
+      "id": 3,
+      "name": "Uranium Isotope Propeller",
+      "hitpoints": 54,
+      "ballistic_dmg": 4,
+      "electrical_dmg": 0,
+      "radioactive_dmg": 14,
+      "chemical_dmg": 0,
+      "brand": "Eurofed",
+      "model": "A1"
+    }
+  ]
+}

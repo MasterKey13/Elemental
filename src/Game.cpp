@@ -68,7 +68,7 @@ void Game::init()
 
   //create new Item
   _item = new Item();
-  _item->init(99, "Spoon", 1, "Sp00Nz", "Steel");
+  _item->init(99, 1, "Spoon", "It's a spoon", "Sp00Nz", "SteelX", true);
   _item->setCompositionDefault();
   _item->setComposition(4, 12);
 
