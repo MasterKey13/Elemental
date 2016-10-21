@@ -31,14 +31,14 @@ class Weapon : public Item
       int size,
       int hitpoints,
       int hitpoints_cap,
+      bool craftable = false,
       int ballistic_dmg = 0,
       int electrical_dmg = 0,
       int radioactive_dmg = 0,
       int chemical_dmg = 0,
       std::string name = "",
       std::string desc = "",
-      std::string brand = "",
-      std::string model = "");
+      std::string brand = "");
 
     void initByID(int ID);
 

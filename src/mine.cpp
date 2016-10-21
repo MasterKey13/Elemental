@@ -20,7 +20,7 @@ Mine::Mine()
 \param reliability how reliable the mine is when it mines each element (0 mines nothing, 10000 mines 100.00%)
 \param storage_capacity the capacity of the mine
 \param brand the brand name of the mine
-\pram model model name of the mine
+\param craftable whether the item is craftable
 */
 void Mine::init(
   int ID,
@@ -29,8 +29,8 @@ void Mine::init(
   int efficiency,
   int reliability,
   int storage_capacity,
-  std::string brand,
-  std::string model)
+  int max_temp,
+  std::string brand)
 {
   setID(ID);
   setName(name);
@@ -38,8 +38,8 @@ void Mine::init(
   setEfficiency(efficiency);
   setReliability(reliability);
   setStorageCapacity(storage_capacity);
+  setMaxTemp(max_temp);
   setBrand(brand);
-  setModel(model);
 
   setStorageDefault();
   setHostBody(NULL);
@@ -47,15 +47,53 @@ void Mine::init(
   log();
 }
 
+void Mine::initByID(int ID)
+{
+  //load file to buffer
+  file::buffer bf;
+  file::read("json/mines.json", bf);
+
+  //parse
+  Json::Reader reader;
+  Json::Value value;
+  reader.parse((char*)&bf.front(), (char*)&bf.front() + bf.size(), value, false);
+
+  Json::Value mines = value["mines"];
+
+  //go through the json file and find the weapon by ID
+  for (int i = 0; i < mines.size(); i++)
+  {
+    if (mines[i]["id"].asInt() == ID)
+    {
+      //initialize the weapon
+      init(
+        ID,
+        mines[i]["name"].asCString(),
+        mines[i]["size"].asInt(),
+        mines[i]["efficiency"].asInt(),
+        mines[i]["reliability"].asInt(),
+        mines[i]["storage_capacity"].asInt(),
+        mines[i]["max_temperature"].asInt(),
+        mines[i]["brand"].asCString()
+      );
+
+      //load the defined elemental composition
+      for (int j = 0; j < 50; j++)
+      {
+        setComposition(j, mines[i]["composition"][std::to_string(j)].asInt());
+      }
+    }
+  }
+}
+
 void Mine::log()
 {
-  log::messageln("\n[MINE]\nSize: %d\nEfficiency: %d\nReliability: %d\nStorage Cap: %d\nBrand %s\nModel %s\n",
-    this->getSize(),
-    this->getEfficiency(),
-    this->getReliability(),
-    this->getStorageCapacity(),
-    this->getBrand().c_str(),
-    this->getModel().c_str());
+  log::messageln("\n[MINE]\nSize: %d\nEfficiency: %d\nReliability: %d\nStorage Cap: %d\nBrand %s\n",
+    getSize(),
+    getEfficiency(),
+    getReliability(),
+    getStorageCapacity(),
+    getBrand().c_str());
 }
 
 void Mine::setStorageCapacity(int cap)
@@ -98,6 +136,10 @@ void Mine::setHostBody(spCelestialBody host)
   _host = host;
 }
 
+void Mine::setMaxTemp(int temp)
+{
+  _max_temp = temp;
+}
 
 int Mine::getStorageCapacity()
 {
@@ -130,6 +172,11 @@ spCelestialBody Mine::getHostBody()
   return _host;
 }
 
+int Mine::getMaxTemp()
+{
+  return _max_temp;
+}
+
 //! Extracts elements from its host body based on its attributes
 void Mine::extract()
 {
@@ -158,7 +205,7 @@ void Mine::extract()
       }
 
       log::messageln("Extracted %d of element [%d] from host body",
-        this->getStorage(i), i);
+        getStorage(i), i);
     }
 
     log::messageln("Mine capacity: %d/%d",

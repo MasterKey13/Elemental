@@ -20,32 +20,28 @@ Engine::Engine()
 \param hitpoints_cap maximum hitpoints capacity
 \param name name of the item
 \param brand brand name of the engine
-\param model model name of the engine
+\param craftable whether the item is craftable
 */
 void Engine::init(
   int ID,
   int size,
   int hitpoints,
   int hitpoints_cap,
+  bool craftable,
   std::string name,
-  std::string brand,
-  std::string model)
+  std::string brand)
 {
-  this->setID(ID);
-  this->setName(name);
-  this->setSize(size);
-  this->setHitPoints(hitpoints);
-  this->setHitPointsCap(hitpoints_cap);
-  this->setCompositionDefault();
+  setID(ID);
+  setName(name);
+  setSize(size);
+  setHitPoints(hitpoints);
+  setHitPointsCap(hitpoints_cap);
+  setCompositionDefault();
+  setCraftable(craftable);
 
   if (brand.length() > 0)
   {
-    this->setBrand(brand);
-  }
-
-  if (model.length() > 0)
-  {
-    this->setModel(model);
+    setBrand(brand);
   }
 
   log();
@@ -53,14 +49,13 @@ void Engine::init(
 
 void Engine::log()
 {
-  log::messageln("\n[ENGINE]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\nHP: %d/%d\n",
-    this->getID(),
-    this->getName().c_str(),
-    this->getSize(),
-    this->getBrand().c_str(),
-    this->getModel().c_str(),
-    this->getHitPoints(),
-    this->getHitPointsCap());
+  log::messageln("\n[ENGINE]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nHP: %d/%d\n",
+    getID(),
+    getName().c_str(),
+    getSize(),
+    getBrand().c_str(),
+    getHitPoints(),
+    getHitPointsCap());
 }
 
 int Engine::getHitPoints()

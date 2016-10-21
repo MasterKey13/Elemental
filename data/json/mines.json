@@ -1,0 +1,14 @@
+{
+  "mines": [
+    {
+      "id": 1,
+      "name": "Model 90LE Mine",
+      "size": 8,
+      "efficiency": 1,
+      "reliability": 9000,
+      "storage_capacity": 5000,
+      "max_temperature": 150,
+      "brand": "Mine-X"
+    }
+  ]
+}

@@ -4,23 +4,23 @@
       "id": 1,
       "name": "Mini Ballistic Cannon",
       "hitpoints": 50,
-      "ballistic_dmg": 77,
+      "ballistic_dmg": 74,
       "electrical_dmg": 0,
       "radioactive_dmg": 0,
       "chemical_dmg": 0,
       "brand": "Americast",
-      "model": "AU-17"
+      "craftable": true
     },
     {
       "id": 2,
       "name": "Electron Agitator",
-      "hitpoints": 66,
-      "ballistic_dmg": 77,
-      "electrical_dmg": 0,
+      "hitpoints": 69,
+      "ballistic_dmg": 10,
+      "electrical_dmg": 48,
       "radioactive_dmg": 0,
       "chemical_dmg": 0,
       "brand": "Eurofed",
-      "model": "MK-III"
+      "craftable": true
     },
     {
       "id": 3,
@@ -31,7 +31,18 @@
       "radioactive_dmg": 14,
       "chemical_dmg": 0,
       "brand": "Eurofed",
-      "model": "A1"
+      "craftable": true
+    },
+    {
+      "id": 4,
+      "name": "",
+      "hitpoints": 79,
+      "ballistic_dmg": 6,
+      "electrical_dmg": 0,
+      "radioactive_dmg": 0,
+      "chemical_dmg": 23,
+      "brand": "Americast",
+      "craftable": true
     }
   ]
 }

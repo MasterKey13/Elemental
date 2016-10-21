@@ -26,9 +26,9 @@ class Battery : public Item
       int power_cap,
       int hitpoints,
       int hitpoints_cap,
+      bool craftable = false,
       std::string name = "",
-      std::string brand = "",
-      std::string model = "");
+      std::string brand = "");
 
     void log();
     

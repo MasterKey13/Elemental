@@ -25,36 +25,33 @@ Weapon::Weapon()
 \param name name of the item (weapon)
 \param desc description of the item (weapon)
 \param brand the brand name of the weapon
-\pram model model name of the weapon
+\param craftable whether the item is craftable
 */
 void Weapon::init(
   int ID, 
   int size,
   int hitpoints, 
   int hitpoints_cap,
+  bool craftable,
   int ballistic_dmg,
   int electrical_dmg,
   int radioactive_dmg,
   int chemical_dmg,
   std::string name, 
   std::string desc,
-  std::string brand, 
-  std::string model)
+  std::string brand)
 {
-  this->setID(ID);
-  this->setName(name);
-  this->setSize(size);
-  this->setCompositionDefault();
+  setID(ID);
+  setName(name);
+  setSize(size);
+  setCompositionDefault();
 
   if (brand.length() > 0)
   {
-    this->setBrand(brand);
+    setBrand(brand);
   }
 
-  if (model.length() > 0)
-  {
-    this->setModel(model);
-  }
+  setCraftable(craftable);
 
   log();
 }
@@ -83,13 +80,12 @@ void Weapon::initByID(int ID)
         weapons[i]["size"].asInt(),
         weapons[i]["hitpoints"].asInt(),
         weapons[i]["hitpoints"].asInt(),
+        weapons[i]["brand"].asCString(),
         weapons[i]["ballistic_dmg"].asInt(),
         weapons[i]["electrical_dmg"].asInt(),
         weapons[i]["radioactive_dmg"].asInt(),
         weapons[i]["chemical_dmg"].asInt(),
-        weapons[i]["name"].asCString(),
-        weapons[i]["brand"].asCString(),
-        weapons[i]["model"].asCString()
+        weapons[i]["name"].asCString()
       );
 
       //load the defined elemental composition
@@ -103,12 +99,11 @@ void Weapon::initByID(int ID)
 
 void Weapon::log()
 {
-  log::messageln("\n[WEAPON]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\n",
-    this->getID(),
-    this->getName().c_str(),
-    this->getSize(),
-    this->getBrand().c_str(),
-    this->getModel().c_str());
+  log::messageln("\n[WEAPON]\nID: %d\nName: %s\nSize: %d\nBrand: %s\n",
+    getID(),
+    getName().c_str(),
+    getSize(),
+    getBrand().c_str());
 }
 
 //! Return the amount of damage the weapon deals for the given damage type

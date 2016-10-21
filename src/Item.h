@@ -21,11 +21,10 @@ class Item : public Actor
     void init(
       int ID,
       int size,
+      bool craftable = false,
       std::string name = "",
       std::string desc = "",
-      std::string brand = "",
-      std::string model = "",
-      bool craftable = false);
+      std::string brand = "");
 
     void initByID(int ID);
 
@@ -36,7 +35,6 @@ class Item : public Actor
     void setName(std::string name);
     void setDescription(std::string desc);
     void setBrand(std::string brand);
-    void setModel(std::string model);
     void setSize(int size);
     void setComposition(int element, int abundance);
     void setCompositionDefault();
@@ -47,7 +45,6 @@ class Item : public Actor
     std::string getName();
     std::string getDescription();
     std::string getBrand();
-    std::string getModel();
     int getSize();
     int getComposition(int element);
     bool getCraftable();
@@ -57,7 +54,6 @@ class Item : public Actor
     std::string _name;
     std::string _desc;
     std::string _brand;
-    std::string _model;
     int _size;
     int _composition[120];
     bool _craftable;

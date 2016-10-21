@@ -21,20 +21,18 @@ Armor::Armor()
   \param electical_res electrical resistance
   \param chemical_res chemical resistance
   \param brand bran name
-  \param model model name
+  \param craftable whether the item is craftable
 */
-void Armor::init
-(
+void Armor::init(
   int ID,
   std::string name, 
   int size,
+  bool craftable,
   int ballistic_res,
   int electrical_res,
   int radioactive_res,
   int chemical_res,
-  std::string brand, 
-  std::string model
-)
+  std::string brand)
 {
   this->setID(ID);
   this->setName(name);
@@ -51,22 +49,16 @@ void Armor::init
     this->setBrand(brand);
   }
 
-  if (model.length() > 0)
-  {
-    this->setModel(model);
-  }
-
   log();
 }
 
 void Armor::log()
 {
-  log::messageln("\n[ARMOR]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\nBallRes: %d\nElectrRes: %d\nRadRes: %d\nChemRes: %d\n",
+  log::messageln("\n[ARMOR]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nBallRes: %d\nElectrRes: %d\nRadRes: %d\nChemRes: %d\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),
     this->getBrand().c_str(),
-    this->getModel().c_str(),
     this->getDamageResistance(Ballistic),
     this->getDamageResistance(Electrical),
     this->getDamageResistance(Radioactive),

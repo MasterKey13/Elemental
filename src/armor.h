@@ -29,12 +29,12 @@ class Armor : public Item
       int ID,
       std::string name,
       int size,
+      bool craftable = false,
       int ballistic_res = 0,
       int electrical_res = 0,
       int radioactive_res = 0,
       int chemical_res = 0,
-      std::string brand = "",
-      std::string model = "");
+      std::string brand = "");
 
     void log();
 

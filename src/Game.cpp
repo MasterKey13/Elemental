@@ -19,24 +19,24 @@ void Game::init()
 
   //create Ship Hull
   _hull = new Hull();
-  _hull->init(2, 2, 100, 100, "", "Chronoz", "X32B");
+  _hull->init(2, 2, 100, 100, "");
 
   //create Ship Battery
   _battery = new Battery();
-  _battery->init(3, 1, 150, 150, 100, 100, "", "Bate-X", "Vogue");
+  _battery->init(3, 1, 150, 150, 100, 100, "", "Bate-X");
 
   //create Ship Engine
   _engine = new Engine();
-  _engine->init(4, 3, 100, 100, "", "VRUM", "B-3");
+  _engine->init(4, 3, 100, 100, "", "VRUM");
 
   //create armor
   _armor = new Armor();
-  _armor->init(6, "Weak Aluminum Pad", 1, 1, 1, 0, 2, "PADD", "D2");
+  _armor->init(6, "Weak Aluminum Pad", true, 1, 1, 1, 0, 2, "PADD");
   _armor->setDamageResistance(Armor::Electrical, 2);
 
   //create weapon
   _weapon = new Weapon();
-  _weapon->init(8, 1, 10, 120, 3, 1, 0, 0, "", "Earth Germany", "MastaBlasta");
+  _weapon->init(8, 1, 10, 120, 3, 1, 0, 0, true, "", "Earth Germany", "MastaBlasta");
 
 	//create new Ship and attach it to the location
 	_player_ship = new Ship();
@@ -60,7 +60,7 @@ void Game::init()
   
   //create a new Mine
   _mine = new Mine();
-  _mine->init(3234, "Generic Mine", 50, 1, 1000, 1023, "MineX", "1c");
+  _mine->init(3234, "Generic Mine", 50, 1, 1000, 1023, 125, "Mine-X");
   _mine->attachTo(this);
   _mine->setHostBody(_planet);
   _planet->addMine(_mine);
@@ -68,7 +68,7 @@ void Game::init()
 
   //create new Item
   _item = new Item();
-  _item->init(99, 1, "Spoon", "It's a spoon", "Sp00Nz", "SteelX", true);
+  _item->init(99, 1, true, "Spoon", "It's a spoon", "Sp00Nz");
   _item->setCompositionDefault();
   _item->setComposition(4, 12);
 

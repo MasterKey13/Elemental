@@ -22,7 +22,7 @@ Battery::Battery()
 \param hitpoints_cap maximum amount of hitpoints the battery can have
 \param name name of the item
 \param brand brandname of the battery
-\param model modelname of the battery
+\param craftable whether the item is craftable
 */
 void Battery::init(
   int ID,
@@ -31,9 +31,9 @@ void Battery::init(
   int power_cap,
   int hitpoints,
   int hitpoints_cap,
+  bool craftable,
   std::string name,
-  std::string brand,
-  std::string model)
+  std::string brand)
 {
   this->setID(ID);
   this->setName(name);
@@ -43,15 +43,11 @@ void Battery::init(
   this->setHitPoints(hitpoints);
   this->setHitPointsCap(hitpoints_cap);
   this->setCompositionDefault();
+  setCraftable(craftable);
 
   if (brand.length() > 0)
   {
     this->setBrand(brand);
-  }
-
-  if (model.length() > 0)
-  {
-    this->setModel(model);
   }
 
   log();
@@ -59,12 +55,11 @@ void Battery::init(
 
 void Battery::log()
 {
-  log::messageln("\n[BATTERY]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\nPower: %d/%d\nHP: %d/%d\n",
+  log::messageln("\n[BATTERY]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nPower: %d/%d\nHP: %d/%d\n",
     this->getID(),
     this->getName().c_str(),
     this->getSize(),
     this->getBrand().c_str(),
-    this->getModel().c_str(),
     this->getPower(),
     this->getPowerCap(),
     this->getHitPoints(),

@@ -24,9 +24,9 @@ class Engine : public Item
       int size,
       int hitpoints,
       int hitpoints_cap,
+      bool craftable = false,
       std::string name = "",
-      std::string brand = "",
-      std::string model = "");
+      std::string brand = "");
 
     void log();
     

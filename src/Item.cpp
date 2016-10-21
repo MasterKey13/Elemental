@@ -18,35 +18,27 @@ Item::Item()
 \param name name of the item
 \param desc description of the item
 \param brand the brand name of the item
-\param model model name of the item
 \param craftable whether the item is craftable
 */
 void Item::init(
   int ID, 
   int size,
+  bool craftable,
   std::string name,
   std::string desc,
-  std::string brand, 
-  std::string model,
-  bool craftable)
+  std::string brand)
 {
-  this->setID(ID);
-  this->setName(name);
-  this->setSize(size);
-  this->setDescription(desc);
-  this->setCompositionDefault();
+  setID(ID);
+  setName(name);
+  setSize(size);
+  setDescription(desc);
+  setCompositionDefault();
+  setCraftable(craftable);
 
   if (brand.length() > 0)
   {
-    this->setBrand(brand);
+    setBrand(brand);
   }
-
-  if (model.length() > 0)
-  {
-    this->setModel(model);
-  }
-  
-  this->setCraftable(craftable);
 
   log();
 }
@@ -77,11 +69,10 @@ void Item::initByID(int ID)
       init(
         ID,
         items[i]["size"].asInt(),
+        items[i]["craftable"].asBool(),
         items[i]["name"].asCString(),
         items[i]["description"].asCString(),
-        items[i]["brand"].asCString(),
-        items[i]["model"].asCString(),
-        items[i]["craftable"].asBool()
+        items[i]["brand"].asCString()
         );
 
       //load the defined elemental composition
@@ -95,13 +86,12 @@ void Item::initByID(int ID)
 
 void Item::log()
 {
-  log::messageln("\n[ITEM]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nModel: %s\nCraftable: %s\n",
-    this->getID(),
-    this->getName().c_str(),
-    this->getSize(),
-    this->getBrand().c_str(),
-    this->getModel().c_str(),
-    (this->getCraftable() ? "true" : "false"));
+  log::messageln("\n[ITEM]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nCraftable: %s\n",
+    getID(),
+    getName().c_str(),
+    getSize(),
+    getBrand().c_str(),
+    (getCraftable() ? "true" : "false"));
 }
 
 void Item::setID(int ID)
@@ -122,11 +112,6 @@ void Item::setDescription(std::string desc)
 void Item::setBrand(std::string brand)
 {
   _brand = brand;
-}
-
-void Item::setModel(std::string model)
-{
-  _model = model;
 }
 
 void Item::setSize(int size)
@@ -170,11 +155,6 @@ std::string Item::getDescription()
 std::string Item::getBrand()
 {
   return _brand;
-}
-
-std::string Item::getModel()
-{
-  return _model;
 }
 
 int Item::getSize()

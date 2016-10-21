@@ -6,7 +6,6 @@
       "description": "A solid steel alloy card with an embedded chip used to track debit account balance for the Bank of Earth.",
       "size": 1,
       "brand": "Bank of Earth",
-      "model": "",
       "craftable": false,
       "composition": {
           "0": 15,
@@ -21,7 +20,6 @@
       "description": "A brief yet complete history of United America written by Strompf Lucas in 2300.",
       "size": 1,
       "brand": "Unipublish",
-      "model": "",
       "craftable": false,
       "composition": {
           "0": 60,

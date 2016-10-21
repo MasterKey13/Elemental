@@ -26,8 +26,10 @@ class Mine : public Item
       int efficiency,
       int reliability,
       int storage_capacity,
-      std::string brand = "",
-      std::string model = "");
+      int max_temp,
+      std::string brand = "");
+
+    void initByID(int ID);
 
     void log();
 
@@ -39,6 +41,7 @@ class Mine : public Item
     void setStorageDefault();
     void setCurrentTotalStorage(int amount);
     void setHostBody(spCelestialBody host);
+    void setMaxTemp(int temp);
 
     //GETTERS
     int getStorageCapacity();
@@ -47,6 +50,7 @@ class Mine : public Item
     int getReliability();
     int getCurrentStorage();
     spCelestialBody getHostBody();
+    int getMaxTemp();
 
     void extract();
 
@@ -57,4 +61,5 @@ class Mine : public Item
     int _storage[MAX_ELEMENTS];
     int _current_total_storage;
     spCelestialBody _host;
+    int _max_temp;
 };
