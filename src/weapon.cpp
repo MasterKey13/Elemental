@@ -45,6 +45,7 @@ void Weapon::init(
   setName(name);
   setSize(size);
   setCompositionDefault();
+  setDescription(desc);
 
   if (brand.length() > 0)
   {
@@ -86,6 +87,7 @@ void Weapon::initByID(int ID)
         weapons[i]["radioactive_dmg"].asInt(),
         weapons[i]["chemical_dmg"].asInt(),
         weapons[i]["name"].asCString(),
+        weapons[i]["description"].asCString(),
         weapons[i]["brand"].asCString()
       );
 
@@ -100,9 +102,10 @@ void Weapon::initByID(int ID)
 
 void Weapon::log()
 {
-  log::messageln("\n[WEAPON]\nID: %d\nName: %s\nSize: %d\nBrand: %s\n",
+  log::messageln("\n[WEAPON]\nID: %d\nName: %s\nDescription: %s\nSize: %d\nBrand: %s\n",
     getID(),
     getName().c_str(),
+    getDescription().c_str(),
     getSize(),
     getBrand().c_str());
 }

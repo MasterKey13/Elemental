@@ -1,0 +1,16 @@
+{
+  "armors": [
+    {
+      "id": 1,
+      "name": "DD Armor Plate",
+      "description": "A steel-alloy armor plate designed in America.\nDesigned for protecting battleship parts against small ballistic projectiles.",
+      "size": 8,
+      "craftable": true,
+      "ballistic_res": 11,
+      "electrical_res": 0,
+      "radioactive_res": 3,
+      "chemical_res": 1,
+      "brand": ""
+    }
+  ]
+}

@@ -27,14 +27,17 @@ class Armor : public Item
 
     void init(
       int ID,
-      std::string name,
       int size,
       bool craftable = false,
       int ballistic_res = 0,
       int electrical_res = 0,
       int radioactive_res = 0,
       int chemical_res = 0,
+      std::string name = "",
+      std::string desc = "",
       std::string brand = "");
+
+    void initByID(int ID);
 
     void log();
 

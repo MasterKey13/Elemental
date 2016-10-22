@@ -86,9 +86,10 @@ void Item::initByID(int ID)
 
 void Item::log()
 {
-  log::messageln("\n[ITEM]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nCraftable: %s\n",
+  log::messageln("\n[ITEM]\nID: %d\nName: %s\nDescription: %s\nSize: %d\nBrand: %s\nCraftable: %s\n",
     getID(),
     getName().c_str(),
+    getDescription().c_str(),
     getSize(),
     getBrand().c_str(),
     (getCraftable() ? "true" : "false"));

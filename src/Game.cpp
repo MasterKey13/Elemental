@@ -29,11 +29,6 @@ void Game::init()
   _engine = new Engine();
   _engine->init(4, 3, 100, 100, "", "VRUM");
 
-  //create armor
-  _armor = new Armor();
-  _armor->init(6, "Weak Aluminum Pad", true, 1, 1, 1, 0, 2, "PADD");
-  _armor->setDamageResistance(Armor::Electrical, 2);
-
 	//create new Ship and attach it to the location
 	_player_ship = new Ship();
   _player_ship->init("Shogun", 50, 50, 1000, 5, 100.0f, 100.0f, 2, _hull, _battery, _engine, _player);
@@ -77,6 +72,10 @@ void Game::init()
   //create weapon by ID
   _weapon = new Weapon();
   _weapon->initByID(1);
+
+  //create armor
+  _armor = new Armor();
+  _armor->initByID(1);
 }
 
 void Game::doUpdate(const UpdateState &us)

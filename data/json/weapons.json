@@ -3,8 +3,7 @@
     {
       "id": 1,
       "name": "APBC-120",
-      "description": "A standard AU-made ballistic cosmic cannon produced in 2120.\n
-                      Fires a solid, armor-penetrating projectile at the target. Designed for neutralizing small battleships.",
+      "description": "A standard AU-made ballistic cosmic cannon produced in 2120.\nFires a solid, armor-penetrating projectile at the target. Designed for neutralizing small battleships.",
       "hitpoints": 50,
       "ballistic_dmg": 74,
       "electrical_dmg": 0,
@@ -16,8 +15,7 @@
     {
       "id": 2,
       "name": "E9-Disruptor",
-      "description": "European electric cannon first produced in 2117.\n
-                      Fires a small projectile which penetrates and attaches itself to the target, then releases an electrical charge.",
+      "description": "European electric cannon first produced in 2117.\nFires a small projectile which penetrates and attaches itself to the target, then releases an electrical charge.",
       "hitpoints": 69,
       "ballistic_dmg": 8,
       "electrical_dmg": 48,
@@ -29,8 +27,7 @@
     {
       "id": 3,
       "name": "R9-Carrier",
-      "description": "European-made cannon for launching hollow projectiles at high velocities over a vaccuum.\n
-                      Fires a hollow projectile desiged to penetrate armor and expose its contents on impact, modified for carrying Uranium dust.",
+      "description": "European-made cannon for launching hollow projectiles at high velocities over a vaccuum.\nFires a hollow projectile desiged to penetrate armor and expose its contents on impact, modified for carrying Uranium dust.",
       "hitpoints": 54,
       "ballistic_dmg": 4,
       "electrical_dmg": 0,
@@ -42,8 +39,7 @@
     {
       "id": 4,
       "name": "Viper",
-      "description": "Custom-made, corrosive projectile cannon made of various mechanical parts.\n
-                      Fires numerous small, high-temperature projectiles which corrode armor on impact.",
+      "description": "Custom-made, corrosive projectile cannon made of various mechanical parts.\nFires numerous small, high-temperature projectiles which corrode armor on impact.",
       "hitpoints": 79,
       "ballistic_dmg": 6,
       "electrical_dmg": 0,
