@@ -88,7 +88,7 @@ void Mine::initByID(int ID)
 
 void Mine::log()
 {
-  log::messageln("\n[MINE]\nSize: %d\nEfficiency: %d\nReliability: %d\nStorage Cap: %d\nBrand %s\n",
+  log::messageln("\n[MINE]\nSize: %d\nEfficiency: %d\nReliability: %d\nStorage Cap: %d\nBrand: %s\n",
     getSize(),
     getEfficiency(),
     getReliability(),

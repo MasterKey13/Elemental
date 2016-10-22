@@ -2,7 +2,9 @@
   "weapons": [
     {
       "id": 1,
-      "name": "Mini Ballistic Cannon",
+      "name": "APBC-120",
+      "description": "A standard AU-made ballistic cosmic cannon produced in 2120.\n
+                      Fires a solid, armor-penetrating projectile at the target. Designed for neutralizing small battleships.",
       "hitpoints": 50,
       "ballistic_dmg": 74,
       "electrical_dmg": 0,
@@ -13,9 +15,11 @@
     },
     {
       "id": 2,
-      "name": "Electron Agitator",
+      "name": "E9-Disruptor",
+      "description": "European electric cannon first produced in 2117.\n
+                      Fires a small projectile which penetrates and attaches itself to the target, then releases an electrical charge.",
       "hitpoints": 69,
-      "ballistic_dmg": 10,
+      "ballistic_dmg": 8,
       "electrical_dmg": 48,
       "radioactive_dmg": 0,
       "chemical_dmg": 0,
@@ -24,7 +28,9 @@
     },
     {
       "id": 3,
-      "name": "Uranium Isotope Propeller",
+      "name": "R9-Carrier",
+      "description": "European-made cannon for launching hollow projectiles at high velocities over a vaccuum.\n
+                      Fires a hollow projectile desiged to penetrate armor and expose its contents on impact, modified for carrying Uranium dust.",
       "hitpoints": 54,
       "ballistic_dmg": 4,
       "electrical_dmg": 0,
@@ -35,13 +41,15 @@
     },
     {
       "id": 4,
-      "name": "",
+      "name": "Viper",
+      "description": "Custom-made, corrosive projectile cannon made of various mechanical parts.\n
+                      Fires numerous small, high-temperature projectiles which corrode armor on impact.",
       "hitpoints": 79,
       "ballistic_dmg": 6,
       "electrical_dmg": 0,
       "radioactive_dmg": 0,
       "chemical_dmg": 23,
-      "brand": "Americast",
+      "brand": "unknown, custom-made",
       "craftable": true
     }
   ]

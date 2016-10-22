@@ -18,6 +18,7 @@ Weapon::Weapon()
 \param size size of the weapon
 \param hitpoints the amount of hitpoints the weapon starts with
 \param hitpoints_cap the maximum amount of hitpoints
+\param craftable whether the item is craftable
 \param ballistic_dmg the amount of ballistic damage the weapon deals
 \param electrical_dmg the amount of electrical damage the weapon deals
 \param radioactive_dmg the amount of radioactive damage the weapon deals
@@ -25,7 +26,6 @@ Weapon::Weapon()
 \param name name of the item (weapon)
 \param desc description of the item (weapon)
 \param brand the brand name of the weapon
-\param craftable whether the item is craftable
 */
 void Weapon::init(
   int ID, 
@@ -80,12 +80,13 @@ void Weapon::initByID(int ID)
         weapons[i]["size"].asInt(),
         weapons[i]["hitpoints"].asInt(),
         weapons[i]["hitpoints"].asInt(),
-        weapons[i]["brand"].asCString(),
+        weapons[i]["craftable"].asBool(),
         weapons[i]["ballistic_dmg"].asInt(),
         weapons[i]["electrical_dmg"].asInt(),
         weapons[i]["radioactive_dmg"].asInt(),
         weapons[i]["chemical_dmg"].asInt(),
-        weapons[i]["name"].asCString()
+        weapons[i]["name"].asCString(),
+        weapons[i]["brand"].asCString()
       );
 
       //load the defined elemental composition
