@@ -20,15 +20,15 @@ Hull::Hull()
 \param hitpoints_cap the maximum amount of hitpoints
 \param name name of the item (hull)
 \param brand the brand name of the hull
-\param craftable whether the item is craftable
+\param desc description of the item
 */
 void Hull::init(
   int ID,
   int size,
   int hitpoints,
   int hitpoints_cap,
-  bool craftable,
   std::string name,
+  std::string desc,
   std::string brand)
 {
   setID(ID);
@@ -37,7 +37,7 @@ void Hull::init(
   setHitPoints(hitpoints);
   setHitPointsCap(hitpoints_cap);
   setCompositionDefault();
-  setCraftable(craftable);
+  setDescription(desc);
 
   if (brand.length() > 0)
   {
@@ -47,11 +47,50 @@ void Hull::init(
   log();
 }
 
+void Hull::initByID(int ID)
+{
+  //load file to buffer
+  file::buffer bf;
+  file::read("json/items.json", bf);
+
+  //parse
+  Json::Reader reader;
+  Json::Value value;
+  reader.parse((char*)&bf.front(), (char*)&bf.front() + bf.size(), value, false);
+
+  Json::Value hulls = value["hulls"];
+
+  //go through the json file and find the item by ID
+  for (int i = 0; i < hulls.size(); i++)
+  {
+    if (hulls[i]["id"].asInt() == ID)
+    {
+      //initialize the item
+      init(
+        ID,
+        hulls[i]["size"].asInt(),
+        hulls[i]["hitpoints"].asInt(),
+        hulls[i]["hitpoints"].asInt(),
+        hulls[i]["name"].asCString(),
+        hulls[i]["description"].asCString(),
+        hulls[i]["brand"].asCString()
+      );
+
+      //load the defined elemental composition
+      for (int j = 0; j < 50; j++)
+      {
+        setComposition(j, hulls[i]["composition"][std::to_string(j)].asInt());
+      }
+    }
+  }
+}
+
 void Hull::log()
 {
-  log::messageln("\n[HULL]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nHP: %d/%d\n",
+  log::messageln("\n[HULL]\nID: %d\nName: %s\nDescription: %s\nSize: %d\nBrand: %s\nHP: %d/%d\n",
     getID(),
     getName().c_str(),
+    getDescription().c_str(),
     getSize(),
     getBrand().c_str(),
     getHitPoints(),

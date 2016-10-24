@@ -1,0 +1,12 @@
+{
+  "hulls": [
+    {
+      "id": 1,
+      "name": "Venom 3000",
+      "description": "A compact ship hull designed by Eurofed.\n",
+      "size": 125,
+      "hitpoints": 150,
+      "brand": "Eurofed"
+    }
+  ]
+}

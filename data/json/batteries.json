@@ -1,0 +1,14 @@
+{
+  "batteries": [
+    {
+      "id": 1,
+      "name": "POWER U-1",
+      "description": "A small, compact battery made in the USA on Earth.\nProvides energy for all basic ship functions.",
+      "size": 10,
+      "power": 95,
+      "hitpoints": 115,
+      "brand": "Americast",
+      "craftable": true
+    }
+  ]
+}

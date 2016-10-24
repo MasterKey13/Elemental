@@ -21,6 +21,7 @@ Battery::Battery()
 \param hitpoints initial amount of hitpoints the battery has
 \param hitpoints_cap maximum amount of hitpoints the battery can have
 \param name name of the item
+\param desc description of the item
 \param brand brandname of the battery
 \param craftable whether the item is craftable
 */
@@ -33,37 +34,81 @@ void Battery::init(
   int hitpoints_cap,
   bool craftable,
   std::string name,
+  std::string desc,
   std::string brand)
 {
-  this->setID(ID);
-  this->setName(name);
-  this->setSize(size);
-  this->setPower(power);
-  this->setPowerCap(power_cap);
-  this->setHitPoints(hitpoints);
-  this->setHitPointsCap(hitpoints_cap);
-  this->setCompositionDefault();
+  setID(ID);
+  setName(name);
+  setSize(size);
+  setPower(power);
+  setPowerCap(power_cap);
+  setHitPoints(hitpoints);
+  setHitPointsCap(hitpoints_cap);
+  setCompositionDefault();
   setCraftable(craftable);
+  setDescription(desc);
 
   if (brand.length() > 0)
   {
-    this->setBrand(brand);
+    setBrand(brand);
   }
 
   log();
 }
 
+void Battery::initByID(int ID)
+{
+  //load file to buffer
+  file::buffer bf;
+  file::read("json/batteries.json", bf);
+
+  //parse
+  Json::Reader reader;
+  Json::Value value;
+  reader.parse((char*)&bf.front(), (char*)&bf.front() + bf.size(), value, false);
+
+  Json::Value batteries = value["batteries"];
+
+  //go through the json file and find the item by ID
+  for (int i = 0; i < batteries.size(); i++)
+  {
+    if (batteries[i]["id"].asInt() == ID)
+    {
+      //initialize the item
+      init(
+        ID,
+        batteries[i]["size"].asInt(),
+        batteries[i]["power"].asInt(),
+        batteries[i]["power"].asInt(),
+        batteries[i]["hitpoints"].asInt(),
+        batteries[i]["hitpoints"].asInt(),
+        batteries[i]["craftable"].asBool(),
+        batteries[i]["name"].asCString(),
+        batteries[i]["description"].asCString(),
+        batteries[i]["brand"].asCString()
+      );
+
+      //load the defined elemental composition
+      for (int j = 0; j < 50; j++)
+      {
+        setComposition(j, batteries[i]["composition"][std::to_string(j)].asInt());
+      }
+    }
+  }
+}
+
 void Battery::log()
 {
-  log::messageln("\n[BATTERY]\nID: %d\nName: %s\nSize: %d\nBrand: %s\nPower: %d/%d\nHP: %d/%d\n",
-    this->getID(),
-    this->getName().c_str(),
-    this->getSize(),
-    this->getBrand().c_str(),
-    this->getPower(),
-    this->getPowerCap(),
-    this->getHitPoints(),
-    this->getHitPointsCap());
+  log::messageln("\n[BATTERY]\nID: %d\nName: %s\nDescription: %s\nSize: %d\nBrand: %s\nPower: %d/%d\nHP: %d/%d\n",
+    getID(),
+    getName().c_str(),
+    getDescription().c_str(),
+    getSize(),
+    getBrand().c_str(),
+    getPower(),
+    getPowerCap(),
+    getHitPoints(),
+    getHitPointsCap());
 }
 
 int Battery::getHitPoints()

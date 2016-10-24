@@ -17,22 +17,8 @@ void Game::init()
   _player = new Player();
   _player->init("Heiko", "Evilyn", "", "Human", 5, "none", 4, 10, 2, 6);
 
-  //create Ship Hull
-  _hull = new Hull();
-  _hull->init(2, 2, 100, 100, "");
-
-  //create Ship Battery
-  _battery = new Battery();
-  _battery->init(3, 1, 150, 150, 100, 100, "", "Bate-X");
-
-  //create Ship Engine
-  _engine = new Engine();
-  _engine->init(4, 3, 100, 100, "", "VRUM");
-
 	//create new Ship and attach it to the location
 	_player_ship = new Ship();
-  _player_ship->init("Shogun", 50, 50, 1000, 5, 100.0f, 100.0f, 2, _hull, _battery, _engine, _player);
-	_player_ship->attachTo(this);
 
   //create a new Location and attach it
   _location = new Location();
@@ -76,6 +62,18 @@ void Game::init()
   //create armor
   _armor = new Armor();
   _armor->initByID(1);
+
+  //create Ship Engine
+  _engine = new Engine();
+  _engine->initByID(1);
+
+  //create Ship Battery
+  _battery = new Battery();
+  _battery->initByID(1);
+
+  //create Ship Hull
+  _hull = new Hull();
+  _hull->initByID(1);
 }
 
 void Game::doUpdate(const UpdateState &us)

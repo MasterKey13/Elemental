@@ -1,0 +1,13 @@
+{
+  "engines": [
+    {
+      "id": 1,
+      "name": "7120 Turbo LE",
+      "description": "A lightweight ship engine made in the USA on Earth.\nProvides basic travel needs for cosmic citizens.",
+      "size": 18,
+      "hitpoints": 150,
+      "brand": "Americast",
+      "craftable": true
+    }
+  ]
+}
