@@ -13,5 +13,6 @@ DECLARE_SMART(BattleAction, spBattleAction);
 
 class BattleAction : public Actor
 {
-
+  public:
+    BattleAction();
 };
