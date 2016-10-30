@@ -7,13 +7,13 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "oxygine-framework.h"
 #include <string>
 #include "ship.h"
-#include "mine.h"
+#include "item.h"
 #include "settlement.h"
 
 using namespace oxygine;
 
 DECLARE_SMART(Ship, spShip);
-DECLARE_SMART(Mine, spMine);
+DECLARE_SMART(Item, spItem);
 DECLARE_SMART(Settlement, spSettlement);
 DECLARE_SMART(CelestialBody, spCelestialBody);
 
@@ -61,13 +61,13 @@ class CelestialBody : public Actor
     int getOrbitCount();
     int getMineCount();
     spCelestialBody getParentBody();
-    spMine getMine(int index);
+    spItem getMine(int index);
 
     //Orbit-related public methods and vars
     void addOrbiter(spCelestialBody orbiter);
 
     //Mine-related public methods and vars
-    void addMine(spMine mine);
+    void addMine(spItem mine);
 
     //randomized generation functions
     void generateStar();
@@ -90,7 +90,7 @@ class CelestialBody : public Actor
     int _orbit_count = 0;
 
     //Mine-related private methods and variables
-    spMine _mines[MAX_MINES];
+    spItem _mines[MAX_MINES];
     int _mine_count = 0;
 
     //TODO: implement getters/setters for ships later

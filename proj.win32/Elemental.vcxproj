@@ -111,19 +111,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../src/entry_point.cpp" />
-    <ClCompile Include="..\src\armor.cpp" />
-    <ClCompile Include="..\src\battery.cpp" />
     <ClCompile Include="..\src\battle.cpp" />
     <ClCompile Include="..\src\battle_action.cpp" />
     <ClCompile Include="..\src\battle_action_chain.cpp" />
     <ClCompile Include="..\src\celestial_body.cpp" />
     <ClCompile Include="..\src\character.cpp" />
-    <ClCompile Include="..\src\engine.cpp" />
     <ClCompile Include="..\src\game.cpp" />
-    <ClCompile Include="..\src\hull.cpp" />
     <ClCompile Include="..\src\item.cpp" />
     <ClCompile Include="..\src\location.cpp" />
-    <ClCompile Include="..\src\mine.cpp" />
     <ClCompile Include="..\src\npc.cpp" />
     <ClCompile Include="..\src\player.cpp" />
     <ClCompile Include="..\src\resources.cpp" />
@@ -131,22 +126,16 @@
     <ClCompile Include="..\src\setup.cpp" />
     <ClCompile Include="..\src\ship.cpp" />
     <ClCompile Include="..\src\synthesizer.cpp" />
-    <ClCompile Include="..\src\weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\armor.h" />
-    <ClInclude Include="..\src\battery.h" />
     <ClInclude Include="..\src\battle.h" />
     <ClInclude Include="..\src\battle_action.h" />
     <ClInclude Include="..\src\battle_action_chain.h" />
     <ClInclude Include="..\src\celestial_body.h" />
     <ClInclude Include="..\src\character.h" />
-    <ClInclude Include="..\src\engine.h" />
     <ClInclude Include="..\src\game.h" />
-    <ClInclude Include="..\src\hull.h" />
     <ClInclude Include="..\src\item.h" />
     <ClInclude Include="..\src\location.h" />
-    <ClInclude Include="..\src\mine.h" />
     <ClInclude Include="..\src\npc.h" />
     <ClInclude Include="..\src\player.h" />
     <ClInclude Include="..\src\resources.h" />
@@ -154,7 +143,6 @@
     <ClInclude Include="..\src\setup.h" />
     <ClInclude Include="..\src\ship.h" />
     <ClInclude Include="..\src\synthesizer.h" />
-    <ClInclude Include="..\src\weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

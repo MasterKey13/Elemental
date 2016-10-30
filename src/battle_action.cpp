@@ -12,22 +12,13 @@ BattleAction::BattleAction()
   setNext(nullptr);
 }
 
-//! Initialization function for a battle action using a weapon
+//! Process function for a battle action using a weapon
 /*!
-\param weapon smart ptr to weapon used to attack
+\param item smart ptr to item used in the attack
 \param target smart ptr to target of the attack
+\param armor smart ptr to armor piece covering the target
 */
-void BattleAction::init(spWeapon weapon, spItem target)
-{
-
-}
-
-//! Initialization function for a battle action using an item (equipment)
-/*!
-\param item smart ptr to item used
-\param target smart ptr to the item's target
-*/
-void BattleAction::init(spItem item, spItem target)
+void BattleAction::process(spItem weapon, spItem target, spItem armor)
 {
 
 }

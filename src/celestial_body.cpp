@@ -242,7 +242,7 @@ void CelestialBody::addOrbiter(spCelestialBody orbiter)
 /*!
 \param mine smart pointer to the mine which to add
 */
-void CelestialBody::addMine(spMine mine)
+void CelestialBody::addMine(spItem mine)
 {
   if (getMineCount() < MAX_MINES)
   {
@@ -260,7 +260,7 @@ spCelestialBody CelestialBody::getParentBody()
 /*!
 \param index the index of the mine to return
 */
-spMine CelestialBody::getMine(int index)
+spItem CelestialBody::getMine(int index)
 {
   if (index < MAX_MINES && _mines[index])
   {

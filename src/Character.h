@@ -73,7 +73,6 @@ class Character : public Actor
     std::string _status;
     std::string _type;
     int _inventory_cap;
-    std::vector<spItem> _inventory;
     std::string _faction;
     int _hostility;
     int _intelligence;

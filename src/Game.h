@@ -10,11 +10,6 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "character.h"
 #include "player.h"
 #include "item.h"
-#include "hull.h"
-#include "armor.h"
-#include "battery.h"
-#include "engine.h"
-#include "weapon.h"
 #include "celestial_body.h"
 #include "synthesizer.h"
 #include "battle.h"
@@ -27,13 +22,7 @@ DECLARE_SMART(Ship, spShip);
 DECLARE_SMART(Location, spLocation);
 DECLARE_SMART(Character, spCharacter);
 DECLARE_SMART(Item, spItem);
-DECLARE_SMART(Armor, spArmor);
-DECLARE_SMART(Hull, spHull);
-DECLARE_SMART(Battery, spBattery);
-DECLARE_SMART(Engine, spEngine);
-DECLARE_SMART(Weapon, spWeapon);
 DECLARE_SMART(CelestialBody, spCelestialBody);
-DECLARE_SMART(Mine, spMine);
 DECLARE_SMART(Synthesizer, spSynthesizer);
 DECLARE_SMART(Battle, spBattle);
 
@@ -52,15 +41,15 @@ class Game : public Actor
 	  spCharacter _player; 
     spItem _item;
 
-    spHull _hull;
-    spArmor _armor;
-    spEngine _engine;
-    spBattery _battery;
-    spWeapon _weapon;
+    spItem _hull;
+    spItem _armor;
+    spItem _engine;
+    spItem _battery;
+    spItem _weapon;
 
     spCelestialBody _star;
     spCelestialBody _planet;
-    spMine _mine;
+    spItem _mine;
 
     spSynthesizer _synth;
 

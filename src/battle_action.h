@@ -5,20 +5,20 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
-#include "weapon.h"
+#include "item.h"
 
 using namespace oxygine;
 
 //Declare smart pointers
 DECLARE_SMART(BattleAction, spBattleAction);
+DECLARE_SMART(Item, spItem);
 
 class BattleAction : public Actor
 {
   public:
     BattleAction();
 
-    void init(spWeapon weapon, spItem target);
-    void init(spItem item, spItem target);
+    void process(spItem item, spItem target, spItem armor);
 
     //SETTERS
     void setPrevious(spBattleAction previous);

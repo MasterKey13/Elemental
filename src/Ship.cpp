@@ -4,10 +4,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 */
 
 #include "ship.h"
-#include "armor.h"
-#include "hull.h"
-#include "battery.h"
-#include "engine.h"
+#include "item.h"
 
 Ship::Ship()
 {
@@ -36,9 +33,9 @@ void Ship::init(
   float fuel_cap, 
   float fuel_level,
   int evasion,
-  spHull hull,
-  spBattery battery,
-  spEngine engine,
+  spItem hull,
+  spItem battery,
+  spItem engine,
   spCharacter captain)
 {
 	setName(name);
@@ -143,17 +140,17 @@ void Ship::setCaptain(spCharacter captain)
   _captain = captain;
 }
 
-void Ship::setHull(spHull hull)
+void Ship::setHull(spItem hull)
 {
   _hull = hull;
 }
 
-void Ship::setBattery(spBattery battery)
+void Ship::setBattery(spItem battery)
 {
   _battery = battery;
 }
 
-void Ship::setEngine(spEngine engine)
+void Ship::setEngine(spItem engine)
 {
   _engine = engine;
 }
@@ -188,17 +185,17 @@ spCharacter Ship::getCaptain()
   return _captain;
 }
 
-spHull Ship::getHull()
+spItem Ship::getHull()
 {
   return _hull;
 }
 
-spBattery Ship::getBattery()
+spItem Ship::getBattery()
 {
   return _battery;
 }
 
-spEngine Ship::getEngine()
+spItem Ship::getEngine()
 {
   return _engine;
 }
