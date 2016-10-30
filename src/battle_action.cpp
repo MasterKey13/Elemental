@@ -5,18 +5,31 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #include "setup.h"
 #include "battle_action.h"
-#include "weapon.h"
 
 BattleAction::BattleAction()
+{
+  setPrevious(nullptr);
+  setNext(nullptr);
+}
+
+//! Initialization function for a battle action using a weapon
+/*!
+\param weapon smart ptr to weapon used to attack
+\param target smart ptr to target of the attack
+*/
+void BattleAction::init(spWeapon weapon, spItem target)
 {
 
 }
 
-//! Initialization function for a battle action
-void BattleAction::init()
+//! Initialization function for a battle action using an item (equipment)
+/*!
+\param item smart ptr to item used
+\param target smart ptr to the item's target
+*/
+void BattleAction::init(spItem item, spItem target)
 {
-  setPrevious(nullptr);
-  setNext(nullptr);
+
 }
 
 void BattleAction::setPrevious(spBattleAction previous)

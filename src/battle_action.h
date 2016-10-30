@@ -5,6 +5,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
+#include "weapon.h"
 
 using namespace oxygine;
 
@@ -16,7 +17,8 @@ class BattleAction : public Actor
   public:
     BattleAction();
 
-    void init();
+    void init(spWeapon weapon, spItem target);
+    void init(spItem item, spItem target);
 
     //SETTERS
     void setPrevious(spBattleAction previous);
