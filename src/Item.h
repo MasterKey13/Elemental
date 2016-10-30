@@ -26,7 +26,6 @@ class Item : public Actor
     {
       Ballistic,
       Electrical,
-      Radioactive,
       Chemical
     };
 
@@ -42,23 +41,21 @@ class Item : public Actor
       int power_cap,
       int ballistic_dmg,
       int electrical_dmg,
-      int radioactive_dmg,
       int chemical_dmg,
       int ballistic_res,
       int electrical_res,
-      int radioactive_res,
       int chemical_res,
       int efficiency,
       int reliability,
       int storage_capacity,
       int max_temp,
       bool craftable,
-      bool equipment,
-      bool weapon,
-      bool battery,
-      bool engine,
-      bool hull,
-      bool mine
+      bool isEquipment,
+      bool isWeapon,
+      bool isBattery,
+      bool isEngine,
+      bool isHull,
+      bool isMine
       );
 
     void init(int ID);
@@ -67,19 +64,18 @@ class Item : public Actor
 
     //SETTERS
     void setID(int ID);
+    void setSize(int size);
     void setName(std::string name);
     void setDescription(std::string desc);
     void setBrand(std::string brand);
-    void setSize(int size);
-    void setComposition(int element, int abundance);
-    void setCompositionDefault();
-    void setCraftable(bool craftable);
-    void setDamageResistance(DamageType type, int resistance);
-    void setDamageResistanceDefault();
     void setHitPoints(int hitpoints);
     void setHitPointsCap(int hitpoints_cap);
     void setPower(int power);
     void setPowerCap(int power_cap);
+    void setDamage(DamageType damage_type, int damage_resistance);
+    void setDamageDefault();
+    void setDamageResistance(DamageType type, int resistance);
+    void setDamageResistanceDefault();
     void setStorageCapacity(int cap);
     void setStorage(int element, int amount);
     void setEfficiency(int efficiency);
@@ -88,8 +84,9 @@ class Item : public Actor
     void setCurrentTotalStorage(int amount);
     void setHostBody(spCelestialBody host);
     void setMaxTemp(int temp);
-    void setDamage(DamageType damage_type, int damage_resistance);
-    void setDamageDefault();
+    void setCraftable(bool craftable);
+    void setComposition(int element, int abundance);
+    void setCompositionDefault();
 
     //GETTERS
     int getID();
@@ -115,26 +112,42 @@ class Item : public Actor
 
     void extract();
 
+    //type of item (equipment, weapon, battery, engine, hull, mine or a combination of any)
+    bool isEquipment();
+    bool isWeapon();
+    bool isBattery();
+    bool isEngine();
+    bool isHull();
+    bool isMine();
+
   private:
     int _itemID;
+    int _size;
     std::string _name;
     std::string _desc;
     std::string _brand;
-    int _size;
-    int _composition[120];
-    bool _craftable;
-    int _damage_resistance[4];
     int _hitpoints;
     int _hitpoints_cap;
     int _power;
     int _power_cap;
+    int _damage[3];
+    int _damage_resistance[3];
+    int _efficiency;
+    int _reliability;
     int _storage_capacity;
-    int _efficiency; //extraction multiplier, how efficiently it mines
-    int _reliability; //chance that it will extract an element (from 0 - 10000, where 10000 = 100.00%)
     int _storage[MAX_ELEMENTS];
     int _current_total_storage;
-    spCelestialBody _host;
     int _max_temp;
-    int _AP_cost;
-    int _damage[4];
+
+    int _action_point_cost;
+    int _composition[MAX_ELEMENTS];
+    spCelestialBody _host;
+
+    bool _isCraftable;
+    bool _isEquipment;
+    bool _isWeapon;
+    bool _isBattery;
+    bool _isEngine;
+    bool _isHull;
+    bool _isMine;
 };

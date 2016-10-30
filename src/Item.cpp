@@ -9,25 +9,33 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 Item::Item()
 {
   setID(0);
+  setSize(0);
   setName("");
   setDescription("");
   setBrand("");
-  setSize(0);
-  setCompositionDefault();
-  setCraftable(false);
-  setDamageResistanceDefault();
   setHitPoints(0);
   setHitPointsCap(0);
   setPower(0);
   setPowerCap(0);
-  setStorageCapacity(0);
+  setDamageDefault();
+  setDamageResistanceDefault();
   setEfficiency(0);
   setReliability(0);
-  setStorageDefault();
+  setStorageCapacity(0);
   setCurrentTotalStorage(0);
-  setHostBody(nullptr);
+  setStorageDefault();
   setMaxTemp(0);
-  setDamageDefault();
+  setCraftable(false);
+  setHostBody(nullptr);
+
+  _isEquipment = false;
+  _isWeapon = false;
+  _isBattery = false;
+  _isEngine = false;
+  _isHull = false;
+  _isMine = false;
+
+  setCompositionDefault();
 }
 
 //! Initialize an item with given parameters
@@ -37,7 +45,27 @@ Item::Item()
 \param name name of the item
 \param desc description of the item
 \param brand the brand name of the item
+\param hitpoints the amount of hitpoints the item has (health)
+\param hitpoints_cap maximum amount of hitpoints
+\param power battery power this item provides
+\param power_cap maximum amount of battery power
+\param ballistic_dmg amount of ballistic damage this item does
+\param electrical_dmg amount of electrical damage this item does
+\param chemical_dmg amount of chemical damage this item does
+\param ballistic_res resistance to ballistic damage of this item
+\param electrical_res resistance to electrical damage of this item
+\param chemical_res resistance to chemical damage of this item
+\param efficiency the mining efficiency of this item
+\param reliability how reliably this item can mine for elements
+\param storage_capacity the maximum amount of elements this item can store
+\param max_temp maximum temperature this item can endure
 \param craftable whether the item is craftable
+\param isEquipment whether the item can be used as an equipment piece
+\param isWeapon whether the item can be used as a weapon
+\param isBattery whether the item can be used as a ship battery
+\param isEngine whether the item can be used as a ship engine
+\param isHull whether the item can be used as a ship hull
+\param isMine whether the item can be used as a planetary mine
 */
 void Item::init(
   int ID,
@@ -51,41 +79,57 @@ void Item::init(
   int power_cap,
   int ballistic_dmg,
   int electrical_dmg,
-  int radioactive_dmg,
   int chemical_dmg,
   int ballistic_res,
   int electrical_res,
-  int radioactive_res,
   int chemical_res,
   int efficiency,
   int reliability,
   int storage_capacity,
   int max_temp,
-  bool craftable,
-  bool equipment,
-  bool weapon,
-  bool battery,
-  bool engine,
-  bool hull,
-  bool mine
+  bool isCraftable,
+  bool isEquipment,
+  bool isWeapon,
+  bool isBattery,
+  bool isEngine,
+  bool isHull,
+  bool isMine
   )
 {
   setID(ID);
   setSize(size);
+
   setName(name);
   setDescription(desc);
+  setBrand(brand);
 
-  setDamageResistance(Ballistic, ballistic_res);
-  setDamageResistance(Electrical, electrical_res);
-  setDamageResistance(Radioactive, radioactive_res);
-  setDamageResistance(Chemical, chemical_res);
-
-  setPower(power);
-  setPowerCap(power_cap);
   setHitPoints(hitpoints);
   setHitPointsCap(hitpoints_cap);
 
-  setCraftable(craftable);
+  setPower(power);
+  setPowerCap(power_cap);
+
+  setDamage(Ballistic, ballistic_dmg);
+  setDamage(Electrical, electrical_dmg);
+  setDamage(Chemical, chemical_dmg);
+
+  setDamageResistance(Ballistic, ballistic_res);
+  setDamageResistance(Electrical, electrical_res);
+  setDamageResistance(Chemical, chemical_res);
+
+  setEfficiency(efficiency);
+  setReliability(reliability);
+  setStorageCapacity(storage_capacity);
+  setMaxTemp(max_temp);
+
+  setCraftable(isCraftable);
+  
+  _isEquipment = isEquipment;
+  _isWeapon = isWeapon;
+  _isBattery = isBattery;
+  _isEngine = isEngine;
+  _isHull = isHull;
+  _isMine = isMine;
 
   if (brand.length() > 0)
   {
@@ -117,18 +161,35 @@ void Item::init(int ID)
   {
     if (items[i]["id"].asInt() == ID)
     {
-      /* TODO: FIX THIS
       //initialize the item
       init(
         ID,
         items[i]["size"].asInt(),
-        items[i]["craftable"].asBool(),
         items[i]["name"].asCString(),
-        items[i]["description"].asCString(),
-        items[i]["brand"].asCString()
+        items[i]["desc"].asCString(),
+        items[i]["brand"].asCString(),
+        items[i]["hitpoints"].asInt(),
+        items[i]["hitpoints"].asInt(),
+        items[i]["power"].asInt(),
+        items[i]["power"].asInt(),
+        items[i]["ballistic_dmg"].asInt(),
+        items[i]["electrical_dmg"].asInt(),
+        items[i]["chemical_dmg"].asInt(),
+        items[i]["ballistic_res"].asInt(),
+        items[i]["electrical_res"].asInt(),
+        items[i]["chemical_res"].asInt(),
+        items[i]["efficiency"].asInt(),
+        items[i]["reliability"].asInt(),
+        items[i]["storage_capacity"].asInt(),
+        items[i]["max_temp"].asInt(),
+        items[i]["craftable"].asBool(),
+        items[i]["isEquipment"].asBool(),
+        items[i]["isWeapon"].asBool(),
+        items[i]["isBattery"].asBool(),
+        items[i]["isEngine"].asBool(),
+        items[i]["isHull"].asBool(),
+        items[i]["isMine"].asBool()
         );
-
-        */
 
       //load the defined elemental composition
       for (int j = 0; j < 50; j++)
@@ -182,7 +243,7 @@ void Item::setComposition(int element, int abundance)
 
 void Item::setCompositionDefault()
 {
-  for (int i = 0; i < 120; i++)
+  for (int i = 0; i < MAX_ELEMENTS; i++)
   {
     _composition[i] = 0;
   }
@@ -190,7 +251,7 @@ void Item::setCompositionDefault()
 
 void Item::setCraftable(bool craftable)
 {
-  _craftable = false;
+  _isCraftable = craftable;
 }
 
 int Item::getID()
@@ -225,7 +286,7 @@ int Item::getComposition(int element)
 
 bool Item::getCraftable()
 {
-  return _craftable;
+  return _isCraftable;
 }
 
 int Item::getDamageResistance(DamageType type)
@@ -262,7 +323,6 @@ void Item::setDamageResistanceDefault()
 {
   setDamageResistance(Ballistic, 0);
   setDamageResistance(Electrical, 0);
-  setDamageResistance(Radioactive, 0);
   setDamageResistance(Chemical, 0);
 }
 
@@ -392,6 +452,36 @@ void Item::extract()
   }
 }
 
+bool Item::isEquipment()
+{
+  return _isEquipment;
+}
+
+bool Item::isWeapon()
+{
+  return _isWeapon;
+}
+
+bool Item::isBattery()
+{
+  return _isBattery;
+}
+
+bool Item::isEngine()
+{
+  return _isEngine;
+}
+
+bool Item::isHull()
+{
+  return _isHull;
+}
+
+bool Item::isMine()
+{
+  return _isMine;
+}
+
 //! Returns a smart pointer to the CelestialBody on which it is installed
 spCelestialBody Item::getHostBody()
 {
@@ -426,6 +516,5 @@ void Item::setDamageDefault()
 {
   setDamage(Ballistic, 0);
   setDamage(Electrical, 0);
-  setDamage(Radioactive, 0);
   setDamage(Chemical, 0);
 }
