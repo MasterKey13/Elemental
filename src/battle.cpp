@@ -21,5 +21,9 @@ void Battle::init(spShip attacker, spShip defender)
   _attacker = attacker;
   _defender = defender;
 
+  _attacker_actions = new BattleActionChain();
+  _attacker_actions->init();
 
+  _defender_actions = new BattleActionChain();
+  _defender_actions->init();
 }

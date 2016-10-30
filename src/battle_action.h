@@ -15,4 +15,21 @@ class BattleAction : public Actor
 {
   public:
     BattleAction();
+
+    void init();
+
+    //SETTERS
+    void setPrevious(spBattleAction previous);
+    void setNext(spBattleAction next);
+
+    //GETTERS
+    spBattleAction getPrevious();
+    spBattleAction getNext();
+
+    bool hasNext();
+    bool hasPrevious();
+
+  private:
+    spBattleAction _prev;
+    spBattleAction _next;
 };

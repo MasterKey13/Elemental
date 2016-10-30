@@ -74,6 +74,10 @@ void Game::init()
   //create Ship Hull
   _hull = new Hull();
   _hull->initByID(1);
+
+  //create new Battle
+  _battle = new Battle();
+  _battle->init(new Ship, new Ship);
 }
 
 void Game::doUpdate(const UpdateState &us)

@@ -24,4 +24,6 @@ class Battle : public Actor
   private:
     spShip _attacker;
     spShip _defender;
+    spBattleActionChain _attacker_actions;
+    spBattleActionChain _defender_actions;
 };
