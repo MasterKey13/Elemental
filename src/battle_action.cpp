@@ -20,7 +20,7 @@ BattleAction::BattleAction()
 */
 void BattleAction::process(spItem weapon, spItem target, spItem armor)
 {
-
+  //TODO: Implement this
 }
 
 void BattleAction::setPrevious(spBattleAction previous)

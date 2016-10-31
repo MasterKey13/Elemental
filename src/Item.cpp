@@ -30,6 +30,7 @@ Item::Item()
 
   _isEquipment = false;
   _isWeapon = false;
+  _isArmor = false;
   _isBattery = false;
   _isEngine = false;
   _isHull = false;
@@ -90,6 +91,7 @@ void Item::init(
   bool isCraftable,
   bool isEquipment,
   bool isWeapon,
+  bool isArmor,
   bool isBattery,
   bool isEngine,
   bool isHull,
@@ -126,6 +128,7 @@ void Item::init(
   
   _isEquipment = isEquipment;
   _isWeapon = isWeapon;
+  _isArmor = isArmor;
   _isBattery = isBattery;
   _isEngine = isEngine;
   _isHull = isHull;
@@ -185,6 +188,7 @@ void Item::init(int ID)
         items[i]["craftable"].asBool(),
         items[i]["isEquipment"].asBool(),
         items[i]["isWeapon"].asBool(),
+        items[i]["isArmor"].asBool(),
         items[i]["isBattery"].asBool(),
         items[i]["isEngine"].asBool(),
         items[i]["isHull"].asBool(),
@@ -202,13 +206,7 @@ void Item::init(int ID)
 
 void Item::log()
 {
-  log::messageln("\n[ITEM]\nID: %d\nName: %s\nDescription: %s\nSize: %d\nBrand: %s\nCraftable: %s\n",
-    getID(),
-    getName().c_str(),
-    getDescription().c_str(),
-    getSize(),
-    getBrand().c_str(),
-    (getCraftable() ? "true" : "false"));
+  log::messageln("You forgot to implement the log function for items dumbass lol");
 }
 
 void Item::setID(int ID)
@@ -460,6 +458,11 @@ bool Item::isEquipment()
 bool Item::isWeapon()
 {
   return _isWeapon;
+}
+
+bool Item::isArmor()
+{
+  return _isArmor;
 }
 
 bool Item::isBattery()

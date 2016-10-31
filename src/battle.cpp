@@ -27,4 +27,20 @@ void Battle::init(spShip attacker, spShip defender)
 
   _defender_actions = new BattleActionChain();
   _defender_actions->init();
+
+  //debugging
+  spItem armor = new Item();
+  armor->init(4);
+
+  spItem weap = new Item();
+  weap->init(3);
+
+  spItem eng = new Item();
+  eng->init(5);
+
+  spShip ship = new Ship();
+  ship->init("Shipname", 1, 1, 0, 0, 0, 0, 2, nullptr, nullptr, eng, nullptr);
+
+  _attacker_actions->addAction(new BattleAction());
+  _attacker_actions->getHead()->process(weap, ship->getEngine(), armor);
 }

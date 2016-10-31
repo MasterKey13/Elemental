@@ -52,6 +52,7 @@ class Item : public Actor
       bool craftable,
       bool isEquipment,
       bool isWeapon,
+      bool isArmor,
       bool isBattery,
       bool isEngine,
       bool isHull,
@@ -115,6 +116,7 @@ class Item : public Actor
     //type of item (equipment, weapon, battery, engine, hull, mine or a combination of any)
     bool isEquipment();
     bool isWeapon();
+    bool isArmor();
     bool isBattery();
     bool isEngine();
     bool isHull();
@@ -146,6 +148,7 @@ class Item : public Actor
     bool _isCraftable;
     bool _isEquipment;
     bool _isWeapon;
+    bool _isArmor;
     bool _isBattery;
     bool _isEngine;
     bool _isHull;
