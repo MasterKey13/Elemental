@@ -37,16 +37,17 @@ class Item : public Actor
       std::string brand,
       int hitpoints,
       int hitpoints_cap,
-      int power,
-      int power_cap,
+      int battery_power,
+      int battery_power_cap,
       int ballistic_dmg,
       int electrical_dmg,
       int chemical_dmg,
       int ballistic_res,
       int electrical_res,
       int chemical_res,
-      int efficiency,
-      int reliability,
+      int damage_absorbtion,
+      int mining_efficiency,
+      int mining_reliability,
       int storage_capacity,
       int max_temp,
       bool craftable,
@@ -77,6 +78,7 @@ class Item : public Actor
     void setDamageDefault();
     void setDamageResistance(DamageType type, int resistance);
     void setDamageResistanceDefault();
+    void setDamageAbsorbtion(int absorb);
     void setStorageCapacity(int cap);
     void setStorage(int element, int amount);
     void setEfficiency(int efficiency);
@@ -98,6 +100,7 @@ class Item : public Actor
     int getComposition(int element);
     bool getCraftable();
     int getDamageResistance(DamageType type);
+    int getDamageAbsorbtion();
     int getHitPoints();
     int getHitPointsCap();
     int getPower();
@@ -130,12 +133,13 @@ class Item : public Actor
     std::string _brand;
     int _hitpoints;
     int _hitpoints_cap;
-    int _power;
-    int _power_cap;
+    int _battery_power;
+    int _battery_power_cap;
     int _damage[3];
     int _damage_resistance[3];
-    int _efficiency;
-    int _reliability;
+    int _damage_absorbtion;
+    int _mining_efficiency;
+    int _mining_reliability;
     int _storage_capacity;
     int _storage[MAX_ELEMENTS];
     int _current_total_storage;

@@ -18,7 +18,10 @@ class BattleAction : public Actor
   public:
     BattleAction();
 
+    //battle action damage calculation functions
     void process(spItem item, spItem target, spItem armor);
+    int calculateDamageArmor(spItem armor, spItem weapon, Item::DamageType type);
+    int calculateDamageTarget(spItem armor, spItem weapon, spItem target, Item::DamageType type);
 
     //SETTERS
     void setPrevious(spBattleAction previous);
@@ -30,6 +33,14 @@ class BattleAction : public Actor
 
     bool hasNext();
     bool hasPrevious();
+
+    //damages for handling battle action processing
+    int _ballistic_dmg_to_armor;
+    int _ballistic_dmg_to_target;
+    int _electrical_dmg_to_armor;
+    int _electrical_dmg_to_target;
+    int _chemical_dmg_to_armor;
+    int _chemical_dmg_to_target;
 
   private:
     spBattleAction _prev;

@@ -44,10 +44,11 @@
       "id": 4,
       "size": 4,
       "name": "Small armor plate",
-      "desc": "A rather small armor plate designed to mitigate damage from most projectiles.",
+      "desc": "A rather small, generic armor plate designed to mitigate damage from most projectiles.",
       "brand": "Tech-Ten",
       "hitpoints": 32,
-      "ballistic_res": 9,
+      "ballistic_res": 4,
+      "damage_absorbtion": 6,
       "isArmor": true
     },
     {

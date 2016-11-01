@@ -8,6 +8,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Item::Item()
 {
+  //set all values to default (0, false, empty strings and nullptrs)
   setID(0);
   setSize(0);
   setName("");
@@ -19,6 +20,7 @@ Item::Item()
   setPowerCap(0);
   setDamageDefault();
   setDamageResistanceDefault();
+  setDamageAbsorbtion(0);
   setEfficiency(0);
   setReliability(0);
   setStorageCapacity(0);
@@ -48,16 +50,17 @@ Item::Item()
 \param brand the brand name of the item
 \param hitpoints the amount of hitpoints the item has (health)
 \param hitpoints_cap maximum amount of hitpoints
-\param power battery power this item provides
-\param power_cap maximum amount of battery power
+\param battery_power battery power this item provides
+\param battery_power_cap maximum amount of battery power
 \param ballistic_dmg amount of ballistic damage this item does
 \param electrical_dmg amount of electrical damage this item does
 \param chemical_dmg amount of chemical damage this item does
 \param ballistic_res resistance to ballistic damage of this item
 \param electrical_res resistance to electrical damage of this item
 \param chemical_res resistance to chemical damage of this item
-\param efficiency the mining efficiency of this item
-\param reliability how reliably this item can mine for elements
+\param damage_absorbtion maximum amount of damage the armor item can absorb
+\param mining_efficiency the mining efficiency of this item
+\param mining_reliability how reliably this item can mine for elements
 \param storage_capacity the maximum amount of elements this item can store
 \param max_temp maximum temperature this item can endure
 \param craftable whether the item is craftable
@@ -76,16 +79,17 @@ void Item::init(
   std::string brand,
   int hitpoints,
   int hitpoints_cap,
-  int power,
-  int power_cap,
+  int battery_power,
+  int battery_power_cap,
   int ballistic_dmg,
   int electrical_dmg,
   int chemical_dmg,
   int ballistic_res,
   int electrical_res,
   int chemical_res,
-  int efficiency,
-  int reliability,
+  int damage_absorbtion,
+  int mining_efficiency,
+  int mining_reliability,
   int storage_capacity,
   int max_temp,
   bool isCraftable,
@@ -108,19 +112,19 @@ void Item::init(
   setHitPoints(hitpoints);
   setHitPointsCap(hitpoints_cap);
 
-  setPower(power);
-  setPowerCap(power_cap);
+  setPower(battery_power);
+  setPowerCap(battery_power_cap);
 
   setDamage(Ballistic, ballistic_dmg);
   setDamage(Electrical, electrical_dmg);
   setDamage(Chemical, chemical_dmg);
-
   setDamageResistance(Ballistic, ballistic_res);
   setDamageResistance(Electrical, electrical_res);
   setDamageResistance(Chemical, chemical_res);
+  setDamageAbsorbtion(damage_absorbtion);
 
-  setEfficiency(efficiency);
-  setReliability(reliability);
+  setEfficiency(mining_efficiency);
+  setReliability(mining_reliability);
   setStorageCapacity(storage_capacity);
   setMaxTemp(max_temp);
 
@@ -181,6 +185,7 @@ void Item::init(int ID)
         items[i]["ballistic_res"].asInt(),
         items[i]["electrical_res"].asInt(),
         items[i]["chemical_res"].asInt(),
+        items[i]["damage_absorbtion"].asInt(),
         items[i]["efficiency"].asInt(),
         items[i]["reliability"].asInt(),
         items[i]["storage_capacity"].asInt(),
@@ -292,6 +297,11 @@ int Item::getDamageResistance(DamageType type)
   return _damage_resistance[type];
 }
 
+int Item::getDamageAbsorbtion()
+{
+  return _damage_absorbtion;
+}
+
 int Item::getHitPoints()
 {
   return _hitpoints;
@@ -304,12 +314,12 @@ int Item::getHitPointsCap()
 
 int Item::getPower()
 {
-  return _power;
+  return _battery_power;
 }
 
 int Item::getPowerCap()
 {
-  return _power_cap;
+  return _battery_power_cap;
 }
 
 void Item::setDamageResistance(DamageType type, int resistance)
@@ -324,6 +334,11 @@ void Item::setDamageResistanceDefault()
   setDamageResistance(Chemical, 0);
 }
 
+void Item::setDamageAbsorbtion(int absorb)
+{
+  _damage_absorbtion = absorb;
+}
+
 void Item::setHitPoints(int hitpoints)
 {
   _hitpoints = hitpoints;
@@ -336,12 +351,12 @@ void Item::setHitPointsCap(int hitpoints_cap)
 
 void Item::setPower(int power)
 {
-  _power = power;
+  _battery_power = power;
 }
 
 void Item::setPowerCap(int power_cap)
 {
-  _power_cap = power_cap;
+  _battery_power_cap = power_cap;
 }
 
 void Item::setStorageCapacity(int cap)
@@ -356,12 +371,12 @@ void Item::setStorage(int element, int amount)
 
 void Item::setEfficiency(int efficiency)
 {
-  _efficiency = efficiency;
+  _mining_efficiency = efficiency;
 }
 
 void Item::setReliability(int reliability)
 {
-  _reliability = reliability;
+  _mining_reliability = reliability;
 }
 
 void Item::setStorageDefault()
@@ -401,12 +416,12 @@ int Item::getStorage(int element)
 
 int Item::getEfficiency()
 {
-  return _efficiency;
+  return _mining_efficiency;
 }
 
 int Item::getReliability()
 {
-  return _reliability;
+  return _mining_reliability;
 }
 
 int Item::getCurrentStorage()
@@ -510,7 +525,7 @@ int Item::getDamage(DamageType damage_type)
 \param damage_type the damage type for which to the set the damage amount
 \param damage the amount of damage it deals
 */
-void Item::setDamage(DamageType damage_type, int damage)
+void Item::setDamage(DamageType damage_type, int damage) 
 {
   _damage[damage_type] = damage;
 }
