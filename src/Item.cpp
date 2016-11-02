@@ -211,7 +211,30 @@ void Item::init(int ID)
 
 void Item::log()
 {
-  log::messageln("You forgot to implement the log function for items dumbass lol");
+  log::messageln("ID: %d\nSize: %d\nName: %s\nDescription: %s\nBrand: %s\nHP: %d/%d",
+    getID(), getSize(), getName().c_str(), getDescription().c_str(), getBrand().c_str(), getHitPoints(), getHitPointsCap());
+
+  if (isBattery())
+  {
+    log::messageln("Battery Power: %d/%d", getPower(), getPowerCap());
+  }
+
+  if (isWeapon() || isBattery() || isEquipment() || isEngine() || isHull() || isArmor())
+  {
+    log::messageln("Damages: %d | %d | %d", getDamage(Item::DamageType::Ballistic), getDamage(Item::DamageType::Electrical), getDamage(Item::DamageType::Chemical));
+    log::messageln("Resists: %d | %d | %d", getDamageResistance(Item::DamageType::Ballistic), getDamageResistance(Item::DamageType::Electrical), getDamageResistance(Item::DamageType::Chemical));
+    log::messageln("Absorbtion: %d", getDamageAbsorbtion());
+  }
+
+  if (isMine())
+  {
+    log::messageln("Mining efficiency: %d", getEfficiency());
+    log::messageln("Mining reliability: %d", getReliability());
+    log::messageln("Mining storage cap: %d", getStorageCapacity());
+    log::messageln("Max temperature: %d", getMaxTemp());
+  }
+
+  log::messageln("");
 }
 
 void Item::setID(int ID)

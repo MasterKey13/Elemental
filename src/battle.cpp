@@ -35,12 +35,10 @@ void Battle::init(spShip attacker, spShip defender)
   spItem weap = new Item();
   weap->init(3);
 
-  spItem eng = new Item();
-  eng->init(5);
-
-  spShip ship = new Ship();
-  ship->init("Shipname", 1, 1, 0, 0, 0, 0, 2, nullptr, nullptr, eng, nullptr);
+  log::messageln("Engine HP: %d", attacker->getEngine()->getHitPoints());
 
   _attacker_actions->addAction(new BattleAction());
-  _attacker_actions->getHead()->process(weap, ship->getEngine(), armor);
+  _attacker_actions->getHead()->process(weap, attacker->getEngine(), armor);
+
+  log::messageln("Engine HP: %d", attacker->getEngine()->getHitPoints());
 }

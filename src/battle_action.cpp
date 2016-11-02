@@ -28,6 +28,15 @@ void BattleAction::process(spItem weapon, spItem target, spItem armor)
   _chemical_dmg_to_armor = calculateDamageArmor(armor, weapon, Item::DamageType::Chemical);
   _chemical_dmg_to_target = calculateDamageTarget(armor, weapon, target, Item::DamageType::Chemical);
 
+  log::messageln("BA: %d\nBT: %d\nEA: %d\nET: %d\nCA: %d\nCT: %d",
+    _ballistic_dmg_to_armor,
+    _ballistic_dmg_to_target,
+    _electrical_dmg_to_armor,
+    _electrical_dmg_to_target,
+    _chemical_dmg_to_armor,
+    _chemical_dmg_to_target
+    );
+  
   //deal all of the damage to the armor and target
   armor->setHitPoints(armor->getHitPoints() -
     _ballistic_dmg_to_armor -

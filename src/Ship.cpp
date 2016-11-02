@@ -89,9 +89,6 @@ void Ship::setCoordinates(int x, int y)
 {	
 	_xPos = x;
 	_yPos = y;
-
-  //log location update
-  log::messageln("\n[NEW COORDINATES]\n%d, %d\n", _xPos, _yPos);
 }
 
 void Ship::setChemCap(int chem_cap)
