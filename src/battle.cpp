@@ -35,10 +35,12 @@ void Battle::init(spShip attacker, spShip defender)
   spItem weap = new Item();
   weap->init(3);
 
+  log::messageln("Armor HP: %d", armor->getHitPoints());
   log::messageln("Engine HP: %d", attacker->getEngine()->getHitPoints());
 
   _attacker_actions->addAction(new BattleAction());
   _attacker_actions->getHead()->process(weap, attacker->getEngine(), armor);
 
+  log::messageln("Armor HP: %d", armor->getHitPoints());
   log::messageln("Engine HP: %d", attacker->getEngine()->getHitPoints());
 }
