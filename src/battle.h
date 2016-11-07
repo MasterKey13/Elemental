@@ -20,10 +20,13 @@ class Battle : public Actor
     Battle();
 
     void init(spShip attacker, spShip defender);
+    void setActive(bool activity);
+    bool getActive();
 
   private:
     spShip _attacker;
     spShip _defender;
     spBattleActionChain _attacker_actions;
     spBattleActionChain _defender_actions;
+    bool _isActive;
 };

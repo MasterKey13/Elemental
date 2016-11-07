@@ -8,12 +8,6 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 BattleActionChain::BattleActionChain()
 {
-  
-}
-
-//! Initialization function for a battle action chain (doubly linked list)
-void BattleActionChain::init()
-{
   //set everything to null pointers
   setHead(nullptr);
   setTail(nullptr);

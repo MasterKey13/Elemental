@@ -9,7 +9,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Battle::Battle()
 {
-
+  _isActive = false;
 }
 
 //! Initialization function for a battle
@@ -23,24 +23,23 @@ void Battle::init(spShip attacker, spShip defender)
   _defender = defender;
 
   _attacker_actions = new BattleActionChain();
-  _attacker_actions->init();
-
   _defender_actions = new BattleActionChain();
-  _defender_actions->init();
 
-  //debugging
-  spItem armor = new Item();
-  armor->init(4);
+  _isActive = true;
 
-  spItem weap = new Item();
-  weap->init(3);
+  //while the battle is active
+  while (_isActive)
+  {
+    
+  }
+}
 
-  log::messageln("Armor HP: %d", armor->getHitPoints());
-  log::messageln("Engine HP: %d", attacker->getEngine()->getHitPoints());
+void Battle::setActive(bool activity)
+{
+  _isActive = activity;
+}
 
-  _attacker_actions->addAction(new BattleAction());
-  _attacker_actions->getHead()->process(weap, attacker->getEngine(), armor);
-
-  log::messageln("Armor HP: %d", armor->getHitPoints());
-  log::messageln("Engine HP: %d", attacker->getEngine()->getHitPoints());
+bool Battle::getActive()
+{
+  return _isActive;
 }

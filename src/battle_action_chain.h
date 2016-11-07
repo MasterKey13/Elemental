@@ -17,8 +17,6 @@ class BattleActionChain : public Actor
   public:
     BattleActionChain();
 
-    void init();
-
     //SETTERS
     void setHead(spBattleAction head);
     void setTail(spBattleAction tail);
