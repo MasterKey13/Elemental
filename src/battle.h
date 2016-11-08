@@ -28,5 +28,6 @@ class Battle : public Actor
     spShip _defender;
     spBattleActionChain _attacker_actions;
     spBattleActionChain _defender_actions;
-    bool _isActive;
+    bool _is_active;
+    bool _attacker_turn;
 };
