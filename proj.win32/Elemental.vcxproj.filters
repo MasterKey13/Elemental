@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\gui">
+      <UniqueIdentifier>{21a2aa75-6ec8-47db-8312-6e371728e159}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gui">
+      <UniqueIdentifier>{42b8bade-2550-4d83-bca7-b2eb238e29d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../src/entry_point.cpp">
@@ -63,6 +69,9 @@
     <ClCompile Include="..\src\battle_action_chain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\gui\battle_gui.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\setup.h">
@@ -109,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="..\src\battle_action_chain.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\battle_gui.h">
+      <Filter>Header Files\gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

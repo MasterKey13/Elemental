@@ -22,6 +22,7 @@ class Battle : public Actor
     void init(spShip attacker, spShip defender);
     void setActive(bool activity);
     bool getActive();
+    void processTurn(spShip ship);
 
   private:
     spShip _attacker;
@@ -30,4 +31,5 @@ class Battle : public Actor
     spBattleActionChain _defender_actions;
     bool _is_active;
     bool _attacker_turn;
+    bool _end_turn;
 };

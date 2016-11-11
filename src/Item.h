@@ -36,9 +36,8 @@ class Item : public Actor
       std::string desc,
       std::string brand,
       int hitpoints,
-      int hitpoints_cap,
       int battery_power,
-      int battery_power_cap,
+      int action_slots,
       int ballistic_dmg,
       int electrical_dmg,
       int chemical_dmg,
@@ -72,6 +71,8 @@ class Item : public Actor
     void setBrand(std::string brand);
     void setHitPoints(int hitpoints);
     void setHitPointsCap(int hitpoints_cap);
+    void setActionSlots(int action_slots);
+    void setActionSlotsCap(int action_slots_cap);
     void setPower(int power);
     void setPowerCap(int power_cap);
     void setDamage(DamageType damage_type, int damage_resistance);
@@ -103,6 +104,8 @@ class Item : public Actor
     int getDamageAbsorbtion();
     int getHitPoints();
     int getHitPointsCap();
+    int getActionSlots();
+    int getActionSlotsCap();
     int getPower();
     int getPowerCap();
     int getStorageCapacity();
@@ -133,6 +136,8 @@ class Item : public Actor
     std::string _brand;
     int _hitpoints;
     int _hitpoints_cap;
+    int _action_slots;
+    int _action_slots_cap;
     int _battery_power;
     int _battery_power_cap;
     int _damage[3];

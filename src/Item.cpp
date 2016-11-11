@@ -16,6 +16,8 @@ Item::Item()
   setBrand("");
   setHitPoints(0);
   setHitPointsCap(0);
+  setActionSlots(0);
+  setActionSlotsCap(0);
   setPower(0);
   setPowerCap(0);
   setDamageDefault();
@@ -49,9 +51,8 @@ Item::Item()
 \param desc description of the item
 \param brand the brand name of the item
 \param hitpoints the amount of hitpoints the item has (health)
-\param hitpoints_cap maximum amount of hitpoints
 \param battery_power battery power this item provides
-\param battery_power_cap maximum amount of battery power
+\param action_slots action slots this item provides
 \param ballistic_dmg amount of ballistic damage this item does
 \param electrical_dmg amount of electrical damage this item does
 \param chemical_dmg amount of chemical damage this item does
@@ -78,9 +79,8 @@ void Item::init(
   std::string desc,
   std::string brand,
   int hitpoints,
-  int hitpoints_cap,
   int battery_power,
-  int battery_power_cap,
+  int action_slots,
   int ballistic_dmg,
   int electrical_dmg,
   int chemical_dmg,
@@ -110,10 +110,13 @@ void Item::init(
   setBrand(brand);
 
   setHitPoints(hitpoints);
-  setHitPointsCap(hitpoints_cap);
+  setHitPointsCap(hitpoints);
 
   setPower(battery_power);
-  setPowerCap(battery_power_cap);
+  setPowerCap(battery_power);
+
+  setActionSlots(action_slots);
+  setActionSlotsCap(action_slots);
 
   setDamage(Ballistic, ballistic_dmg);
   setDamage(Electrical, electrical_dmg);
@@ -176,9 +179,8 @@ void Item::init(int ID)
         items[i]["desc"].asCString(),
         items[i]["brand"].asCString(),
         items[i]["hitpoints"].asInt(),
-        items[i]["hitpoints"].asInt(),
         items[i]["power"].asInt(),
-        items[i]["power"].asInt(),
+        items[i]["action_slots"].asInt(),
         items[i]["ballistic_dmg"].asInt(),
         items[i]["electrical_dmg"].asInt(),
         items[i]["chemical_dmg"].asInt(),
@@ -335,6 +337,16 @@ int Item::getHitPointsCap()
   return _hitpoints_cap;
 }
 
+int Item::getActionSlots()
+{
+  return _action_slots;
+}
+
+int Item::getActionSlotsCap()
+{
+  return _action_slots_cap;
+}
+
 int Item::getPower()
 {
   return _battery_power;
@@ -370,6 +382,16 @@ void Item::setHitPoints(int hitpoints)
 void Item::setHitPointsCap(int hitpoints_cap)
 {
   _hitpoints_cap = hitpoints_cap;
+}
+
+void Item::setActionSlots(int action_slots)
+{
+  _action_slots = action_slots;
+}
+
+void Item::setActionSlotsCap(int action_slots_cap)
+{
+  _action_slots_cap = action_slots_cap;
 }
 
 void Item::setPower(int power)

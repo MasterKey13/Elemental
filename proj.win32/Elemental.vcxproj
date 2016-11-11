@@ -117,6 +117,7 @@
     <ClCompile Include="..\src\celestial_body.cpp" />
     <ClCompile Include="..\src\character.cpp" />
     <ClCompile Include="..\src\game.cpp" />
+    <ClCompile Include="..\src\gui\battle_gui.cpp" />
     <ClCompile Include="..\src\item.cpp" />
     <ClCompile Include="..\src\location.cpp" />
     <ClCompile Include="..\src\npc.cpp" />
@@ -134,6 +135,7 @@
     <ClInclude Include="..\src\celestial_body.h" />
     <ClInclude Include="..\src\character.h" />
     <ClInclude Include="..\src\game.h" />
+    <ClInclude Include="..\src\gui\battle_gui.h" />
     <ClInclude Include="..\src\item.h" />
     <ClInclude Include="..\src\location.h" />
     <ClInclude Include="..\src\npc.h" />
