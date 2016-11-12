@@ -31,6 +31,7 @@ Item::Item()
   setMaxTemp(0);
   setCraftable(false);
   setHostBody(nullptr);
+  setArmorPiece(nullptr);
 
   _isEquipment = false;
   _isWeapon = false;
@@ -444,6 +445,15 @@ void Item::setHostBody(spCelestialBody host)
   _host = host;
 }
 
+void Item::setArmorPiece(spItem armor)
+{
+  //only weapons, equipment, batteries, engines and hulls can have armor pieces
+  if (isWeapon() || isEquipment() || isBattery() || isEngine() || isHull())
+  {
+    _armor_piece = armor;
+  }
+}
+
 void Item::setMaxTemp(int temp)
 {
   _max_temp = temp;
@@ -549,6 +559,14 @@ bool Item::isMine()
 spCelestialBody Item::getHostBody()
 {
   return _host;
+}
+
+spItem Item::getArmorPiece()
+{
+  if (_armor_piece)
+  {
+    return _armor_piece;
+  }
 }
 
 int Item::getMaxTemp()

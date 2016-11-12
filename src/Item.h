@@ -87,6 +87,7 @@ class Item : public Actor
     void setStorageDefault();
     void setCurrentTotalStorage(int amount);
     void setHostBody(spCelestialBody host);
+    void setArmorPiece(spItem armor);
     void setMaxTemp(int temp);
     void setCraftable(bool craftable);
     void setComposition(int element, int abundance);
@@ -114,6 +115,7 @@ class Item : public Actor
     int getReliability();
     int getCurrentStorage();
     spCelestialBody getHostBody();
+    spItem getArmorPiece();
     int getMaxTemp();
     int getDamage(DamageType damage_type);
 
@@ -153,6 +155,8 @@ class Item : public Actor
     int _action_point_cost;
     int _composition[MAX_ELEMENTS];
     spCelestialBody _host;
+
+    spItem _armor_piece;
 
     bool _isCraftable;
     bool _isEquipment;

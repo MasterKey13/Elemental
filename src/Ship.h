@@ -55,6 +55,8 @@ class Ship : public Actor
     void setHull(spItem hull);
     void setBattery(spItem battery);
     void setEngine(spItem engine);
+    void setWeaponCap(int cap);
+    void setEquipmentCap(int cap);
 
     //GETTERS
 	  std::string getName();
@@ -69,6 +71,8 @@ class Ship : public Actor
     spItem getHull();
     spItem getBattery();
     spItem getEngine();
+    int getWeaponCap();
+    int getEquipmentCap();
 
     void travelTo(int x, int y);
 
@@ -91,4 +95,11 @@ class Ship : public Actor
     spItem _engine;
 
     //TODO: weapons used by the ship
+    std::vector<spItem> _weapons;
+    int _weapon_cap;
+
+    //TODO: equipment used by the ship
+    int _equipment_cap;
+    std::vector<spItem> _equipment;
+
 };

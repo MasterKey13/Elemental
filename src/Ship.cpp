@@ -152,6 +152,16 @@ void Ship::setEngine(spItem engine)
   _engine = engine;
 }
 
+void Ship::setWeaponCap(int cap)
+{
+  _weapon_cap = cap;
+}
+
+void Ship::setEquipmentCap(int cap)
+{
+  _equipment_cap = cap;
+}
+
 std::string Ship::getName()
 {
 	return _name;
@@ -195,6 +205,16 @@ spItem Ship::getBattery()
 spItem Ship::getEngine()
 {
   return _engine;
+}
+
+int Ship::getWeaponCap()
+{
+  return _weapon_cap;
+}
+
+int Ship::getEquipmentCap()
+{
+  return _equipment_cap;
 }
 
 int Ship::getXPos()

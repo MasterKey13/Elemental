@@ -16,39 +16,59 @@ BattleAction::BattleAction()
 /*!
 \param item smart ptr to item used in the attack
 \param target smart ptr to target of the attack
-\param armor smart ptr to armor piece covering the target
 */
-void BattleAction::process(spItem weapon, spItem target, spItem armor)
+void BattleAction::process(spItem weapon, spItem target)
 {
+  int armor_ballisctic_res;
+  int armor_electrical_res;
+  int armor_chemical_res;
+  int armor_dmg_abs;
+
+  //handle armor piece damage resistance
+  if (target->getArmorPiece())
+  {
+    armor_ballisctic_res = target->getArmorPiece()->getDamageResistance(Item::DamageType::Ballistic);
+    armor_electrical_res = target->getArmorPiece()->getDamageResistance(Item::DamageType::Electrical);
+    armor_chemical_res = target->getArmorPiece()->getDamageResistance(Item::DamageType::Chemical);
+    armor_dmg_abs = target->getArmorPiece()->getDamageAbsorbtion();
+  }
+  else
+  {
+    armor_ballisctic_res = 0;
+    armor_electrical_res = 0;
+    armor_chemical_res = 0;
+    armor_dmg_abs = 0;
+  }
+
   //calculate the damage dealt to each part (armor and target)
   _ballistic_dmg_to_armor = calculateDamageArmor(
     weapon->getDamage(Item::DamageType::Ballistic), 
-    armor->getDamageResistance(Item::DamageType::Ballistic),
-    armor->getDamageAbsorbtion());
+    armor_ballisctic_res, 
+    armor_dmg_abs);
 
   _ballistic_dmg_to_target = calculateDamageTarget(
     weapon->getDamage(Item::DamageType::Ballistic),
-    armor->getDamageResistance(Item::DamageType::Ballistic),
+    armor_ballisctic_res,
     target->getDamageResistance(Item::DamageType::Ballistic));
 
   _electrical_dmg_to_armor = calculateDamageArmor(
     weapon->getDamage(Item::DamageType::Electrical),
-    armor->getDamageResistance(Item::DamageType::Electrical),
-    armor->getDamageAbsorbtion());
+    armor_electrical_res,
+    armor_dmg_abs);
 
   _electrical_dmg_to_target = calculateDamageTarget(
     weapon->getDamage(Item::DamageType::Electrical),
-    armor->getDamageResistance(Item::DamageType::Electrical),
+    armor_electrical_res,
     target->getDamageResistance(Item::DamageType::Electrical));
 
   _chemical_dmg_to_armor = calculateDamageArmor(
     weapon->getDamage(Item::DamageType::Chemical),
-    armor->getDamageResistance(Item::DamageType::Chemical),
-    armor->getDamageAbsorbtion());
+    armor_chemical_res,
+    armor_dmg_abs);
 
   _chemical_dmg_to_target = calculateDamageTarget(
     weapon->getDamage(Item::DamageType::Chemical),
-    armor->getDamageResistance(Item::DamageType::Chemical),
+    armor_chemical_res,
     target->getDamageResistance(Item::DamageType::Chemical));
 
   //log damage values and types for each attack
@@ -62,12 +82,17 @@ void BattleAction::process(spItem weapon, spItem target, spItem armor)
     );
   
   //deal all of the damage to the armor and target
-  armor->setHitPoints(armor->getHitPoints() -
-    _ballistic_dmg_to_armor -
-    _electrical_dmg_to_armor -
-    _chemical_dmg_to_armor);
+  if (target->getArmorPiece())
+  {
+    target->getArmorPiece()->setHitPoints(
+      target->getArmorPiece()->getHitPoints() -
+      _ballistic_dmg_to_armor -
+      _electrical_dmg_to_armor -
+      _chemical_dmg_to_armor);
+  }
 
-  target->setHitPoints(target->getHitPoints() -
+  target->setHitPoints(
+    target->getHitPoints() -
     _ballistic_dmg_to_target -
     _electrical_dmg_to_target -
     _chemical_dmg_to_target);
