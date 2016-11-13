@@ -5,6 +5,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
+#include "../resources.h"
 
 using namespace oxygine;
 
@@ -16,5 +17,6 @@ class BattleGui : public Actor
   public:
     BattleGui();
 
-
+  private:
+    spSprite _item_slot;
 };

@@ -10,17 +10,17 @@ For now this serves as an example, but later will include all resources
 */
 namespace resources
 {
-	Resources ui;
+	Resources battle_ui;
 
 	void load()
 	{
 		//load UI resources
-		ui.loadXML("xml/ui.xml");
+		battle_ui.loadXML("battle_ui.xml");
 	}
 
 	void free()
 	{
 		//unload
-		ui.free();
+    battle_ui.free();
 	}
 }

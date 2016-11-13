@@ -13,6 +13,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "celestial_body.h"
 #include "synthesizer.h"
 #include "battle.h"
+#include "gui/battle_gui.h"
 
 using namespace oxygine;
 
@@ -56,4 +57,6 @@ class Game : public Actor
     spItem _file_item;
 
     spBattle _battle;
+
+    spBattleGui _battle_gui;
 };

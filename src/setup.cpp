@@ -37,5 +37,5 @@ void setup_update()
 void setup_destroy()
 {
   //free previously loaded resources
-	resources::ui.free();
+	resources::free();
 }

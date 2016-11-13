@@ -32,6 +32,8 @@ void Game::init()
 
   spBattle battle = new Battle();
   battle->init(ship, ship);
+
+  spBattleGui battle_gui = new BattleGui();
 }
 
 void Game::doUpdate(const UpdateState &us)

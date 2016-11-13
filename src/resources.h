@@ -9,7 +9,8 @@ using namespace oxygine;
 
 namespace resources
 {
-	extern Resources ui;
+	extern Resources battle_ui;
+
 	void load();
 	void free();
 }

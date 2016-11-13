@@ -1,8 +1,9 @@
 <?xml version="1.0"?>
 <resources>
-  <set path = "images/ui" />
+  <set path = "images/battle_ui" />
   <set scale_factor = "1.0f" />
   
   <atlas>	
+    <image file="item_slot.png" />
   </atlas>
 </resources>
