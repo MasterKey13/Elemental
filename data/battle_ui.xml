@@ -2,8 +2,12 @@
 <resources>
   <set path = "images/battle_ui" />
   <set scale_factor = "1.0f" />
-  
-  <atlas>	
+
+  <atlas>
     <image file="item_slot.png" />
+    <image file="battle_bar.png" />
+    <image file="action_slot_locked.png" />
+    <image file="action_slot_unused.png" />
+    <image file="action_slot_used.png" />
   </atlas>
 </resources>

@@ -18,5 +18,8 @@ class BattleGui : public Actor
     BattleGui();
 
   private:
-    spSprite _item_slot;
+    int _x_offset;
+    spSprite _battle_bar;
+    spSprite _item_slots[10];
+    spSprite _action_slots[18];
 };
