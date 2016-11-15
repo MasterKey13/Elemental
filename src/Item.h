@@ -38,6 +38,7 @@ class Item : public Actor
       int hitpoints,
       int battery_power,
       int action_slots,
+      int evasion,
       int ballistic_dmg,
       int electrical_dmg,
       int chemical_dmg,
@@ -73,6 +74,7 @@ class Item : public Actor
     void setHitPointsCap(int hitpoints_cap);
     void setActionSlots(int action_slots);
     void setActionSlotsCap(int action_slots_cap);
+    void setEvasion(int evasion);
     void setPower(int power);
     void setPowerCap(int power_cap);
     void setDamage(DamageType damage_type, int damage_resistance);
@@ -107,6 +109,7 @@ class Item : public Actor
     int getHitPointsCap();
     int getActionSlots();
     int getActionSlotsCap();
+    int getEvasion();
     int getPower();
     int getPowerCap();
     int getStorageCapacity();
@@ -140,6 +143,7 @@ class Item : public Actor
     int _hitpoints_cap;
     int _action_slots;
     int _action_slots_cap;
+    int _evasion;
     int _battery_power;
     int _battery_power_cap;
     int _damage[3];

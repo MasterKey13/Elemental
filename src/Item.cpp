@@ -18,6 +18,7 @@ Item::Item()
   setHitPointsCap(0);
   setActionSlots(0);
   setActionSlotsCap(0);
+  setEvasion(0);
   setPower(0);
   setPowerCap(0);
   setDamageDefault();
@@ -54,6 +55,7 @@ Item::Item()
 \param hitpoints the amount of hitpoints the item has (health)
 \param battery_power battery power this item provides
 \param action_slots action slots this item provides
+\param evasion how much evasion this item provides
 \param ballistic_dmg amount of ballistic damage this item does
 \param electrical_dmg amount of electrical damage this item does
 \param chemical_dmg amount of chemical damage this item does
@@ -82,6 +84,7 @@ void Item::init(
   int hitpoints,
   int battery_power,
   int action_slots,
+  int evasion,
   int ballistic_dmg,
   int electrical_dmg,
   int chemical_dmg,
@@ -118,6 +121,7 @@ void Item::init(
 
   setActionSlots(action_slots);
   setActionSlotsCap(action_slots);
+  setEvasion(evasion);
 
   setDamage(Ballistic, ballistic_dmg);
   setDamage(Electrical, electrical_dmg);
@@ -182,6 +186,7 @@ void Item::init(int ID)
         items[i]["hitpoints"].asInt(),
         items[i]["power"].asInt(),
         items[i]["action_slots"].asInt(),
+        items[i]["evasion"].asInt(),
         items[i]["ballistic_dmg"].asInt(),
         items[i]["electrical_dmg"].asInt(),
         items[i]["chemical_dmg"].asInt(),
@@ -348,6 +353,11 @@ int Item::getActionSlotsCap()
   return _action_slots_cap;
 }
 
+int Item::getEvasion()
+{
+  return _evasion;
+}
+
 int Item::getPower()
 {
   return _battery_power;
@@ -393,6 +403,11 @@ void Item::setActionSlots(int action_slots)
 void Item::setActionSlotsCap(int action_slots_cap)
 {
   _action_slots_cap = action_slots_cap;
+}
+
+void Item::setEvasion(int evasion)
+{
+  _evasion = evasion;
 }
 
 void Item::setPower(int power)
