@@ -5,6 +5,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
+#include "item.h"
 #include "ship.h"
 
 using namespace oxygine;
@@ -15,7 +16,7 @@ using namespace oxygine;
 DECLARE_SMART(Synthesizer, spSynthesizer);
 DECLARE_SMART(Ship, spShip);
 
-class Synthesizer : public Actor
+class Synthesizer : public Item
 {
 public:
   Synthesizer();

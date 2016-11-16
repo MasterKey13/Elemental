@@ -111,15 +111,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../src/entry_point.cpp" />
+    <ClCompile Include="..\src\amor.cpp" />
+    <ClCompile Include="..\src\battery.cpp" />
     <ClCompile Include="..\src\battle.cpp" />
     <ClCompile Include="..\src\battle_action.cpp" />
     <ClCompile Include="..\src\battle_action_chain.cpp" />
     <ClCompile Include="..\src\celestial_body.cpp" />
     <ClCompile Include="..\src\character.cpp" />
+    <ClCompile Include="..\src\chem_container.cpp" />
+    <ClCompile Include="..\src\item_container.cpp" />
+    <ClCompile Include="..\src\engine.cpp" />
+    <ClCompile Include="..\src\equipment.cpp" />
     <ClCompile Include="..\src\game.cpp" />
     <ClCompile Include="..\src\gui\battle_gui.cpp" />
+    <ClCompile Include="..\src\hull.cpp" />
     <ClCompile Include="..\src\item.cpp" />
     <ClCompile Include="..\src\location.cpp" />
+    <ClCompile Include="..\src\mine.cpp" />
     <ClCompile Include="..\src\npc.cpp" />
     <ClCompile Include="..\src\player.cpp" />
     <ClCompile Include="..\src\resources.cpp" />
@@ -129,15 +137,24 @@
     <ClCompile Include="..\src\synthesizer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\armor.h" />
+    <ClInclude Include="..\src\battery.h" />
     <ClInclude Include="..\src\battle.h" />
     <ClInclude Include="..\src\battle_action.h" />
     <ClInclude Include="..\src\battle_action_chain.h" />
     <ClInclude Include="..\src\celestial_body.h" />
     <ClInclude Include="..\src\character.h" />
+    <ClInclude Include="..\src\chem_container.h" />
+    <ClInclude Include="..\src\damage.h" />
+    <ClInclude Include="..\src\item_container.h" />
+    <ClInclude Include="..\src\engine.h" />
+    <ClInclude Include="..\src\equipment.h" />
     <ClInclude Include="..\src\game.h" />
     <ClInclude Include="..\src\gui\battle_gui.h" />
+    <ClInclude Include="..\src\hull.h" />
     <ClInclude Include="..\src\item.h" />
     <ClInclude Include="..\src\location.h" />
+    <ClInclude Include="..\src\mine.h" />
     <ClInclude Include="..\src\npc.h" />
     <ClInclude Include="..\src\player.h" />
     <ClInclude Include="..\src\resources.h" />

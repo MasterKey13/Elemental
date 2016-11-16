@@ -27,9 +27,9 @@ void BattleAction::process(spItem weapon, spItem target)
   //handle armor piece damage resistance
   if (target->getArmorPiece())
   {
-    armor_ballisctic_res = target->getArmorPiece()->getDamageResistance(Item::DamageType::Ballistic);
-    armor_electrical_res = target->getArmorPiece()->getDamageResistance(Item::DamageType::Electrical);
-    armor_chemical_res = target->getArmorPiece()->getDamageResistance(Item::DamageType::Chemical);
+    armor_ballisctic_res = target->getArmorPiece()->getDamageResistance(Damage::Type::Ballistic);
+    armor_electrical_res = target->getArmorPiece()->getDamageResistance(Damage::Type::Electrical);
+    armor_chemical_res = target->getArmorPiece()->getDamageResistance(Damage::Type::Chemical);
     armor_dmg_abs = target->getArmorPiece()->getDamageAbsorbtion();
   }
   else
@@ -42,34 +42,34 @@ void BattleAction::process(spItem weapon, spItem target)
 
   //calculate the damage dealt to each part (armor and target)
   _ballistic_dmg_to_armor = calculateDamageArmor(
-    weapon->getDamage(Item::DamageType::Ballistic), 
+    weapon->getDamage(Damage::Type::Ballistic),
     armor_ballisctic_res, 
     armor_dmg_abs);
 
   _ballistic_dmg_to_target = calculateDamageTarget(
-    weapon->getDamage(Item::DamageType::Ballistic),
+    weapon->getDamage(Damage::Type::Ballistic),
     armor_ballisctic_res,
-    target->getDamageResistance(Item::DamageType::Ballistic));
+    target->getDamageResistance(Damage::Type::Ballistic));
 
   _electrical_dmg_to_armor = calculateDamageArmor(
-    weapon->getDamage(Item::DamageType::Electrical),
+    weapon->getDamage(Damage::Type::Electrical),
     armor_electrical_res,
     armor_dmg_abs);
 
   _electrical_dmg_to_target = calculateDamageTarget(
-    weapon->getDamage(Item::DamageType::Electrical),
+    weapon->getDamage(Damage::Type::Electrical),
     armor_electrical_res,
-    target->getDamageResistance(Item::DamageType::Electrical));
+    target->getDamageResistance(Damage::Type::Electrical));
 
   _chemical_dmg_to_armor = calculateDamageArmor(
-    weapon->getDamage(Item::DamageType::Chemical),
+    weapon->getDamage(Damage::Type::Chemical),
     armor_chemical_res,
     armor_dmg_abs);
 
   _chemical_dmg_to_target = calculateDamageTarget(
-    weapon->getDamage(Item::DamageType::Chemical),
+    weapon->getDamage(Damage::Type::Chemical),
     armor_chemical_res,
-    target->getDamageResistance(Item::DamageType::Chemical));
+    target->getDamageResistance(Damage::Type::Chemical));
 
   //log damage values and types for each attack
   log::messageln("BA: %d\nBT: %d\nEA: %d\nET: %d\nCA: %d\nCT: %d",
