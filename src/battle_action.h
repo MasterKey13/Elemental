@@ -19,8 +19,10 @@ class BattleAction : public Actor
   public:
     BattleAction();
 
+    template <class Targetable>
+
     //battle action damage calculation functions
-    void process(spItem item, spItem target);
+    void process(spItem item, Targetable target);
     int calculateDamageArmor(int weap_dmg, int armor_res, int armor_abs);
     int calculateDamageTarget(int weap_dmg, int armor_res, int target_res);
 

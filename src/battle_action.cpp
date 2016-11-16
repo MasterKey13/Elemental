@@ -12,12 +12,14 @@ BattleAction::BattleAction()
   setNext(nullptr);
 }
 
+template <class Targetable>
+
 //! Process function for a battle action using a weapon
 /*!
 \param item smart ptr to item used in the attack
 \param target smart ptr to target of the attack
 */
-void BattleAction::process(spItem weapon, spItem target)
+void BattleAction::process(spItem weapon, Targetable target)
 {
   int armor_ballisctic_res;
   int armor_electrical_res;
