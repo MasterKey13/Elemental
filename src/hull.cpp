@@ -11,7 +11,12 @@ Hull::Hull()
 
 }
 
-void Hull::setArmorPiece(spItem armor)
+void Hull::setArmorPiece(spArmor armor)
 {
   _armor_piece = armor;
+}
+
+spArmor Hull::getArmorPiece()
+{
+  return _armor_piece;
 }

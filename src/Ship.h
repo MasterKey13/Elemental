@@ -6,7 +6,10 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #pragma once
 #include "oxygine-framework.h"
 #include "character.h"
-#include "item.h"
+#include "hull.h"
+#include "battery.h"
+#include "engine.h"
+#include "equipment.h"
 
 #include <string>
 #include <cmath>
@@ -18,7 +21,10 @@ using namespace oxygine;
 
 //Declare smart pointers
 DECLARE_SMART(Ship, spShip);
-DECLARE_SMART(Item, spItem);
+DECLARE_SMART(Hull, spHull);
+DECLARE_SMART(Battery, spBattery);
+DECLARE_SMART(Engine, spEngine);
+DECLARE_SMART(Equipment, spEquipment);
 
 class Ship : public Actor
 {
@@ -27,34 +33,30 @@ class Ship : public Actor
 
     void init(
       std::string name,
+      spHull hull,
+      spBattery battery,
+      spEngine engine);
 
-      spItem hull,
-      spItem battery,
-      spItem engine);
-
-    void log();
 	 
     //SETTERS
     void setName(std::string name);
-
-    void setHull(spItem hull);
-    void setBattery(spItem battery);
-    void setEngine(spItem engine);
+    void setHull(spHull hull);
+    void setBattery(spBattery battery);
+    void setEngine(spEngine engine);
 
     //GETTERS
 	  std::string getName();
-
-    spItem getHull();
-    spItem getBattery();
-    spItem getEngine();
+    spHull getHull();
+    spBattery getBattery();
+    spEngine getEngine();
 
   private:
 	  void doUpdate(const UpdateState &us);
 
+    //main components
     std::string _name;
-
-    spItem _hull;
-    spItem _battery;
-    spItem _engine;
+    spHull _hull;
+    spBattery _battery;
+    spEngine _engine;
 
 };

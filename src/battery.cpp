@@ -32,6 +32,11 @@ int Battery::getActionPointsMax()
   return _action_points_max;
 }
 
+spArmor Battery::getArmorPiece()
+{
+  return _armor_piece;
+}
+
 void Battery::setActionSlots(int action_slots)
 {
   _action_slots = action_slots;
@@ -52,7 +57,7 @@ void Battery::setActionPointsMax(int action_points_max)
   _action_points_max = action_points_max;
 }
 
-void Battery::setArmorPiece(spItem armor)
+void Battery::setArmorPiece(spArmor armor)
 {
   _armor_piece = armor;
 }

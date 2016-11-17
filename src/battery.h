@@ -5,12 +5,12 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
-#include <string>
-#include "json/json.h"
 #include "item.h"
+#include "armor.h"
 
 //declare smart pointer
-DECLARE_SMART(Item, spItem);
+DECLARE_SMART(Battery, spBattery);
+DECLARE_SMART(Armor, spArmor);
 
 using namespace oxygine;
 
@@ -24,17 +24,17 @@ class Battery : public Item
     void setActionPoints(int action_points);
     void setActionPointsMax(int action_points_max);
 
-    void setArmorPiece(spItem armor);
+    void setArmorPiece(spArmor armor);
 
     int getActionSlots();
     int getActionSlotsMax();
     int getActionPoints();
     int getActionPointsMax();
     
-    spItem getArmorPiece();
+    spArmor getArmorPiece();
 
   private:
-    spItem _armor_piece;
+    spArmor _armor_piece;
     int _action_points;
     int _action_points_max;
     int _action_slots;

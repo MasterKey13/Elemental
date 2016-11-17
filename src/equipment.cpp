@@ -4,7 +4,6 @@ Author: Alexander Mastryukov
 License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 */
 
-#include "item.h"
 #include "equipment.h"
 
 Equipment::Equipment()
@@ -12,7 +11,7 @@ Equipment::Equipment()
 
 }
 
-void Equipment::setArmorPiece(spItem armor)
+void Equipment::setArmorPiece(spArmor armor)
 {
   _armor_piece = armor;
 }
@@ -27,12 +26,9 @@ int Equipment::getDamageAbsorbtion()
   return _damage_absorbtion;
 }
 
-spItem Equipment::getArmorPiece()
+spArmor Equipment::getArmorPiece()
 {
-  if (_armor_piece)
-  {
-    return _armor_piece;
-  }
+  return _armor_piece;
 }
 
 //! Return the amount of damage the weapon deals for the given damage type
@@ -59,4 +55,21 @@ void Equipment::setDamageDefault()
   setDamage(Damage::Type::Ballistic, 0);
   setDamage(Damage::Type::Electrical, 0);
   setDamage(Damage::Type::Chemical, 0);
+}
+
+void Equipment::setDamageResistance(Damage::Type type, int resistance)
+{
+  _damage_resistance[type] = resistance;
+}
+
+void Equipment::setDamageResistanceDefault()
+{
+  setDamageResistance(Damage::Type::Ballistic, 0); 
+  setDamageResistance(Damage::Type::Electrical, 0);
+  setDamageResistance(Damage::Type::Chemical, 0);
+}
+
+void Equipment::setDamageAbsorbtion(int absorb)
+{
+  _damage_absorbtion = absorb;
 }

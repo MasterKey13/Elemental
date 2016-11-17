@@ -5,12 +5,12 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
-#include <string>
-#include "json/json.h"
 #include "item.h"
+#include "celestial_body.h"
 
 //declare smart pointer
-DECLARE_SMART(Item, spItem);
+DECLARE_SMART(CelestialBody, spCelestialBody);
+DECLARE_SMART(Mine, spMine);
 
 using namespace oxygine;
 

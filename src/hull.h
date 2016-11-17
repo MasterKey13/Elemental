@@ -5,12 +5,12 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
-#include <string>
-#include "json/json.h"
 #include "item.h"
+#include "armor.h"
 
 //declare smart pointer
-DECLARE_SMART(Item, spItem);
+DECLARE_SMART(Hull, spHull);
+DECLARE_SMART(Armor, spArmor);
 
 using namespace oxygine;
 
@@ -19,11 +19,11 @@ class Hull : public Item
   public:
     Hull();
 
-    void setArmorPiece(spItem armor);
+    void setArmorPiece(spArmor armor);
 
-    spItem getArmorPiece();
+    spArmor getArmorPiece();
 
   private:
-    spItem _armor_piece;
+    spArmor _armor_piece;
 
 };

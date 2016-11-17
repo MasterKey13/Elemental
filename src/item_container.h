@@ -5,12 +5,10 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
-#include <string>
-#include "json/json.h"
 #include "Item.h"
 
 //declare smart pointer
-DECLARE_SMART(Item, spItem);
+DECLARE_SMART(ItemContainer, spItemContainer);
 
 using namespace oxygine;
 

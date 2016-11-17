@@ -7,7 +7,6 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "oxygine-framework.h"
 #include <string>
 #include "json/json.h"
-#include "celestial_body.h"
 
 //declare smart pointer
 DECLARE_SMART(Item, spItem);
