@@ -28,21 +28,6 @@ Item::Item()
 \param desc description of the item
 \param brand the brand name of the item
 \param hitpoints the amount of hitpoints the item has (health)
-
-\param battery_power battery power this item provides
-\param action_slots action slots this item provides
-\param evasion how much evasion this item provides
-\param ballistic_dmg amount of ballistic damage this item does
-\param electrical_dmg amount of electrical damage this item does
-\param chemical_dmg amount of chemical damage this item does
-\param ballistic_res resistance to ballistic damage of this item
-\param electrical_res resistance to electrical damage of this item
-\param chemical_res resistance to chemical damage of this item
-\param damage_absorbtion maximum amount of damage the armor item can absorb
-\param mining_efficiency the mining efficiency of this item
-\param mining_reliability how reliably this item can mine for elements
-\param storage_capacity the maximum amount of elements this item can store
-\param max_temp maximum temperature this item can endure
 */
 void Item::init(
   std::string ID,

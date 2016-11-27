@@ -25,14 +25,14 @@
     <Filter Include="Header Files\items">
       <UniqueIdentifier>{5000c5ea-8fa9-4297-93fa-2582de03b0ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\util">
+      <UniqueIdentifier>{26d4b9ea-bad9-40c2-9974-2e2f5bbc392c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\util">
+      <UniqueIdentifier>{4787779c-e067-4119-bb6f-f849afde9e48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="../src/entry_point.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\setup.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\resources.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -99,14 +99,17 @@
     <ClCompile Include="..\src\synthesizer.cpp">
       <Filter>Source Files\items</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\setup.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="../src/entry_point.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\damageable.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\setup.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\resources.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\celestial_body.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -143,9 +146,6 @@
     <ClInclude Include="..\src\battle_action.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\damage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\armor.h">
       <Filter>Header Files\items</Filter>
     </ClInclude>
@@ -172,6 +172,18 @@
     </ClInclude>
     <ClInclude Include="..\src\synthesizer.h">
       <Filter>Header Files\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\damage.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\setup.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\resources.h">
+      <Filter>Header Files\util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\damageable.h">
+      <Filter>Header Files\util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

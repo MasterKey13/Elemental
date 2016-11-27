@@ -8,6 +8,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "item.h"
 #include "damage.h"
 #include "armor.h"
+#include "damageable.h"
 
 //declare smart pointer
 DECLARE_SMART(Equipment, spEquipment);
@@ -15,7 +16,7 @@ DECLARE_SMART(Armor, spArmor);
 
 using namespace oxygine;
 
-class Equipment : public Item
+class Equipment : public Item, public Damageable
 {
   public:
     Equipment();
@@ -25,6 +26,11 @@ class Equipment : public Item
     void setDamageResistance(Damage::Type type, int resistance);
     void setDamageResistanceDefault();
     void setDamageAbsorbtion(int absorb);
+    void setAPCost(int APcost);
+
+    void init(int ballistic_res, int electrical_res, int chemical_res, int damage_absorbtion, int ballistic_dmg, int electrical_dmg, int chemical_dmg, int action_point_cost);
+
+    void init(std::string ID);
 
     void setArmorPiece(spArmor armor);
 

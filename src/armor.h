@@ -7,25 +7,21 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "oxygine-framework.h"
 #include "item.h"
 #include "damage.h"
+#include "damageable.h"
 
 //declare smart pointer
 DECLARE_SMART(Armor, spArmor);
 
 using namespace oxygine;
 
-class Armor : public Item
+class Armor : public Item, public Damageable
 {
   public:
     Armor();
 
-    void setDamageResistance(Damage::Type type, int resistance);
-    void setDamageResistanceDefault();
-    void setDamageAbsorbtion(int absorb);
-
-    int getDamageResistance(Damage::Type type);
-    int getDamageAbsorbtion();
+    void init(int ballistic_res, int electrical_res, int chemical_res, int damage_abs);
+    void init(std::string ID);
 
   private:
-    int _damage_resistance[3];
-    int _damage_absorbtion;
+
 };

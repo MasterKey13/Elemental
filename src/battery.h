@@ -7,6 +7,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "oxygine-framework.h"
 #include "item.h"
 #include "armor.h"
+#include "damageable.h"
 
 //declare smart pointer
 DECLARE_SMART(Battery, spBattery);
@@ -14,10 +15,13 @@ DECLARE_SMART(Armor, spArmor);
 
 using namespace oxygine;
 
-class Battery : public Item
+class Battery : public Item, public Damageable
 {
   public:
     Battery();
+
+    void init(int ballistic_res, int electrical_res, int chemical_res, int damage_absorbtion, int action_slots, int action_points);
+    void init(std::string ID);
 
     void setActionSlots(int action_slots);
     void setActionSlotsMax(int action_slots_max);

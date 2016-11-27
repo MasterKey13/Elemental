@@ -13,54 +13,6 @@
           "13": 10,
           "23": 60
         }
-    },
-    {
-      "id": 2,
-      "name": "United Americas: A Complete History",
-      "description": "A brief yet complete history of United America written by Strompf Lucas in 2300.",
-      "size": 1,
-      "brand": "Unipublish",
-      "craftable": false,
-      "composition": {
-          "0": 60,
-          "5": 220,
-          "6": 35,
-          "7": 25
-        }
-    },
-    {
-      "id": 3,
-      "size": 5,
-      "name": "XB Compact Cannon",
-      "desc": "A small cannon which fires a projectile designed to penetrate armor.",
-      "brand": "Amerimade",
-      "hitpoints": 56,
-      "ballistic_dmg": 12,
-      "chemical_dmg": 8,
-      "chemical_res": 3,
-      "isWeapon": true
-    },
-    {
-      "id": 4,
-      "size": 4,
-      "name": "Small armor plate",
-      "desc": "A rather small, generic armor plate designed to mitigate damage from most projectiles.",
-      "brand": "Tech-Ten",
-      "hitpoints": 32,
-      "ballistic_res": 4,
-      "damage_absorbtion": 6,
-      "isArmor": true
-    },
-    {
-      "id": 5,
-      "size": 5,
-      "name": "Series X-Cosmos Engine",
-      "desc": "A standard-performance ship engine.",
-      "brand": "Tech-Ten",
-      "hitpoints": 60,
-      "ballistic_res": 3,
-      "chemical_res": 1,
-      "isEngine": true
     }
   ]
 }

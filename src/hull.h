@@ -7,6 +7,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "oxygine-framework.h"
 #include "item.h"
 #include "armor.h"
+#include "damageable.h"
 
 //declare smart pointer
 DECLARE_SMART(Hull, spHull);
@@ -14,7 +15,7 @@ DECLARE_SMART(Armor, spArmor);
 
 using namespace oxygine;
 
-class Hull : public Item
+class Hull : public Item, public Damageable
 {
   public:
     Hull();
