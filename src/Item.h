@@ -21,7 +21,7 @@ class Item : public Actor
 	  Item();
 
     void init(
-      int ID,
+      std::string ID,
       int size,
       std::string name,
       std::string desc,
@@ -29,12 +29,12 @@ class Item : public Actor
       int hitpoints
     );
 
-    void init(int ID);
+    void init(std::string ID);
 
     void log();
 
     //SETTERS
-    void setID(int ID);
+    void setID(std::string ID);
     void setSize(int size);
     void setName(std::string name);
     void setDescription(std::string desc);
@@ -45,7 +45,7 @@ class Item : public Actor
     void setCompositionDefault();
 
     //GETTERS
-    int getID();
+    std::string getID();
     int getSize();
     std::string getName();
     std::string getDescription();
@@ -55,7 +55,7 @@ class Item : public Actor
     int getComposition(int element);
 
   private:
-    int _itemID;
+    std::string _itemID;
     int _size;
     std::string _name;
     std::string _desc;

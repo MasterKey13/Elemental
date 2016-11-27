@@ -13,7 +13,18 @@ Game::Game()
 
 void Game::init()
 {
+  /*
+  _hull = new Hull();
+  _armor = new Armor();
+  _engine = new Engine();
+  _battery = new Battery();
+  _weapon = new Weapon();
 
+  _player_ship->init();
+
+  _battle = new Battle();
+  _battle->init();
+  */
 }
 
 void Game::doUpdate(const UpdateState &us)

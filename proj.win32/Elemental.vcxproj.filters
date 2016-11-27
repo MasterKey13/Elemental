@@ -19,6 +19,12 @@
     <Filter Include="Source Files\gui">
       <UniqueIdentifier>{42b8bade-2550-4d83-bca7-b2eb238e29d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\items">
+      <UniqueIdentifier>{01720986-f2bf-4172-91eb-9c1ad00da2ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\items">
+      <UniqueIdentifier>{5000c5ea-8fa9-4297-93fa-2582de03b0ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../src/entry_point.cpp">
@@ -36,12 +42,6 @@
     <ClCompile Include="..\src\gui\battle_gui.cpp">
       <Filter>Source Files\gui</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\amor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\battery.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\battle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -51,28 +51,7 @@
     <ClCompile Include="..\src\character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\chem_container.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\equipment.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\hull.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\item_container.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\location.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\mine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\npc.cpp">
@@ -87,14 +66,38 @@
     <ClCompile Include="..\src\ship.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\synthesizer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\battle_action.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\battle_action_chain.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\amor.cpp">
+      <Filter>Source Files\items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\battery.cpp">
+      <Filter>Source Files\items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\engine.cpp">
+      <Filter>Source Files\items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\equipment.cpp">
+      <Filter>Source Files\items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\hull.cpp">
+      <Filter>Source Files\items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\item.cpp">
+      <Filter>Source Files\items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\container.cpp">
+      <Filter>Source Files\items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mine.cpp">
+      <Filter>Source Files\items</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\synthesizer.cpp">
+      <Filter>Source Files\items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -113,9 +116,6 @@
     <ClInclude Include="..\src\game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\location.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -131,38 +131,11 @@
     <ClInclude Include="..\src\ship.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\synthesizer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\battle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\gui\battle_gui.h">
       <Filter>Header Files\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\equipment.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\hull.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\item_container.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\chem_container.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\battery.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\armor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\mine.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\battle_action_chain.h">
       <Filter>Header Files</Filter>
@@ -172,6 +145,33 @@
     </ClInclude>
     <ClInclude Include="..\src\damage.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\armor.h">
+      <Filter>Header Files\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\battery.h">
+      <Filter>Header Files\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\engine.h">
+      <Filter>Header Files\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\equipment.h">
+      <Filter>Header Files\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\hull.h">
+      <Filter>Header Files\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\item.h">
+      <Filter>Header Files\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\container.h">
+      <Filter>Header Files\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mine.h">
+      <Filter>Header Files\items</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\synthesizer.h">
+      <Filter>Header Files\items</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

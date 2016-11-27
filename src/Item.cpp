@@ -9,7 +9,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 Item::Item()
 {
   //set all values to default (0, false, empty strings and nullptrs)
-  setID(0);
+  setID("");
   setSize(0);
   setName("");
   setDescription("");
@@ -45,7 +45,7 @@ Item::Item()
 \param max_temp maximum temperature this item can endure
 */
 void Item::init(
-  int ID,
+  std::string ID,
   int size,
   std::string name,
   std::string desc,
@@ -68,7 +68,7 @@ void Item::init(
 /*!
 \param ID ID of the item
 */
-void Item::init(int ID)
+void Item::init(std::string ID)
 {
   //load file to buffer
   file::buffer bf;
@@ -84,7 +84,7 @@ void Item::init(int ID)
   //go through the json file and find the item by ID
   for (int i = 0; i < items.size(); i++)
   {
-    if (items[i]["id"].asInt() == ID)
+    if (ID.compare(items[i]["id"].asCString()) == 0)
     {
       //initialize the item
       init(
@@ -110,7 +110,7 @@ void Item::log()
  
 }
 
-void Item::setID(int ID)
+void Item::setID(std::string ID)
 {
   _itemID = ID;
 }
@@ -148,7 +148,7 @@ void Item::setCompositionDefault()
   }
 }
 
-int Item::getID()
+std::string Item::getID()
 {
   return _itemID;
 }

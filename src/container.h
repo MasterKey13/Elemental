@@ -8,15 +8,15 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "item.h"
 
 //declare smart pointer
-DECLARE_SMART(ChemContainer, spChemContainer);
+DECLARE_SMART(Container, spContainer);
 
 using namespace oxygine;
 
-class ChemContainer : public Item
+class Container : public Item
 {
-  public:
-    ChemContainer();
+public:
+  Container();
 
-  private:
+private:
 
 };
