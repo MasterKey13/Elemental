@@ -14,9 +14,20 @@ using namespace oxygine;
 
 class Container : public Item
 {
-public:
-  Container();
+  public:
+    Container();
 
-private:
+    void init(int capacity);
 
+    void init(std::string ID);
+
+    //SETTERS
+    void setCapacity(int cap);
+
+    //GETTERS
+    int getCapacity();
+
+  private:
+    int _capacity;
+    spItem _storage[];
 };

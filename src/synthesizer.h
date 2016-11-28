@@ -7,6 +7,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "oxygine-framework.h"
 #include "item.h"
 #include "ship.h"
+#include "container.h"
 
 using namespace oxygine;
 
@@ -14,24 +15,20 @@ using namespace oxygine;
 
 //Declare smart pointers
 DECLARE_SMART(Synthesizer, spSynthesizer);
-DECLARE_SMART(Ship, spShip);
+DECLARE_SMART(Container, spContainer);
 
 class Synthesizer : public Item
 {
-public:
-  Synthesizer();
+  public:
+    Synthesizer();
 
-  //SETTERS
-  void setHostShip(spShip host);
-  void setSize(int size);
+    void init(int capacity);
 
-  //GETTERS
-  int getSize();
+    void init(std::string ID);
 
-  void decomposeItem(spItem item);
-  void synthesizeItem(int ID);
+    void decomposeItem(spItem item);
+    void synthesizeItem(std::string ID);
 
-private:
-  spShip _host_ship;
-  int _size;
+  private:
+    spContainer _chem_container;
 };

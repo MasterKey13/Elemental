@@ -19,6 +19,10 @@ class Mine : public Item
   public:
     Mine();
 
+    void init(int chem_storage_max, int efficiency, int reliability, int max_temp);
+
+    void init(std::string ID);
+
     void setChemStorageCapacity(int cap);
     void setChemStorage(int element, int amount);
     void setEfficiency(int efficiency);

@@ -8,22 +8,54 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Synthesizer::Synthesizer()
 {
-
+  
 }
 
-void Synthesizer::setHostShip(spShip host)
+//! Initialize a container with given parameters
+void Synthesizer::init(int capacity)
 {
-  _host_ship = host;
+  
 }
 
-void Synthesizer::setSize(int size)
+//! Initialize a synthesizer by ID (load from item definition file synthesizers.json)
+/*!
+\param ID ID of the item
+*/
+void Synthesizer::init(std::string ID)
 {
-  _size = size;
-}
+  //load file to buffer
+  file::buffer bf;
+  file::read("json/synthesizers.json", bf);
 
-int Synthesizer::getSize()
-{
-  return _size;
+  //parse
+  Json::Reader reader;
+  Json::Value value;
+  reader.parse((char*)&bf.front(), (char*)&bf.front() + bf.size(), value, false);
+
+  Json::Value items = value["synthesizers"];
+
+  //go through the json file and find the item by ID
+  for (int i = 0; i < items.size(); i++)
+  {
+    if (ID.compare(items[i]["id"].asCString()) == 0)
+    {
+      //initialize the item
+      Item::init(
+        ID,
+        items[i]["size"].asInt(),
+        items[i]["name"].asCString(),
+        items[i]["desc"].asCString(),
+        items[i]["brand"].asCString(),
+        items[i]["hitpoints"].asInt()
+        );
+
+      //load the defined elemental composition
+      for (int j = 0; j < 50; j++)
+      {
+        setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
+      }
+    }
+  }
 }
 
 //! Decompose an item into its most basic elements

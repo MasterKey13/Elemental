@@ -30,14 +30,14 @@ void Engine::init(std::string ID)
 {
   //load file to buffer
   file::buffer bf;
-  file::read("json/items.json", bf);
+  file::read("json/engines.json", bf);
 
   //parse
   Json::Reader reader;
   Json::Value value;
   reader.parse((char*)&bf.front(), (char*)&bf.front() + bf.size(), value, false);
 
-  Json::Value items = value["items"];
+  Json::Value items = value["engines"];
 
   //go through the json file and find the item by ID
   for (int i = 0; i < items.size(); i++)

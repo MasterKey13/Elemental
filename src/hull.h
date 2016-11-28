@@ -20,6 +20,10 @@ class Hull : public Item, public Damageable
   public:
     Hull();
 
+    void init(int ballistic_res, int electrical_res, int chemical_res, int damage_absorbtion);
+
+    void init(std::string ID);
+
     void setArmorPiece(spArmor armor);
 
     spArmor getArmorPiece();

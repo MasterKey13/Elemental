@@ -41,7 +41,7 @@ void Armor::init(std::string ID)
 {
   //load file to buffer
   file::buffer bf;
-  file::read("json/items.json", bf);
+  file::read("json/armors.json", bf);
 
   //parse
   Json::Reader reader;

@@ -8,7 +8,82 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Mine::Mine()
 {
+  setChemStorageCapacity(0);
+  setStorageDefault();
+  setEfficiency(0);
+  setReliability(0);
+  setCurrentTotalStorage(0);
+  setHostBody(nullptr);
+  setMaxTemp(0);
+}
 
+//! Initialize a battery with given parameters
+/*!
+\param chem_storage_max the maximum storage capacity
+\param efficiency efficiency of the mine
+\param reliability reliability of the mine
+\param max_temp maximum temperature the mine can support
+*/
+void Mine::init(
+  int chem_storage_max,
+  int efficiency,
+  int reliability,
+  int max_temp
+  )
+{
+  setChemStorageCapacity(chem_storage_max);
+  setEfficiency(efficiency);
+  setReliability(reliability);
+  setMaxTemp(max_temp);
+}
+
+//! Initialize an item by ID (load from item definition file items.json)
+/*!
+\param ID ID of the item
+*/
+void Mine::init(std::string ID)
+{
+  //load file to buffer
+  file::buffer bf;
+  file::read("json/mines.json", bf);
+
+  //parse
+  Json::Reader reader;
+  Json::Value value;
+  reader.parse((char*)&bf.front(), (char*)&bf.front() + bf.size(), value, false);
+
+  Json::Value items = value["mines"];
+
+  //go through the json file and find the item by ID
+  for (int i = 0; i < items.size(); i++)
+  {
+    if (ID.compare(items[i]["id"].asCString()) == 0)
+    {
+      //initialize the item
+      Item::init(
+        ID,
+        items[i]["size"].asInt(),
+        items[i]["name"].asCString(),
+        items[i]["desc"].asCString(),
+        items[i]["brand"].asCString(),
+        items[i]["hitpoints"].asInt()
+        );
+
+      //initialize the hull
+      init(
+        items[i]["chem_storage_max"].asInt(),
+        items[i]["efficiency"].asInt(),
+        items[i]["reliability"].asInt(),
+        items[i]["max_temp"].asInt()
+        );
+
+      //load the defined elemental composition
+      for (int j = 0; j < 50; j++)
+      {
+        setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
+      }
+    }
+  }
 }
 
 void Mine::setChemStorageCapacity(int cap)
