@@ -58,5 +58,4 @@ class Ship : public Actor
     spHull _hull;
     spBattery _battery;
     spEngine _engine;
-
 };

@@ -29,5 +29,4 @@ class Container : public Item
 
   private:
     int _capacity;
-    spItem _storage[];
 };

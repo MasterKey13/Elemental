@@ -9,7 +9,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 using namespace oxygine;
 
-class Damageable : public Actor
+class Damageable
 {
   public:
     Damageable();

@@ -50,7 +50,7 @@ void Hull::init(std::string ID)
   Json::Value items = value["hulls"];
 
   //go through the json file and find the item by ID
-  for (int i = 0; i < items.size(); i++)
+  for (size_t i = 0; i < items.size(); i++)
   {
     if (ID.compare(items[i]["id"].asCString()) == 0)
     {

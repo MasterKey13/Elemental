@@ -7,7 +7,10 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Ship::Ship()
 {
-
+  setName("");
+  setHull(nullptr);
+  setBattery(nullptr);
+  setEngine(nullptr);
 }
 
 //! Initialize a custom ship with given parameters
@@ -24,7 +27,6 @@ void Ship::init(
   spEngine engine)
 {
   setName(name);
-
   setHull(hull);
   setBattery(battery);
   setEngine(engine);

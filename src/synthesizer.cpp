@@ -35,7 +35,7 @@ void Synthesizer::init(std::string ID)
   Json::Value items = value["synthesizers"];
 
   //go through the json file and find the item by ID
-  for (int i = 0; i < items.size(); i++)
+  for (size_t  i = 0; i < items.size(); i++)
   {
     if (ID.compare(items[i]["id"].asCString()) == 0)
     {
@@ -71,7 +71,7 @@ void Synthesizer::decomposeItem(spItem item)
 /*!
 \param ID ID of item to synthesize
 */
-void Synthesizer::synthesizeItem(int ID)
+void Synthesizer::synthesizeItem(std::string ID)
 {
   //TODO: implement this
 }
