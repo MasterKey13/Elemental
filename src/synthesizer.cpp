@@ -42,7 +42,8 @@ void Synthesizer::init(std::string ID)
       //initialize the item
       Item::init(
         ID,
-        items[i]["size"].asInt(),
+        items[i]["volume"].asFloat(),
+        items[i]["weight"].asFloat(),
         items[i]["name"].asCString(),
         items[i]["desc"].asCString(),
         items[i]["brand"].asCString(),

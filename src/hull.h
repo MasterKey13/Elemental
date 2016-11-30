@@ -20,15 +20,20 @@ class Hull : public Item, public Damageable
   public:
     Hull();
 
-    void init(int ballistic_res, int electrical_res, int chemical_res, int damage_absorbtion);
+    void init(int ballistic_res, int electrical_res, int chemical_res, int damage_absorbtion, float inventory_volume);
 
     void init(std::string ID);
 
     void setArmorPiece(spArmor armor);
+    void setInventoryVolume(float volume);
+    void setMaxInventoryVolume(float volume);
 
     spArmor getArmorPiece();
+    float getInventoryVolume();
+    float getMaxInventoryVolume();
 
   private:
     spArmor _armor_piece;
-
+    float _inventory_volume;
+    float _max_inventory_volume;
 };

@@ -10,15 +10,18 @@ Engine::Engine()
 {
   setEvasion(0);
   setArmorPiece(nullptr);
+  setMaxWeight(0.0f);
 }
 
 //! Initialize an item with given parameters
 /*!
 \param evasion how much evasion this item provides
+\param max_weight the maximum amount of weight this engine can safely move (kg)
 */
-void Engine::init(int evasion)
+void Engine::init(int evasion, float max_weight)
 {
   setEvasion(evasion);
+  setMaxWeight(max_weight);
 }
 
 //! Initialize an item by ID (load from item definition file items.json)
@@ -46,7 +49,8 @@ void Engine::init(std::string ID)
       //initialize the item
       Item::init(
         ID,
-        items[i]["size"].asInt(),
+        items[i]["volume"].asFloat(),
+        items[i]["weight"].asFloat(),
         items[i]["name"].asCString(),
         items[i]["desc"].asCString(),
         items[i]["brand"].asCString(),
@@ -54,7 +58,10 @@ void Engine::init(std::string ID)
         );
 
       //initialize the engine
-      init(items[i]["evasion"].asInt());
+      init(
+        items[i]["evasion"].asInt(),
+        items[i]["max_weight"].asFloat()
+        );
 
       //load the defined elemental composition
       for (int j = 0; j < 50; j++)
@@ -75,6 +82,11 @@ spArmor Engine::getArmorPiece()
   return _armor_piece;
 }
 
+float Engine::getMaxWeight()
+{
+  return _max_weight;
+}
+
 void Engine::setEvasion(int evasion)
 {
   _evasion = evasion;
@@ -83,4 +95,9 @@ void Engine::setEvasion(int evasion)
 void Engine::setArmorPiece(spArmor armor)
 {
   _armor_piece = armor;
+}
+
+void Engine::setMaxWeight(float weight)
+{
+  _max_weight = weight;
 }

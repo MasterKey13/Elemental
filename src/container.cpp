@@ -38,14 +38,15 @@ void Container::init(std::string ID)
   Json::Value items = value["containers"];
 
   //go through the json file and find the item by ID
-  for (int i = 0; i < items.size(); i++)
+  for (size_t i = 0; i < items.size(); i++)
   {
     if (ID.compare(items[i]["id"].asCString()) == 0)
     {
       //initialize the item
       Item::init(
         ID,
-        items[i]["size"].asInt(),
+        items[i]["volume"].asFloat(),
+        items[i]["weight"].asFloat(),
         items[i]["name"].asCString(),
         items[i]["desc"].asCString(),
         items[i]["brand"].asCString(),

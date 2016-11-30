@@ -2,7 +2,10 @@
   "items":
   [
     {
-
+      "id": "tamam_shud"
+      "name": "Inscribed Notebook"
+      "description": "A soft-cover leather notebook inscribed with the words 'Hermann Schutt' on the front cover. The contents of the notebook are empty."
+      
     }
   ]
 }

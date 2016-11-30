@@ -36,7 +36,7 @@ BattleGui::BattleGui()
     _action_slots[i] = new Sprite();
 
     _action_slots[i]->attachTo(_battle_bar);
-    _action_slots[i]->setResAnim(resources::battle_ui.getResAnim("action_slot_unused"));
+    _action_slots[i]->setResAnim(resources::battle_ui.getResAnim("action_slot"), 0);
     _action_slots[i]->setPosition(_x_offset, 4);
 
     _x_offset += 4 + _action_slots[i]->getWidth();

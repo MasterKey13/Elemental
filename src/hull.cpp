@@ -9,6 +9,9 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 Hull::Hull()
 {
   setArmorPiece(nullptr);
+  setDamageResistanceDefault();
+  setDamageAbsorbtion(0);
+  setInventoryVolume(0.0f);
 }
 
 //! Initialize a battery with given parameters
@@ -17,12 +20,14 @@ Hull::Hull()
 \param electrical_res resistance to electrical damage of this armor
 \param chemical_res resistance to chemical damage of this armor
 \param damage_absorbtion maximum amount of damage the armor item can absorb
+\param inventory_volume the maximum volume in m^3 of items this ship can store
 */
 void Hull::init(
   int ballistic_res,
   int electrical_res,
   int chemical_res,
-  int damage_absorbtion
+  int damage_absorbtion,
+  float inventory_volume
   )
 {
   setDamageResistance(Damage::Type::Ballistic, ballistic_res);
@@ -57,7 +62,8 @@ void Hull::init(std::string ID)
       //initialize the item
       Item::init(
         ID,
-        items[i]["size"].asInt(),
+        items[i]["volume"].asFloat(),
+        items[i]["weight"].asFloat(),
         items[i]["name"].asCString(),
         items[i]["desc"].asCString(),
         items[i]["brand"].asCString(),
@@ -69,7 +75,8 @@ void Hull::init(std::string ID)
         items[i]["ballistic_res"].asInt(),
         items[i]["electrical_res"].asInt(),
         items[i]["chemical_res"].asInt(),
-        items[i]["damage_absorbtion"].asInt()
+        items[i]["damage_absorbtion"].asInt(),
+        items[i]["inventory_volume"].asFloat()
         );
 
       //load the defined elemental composition
@@ -86,7 +93,17 @@ void Hull::setArmorPiece(spArmor armor)
   _armor_piece = armor;
 }
 
+void Hull::setInventoryVolume(float volume)
+{
+  _inventory_volume = volume;
+}
+
 spArmor Hull::getArmorPiece()
 {
   return _armor_piece;
+}
+
+float Hull::getMaxInventoryVolume()
+{
+  return _max_inventory_volume;
 }

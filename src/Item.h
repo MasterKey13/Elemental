@@ -22,7 +22,8 @@ class Item : public Actor
 
     void init(
       std::string ID,
-      int size,
+      float volume,
+      float weight,
       std::string name,
       std::string desc,
       std::string brand,
@@ -35,7 +36,8 @@ class Item : public Actor
 
     //SETTERS
     void setID(std::string ID);
-    void setSize(int size);
+    void setVolume(float volume);
+    void setWeight(float weight);
     void setName(std::string name);
     void setDescription(std::string desc);
     void setBrand(std::string brand);
@@ -46,7 +48,8 @@ class Item : public Actor
 
     //GETTERS
     std::string getID();
-    int getSize();
+    float getVolume();
+    float getWeight();
     std::string getName();
     std::string getDescription();
     std::string getBrand();
@@ -56,7 +59,8 @@ class Item : public Actor
 
   private:
     std::string _itemID;
-    int _size;
+    float _volume;
+    float _weight;
     std::string _name;
     std::string _desc;
     std::string _brand;

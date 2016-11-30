@@ -10,7 +10,8 @@ Item::Item()
 {
   //set all values to default (0, false, empty strings and nullptrs)
   setID("");
-  setSize(0);
+  setVolume(0);
+  setWeight(0);
   setName("");
   setDescription("");
   setBrand("");
@@ -23,7 +24,8 @@ Item::Item()
 //! Initialize an item with given parameters
 /*!
 \param ID ID of the item
-\param size size of the item
+\param volume volume of the item in m^3
+\param weight weight of the item kg
 \param name name of the item
 \param desc description of the item
 \param brand the brand name of the item
@@ -31,7 +33,8 @@ Item::Item()
 */
 void Item::init(
   std::string ID,
-  int size,
+  float volume,
+  float weight,
   std::string name,
   std::string desc,
   std::string brand,
@@ -39,7 +42,8 @@ void Item::init(
   )
 {
   setID(ID);
-  setSize(size);
+  setVolume(volume);
+  setWeight(weight);
 
   setName(name);
   setDescription(desc);
@@ -74,7 +78,8 @@ void Item::init(std::string ID)
       //initialize the item
       init(
         ID,
-        items[i]["size"].asInt(),
+        items[i]["volume"].asFloat(),
+        items[i]["weight"].asFloat(),
         items[i]["name"].asCString(),
         items[i]["desc"].asCString(),
         items[i]["brand"].asCString(),
@@ -115,9 +120,14 @@ void Item::setBrand(std::string brand)
   _brand = brand;
 }
 
-void Item::setSize(int size)
+void Item::setVolume(float volume)
 {
-  _size = size;
+  _volume = volume;
+}
+
+void Item::setWeight(float weight)
+{
+  _weight = weight;
 }
 
 void Item::setComposition(int element, int abundance)
@@ -153,9 +163,14 @@ std::string Item::getBrand()
   return _brand;
 }
 
-int Item::getSize()
+float Item::getVolume()
 {
-  return _size;
+  return _volume;
+}
+
+float Item::getWeight()
+{
+  return _weight;
 }
 
 int Item::getComposition(int element)
