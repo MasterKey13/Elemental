@@ -19,7 +19,12 @@ class Armor : public Item, public Damageable
   public:
     Armor();
 
-    void init(int ballistic_res, int electrical_res, int chemical_res, int damage_abs);
+    void init(
+      int ballistic_res, 
+      int electrical_res, 
+      int chemical_ress
+      );
+
     void init(std::string ID);
 
   private:

@@ -2,7 +2,16 @@
   "armors":
   [
     {
-
+      "id": "armor_bron",
+      "volume": 2.4,
+      "weight": 180,
+      "name": "Bron Basic Protector",
+      "description": "A small armor plate commonly used by civilian cosmotransport vehicles.\nDesigned by Hugh Co. in 2102 in light of a cosmocrime spike, this armor piece is designed to protect small civilian ships against most basic cosmic assault weaponry.",
+      "brand": "Hugh Co.",
+      "hitpoints": 260,
+      "ballistic_res": 9,
+      "electrical_res": 5,
+      "chemical_res": 6
     }
   ]
 }

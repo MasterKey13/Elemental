@@ -104,12 +104,11 @@ void BattleAction::process(spItem weapon, Targetable target)
 /*!
 \param weap_dmg amount of damage the weapon does
 \param armor_res damage resistance of the armor piece
-\param armor_abs damage absorbtion of the armor piece
 */
-int BattleAction::calculateDamageArmor(int weap_dmg, int armor_res, int armor_abs)
+int BattleAction::calculateDamageArmor(int weap_dmg, int armor_res)
 {
-  //damage = weapon damage - damage resistance, limited by damage absorbtion
-  int dmg = std::min(weap_dmg - armor_res, armor_abs);
+  //damage = weapon damage - damage resistance
+  int dmg = weap_dmg - armor_res;
 
   if (dmg > 0) 
   { 

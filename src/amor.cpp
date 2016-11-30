@@ -9,7 +9,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Armor::Armor()
 {
-
+  setDamageResistanceDefault();
 }
 
 //! Initialize an armor piece with given parameters
@@ -17,20 +17,16 @@ Armor::Armor()
 \param ballistic_res resistance to ballistic damage of this armor
 \param electrical_res resistance to electrical damage of this armor
 \param chemical_res resistance to chemical damage of this armor
-\param damage_absorbtion maximum amount of damage the armor item can absorb
 */
 void Armor::init(
   int ballistic_res,
   int electrical_res,
-  int chemical_res,
-  int damage_absorbtion
+  int chemical_res
   )
 {
   setDamageResistance(Damage::Type::Ballistic, ballistic_res);
   setDamageResistance(Damage::Type::Electrical, electrical_res);
   setDamageResistance(Damage::Type::Chemical, chemical_res);
-
-  setDamageAbsorbtion(damage_absorbtion);
 }
 
 //! Initialize an armor piece by ID (load from item definition file armor.json)
@@ -70,8 +66,7 @@ void Armor::init(std::string ID)
       init(
         items[i]["ballistic_res"].asInt(),
         items[i]["electrical_res"].asInt(),
-        items[i]["chemical_res"].asInt(),
-        items[i]["damage_absorbtion"].asInt()
+        items[i]["chemical_res"].asInt()
         );
 
       //load the defined elemental composition

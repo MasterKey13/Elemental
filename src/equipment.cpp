@@ -12,20 +12,20 @@ Equipment::Equipment()
   setArmorPiece(nullptr);
 }
 
-//! Initialize a battery with given parameters
+//! Initialize an equipment with given parameters
 /*!
-\param ballistic_res resistance to ballistic damage of this armor
-\param electrical_res resistance to electrical damage of this armor
-\param chemical_res resistance to chemical damage of this armor
-\param damage_absorbtion maximum amount of damage the armor item can absorb
-\param action_slots action slots this battery provides
-\param action_points action slots this battery provides
+\param ballistic_res resistance to ballistic damage of this equipment
+\param electrical_res resistance to electrical damage of this equipment
+\param chemical_res resistance to chemical damage of this equipment
+\param ballistic_dmg the amount of ballistic damage this equipment inflicts
+\param electrical_dmg the amount of ballistic damage this equipment inflicts
+\param chemical_dmg the amount of ballistic damage this equipment inflicts
+\param action_point_cost how much action points it costs to use this equipment
 */
 void Equipment::init(
   int ballistic_res,
   int electrical_res,
   int chemical_res,
-  int damage_absorbtion,
   int ballistic_dmg,
   int electrical_dmg,
   int chemical_dmg,
@@ -35,8 +35,6 @@ void Equipment::init(
   setDamageResistance(Damage::Type::Ballistic, ballistic_res);
   setDamageResistance(Damage::Type::Electrical, electrical_res);
   setDamageResistance(Damage::Type::Chemical, chemical_res);
-
-  setDamageAbsorbtion(damage_absorbtion);
 
   setDamage(Damage::Type::Ballistic, ballistic_dmg);
   setDamage(Damage::Type::Electrical, electrical_dmg);
@@ -83,7 +81,6 @@ void Equipment::init(std::string ID)
         items[i]["ballistic_res"].asInt(),
         items[i]["electrical_res"].asInt(),
         items[i]["chemical_res"].asInt(),
-        items[i]["damage_absorbtion"].asInt(),
         items[i]["ballistic_dmg"].asInt(),
         items[i]["electrical_dmg"].asInt(),
         items[i]["chemical_dmg"].asInt(),

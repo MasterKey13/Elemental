@@ -20,7 +20,14 @@ class Battery : public Item, public Damageable
   public:
     Battery();
 
-    void init(int ballistic_res, int electrical_res, int chemical_res, int damage_absorbtion, int action_slots, int action_points);
+    void init(
+      int ballistic_res, 
+      int electrical_res, 
+      int chemical_res,
+      int action_slots, 
+      int action_points
+      );
+
     void init(std::string ID);
 
     void setActionSlots(int action_slots);

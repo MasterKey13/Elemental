@@ -10,7 +10,6 @@ Hull::Hull()
 {
   setArmorPiece(nullptr);
   setDamageResistanceDefault();
-  setDamageAbsorbtion(0);
   setInventoryVolume(0.0f);
 }
 
@@ -19,14 +18,12 @@ Hull::Hull()
 \param ballistic_res resistance to ballistic damage of this armor
 \param electrical_res resistance to electrical damage of this armor
 \param chemical_res resistance to chemical damage of this armor
-\param damage_absorbtion maximum amount of damage the armor item can absorb
 \param inventory_volume the maximum volume in m^3 of items this ship can store
 */
 void Hull::init(
   int ballistic_res,
   int electrical_res,
   int chemical_res,
-  int damage_absorbtion,
   float inventory_volume
   )
 {
@@ -34,7 +31,8 @@ void Hull::init(
   setDamageResistance(Damage::Type::Electrical, electrical_res);
   setDamageResistance(Damage::Type::Chemical, chemical_res);
 
-  setDamageAbsorbtion(damage_absorbtion);
+  setInventoryVolume(inventory_volume);
+  setMaxInventoryVolume(inventory_volume);
 }
 
 //! Initialize an item by ID (load from item definition file items.json)
@@ -75,7 +73,6 @@ void Hull::init(std::string ID)
         items[i]["ballistic_res"].asInt(),
         items[i]["electrical_res"].asInt(),
         items[i]["chemical_res"].asInt(),
-        items[i]["damage_absorbtion"].asInt(),
         items[i]["inventory_volume"].asFloat()
         );
 
@@ -98,12 +95,27 @@ void Hull::setInventoryVolume(float volume)
   _inventory_volume = volume;
 }
 
+void Hull::setMaxInventoryVolume(float volume)
+{
+  _max_inventory_volume = volume;
+}
+
 spArmor Hull::getArmorPiece()
 {
   return _armor_piece;
 }
 
+float Hull::getInventoryVolume()
+{
+  return _inventory_volume;
+}
+
 float Hull::getMaxInventoryVolume()
 {
   return _max_inventory_volume;
+}
+
+std::vector<spItem> Hull::getInventory()
+{
+  return _inventory;
 }

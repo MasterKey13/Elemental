@@ -16,12 +16,9 @@ class Damageable
 
     void setDamageResistance(Damage::Type type, int resistance);
     void setDamageResistanceDefault();
-    void setDamageAbsorbtion(int absorb);
 
     int getDamageResistance(Damage::Type type);
-    int getDamageAbsorbtion();
 
   private:
     int _damage_resistance[3];
-    int _damage_absorbtion;
 };

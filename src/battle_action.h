@@ -23,7 +23,7 @@ class BattleAction : public Actor
 
     //battle action damage calculation functions
     void process(spItem item, Targetable target);
-    int calculateDamageArmor(int weap_dmg, int armor_res, int armor_abs);
+    int calculateDamageArmor(int weap_dmg, int armor_res);
     int calculateDamageTarget(int weap_dmg, int armor_res, int target_res);
 
     //SETTERS

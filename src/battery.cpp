@@ -21,15 +21,13 @@ Battery::Battery()
 \param ballistic_res resistance to ballistic damage of this armor
 \param electrical_res resistance to electrical damage of this armor
 \param chemical_res resistance to chemical damage of this armor
-\param damage_absorbtion maximum amount of damage the armor item can absorb
 \param action_slots action slots this battery provides
 \param action_points action slots this battery provides
 */
 void Battery::init(
   int ballistic_res, 
   int electrical_res, 
-  int chemical_res, 
-  int damage_absorbtion, 
+  int chemical_res,
   int action_slots, 
   int action_points
   )
@@ -37,8 +35,6 @@ void Battery::init(
   setDamageResistance(Damage::Type::Ballistic, ballistic_res);
   setDamageResistance(Damage::Type::Electrical, electrical_res);
   setDamageResistance(Damage::Type::Chemical, chemical_res);
-
-  setDamageAbsorbtion(damage_absorbtion);
 
   setActionSlots(action_slots);
   setActionSlotsMax(action_slots);
@@ -85,9 +81,8 @@ void Battery::init(std::string ID)
         items[i]["ballistic_res"].asInt(),
         items[i]["electrical_res"].asInt(),
         items[i]["chemical_res"].asInt(),
-        items[i]["damage_absorbtion"].asInt(),
         items[i]["action_slots"].asInt(),
-        items[i]["action_slots"].asInt()
+        items[i]["action_points"].asInt()
         );
 
       //load the defined elemental composition
