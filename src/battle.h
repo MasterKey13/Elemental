@@ -8,6 +8,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "ship.h"
 #include "battle_action.h"
 #include "battle_action_chain.h"
+#include "gui/battle_gui.h"
 
 using namespace oxygine;
 
@@ -20,16 +21,25 @@ class Battle : public Actor
     Battle();
 
     void init(spShip attacker, spShip defender);
+
+    //SETTERS
     void setActive(bool activity);
+
+    //GETTERS
     bool getActive();
+
     void processTurn(spShip ship);
+    void drawGUI();
 
   private:
     spShip _attacker;
     spShip _defender;
     spBattleActionChain _attacker_actions;
     spBattleActionChain _defender_actions;
+
     bool _is_active;
     bool _attacker_turn;
     bool _end_turn;
+
+    spBattleGui _gui;
 };

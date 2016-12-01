@@ -53,6 +53,7 @@ class Hull : public Item, public Damageable
     spArmor getArmorPiece();
 
     std::vector<spItem> getInventory();
+    std::vector<spEquipment> getEquipment();
     spBattery getBattery();
     spEngine getEngine();
     spSynthesizer getSynthesizer();

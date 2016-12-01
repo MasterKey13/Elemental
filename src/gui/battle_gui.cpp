@@ -8,12 +8,17 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 BattleGui::BattleGui()
 {
+
+}
+
+void BattleGui::drawGUI()
+{
   //battle bar is the piece that holds all of the slots
   _battle_bar = new Sprite();
   _battle_bar->attachTo(getStage());
   _battle_bar->setResAnim(resources::battle_ui.getResAnim("battle_bar"));
   _battle_bar->setPosition(getStage()->getWidth() / 2 - _battle_bar->getWidth() / 2, getStage()->getHeight() - _battle_bar->getHeight());
-  
+
   _x_offset = 4;
 
   //set up each item slot

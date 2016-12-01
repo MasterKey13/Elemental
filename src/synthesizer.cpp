@@ -37,7 +37,7 @@ void Synthesizer::init(std::string ID)
   //go through the json file and find the item by ID
   for (size_t  i = 0; i < items.size(); i++)
   {
-    if (ID.compare(items[i]["id"].asCString()) == 0)
+    if (ID.compare(items[i]["id"].asString()) == 0)
     {
       //initialize the item
       Item::init(

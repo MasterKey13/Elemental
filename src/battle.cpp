@@ -26,6 +26,9 @@ Battle::Battle()
 */
 void Battle::init(spShip attacker, spShip defender)
 {
+  _gui = new BattleGui();
+  _gui->drawGUI();
+
   _attacker = attacker;
   _defender = defender;
 
@@ -74,4 +77,9 @@ void Battle::processTurn(spShip ship)
   }
 
   _end_turn = false;
+}
+
+void Battle::drawGUI()
+{
+  _gui->drawGUI();
 }

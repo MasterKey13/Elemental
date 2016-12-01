@@ -17,6 +17,8 @@ class BattleGui : public Actor
   public:
     BattleGui();
 
+    void drawGUI();
+
   private:
     int _x_offset;
     spSprite _battle_bar;

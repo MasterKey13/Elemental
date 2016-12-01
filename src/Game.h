@@ -5,6 +5,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
+
 #include "ship.h"
 #include "location.h"
 #include "character.h"
@@ -14,6 +15,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "synthesizer.h"
 #include "battle.h"
 #include "gui/battle_gui.h"
+#include "equipment.h"
 
 using namespace oxygine;
 
@@ -26,6 +28,8 @@ DECLARE_SMART(Item, spItem);
 DECLARE_SMART(CelestialBody, spCelestialBody);
 DECLARE_SMART(Synthesizer, spSynthesizer);
 DECLARE_SMART(Battle, spBattle);
+DECLARE_SMART(Equipment, spEquipment);
+DECLARE_SMART(Mine, spMine);
 
 class Game : public Actor
 {
@@ -38,25 +42,17 @@ class Game : public Actor
 	  void doUpdate(const UpdateState &us);
 
 	  spShip _player_ship; 
-	  spLocation _location;
-	  spCharacter _player; 
-    spItem _item;
+    spHull _hull;
+    spEngine _engine;
+    spBattery _battery;
+    spEquipment _weapon;
 
-    spItem _hull;
-    spItem _armor;
-    spItem _engine;
-    spItem _battery;
-    spItem _weapon;
-
-    spCelestialBody _star;
-    spCelestialBody _planet;
-    spItem _mine;
-
-    spSynthesizer _synth;
-
-    spItem _file_item;
+    spShip _enemy_ship;
+    spHull _hull2;
+    spEngine _engine2;
+    spBattery _battery2;
+    spEquipment _weapon2;
 
     spBattle _battle;
 
-    spBattleGui _battle_gui;
 };

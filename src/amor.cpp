@@ -49,16 +49,16 @@ void Armor::init(std::string ID)
   //go through the json file and find the item by ID
   for (size_t i = 0; i < items.size(); i++)
   {
-    if (ID.compare(items[i]["id"].asCString()) == 0)
+    if (ID.compare(items[i]["id"].asString()) == 0)
     {
       //initialize the item
       Item::init(
         ID,
         items[i]["volume"].asFloat(),
         items[i]["weight"].asFloat(),
-        items[i]["name"].asCString(),
-        items[i]["desc"].asCString(),
-        items[i]["brand"].asCString(),
+        items[i]["name"].asString(),
+        items[i]["desc"].asString(),
+        items[i]["brand"].asString(),
         items[i]["hitpoints"].asInt()
         );
 
