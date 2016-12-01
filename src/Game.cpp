@@ -13,7 +13,8 @@ Game::Game()
 
 void Game::init()
 {
-
+  _hull = new Hull();
+  _hull->init("hull_hugh_voyager");
 }
 
 void Game::doUpdate(const UpdateState &us)

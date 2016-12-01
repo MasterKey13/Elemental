@@ -8,7 +8,6 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Item::Item()
 {
-  //set all values to default (0, false, empty strings and nullptrs)
   setID("");
   setVolume(0);
   setWeight(0);

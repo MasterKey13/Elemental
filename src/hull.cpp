@@ -10,7 +10,6 @@ Hull::Hull()
 {
   setArmorPiece(nullptr);
   setDamageResistanceDefault();
-  setInventoryVolume(0.0f);
 }
 
 //! Initialize a battery with given parameters
@@ -18,21 +17,16 @@ Hull::Hull()
 \param ballistic_res resistance to ballistic damage of this armor
 \param electrical_res resistance to electrical damage of this armor
 \param chemical_res resistance to chemical damage of this armor
-\param inventory_volume the maximum volume in m^3 of items this ship can store
 */
 void Hull::init(
   int ballistic_res,
   int electrical_res,
-  int chemical_res,
-  float inventory_volume
+  int chemical_res
   )
 {
   setDamageResistance(Damage::Type::Ballistic, ballistic_res);
   setDamageResistance(Damage::Type::Electrical, electrical_res);
   setDamageResistance(Damage::Type::Chemical, chemical_res);
-
-  setInventoryVolume(inventory_volume);
-  setMaxInventoryVolume(inventory_volume);
 }
 
 //! Initialize an item by ID (load from item definition file items.json)
@@ -72,8 +66,7 @@ void Hull::init(std::string ID)
       init(
         items[i]["ballistic_res"].asInt(),
         items[i]["electrical_res"].asInt(),
-        items[i]["chemical_res"].asInt(),
-        items[i]["inventory_volume"].asFloat()
+        items[i]["chemical_res"].asInt()
         );
 
       //load the defined elemental composition
@@ -90,14 +83,19 @@ void Hull::setArmorPiece(spArmor armor)
   _armor_piece = armor;
 }
 
-void Hull::setInventoryVolume(float volume)
+void Hull::setBattery(spBattery battery)
 {
-  _inventory_volume = volume;
+  _battery = battery;
 }
 
-void Hull::setMaxInventoryVolume(float volume)
+void Hull::setSynthesizer(spSynthesizer synth)
 {
-  _max_inventory_volume = volume;
+  _synthesizer = synth;
+}
+
+void Hull::setVolumeRemaining(float volume)
+{
+  _volume_remaining = volume;
 }
 
 spArmor Hull::getArmorPiece()
@@ -105,17 +103,27 @@ spArmor Hull::getArmorPiece()
   return _armor_piece;
 }
 
-float Hull::getInventoryVolume()
-{
-  return _inventory_volume;
-}
-
-float Hull::getMaxInventoryVolume()
-{
-  return _max_inventory_volume;
-}
-
 std::vector<spItem> Hull::getInventory()
 {
   return _inventory;
+}
+
+spBattery Hull::getBattery()
+{
+  return _battery;
+}
+
+spEngine Hull::getEngine()
+{
+  return _engine;
+}
+
+spSynthesizer Hull::getSynthesizer()
+{
+  return _synthesizer;
+}
+
+float Hull::getVolumeRemaining()
+{
+  return _volume_remaining;
 }

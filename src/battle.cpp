@@ -67,7 +67,7 @@ void Battle::processTurn(spShip ship)
 {
   //battle loop:
   //while the ship's battery has action slots and the turn wasn't manually ended 
-  while ((ship->getBattery()->getActionSlots() != 0) && (!_end_turn))
+  while ((ship->getHull()->getBattery()->getActionSlots() != 0) && (!_end_turn))
   {
     //TODO: adjust GUI for current turn
     break;
