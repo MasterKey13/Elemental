@@ -27,7 +27,7 @@ void Game::init()
   _hull->init("hull_hugh_voyager");
   _hull->setEngine(_engine);
   _hull->setBattery(_battery);
-  _hull->addEquipmentItem(_weapon);
+  _hull->addEquipment(_weapon);
 
   _player_ship = new Ship();
   _player_ship->init("Player Ship", _hull);
@@ -46,7 +46,7 @@ void Game::init()
   _hull2->init("hull_hugh_voyager");
   _hull2->setEngine(_engine);
   _hull2->setBattery(_battery);
-  _hull2->addEquipmentItem(_weapon2);
+  _hull2->addEquipment(_weapon2);
 
   _enemy_ship = new Ship();
   _enemy_ship->init("Enemy Ship", _hull2);

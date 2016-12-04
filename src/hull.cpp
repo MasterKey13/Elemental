@@ -156,15 +156,27 @@ int Hull::getMaxEquip()
   return _max_equip;
 }
 
-void Hull::addEquipmentItem(spEquipment eq)
+//! Attach a piece of equipment to the hull
+/*!
+\param eq the equipment piece to attach to the hull
+*/
+void Hull::addEquipment(spEquipment eq)
 {
-  //if the equipment item fits in the vector, add it in
-  if (getEquipment().size() < getMaxEquip())
+  //check for duplicate items first
+  if (std::find(_equipment.begin(), _equipment.end(), eq) == _equipment.end())
   {
-    getEquipment().push_back(eq);
+    //if the equipment item fits in the vector, add it in
+    if (getEquipment().size() < getMaxEquip())
+    {
+      _equipment.push_back(eq);
+    }
+    else
+    {
+      log::messageln("[DEBUG] Can't add equipment item to %s; no slots available!", getName().c_str());
+    }
   }
   else
   {
-    log::messageln("Can't add equipment item to %s, slots maxed out!\n", getName().c_str());
+    log::messageln("[DEBUG] This %s is already equipped!", eq->getID().c_str());
   }
 }

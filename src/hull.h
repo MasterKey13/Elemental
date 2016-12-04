@@ -59,7 +59,7 @@ class Hull : public Item, public Damageable
     float getVolumeRemaining();
     int getMaxEquip();
 
-    void addEquipmentItem(spEquipment eq);
+    void addEquipment(spEquipment eq);
 
   private:
     spArmor _armor_piece;

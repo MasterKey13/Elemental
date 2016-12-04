@@ -22,11 +22,14 @@ class BattleGui : public Actor
     void init(spShip player, spShip enemy);
 
     void drawGUI(spShip player, spShip enemy);
-    void drawItems(std::vector<spEquipment> equipment);
+    void drawEquipment(spShip player);
+    void drawEquipmentSlots(spShip player);
+    void drawActionSlots(spShip player);
 
   private:
     int _x_offset;
     spSprite _battle_bar;
     std::vector<spSprite> _equip_slots;
+    std::vector<spSprite> _equipment;
     std::vector<spSprite> _action_slots;
 };
