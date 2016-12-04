@@ -180,3 +180,9 @@ void Hull::addEquipment(spEquipment eq)
     log::messageln("[DEBUG] This %s is already equipped!", eq->getID().c_str());
   }
 }
+
+bool Hull::hasArmor()
+{
+  if (getArmorPiece()) { return true; }
+  else { return false; }
+}

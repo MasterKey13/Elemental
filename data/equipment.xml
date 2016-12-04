@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<resources>
+  <set path = "images/equipment" />
+  <set scale_factor = "1.0f" />
+
+  <atlas>
+    <image file="equipment_tek_cannon.png" />
+    <image file="equipment_tek_cannon2.png" />
+  </atlas>
+</resources>

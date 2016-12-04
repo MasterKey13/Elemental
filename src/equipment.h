@@ -46,6 +46,7 @@ class Equipment : public Item, public Damageable
     int getDamageAbsorbtion();
 
     spArmor getArmorPiece();
+    bool hasArmor();
 
   private:
     spArmor _armor_piece;

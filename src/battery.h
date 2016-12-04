@@ -43,6 +43,7 @@ class Battery : public Item, public Damageable
     int getActionPointsMax();
     
     spArmor getArmorPiece();
+    bool hasArmor();
 
   private:
     spArmor _armor_piece;

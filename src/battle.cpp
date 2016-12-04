@@ -10,10 +10,6 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Battle::Battle()
 {
-  //set up the needed battle action chains, etc
-  _attacker_actions = new BattleActionChain();
-  _defender_actions = new BattleActionChain();
-
   _attacker_turn = true;
   _is_active = true;
   _end_turn = false;
@@ -28,7 +24,7 @@ Battle::Battle()
 void Battle::init(spShip player, spShip enemy, bool player_turn)
 {
   _gui = new BattleGui();
-  _gui->init(player, enemy);
+  _gui->init(player);
 
   if (player_turn)
   {
@@ -88,14 +84,4 @@ void Battle::processTurn(spShip ship)
   }
 
   _end_turn = false;
-}
-
-//! Draw the GUI
-/*!
-\param player smart pointer to the player's ship
-\param enemy smart pointer to the enemy's ship
-*/
-void Battle::drawGUI(spShip player, spShip enemy)
-{
-  _gui->drawGUI(player, enemy);
 }

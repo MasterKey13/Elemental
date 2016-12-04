@@ -16,6 +16,22 @@
       "electrical_dmg": 4,
       "chemical_dmg": 14,
       "action_point_cost": 25
+    },    
+    {
+      "id": "equipment_tek_cannon2",
+      "volume": 1.2,
+      "weight": 240,
+      "name": "Mercury Cannon",
+      "desc": "A lightweight cannon that fires 2kg projectiles infused with traces of Mercury.\nDesigned by Tek Co. in 2097 for personal cosmotransport defence.",
+      "brand": "Tek Co.",
+      "hitpoints": 210,
+      "ballistic_res": 3,
+      "electrical_res": 2,
+      "chemical_res": 0,
+      "ballistic_dmg": 17,
+      "electrical_dmg": 4,
+      "chemical_dmg": 14,
+      "action_point_cost": 25
     }
   ]
 }

@@ -116,6 +116,12 @@ spArmor Equipment::getArmorPiece()
   return _armor_piece;
 }
 
+bool Equipment::hasArmor()
+{
+  if (getArmorPiece()) { return true; }
+  else { return false; }
+}
+
 //! Return the amount of damage the weapon deals for the given damage type
 /*!
 \param damage_type the damage type to return damage amount for

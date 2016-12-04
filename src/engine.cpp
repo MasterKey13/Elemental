@@ -82,6 +82,12 @@ spArmor Engine::getArmorPiece()
   return _armor_piece;
 }
 
+bool Engine::hasArmor()
+{
+  if (getArmorPiece()) { return true; }
+  else { return false; }
+}
+
 float Engine::getMaxWeight()
 {
   return _max_weight;

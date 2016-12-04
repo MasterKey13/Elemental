@@ -115,7 +115,6 @@
     <ClCompile Include="..\src\battery.cpp" />
     <ClCompile Include="..\src\battle.cpp" />
     <ClCompile Include="..\src\battle_action.cpp" />
-    <ClCompile Include="..\src\battle_action_chain.cpp" />
     <ClCompile Include="..\src\celestial_body.cpp" />
     <ClCompile Include="..\src\character.cpp" />
     <ClCompile Include="..\src\container.cpp" />
@@ -141,7 +140,6 @@
     <ClInclude Include="..\src\battery.h" />
     <ClInclude Include="..\src\battle.h" />
     <ClInclude Include="..\src\battle_action.h" />
-    <ClInclude Include="..\src\battle_action_chain.h" />
     <ClInclude Include="..\src\celestial_body.h" />
     <ClInclude Include="..\src\character.h" />
     <ClInclude Include="..\src\damage.h" />

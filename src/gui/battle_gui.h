@@ -5,6 +5,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
+#include "../battle.h"
 #include "../resources.h"
 #include "../ship.h"
 
@@ -19,15 +20,16 @@ class BattleGui : public Actor
   public:
     BattleGui();
 
-    void init(spShip player, spShip enemy);
+    void init(spShip player);
 
-    void drawGUI(spShip player, spShip enemy);
-    void drawEquipment(spShip player);
-    void drawEquipmentSlots(spShip player);
-    void drawActionSlots(spShip player);
+    void drawGUI();
+    void drawActionSlots();
+    void drawEquipmentSlots();
+    void drawEquipment();
 
   private:
     int _x_offset;
+    spShip _player;
     spSprite _battle_bar;
     std::vector<spSprite> _equip_slots;
     std::vector<spSprite> _equipment;

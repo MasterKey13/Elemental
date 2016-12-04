@@ -66,9 +66,6 @@
     <ClCompile Include="..\src\battle_action.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\battle_action_chain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\amor.cpp">
       <Filter>Source Files\items</Filter>
     </ClCompile>
@@ -139,9 +136,6 @@
     </ClInclude>
     <ClInclude Include="..\src\gui\battle_gui.h">
       <Filter>Header Files\gui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\battle_action_chain.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\src\battle_action.h">
       <Filter>Header Files</Filter>

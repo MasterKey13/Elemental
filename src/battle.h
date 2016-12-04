@@ -7,13 +7,13 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "oxygine-framework.h"
 #include "ship.h"
 #include "battle_action.h"
-#include "battle_action_chain.h"
 #include "gui/battle_gui.h"
 
 using namespace oxygine;
 
 //Declare smart pointers
 DECLARE_SMART(Battle, spBattle);
+DECLARE_SMART(BattleGui, spBattleGui);
 
 class Battle : public Actor
 {
@@ -29,13 +29,13 @@ class Battle : public Actor
     bool getActive();
 
     void processTurn(spShip ship);
-    void drawGUI(spShip player, spShip enemy);
 
   private:
     spShip _attacker;
     spShip _defender;
-    spBattleActionChain _attacker_actions;
-    spBattleActionChain _defender_actions;
+
+    std::list<spBattleAction> _attacker_actions;
+    std::list<spBattleAction> _defender_actions;
 
     bool _is_active;
     bool _attacker_turn;

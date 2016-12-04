@@ -19,6 +19,8 @@ class BattleAction : public Actor
   public:
     BattleAction();
 
+    void log();
+
     template <class Targetable>
 
     //battle action damage calculation functions
@@ -26,26 +28,12 @@ class BattleAction : public Actor
     int calculateDamageArmor(int weap_dmg, int armor_res);
     int calculateDamageTarget(int weap_dmg, int armor_res, int target_res);
 
-    //SETTERS
-    void setPrevious(spBattleAction previous);
-    void setNext(spBattleAction next);
-
-    //GETTERS
-    spBattleAction getPrevious();
-    spBattleAction getNext();
-
-    bool hasNext();
-    bool hasPrevious();
-
-    //damages for handling battle action processing
-    int _ballistic_dmg_to_armor;
-    int _ballistic_dmg_to_target;
-    int _electrical_dmg_to_armor;
-    int _electrical_dmg_to_target;
-    int _chemical_dmg_to_armor;
-    int _chemical_dmg_to_target;
-
   private:
-    spBattleAction _prev;
-    spBattleAction _next;
+    //damages for handling battle action processing
+    int ballistic_dmg_to_armor;
+    int ballistic_dmg_to_target;
+    int electrical_dmg_to_armor;
+    int electrical_dmg_to_target;
+    int chemical_dmg_to_armor;
+    int chemical_dmg_to_target;
 };

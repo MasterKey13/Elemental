@@ -30,6 +30,7 @@ class Engine : public Item, public Damageable
 
     int getEvasion();
     spArmor getArmorPiece();
+    bool hasArmor();
     float getMaxWeight();
 
   private:

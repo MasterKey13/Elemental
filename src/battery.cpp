@@ -119,6 +119,12 @@ spArmor Battery::getArmorPiece()
   return _armor_piece;
 }
 
+bool Battery::hasArmor()
+{
+  if (getArmorPiece()) { return true; }
+  else { return false; }
+}
+
 void Battery::setActionSlots(int action_slots)
 {
   _action_slots = action_slots;

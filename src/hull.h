@@ -60,6 +60,7 @@ class Hull : public Item, public Damageable
     int getMaxEquip();
 
     void addEquipment(spEquipment eq);
+    bool hasArmor();
 
   private:
     spArmor _armor_piece;
