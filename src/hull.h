@@ -35,39 +35,39 @@ class Hull : public Item, public Damageable
     void init(
       int ballistic_res, 
       int electrical_res, 
-      int chemical_res
+      int chemical_res,
+      int max_equip
       );
 
     void init(std::string ID);
 
     //SETTERS
     void setArmorPiece(spArmor armor);
-
     void setBattery(spBattery battery);
     void setEngine(spEngine engine);
     void setSynthesizer(spSynthesizer synth);
-
     void setVolumeRemaining(float volume);
+    void setMaxEquip(int max);
 
     //GETTERS
     spArmor getArmorPiece();
-
     std::vector<spItem> getInventory();
     std::vector<spEquipment> getEquipment();
     spBattery getBattery();
     spEngine getEngine();
     spSynthesizer getSynthesizer();
-
     float getVolumeRemaining();
+    int getMaxEquip();
+
+    void addEquipmentItem(spEquipment eq);
 
   private:
     spArmor _armor_piece;
-
     std::vector<spItem> _inventory;
     std::vector<spEquipment> _equipment;
     spBattery _battery;
     spEngine _engine;
     spSynthesizer _synthesizer;
-
-    float _volume_remaining = 0.0f;
+    float _volume_remaining;
+    int _max_equip;
 };

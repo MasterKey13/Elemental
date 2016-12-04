@@ -10,6 +10,7 @@ using namespace oxygine;
 namespace resources
 {
 	extern Resources battle_ui;
+  extern Resources equipment;
 
 	void load();
 	void free();

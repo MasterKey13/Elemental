@@ -10,6 +10,9 @@ Hull::Hull()
 {
   setArmorPiece(nullptr);
   setDamageResistanceDefault();
+
+  _volume_remaining = 0.0f;
+  _max_equip = 0;
 }
 
 //! Initialize a battery with given parameters
@@ -17,16 +20,20 @@ Hull::Hull()
 \param ballistic_res resistance to ballistic damage of this armor
 \param electrical_res resistance to electrical damage of this armor
 \param chemical_res resistance to chemical damage of this armor
+\param max_equip the maximum number of equipment this ship can use
 */
 void Hull::init(
   int ballistic_res,
   int electrical_res,
-  int chemical_res
+  int chemical_res,
+  int max_equip
   )
 {
   setDamageResistance(Damage::Type::Ballistic, ballistic_res);
   setDamageResistance(Damage::Type::Electrical, electrical_res);
   setDamageResistance(Damage::Type::Chemical, chemical_res);
+  
+  setMaxEquip(max_equip);
 }
 
 //! Initialize an item by ID (load from item definition file items.json)
@@ -66,7 +73,8 @@ void Hull::init(std::string ID)
       init(
         items[i]["ballistic_res"].asInt(),
         items[i]["electrical_res"].asInt(),
-        items[i]["chemical_res"].asInt()
+        items[i]["chemical_res"].asInt(),
+        items[i]["max_equip"].asInt()
         );
 
       //load the defined elemental composition
@@ -103,6 +111,11 @@ void Hull::setVolumeRemaining(float volume)
   _volume_remaining = volume;
 }
 
+void Hull::setMaxEquip(int max)
+{
+  _max_equip = max;
+}
+
 spArmor Hull::getArmorPiece()
 {
   return _armor_piece;
@@ -136,4 +149,22 @@ spSynthesizer Hull::getSynthesizer()
 float Hull::getVolumeRemaining()
 {
   return _volume_remaining;
+}
+
+int Hull::getMaxEquip()
+{
+  return _max_equip;
+}
+
+void Hull::addEquipmentItem(spEquipment eq)
+{
+  //if the equipment item fits in the vector, add it in
+  if (getEquipment().size() < getMaxEquip())
+  {
+    getEquipment().push_back(eq);
+  }
+  else
+  {
+    log::messageln("Can't add equipment item to %s, slots maxed out!\n", getName().c_str());
+  }
 }

@@ -20,7 +20,7 @@ class Battle : public Actor
   public:
     Battle();
 
-    void init(spShip attacker, spShip defender);
+    void init(spShip player, spShip enemy, bool player_turn);
 
     //SETTERS
     void setActive(bool activity);
@@ -29,7 +29,7 @@ class Battle : public Actor
     bool getActive();
 
     void processTurn(spShip ship);
-    void drawGUI();
+    void drawGUI(spShip player, spShip enemy);
 
   private:
     spShip _attacker;

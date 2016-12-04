@@ -6,22 +6,27 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #pragma once
 #include "oxygine-framework.h"
 #include "../resources.h"
+#include "../ship.h"
 
 using namespace oxygine;
 
 //Declare smart pointers
 DECLARE_SMART(BattleGui, spBattleGui);
+DECLARE_SMART(Ship, spShip);
 
 class BattleGui : public Actor
 {
   public:
     BattleGui();
 
-    void drawGUI();
+    void init(spShip player, spShip enemy);
+
+    void drawGUI(spShip player, spShip enemy);
+    void drawItems(std::vector<spEquipment> equipment);
 
   private:
     int _x_offset;
     spSprite _battle_bar;
-    spSprite _item_slots[10];
-    spSprite _action_slots[18];
+    std::vector<spSprite> _equip_slots;
+    std::vector<spSprite> _action_slots;
 };

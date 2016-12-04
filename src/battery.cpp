@@ -39,8 +39,8 @@ void Battery::init(
   setActionSlots(action_slots);
   setActionSlotsMax(action_slots);
 
-  setActionPoints(action_slots);
-  setActionPointsMax(action_slots);
+  setActionPoints(action_points);
+  setActionPointsMax(action_points);
 }
 
 //! Initialize a battery by ID (load from item definition file battery.json)

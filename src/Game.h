@@ -54,5 +54,4 @@ class Game : public Actor
     spEquipment _weapon2;
 
     spBattle _battle;
-
 };

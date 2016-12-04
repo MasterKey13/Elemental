@@ -6,7 +6,7 @@
       "volume": 0.45,
       "weight": 0.5,
       "name": "Inscribed Notebook",
-      "description": "A soft-cover leather notebook inscribed with the words 'Toman Schutt' on the front cover.\nThe contents of the notebook are empty.",
+      "desc": "A soft-cover leather notebook inscribed with the words 'Toman Schutt' on the front cover.\nThe contents of the notebook are empty.",
       "hitpoints": -1
     }
   ]

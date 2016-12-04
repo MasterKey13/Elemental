@@ -6,7 +6,7 @@
       "volume": 4,
       "weight": 1350,
       "name": "Tracer Cosmotransport Engine",
-      "description": "A standard-issue personal cosmotransport engine.\nDesigned by Tek Co. in 2099, this engine has become one of the most common cosmotransport engines on the market.",
+      "desc": "A standard-issue personal cosmotransport engine.\nDesigned by Tek Co. in 2097, this engine has become one of the most common cosmotransport engines on the market.",
       "brand": "Tek Co.",
       "hitpoints": 420,
       "evasion": 3,

@@ -50,6 +50,8 @@ void Item::init(
 
   setHitPoints(hitpoints);
   setHitPointsMax(hitpoints);
+
+  log();
 }
 
 //! Initialize an item by ID (load from item definition file items.json)
@@ -70,7 +72,7 @@ void Item::init(std::string ID)
   Json::Value items = value["items"];
 
   //go through the json file and find the item by ID
-  for (int i = 0; i < items.size(); i++)
+  for (size_t i = 0; i < items.size(); i++)
   {
     if (ID.compare(items[i]["id"].asString()) == 0)
     {
@@ -96,7 +98,16 @@ void Item::init(std::string ID)
 
 void Item::log()
 {
- 
+  log::messageln(
+    "\n[New %s]\nName: %s\nDesc: %s\nBrand: %s\nHP: %d\nWeight: %0.00f\nVolume: %0.00f",
+    getID().c_str(),
+    getName().c_str(), 
+    getDescription().c_str(),
+    getBrand().c_str(),
+    getHitPoints(),
+    getWeight(),
+    getVolume()
+    );
 }
 
 void Item::setID(std::string ID)

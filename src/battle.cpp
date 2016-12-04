@@ -21,19 +21,29 @@ Battle::Battle()
 
 //! Initialization function for a battle
 /*!
-\param attacker a smart pointer to the attacking ship
-\param defender a smart pointer to the defending ship
+\param player a smart pointer to the player's ship
+\param enemy a smart pointer to the enemy's ship
+\param player_turn true if player initiated the battle
 */
-void Battle::init(spShip attacker, spShip defender)
+void Battle::init(spShip player, spShip enemy, bool player_turn)
 {
   _gui = new BattleGui();
-  _gui->drawGUI();
+  _gui->init(player, enemy);
 
-  _attacker = attacker;
-  _defender = defender;
+  if (player_turn)
+  {
+    _attacker = player;
+    _defender = enemy;
+  }
+  else
+  {
+    _attacker = enemy;
+    _defender = player;
+  }
 
   int turn_count = 0;
 
+  //battle loop
   while (_is_active)
   {
     if (_attacker_turn)
@@ -47,6 +57,7 @@ void Battle::init(spShip attacker, spShip defender)
 
     //TODO: check if the battle ends (either dies, escapes or surrenders)
     break;
+
     //switch turn roles
     _attacker_turn = !(_attacker_turn);
   }
@@ -79,7 +90,12 @@ void Battle::processTurn(spShip ship)
   _end_turn = false;
 }
 
-void Battle::drawGUI()
+//! Draw the GUI
+/*!
+\param player smart pointer to the player's ship
+\param enemy smart pointer to the enemy's ship
+*/
+void Battle::drawGUI(spShip player, spShip enemy)
 {
-  _gui->drawGUI();
+  _gui->drawGUI(player, enemy);
 }

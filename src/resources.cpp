@@ -11,16 +11,19 @@ For now this serves as an example, but later will include all resources
 namespace resources
 {
 	Resources battle_ui;
+  Resources equipment;
 
 	void load()
 	{
 		//load UI resources
 		battle_ui.loadXML("battle_ui.xml");
+    equipment.loadXML("equipment.xml");
 	}
 
 	void free()
 	{
 		//unload
     battle_ui.free();
+    equipment.free();
 	}
 }
