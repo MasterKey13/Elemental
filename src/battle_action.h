@@ -7,12 +7,20 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "oxygine-framework.h"
 #include "item.h"
 #include "damage.h"
+#include "equipment.h"
+#include "ship.h"
+#include "hull.h"
+#include "battery.h"
+#include "engine.h"
+#include "armor.h"
 
 using namespace oxygine;
 
 //Declare smart pointers
 DECLARE_SMART(BattleAction, spBattleAction);
-DECLARE_SMART(Item, spItem);
+DECLARE_SMART(Ship, spShip);
+DECLARE_SMART(Equipment, spEquipment);
+DECLARE_SMART(Hull, spHull);
 
 class BattleAction : public Actor
 {
@@ -21,12 +29,12 @@ class BattleAction : public Actor
 
     void log();
 
-    template <class Targetable>
-
     //battle action damage calculation functions
-    void process(spItem item, Targetable target);
+    void process(spShip attacker, spEquipment item, spHull target);
     int calculateDamageArmor(int weap_dmg, int armor_res);
     int calculateDamageTarget(int weap_dmg, int armor_res, int target_res);
+
+    static bool canPerform(spShip ship, spEquipment equipment);
 
   private:
     //damages for handling battle action processing

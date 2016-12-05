@@ -122,6 +122,11 @@ bool Equipment::hasArmor()
   else { return false; }
 }
 
+int Equipment::getAPCost()
+{
+  return _action_point_cost;
+}
+
 //! Return the amount of damage the weapon deals for the given damage type
 /*!
 \param damage_type the damage type to return damage amount for

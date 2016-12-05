@@ -31,6 +31,8 @@ class Ship : public Actor
       spHull hull
       );
 
+    bool isAlive();
+
     //SETTERS
     void setName(std::string name);
     void setHull(spHull hull);

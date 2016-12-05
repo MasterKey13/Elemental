@@ -5,9 +5,10 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #include "battle_gui.h"
 
-BattleGui::BattleGui()
+BattleGui::BattleGui(spBattle battle)
 {
-
+  _battle = battle;
+  _action = new BattleAction();
 }
 
 //! Initialize a battle GUI (create all required objects)
@@ -114,10 +115,18 @@ void BattleGui::drawEquipment()
     _equipment[i]->setResAnim(resources::equipment.getResAnim(_player->getHull()->getEquipment()[i]->getID()));
     _equipment[i]->setPosition(1, 1);
 
+    _equipment[i]->removeAllEventListeners();
+
     //add event listener to weapon button
     _equipment[i]->addEventListener(TouchEvent::CLICK, [&, i](Event*) 
     {
-      log::messageln("%s was clicked!", _player->getHull()->getEquipment()[i]->getID().c_str());
+      if (BattleAction::canPerform(_player, _player->getHull()->getEquipment()[i]))
+      {
+        _battle->addAction(_action, _player->getHull()->getEquipment()[i]);
+
+        drawGUI();
+      }
     });
+
   }
 }

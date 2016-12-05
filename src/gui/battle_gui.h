@@ -8,17 +8,23 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "../battle.h"
 #include "../resources.h"
 #include "../ship.h"
+#include "../battle_action.h"
+#include "../hull.h"
 
 using namespace oxygine;
 
 //Declare smart pointers
 DECLARE_SMART(BattleGui, spBattleGui);
 DECLARE_SMART(Ship, spShip);
+DECLARE_SMART(Battle, spBattle);
+DECLARE_SMART(BattleAction, spBattleAction);
+DECLARE_SMART(Equipment, spEquipment);
+DECLARE_SMART(Hull, spHull);
 
 class BattleGui : public Actor
 {
   public:
-    BattleGui();
+    BattleGui(spBattle battle);
 
     void init(spShip player);
 
@@ -28,6 +34,8 @@ class BattleGui : public Actor
     void drawEquipment();
 
   private:
+    spBattleAction _action;
+    spBattle _battle;
     int _x_offset;
     spShip _player;
     spSprite _battle_bar;

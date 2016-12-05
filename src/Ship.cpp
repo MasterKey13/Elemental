@@ -25,6 +25,20 @@ void Ship::init(
   setHull(hull);
 }
 
+bool Ship::isAlive()
+{
+  //the ship is considered "alive" as long as the hull is not destroyed and either
+  //one of the battery or engine is not destroyed
+  if (getHull()->getHitPoints() != 0 &&
+    (getHull()->getBattery()->getHitPoints() != 0 ||
+     getHull()->getEngine()->getHitPoints() != 0))
+  {
+    return true;
+  }
+
+  return false;
+}
+
 void Ship::setName(std::string name)
 {
 	_name = name;

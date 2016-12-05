@@ -24,14 +24,14 @@ void BattleAction::log()
     );
 }
 
-template <class Targetable>
 
 //! Process function for a battle action using a weapon
 /*!
-\param item smart ptr to item used in the attack
+\param attacker smart ptr to the attacking ship
+\param weapon smart ptr to equipment used in the attack
 \param target smart ptr to target of the attack
 */
-void BattleAction::process(spItem weapon, Targetable target)
+void BattleAction::process(spShip attacker, spEquipment weapon, spHull target)
 {
   //reset all damages
   ballistic_dmg_to_armor = 0;
@@ -42,17 +42,16 @@ void BattleAction::process(spItem weapon, Targetable target)
   chemical_dmg_to_target = 0;
   
   //reset all armor resistances
-  int armor_ballisctic_res = 0;
+  int armor_ballistic_res = 0;
   int armor_electrical_res = 0;
   int armor_chemical_res = 0;
 
   //handle armor piece damage resistances and damages
   if (target->hasArmor())
   {
-    armor_ballisctic_res = target->getArmorPiece()->getDamageResistance(Damage::Type::Ballistic);
+    armor_ballistic_res = target->getArmorPiece()->getDamageResistance(Damage::Type::Ballistic);
     armor_electrical_res = target->getArmorPiece()->getDamageResistance(Damage::Type::Electrical);
     armor_chemical_res = target->getArmorPiece()->getDamageResistance(Damage::Type::Chemical);
-    armor_dmg_abs = target->getArmorPiece()->getDamageAbsorbtion();
 
     //calculate the damage dealt to each part for armor
     ballistic_dmg_to_armor = calculateDamageArmor(
@@ -74,7 +73,7 @@ void BattleAction::process(spItem weapon, Targetable target)
   //calculate the damage dealt to each part for target
   ballistic_dmg_to_target = calculateDamageTarget(
     weapon->getDamage(Damage::Type::Ballistic),
-    armor_ballisctic_res,
+    armor_ballistic_res,
     target->getDamageResistance(Damage::Type::Ballistic));
 
   electrical_dmg_to_target = calculateDamageTarget(
@@ -102,6 +101,15 @@ void BattleAction::process(spItem weapon, Targetable target)
     ballistic_dmg_to_target -
     electrical_dmg_to_target -
     chemical_dmg_to_target);
+
+  //remove the action points and a slot
+  attacker->getHull()->getBattery()->setActionPoints(
+    attacker->getHull()->getBattery()->getActionPoints() - weapon->getAPCost());
+
+  attacker->getHull()->getBattery()->setActionSlots(
+    attacker->getHull()->getBattery()->getActionSlots() - 1);
+
+  log();
 }
 
 //! Helper function to calculate damage to the armor piece
@@ -143,4 +151,21 @@ int BattleAction::calculateDamageTarget(int weap_dmg, int armor_res, int target_
   {
     return 0;
   }
+}
+
+//! Check if the ship can perform the action
+/*!
+\param ship ship using the equipment
+\param equipment the equipment being used
+*/
+bool BattleAction::canPerform(spShip ship, spEquipment equipment)
+{
+  if (ship->getHull()->getBattery()->getActionPoints() >= equipment->getAPCost() &&
+      ship->getHull()->getBattery()->getActionSlots() >= 1)
+  {
+    return true;
+  }
+  
+  log::messageln("Not enough action points or slots to perform this action!");
+  return false;
 }

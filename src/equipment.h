@@ -21,13 +21,6 @@ class Equipment : public Item, public Damageable
   public:
     Equipment();
 
-    void setDamage(Damage::Type damage_type, int damage_resistance);
-    void setDamageDefault();
-    void setDamageResistance(Damage::Type type, int resistance);
-    void setDamageResistanceDefault();
-    void setDamageAbsorbtion(int absorb);
-    void setAPCost(int APcost);
-
     void init(
       int ballistic_res, 
       int electrical_res, 
@@ -35,18 +28,27 @@ class Equipment : public Item, public Damageable
       int ballistic_dmg, 
       int electrical_dmg, 
       int chemical_dmg, 
-      int action_point_cost);
+      int action_point_cost
+      );
 
     void init(std::string ID);
 
+    //SETTERS
     void setArmorPiece(spArmor armor);
+    void setDamage(Damage::Type damage_type, int damage_resistance);
+    void setDamageDefault();
+    void setDamageResistance(Damage::Type type, int resistance);
+    void setDamageResistanceDefault();
+    void setDamageAbsorbtion(int absorb);
+    void setAPCost(int APcost);
 
+    //GETTERS
     int getDamage(Damage::Type damage_type);
     int getDamageResistance(Damage::Type type);
     int getDamageAbsorbtion();
-
     spArmor getArmorPiece();
     bool hasArmor();
+    int getAPCost();
 
   private:
     spArmor _armor_piece;

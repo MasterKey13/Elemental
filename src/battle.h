@@ -14,6 +14,7 @@ using namespace oxygine;
 //Declare smart pointers
 DECLARE_SMART(Battle, spBattle);
 DECLARE_SMART(BattleGui, spBattleGui);
+DECLARE_SMART(Ship, spShip);
 
 class Battle : public Actor
 {
@@ -22,13 +23,15 @@ class Battle : public Actor
 
     void init(spShip player, spShip enemy, bool player_turn);
 
+    void addAction(spBattleAction action, spEquipment equipment);
+
     //SETTERS
     void setActive(bool activity);
 
     //GETTERS
     bool getActive();
-
-    void processTurn(spShip ship);
+    spShip getDefender();
+    spShip getAttacker();
 
   private:
     spShip _attacker;

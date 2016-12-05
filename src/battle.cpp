@@ -13,6 +13,8 @@ Battle::Battle()
   _attacker_turn = true;
   _is_active = true;
   _end_turn = false;
+
+  _gui = new BattleGui(this);
 }
 
 //! Initialization function for a battle
@@ -23,9 +25,9 @@ Battle::Battle()
 */
 void Battle::init(spShip player, spShip enemy, bool player_turn)
 {
-  _gui = new BattleGui();
   _gui->init(player);
 
+  //determine who attacked first
   if (player_turn)
   {
     _attacker = player;
@@ -36,26 +38,23 @@ void Battle::init(spShip player, spShip enemy, bool player_turn)
     _attacker = enemy;
     _defender = player;
   }
+}
 
-  int turn_count = 0;
-
-  //battle loop
-  while (_is_active)
+//! Add an action to the action list
+/*!
+\param action a smart pointer to the action performed
+*/
+void Battle::addAction(spBattleAction action, spEquipment equipment)
+{
+  if (_attacker_turn)
   {
-    if (_attacker_turn)
-    {
-      processTurn(_attacker);
-    }
-    else
-    {
-      processTurn(_defender);
-    }
-
-    //TODO: check if the battle ends (either dies, escapes or surrenders)
-    break;
-
-    //switch turn roles
-    _attacker_turn = !(_attacker_turn);
+    _attacker_actions.push_back(action);
+    action->process(_attacker, equipment, getDefender()->getHull());
+  }
+  else
+  {
+    _defender_actions.push_back(action);
+    action->process(_defender, equipment, getDefender()->getHull());
   }
 }
 
@@ -69,19 +68,12 @@ bool Battle::getActive()
   return _is_active;
 }
 
-//! Turn processing function
-/*!
-\param ship the ship of the player for which to process turn
-*/
-void Battle::processTurn(spShip ship)
+spShip Battle::getDefender()
 {
-  //battle loop:
-  //while the ship's battery has action slots and the turn wasn't manually ended 
-  while ((ship->getHull()->getBattery()->getActionSlots() != 0) && (!_end_turn))
-  {
-    //TODO: adjust GUI for current turn
-    break;
-  }
+  return _defender;
+}
 
-  _end_turn = false;
+spShip Battle::getAttacker()
+{
+  return _attacker;
 }
