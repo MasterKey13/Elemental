@@ -16,8 +16,8 @@ namespace resources
 	void load()
 	{
 		//load UI resources
-		battle_ui.loadXML("battle_ui.xml");
-    equipment.loadXML("equipment.xml");
+		battle_ui.loadXML("xml/battle_ui.xml");
+    equipment.loadXML("xml/equipment.xml");
 	}
 
 	void free()
