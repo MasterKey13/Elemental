@@ -200,10 +200,20 @@ int Item::getHitPointsMax()
 
 void Item::setHitPoints(int hitpoints)
 {
+  if (hitpoints < 0)
+  {
+    hitpoints = 0;
+  }
+
   _hitpoints = hitpoints;
 }
 
 void Item::setHitPointsMax(int hitpoints_max)
 {
+  if (hitpoints_max <= 0)
+  {
+    hitpoints_max = 1;
+  }
+
   _hitpoints_max = hitpoints_max;
 }

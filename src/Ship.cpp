@@ -25,6 +25,20 @@ void Ship::init(
   setHull(hull);
 }
 
+void Ship::log()
+{
+  log::messageln("Name: %s\nStatus: %s\nHull HP: %d/%d\nEngine HP: %d/%d\nBattery HP: %d/%d",
+    getName().c_str(),
+    (isAlive() ? "alive" : "dead"),
+    getHull()->getHitPoints(),
+    getHull()->getHitPointsMax(),
+    getHull()->getEngine()->getHitPoints(),
+    getHull()->getEngine()->getHitPointsMax(),
+    getHull()->getBattery()->getHitPoints(),
+    getHull()->getBattery()->getHitPointsMax()
+    );
+}
+
 bool Ship::isAlive()
 {
   //the ship is considered "alive" as long as the hull is not destroyed and either
@@ -56,9 +70,4 @@ std::string Ship::getName()
 spHull Ship::getHull()
 {
   return _hull;
-}
-
-void Ship::doUpdate(const UpdateState &us)
-{
-
 }

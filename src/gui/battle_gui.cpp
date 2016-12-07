@@ -20,7 +20,7 @@ void BattleGui::init(spShip player)
   _player = player;
 
   _battle_bar = new Sprite();
-  _battle_bar->attachTo(getStage());
+  _battle_bar->attachTo(this);
 
   //resize vectors
   _equip_slots.resize(_player->getHull()->getMaxEquip());
@@ -123,7 +123,7 @@ void BattleGui::drawEquipment()
       if (BattleAction::canPerform(_player, _player->getHull()->getEquipment()[i]))
       {
         _battle->addAction(_action, _player->getHull()->getEquipment()[i]);
-
+        _battle->checkStatus();
         drawGUI();
       }
     });

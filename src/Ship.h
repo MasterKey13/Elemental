@@ -31,6 +31,8 @@ class Ship : public Actor
       spHull hull
       );
 
+    void log();
+
     bool isAlive();
 
     //SETTERS
@@ -42,8 +44,6 @@ class Ship : public Actor
     spHull getHull();
 
   private:
-	  void doUpdate(const UpdateState &us);
-
     std::string _name;
     spHull _hull;
 };

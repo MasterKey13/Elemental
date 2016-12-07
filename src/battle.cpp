@@ -11,10 +11,8 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 Battle::Battle()
 {
   _attacker_turn = true;
-  _is_active = true;
-  _end_turn = false;
-
   _gui = new BattleGui(this);
+  _gui->attachTo(this);
 }
 
 //! Initialization function for a battle
@@ -56,16 +54,33 @@ void Battle::addAction(spBattleAction action, spEquipment equipment)
     _defender_actions.push_back(action);
     action->process(_defender, equipment, getDefender()->getHull());
   }
+
+  log::messageln("ATTACKER:");
+  _attacker->log();
+  log::messageln("DEFENDER:");
+  _defender->log();
 }
 
-void Battle::setActive(bool activity)
+//! Ends the turn and switches roles
+void Battle::endTurn()
 {
-  _is_active = activity;
+  _attacker_turn = !(_attacker_turn);
+  
+  spShip temp = _attacker;
+  _attacker = _defender;
+  _defender = temp;
 }
 
-bool Battle::getActive()
+//! Checks whether the battle ended and handle accordingly
+void Battle::checkStatus()
 {
-  return _is_active;
+  //defender OR attacker are dead
+  if (!(_attacker->isAlive()) || !(_defender->isAlive()))
+  {
+    _gui->detach();
+
+    log::messageln("BATTLE GUI HIDDEN");
+  }
 }
 
 spShip Battle::getDefender()

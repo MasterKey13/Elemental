@@ -24,12 +24,10 @@ class Battle : public Actor
     void init(spShip player, spShip enemy, bool player_turn);
 
     void addAction(spBattleAction action, spEquipment equipment);
-
-    //SETTERS
-    void setActive(bool activity);
+    void endTurn();
+    void checkStatus();
 
     //GETTERS
-    bool getActive();
     spShip getDefender();
     spShip getAttacker();
 
@@ -40,9 +38,7 @@ class Battle : public Actor
     std::list<spBattleAction> _attacker_actions;
     std::list<spBattleAction> _defender_actions;
 
-    bool _is_active;
     bool _attacker_turn;
-    bool _end_turn;
 
     spBattleGui _gui;
 };
