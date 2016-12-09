@@ -46,6 +46,12 @@ void BattleGui::init(spShip player)
     _equipment[i]->attachTo(_equip_slots[i]);
   }
 
+  _action_points = new ProgressBar();
+  _action_points->attachTo(_battle_bar);
+
+  _action_points_text = new TextField();
+  _action_points_text->attachTo(_battle_bar);
+
   drawGUI();
 }
 
@@ -64,6 +70,9 @@ void BattleGui::drawGUI()
 
   //draw the equipment on the screen
   drawEquipment();
+
+  //draw action points
+  drawActionPoints();
 }
 
 //! Draw the action slots
@@ -129,4 +138,26 @@ void BattleGui::drawEquipment()
     });
 
   }
+}
+
+//! Draw the action points
+void BattleGui::drawActionPoints()
+{ 
+  //progress bar shows how much action points we have left
+  _action_points->setProgress(
+    (float)_player->getHull()->getBattery()->getActionPoints() /
+    (float)_player->getHull()->getBattery()->getActionPointsMax()
+    );
+  _action_points->setResAnim(resources::battle_ui.getResAnim("action_point"));
+  _action_points->setScaleX(_battle_bar->getWidth() / _action_points->getWidth());
+  _action_points->setPosition(0, -(_action_points->getHeight()));
+
+  //text tells us exactly how much we have left
+  std::string ap = 
+    std::to_string(_player->getHull()->getBattery()->getActionPoints())
+    + "/" +
+    std::to_string(_player->getHull()->getBattery()->getActionPointsMax());
+
+  _action_points_text->setText(ap);
+  _action_points_text->setPosition(_battle_bar->getWidth() / 2 - _action_points_text->getWidth() / 2, -20);
 }

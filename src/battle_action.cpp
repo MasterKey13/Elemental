@@ -14,7 +14,17 @@ BattleAction::BattleAction()
 void BattleAction::log()
 {
   //log damage values and types for each attack
-  log::messageln("[DAMAGE REPORT]\nBA: %d\nBT: %d\nEA: %d\nET: %d\nCA: %d\nCT: %d",
+  log::messageln(
+    "==============\n"
+    "[DAMAGE REPORT]\n"
+    "==============\n"
+    "Ballistic to Armor: %d\n"
+    "Ballistic to Target: %d\n"
+    "Electric to Armor: %d\n"
+    "Electric to Target: %d\n"
+    "Chemical to Armor: %d\n"
+    "Chemical to Target: %d\n"
+    "==============",
     ballistic_dmg_to_armor,
     ballistic_dmg_to_target,
     electrical_dmg_to_armor,

@@ -27,7 +27,14 @@ void Ship::init(
 
 void Ship::log()
 {
-  log::messageln("Name: %s\nStatus: %s\nHull HP: %d/%d\nEngine HP: %d/%d\nBattery HP: %d/%d",
+  log::messageln(
+    "=============\n"
+    "Name: %s\n"
+    "Status: %s\n"
+    "Hull HP: %d/%d\n"
+    "Engine HP: %d/%d\n"
+    "Battery HP: %d/%d"
+    "\n=============",
     getName().c_str(),
     (isAlive() ? "alive" : "dead"),
     getHull()->getHitPoints(),

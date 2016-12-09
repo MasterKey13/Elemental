@@ -99,7 +99,16 @@ void Item::init(std::string ID)
 void Item::log()
 {
   log::messageln(
-    "==============\n[New %s]\nName: %s\nDesc: %s\nBrand: %s\nHP: %d\nWeight: %0.00f\nVolume: %0.00f",
+    "==============\n"
+    "[New %s]\n"
+    "==============\n"
+    "Name: %s\n"
+    "Desc: %s\n"
+    "Brand: %s\n"
+    "HP: %d\n"
+    "Weight: %0.00f\n"
+    "Volume: %0.00f\n"
+    "==============",
     getID().c_str(),
     getName().c_str(), 
     getDescription().c_str(),

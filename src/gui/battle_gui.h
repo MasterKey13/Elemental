@@ -32,6 +32,7 @@ class BattleGui : public Actor
     void drawActionSlots();
     void drawEquipmentSlots();
     void drawEquipment();
+    void drawActionPoints();
 
   private:
     spBattleAction _action;
@@ -42,4 +43,6 @@ class BattleGui : public Actor
     std::vector<spSprite> _equip_slots;
     std::vector<spSprite> _equipment;
     std::vector<spSprite> _action_slots;
+    spProgressBar _action_points;
+    spTextField _action_points_text;
 };
