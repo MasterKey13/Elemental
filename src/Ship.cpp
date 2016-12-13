@@ -73,15 +73,23 @@ void Ship::setShipPosition(POSITION pos)
 {
   if (pos == player)
   {
-    setPosition(getStage()->getWidth() / 6 - _hull->computeBounds().getWidth() / 2, getStage()->getHeight() / 3 + _hull->computeBounds().getHeight() / 2);
+    setPosition(
+      getStage()->getWidth() / 6 - _hull->computeBounds().getWidth() / 2, 
+      getStage()->getHeight() / 3 + _hull->computeBounds().getHeight() / 2
+      );
   }
   else
   {
-    setPosition(getStage()->getWidth() / 6 * 5 - _hull->computeBounds().getWidth() / 2, getStage()->getHeight() / 3 + _hull->computeBounds().getHeight() / 2);
-    setAnchor(_hull->computeBounds().getSize() / 2);
-    log::messageln("Anchor: %.0f, %.0f\n", _hull->getAnchorX(), _hull->getAnchorY());
-    
-    //this doesnt seem to work properly, it ignores anchor point
+    setPosition(
+      getStage()->getWidth() / 6 * 5, 
+      getStage()->getHeight() / 3 + _hull->computeBounds().getHeight()
+      );
+
+    setAnchorInPixels(
+      _hull->computeBounds().getWidth() / 2, 
+      _hull->computeBounds().getHeight() / 2
+      );
+
     setRotation(MATH_PI);
   }
 
