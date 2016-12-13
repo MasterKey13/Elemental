@@ -47,6 +47,7 @@ void Game::init()
   _hull->setEngine(_engine);
   _hull->setBattery(_battery);
   _hull->addEquipment(_weapon);
+  _player_ship->setShipPosition(POSITION::player);
 
   //TEST ENEMY SHIP
   _enemy_ship->init("Enemy Ship", _hull2);
@@ -57,6 +58,7 @@ void Game::init()
   _hull2->setEngine(_engine);
   _hull2->setBattery(_battery);
   _hull2->addEquipment(_weapon2);
+  _enemy_ship->setShipPosition(POSITION::enemy);
 
   //start battle
   _battle->init(_player_ship, _enemy_ship, true);

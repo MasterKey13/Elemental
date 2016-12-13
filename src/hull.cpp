@@ -13,6 +13,13 @@ Hull::Hull()
 
   _volume_remaining = 0.0f;
   _max_equip = 0;
+
+  _sprite = new Sprite();
+  _sprite->attachTo(this);
+  _sprite->setPosition(0, 0);
+  addChild(_sprite);
+
+  computeBounds();
 }
 
 //! Initialize a battery with given parameters
@@ -82,6 +89,9 @@ void Hull::init(std::string ID)
       {
         setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
       }
+
+      //load the sprite
+      _sprite->setResAnim(resources::hulls.getResAnim(getID()));
     }
   }
 }

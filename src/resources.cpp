@@ -12,12 +12,14 @@ namespace resources
 {
 	Resources battle_ui;
   Resources equipment;
+  Resources hulls;
 
 	void load()
 	{
 		//load UI resources
 		battle_ui.loadXML("xml/battle_ui.xml");
     equipment.loadXML("xml/equipment.xml");
+    hulls.loadXML("xml/hulls.xml");
 	}
 
 	void free()
@@ -25,5 +27,6 @@ namespace resources
 		//unload
     battle_ui.free();
     equipment.free();
+    hulls.free();
 	}
 }

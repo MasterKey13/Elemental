@@ -17,6 +17,12 @@ using namespace oxygine;
 
 #define MAX_ELEMENTS 50
 
+enum POSITION
+{
+  player,
+  enemy
+};
+
 //Declare smart pointers
 DECLARE_SMART(Ship, spShip);
 DECLARE_SMART(Hull, spHull);
@@ -38,6 +44,7 @@ class Ship : public Actor
     //SETTERS
     void setName(std::string name);
     void setHull(spHull hull);
+    void setShipPosition(POSITION pos);
 
     //GETTERS
 	  std::string getName();

@@ -15,6 +15,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "engine.h"
 #include "equipment.h"
 #include "synthesizer.h"
+#include "resources.h"
 
 //declare smart pointer
 DECLARE_SMART(Hull, spHull);
@@ -71,4 +72,5 @@ class Hull : public Item, public Damageable
     spSynthesizer _synthesizer;
     float _volume_remaining;
     int _max_equip;
+    spSprite _sprite;
 };
