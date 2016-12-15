@@ -111,14 +111,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="../src/entry_point.cpp" />
-    <ClCompile Include="..\src\amor.cpp" />
+    <ClCompile Include="..\src\armor.cpp" />
     <ClCompile Include="..\src\battery.cpp" />
     <ClCompile Include="..\src\battle.cpp" />
     <ClCompile Include="..\src\battle_action.cpp" />
     <ClCompile Include="..\src\celestial_body.cpp" />
     <ClCompile Include="..\src\character.cpp" />
     <ClCompile Include="..\src\container.cpp" />
-    <ClCompile Include="..\src\damageable.cpp" />
+    <ClCompile Include="..\src\target.cpp" />
     <ClCompile Include="..\src\engine.cpp" />
     <ClCompile Include="..\src\equipment.cpp" />
     <ClCompile Include="..\src\game.cpp" />
@@ -159,7 +159,7 @@
     <ClInclude Include="..\src\setup.h" />
     <ClInclude Include="..\src\ship.h" />
     <ClInclude Include="..\src\synthesizer.h" />
-    <ClInclude Include="..\src\damageable.h" />
+    <ClInclude Include="..\src\target.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

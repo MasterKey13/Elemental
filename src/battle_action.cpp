@@ -41,7 +41,7 @@ void BattleAction::log()
 \param weapon smart ptr to equipment used in the attack
 \param target smart ptr to target of the attack
 */
-void BattleAction::process(spShip attacker, spEquipment weapon, spHull target)
+void BattleAction::process(spShip attacker, spEquipment weapon, spTarget target)
 {
   //reset all damages
   ballistic_dmg_to_armor = 0;

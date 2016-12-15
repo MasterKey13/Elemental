@@ -47,12 +47,14 @@ void Battle::addAction(spBattleAction action, spEquipment equipment)
   if (_attacker_turn)
   {
     _attacker_actions.push_back(action);
-    action->process(_attacker, equipment, getDefender()->getHull());
+    spTarget t = getDefender()->getHull();
+    action->process(_attacker, equipment, t);
   }
   else
   {
     _defender_actions.push_back(action);
-    action->process(_defender, equipment, getDefender()->getHull());
+    spTarget t = getDefender()->getHull();
+    action->process(_defender, equipment, t);
   }
 
   log::messageln("ATTACKER:");

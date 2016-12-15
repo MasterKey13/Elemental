@@ -8,6 +8,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "ship.h"
 #include "battle_action.h"
 #include "gui/battle_gui.h"
+#include "target.h"
 
 using namespace oxygine;
 
@@ -15,6 +16,7 @@ using namespace oxygine;
 DECLARE_SMART(Battle, spBattle);
 DECLARE_SMART(BattleGui, spBattleGui);
 DECLARE_SMART(Ship, spShip);
+DECLARE_SMART(Target, spTarget);
 
 class Battle : public Actor
 {

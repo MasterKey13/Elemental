@@ -53,8 +53,7 @@ void Engine::init(std::string ID)
         items[i]["weight"].asFloat(),
         items[i]["name"].asString(),
         items[i]["desc"].asString(),
-        items[i]["brand"].asString(),
-        items[i]["hitpoints"].asInt()
+        items[i]["brand"].asString()
         );
 
       //initialize the engine
@@ -77,17 +76,6 @@ int Engine::getEvasion()
   return _evasion;
 }
 
-spArmor Engine::getArmorPiece()
-{
-  return _armor_piece;
-}
-
-bool Engine::hasArmor()
-{
-  if (getArmorPiece()) { return true; }
-  else { return false; }
-}
-
 float Engine::getMaxWeight()
 {
   return _max_weight;
@@ -96,11 +84,6 @@ float Engine::getMaxWeight()
 void Engine::setEvasion(int evasion)
 {
   _evasion = evasion;
-}
-
-void Engine::setArmorPiece(spArmor armor)
-{
-  _armor_piece = armor;
 }
 
 void Engine::setMaxWeight(float weight)

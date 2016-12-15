@@ -5,7 +5,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #include "item.h"
 #include "armor.h"
-#include "damageable.h"
+#include "target.h"
 
 Armor::Armor()
 {
@@ -58,8 +58,7 @@ void Armor::init(std::string ID)
         items[i]["weight"].asFloat(),
         items[i]["name"].asString(),
         items[i]["desc"].asString(),
-        items[i]["brand"].asString(),
-        items[i]["hitpoints"].asInt()
+        items[i]["brand"].asString()
         );
 
       //initialize the armor piece
@@ -76,4 +75,51 @@ void Armor::init(std::string ID)
       }
     }
   }
+}
+
+int Armor::getHitPoints()
+{
+  return _hitpoints;
+}
+
+int Armor::getHitPointsMax()
+{
+  return _hitpoints_max;
+}
+
+void Armor::setHitPoints(int hitpoints)
+{
+  if (hitpoints < 0)
+  {
+    hitpoints = 0;
+  }
+
+  _hitpoints = hitpoints;
+}
+
+void Armor::setHitPointsMax(int hitpoints_max)
+{
+  if (hitpoints_max <= 0)
+  {
+    hitpoints_max = 1;
+  }
+
+  _hitpoints_max = hitpoints_max;
+}
+
+int Armor::getDamageResistance(Damage::Type type)
+{
+  return _damage_resistance[type];
+}
+
+void Armor::setDamageResistance(Damage::Type type, int resistance)
+{
+  _damage_resistance[type] = resistance;
+}
+
+void Armor::setDamageResistanceDefault()
+{
+  setDamageResistance(Damage::Type::Ballistic, 0);
+  setDamageResistance(Damage::Type::Electrical, 0);
+  setDamageResistance(Damage::Type::Chemical, 0);
 }

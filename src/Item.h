@@ -26,8 +26,7 @@ class Item : public Actor
       float weight,
       std::string name,
       std::string desc,
-      std::string brand,
-      int hitpoints
+      std::string brand
     );
 
     void init(std::string ID);
@@ -41,8 +40,6 @@ class Item : public Actor
     void setName(std::string name);
     void setDescription(std::string desc);
     void setBrand(std::string brand);
-    void setHitPoints(int hitpoints);
-    void setHitPointsMax(int hitpoints_cap);
     void setComposition(int element, int abundance);
     void setCompositionDefault();
 
@@ -53,8 +50,6 @@ class Item : public Actor
     std::string getName();
     std::string getDescription();
     std::string getBrand();
-    int getHitPoints();
-    int getHitPointsMax();
     int getComposition(int element);
 
   private:
@@ -64,7 +59,5 @@ class Item : public Actor
     std::string _name;
     std::string _desc;
     std::string _brand;
-    int _hitpoints;
-    int _hitpoints_max;
     int _composition[MAX_ELEMENTS];
 };

@@ -46,8 +46,7 @@ void Synthesizer::init(std::string ID)
         items[i]["weight"].asFloat(),
         items[i]["name"].asCString(),
         items[i]["desc"].asCString(),
-        items[i]["brand"].asCString(),
-        items[i]["hitpoints"].asInt()
+        items[i]["brand"].asCString()
         );
 
       //load the defined elemental composition

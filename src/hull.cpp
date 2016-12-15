@@ -72,8 +72,7 @@ void Hull::init(std::string ID)
         items[i]["weight"].asFloat(),
         items[i]["name"].asString(),
         items[i]["desc"].asString(),
-        items[i]["brand"].asString(),
-        items[i]["hitpoints"].asInt()
+        items[i]["brand"].asString()
         );
 
       //initialize the hull
@@ -94,11 +93,6 @@ void Hull::init(std::string ID)
       _sprite->setResAnim(resources::hulls.getResAnim(getID()));
     }
   }
-}
-
-void Hull::setArmorPiece(spArmor armor)
-{
-  _armor_piece = armor;
 }
 
 void Hull::setBattery(spBattery battery)
@@ -126,10 +120,6 @@ void Hull::setMaxEquip(int max)
   _max_equip = max;
 }
 
-spArmor Hull::getArmorPiece()
-{
-  return _armor_piece;
-}
 
 std::vector<spItem> Hull::getInventory()
 {
@@ -189,10 +179,4 @@ void Hull::addEquipment(spEquipment eq)
   {
     log::messageln("[DEBUG] This %s is already equipped!", eq->getID().c_str());
   }
-}
-
-bool Hull::hasArmor()
-{
-  if (getArmorPiece()) { return true; }
-  else { return false; }
 }

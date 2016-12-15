@@ -14,8 +14,6 @@ Item::Item()
   setName("");
   setDescription("");
   setBrand("");
-  setHitPoints(0);
-  setHitPointsMax(0);
 
   setCompositionDefault();
 }
@@ -28,7 +26,6 @@ Item::Item()
 \param name name of the item
 \param desc description of the item
 \param brand the brand name of the item
-\param hitpoints the amount of hitpoints the item has (health)
 */
 void Item::init(
   std::string ID,
@@ -36,8 +33,7 @@ void Item::init(
   float weight,
   std::string name,
   std::string desc,
-  std::string brand,
-  int hitpoints
+  std::string brand
   )
 {
   setID(ID);
@@ -47,9 +43,6 @@ void Item::init(
   setName(name);
   setDescription(desc);
   setBrand(brand);
-
-  setHitPoints(hitpoints);
-  setHitPointsMax(hitpoints);
 
   log();
 }
@@ -83,8 +76,7 @@ void Item::init(std::string ID)
         items[i]["weight"].asFloat(),
         items[i]["name"].asString(),
         items[i]["desc"].asString(),
-        items[i]["brand"].asString(),
-        items[i]["hitpoints"].asInt()
+        items[i]["brand"].asString()
         );
 
       //load the defined elemental composition
@@ -105,7 +97,6 @@ void Item::log()
     "Name: %s\n"
     "Desc: %s\n"
     "Brand: %s\n"
-    "HP: %d\n"
     "Weight: %0.00f\n"
     "Volume: %0.00f\n"
     "==============",
@@ -113,7 +104,6 @@ void Item::log()
     getName().c_str(), 
     getDescription().c_str(),
     getBrand().c_str(),
-    getHitPoints(),
     getWeight(),
     getVolume()
     );
@@ -195,34 +185,4 @@ float Item::getWeight()
 int Item::getComposition(int element)
 {
   return _composition[element];
-}
-
-int Item::getHitPoints()
-{
-  return _hitpoints;
-}
-
-int Item::getHitPointsMax()
-{
-  return _hitpoints_max;
-}
-
-void Item::setHitPoints(int hitpoints)
-{
-  if (hitpoints < 0)
-  {
-    hitpoints = 0;
-  }
-
-  _hitpoints = hitpoints;
-}
-
-void Item::setHitPointsMax(int hitpoints_max)
-{
-  if (hitpoints_max <= 0)
-  {
-    hitpoints_max = 1;
-  }
-
-  _hitpoints_max = hitpoints_max;
 }

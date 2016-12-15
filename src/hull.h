@@ -10,7 +10,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #include "item.h"
 #include "armor.h"
-#include "damageable.h"
+#include "target.h"
 #include "battery.h"
 #include "engine.h"
 #include "equipment.h"
@@ -28,7 +28,7 @@ DECLARE_SMART(Synthesizer, spSynthesizer);
 
 using namespace oxygine;
 
-class Hull : public Item, public Damageable
+class Hull : public Item, public Target
 {
   public:
     Hull();
@@ -43,7 +43,6 @@ class Hull : public Item, public Damageable
     void init(std::string ID);
 
     //SETTERS
-    void setArmorPiece(spArmor armor);
     void setBattery(spBattery battery);
     void setEngine(spEngine engine);
     void setSynthesizer(spSynthesizer synth);
@@ -51,7 +50,6 @@ class Hull : public Item, public Damageable
     void setMaxEquip(int max);
 
     //GETTERS
-    spArmor getArmorPiece();
     std::vector<spItem> getInventory();
     std::vector<spEquipment> getEquipment();
     spBattery getBattery();
@@ -61,10 +59,8 @@ class Hull : public Item, public Damageable
     int getMaxEquip();
 
     void addEquipment(spEquipment eq);
-    bool hasArmor();
 
   private:
-    spArmor _armor_piece;
     std::vector<spItem> _inventory;
     std::vector<spEquipment> _equipment;
     spBattery _battery;

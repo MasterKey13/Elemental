@@ -66,9 +66,6 @@
     <ClCompile Include="..\src\battle_action.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\amor.cpp">
-      <Filter>Source Files\items</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\battery.cpp">
       <Filter>Source Files\items</Filter>
     </ClCompile>
@@ -99,11 +96,14 @@
     <ClCompile Include="../src/entry_point.cpp">
       <Filter>Source Files\util</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\damageable.cpp">
-      <Filter>Source Files\util</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\resources.cpp">
       <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\target.cpp">
+      <Filter>Source Files\util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\armor.cpp">
+      <Filter>Source Files\items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +176,7 @@
     <ClInclude Include="..\src\resources.h">
       <Filter>Header Files\util</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\damageable.h">
+    <ClInclude Include="..\src\target.h">
       <Filter>Header Files\util</Filter>
     </ClInclude>
   </ItemGroup>

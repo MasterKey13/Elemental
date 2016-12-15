@@ -49,8 +49,7 @@ void Container::init(std::string ID)
         items[i]["weight"].asFloat(),
         items[i]["name"].asString(),
         items[i]["desc"].asString(),
-        items[i]["brand"].asString(),
-        items[i]["hitpoints"].asInt()
+        items[i]["brand"].asString()
         );
 
       //initialize the container

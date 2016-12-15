@@ -72,8 +72,7 @@ void Equipment::init(std::string ID)
         items[i]["weight"].asFloat(),
         items[i]["name"].asString(),
         items[i]["desc"].asString(),
-        items[i]["brand"].asString(),
-        items[i]["hitpoints"].asInt()
+        items[i]["brand"].asString()
         );
 
       //initialize the equipment
@@ -96,30 +95,9 @@ void Equipment::init(std::string ID)
   }
 }
 
-void Equipment::setArmorPiece(spArmor armor)
-{
-  _armor_piece = armor;
-}
-
 int Equipment::getDamageResistance(Damage::Type type)
 {
   return _damage_resistance[type];
-}
-
-int Equipment::getDamageAbsorbtion()
-{
-  return _damage_absorbtion;
-}
-
-spArmor Equipment::getArmorPiece()
-{
-  return _armor_piece;
-}
-
-bool Equipment::hasArmor()
-{
-  if (getArmorPiece()) { return true; }
-  else { return false; }
 }
 
 int Equipment::getAPCost()
@@ -163,11 +141,6 @@ void Equipment::setDamageResistanceDefault()
   setDamageResistance(Damage::Type::Ballistic, 0); 
   setDamageResistance(Damage::Type::Electrical, 0);
   setDamageResistance(Damage::Type::Chemical, 0);
-}
-
-void Equipment::setDamageAbsorbtion(int absorb)
-{
-  _damage_absorbtion = absorb;
 }
 
 void Equipment::setAPCost(int APcost)

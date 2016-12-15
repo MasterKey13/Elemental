@@ -72,8 +72,7 @@ void Battery::init(std::string ID)
         items[i]["weight"].asFloat(),
         items[i]["name"].asString(),
         items[i]["desc"].asString(),
-        items[i]["brand"].asString(),
-        items[i]["hitpoints"].asInt()
+        items[i]["brand"].asString()
         );
 
       //initialize the battery
@@ -114,17 +113,6 @@ int Battery::getActionPointsMax()
   return _action_points_max;
 }
 
-spArmor Battery::getArmorPiece()
-{
-  return _armor_piece;
-}
-
-bool Battery::hasArmor()
-{
-  if (getArmorPiece()) { return true; }
-  else { return false; }
-}
-
 void Battery::setActionSlots(int action_slots)
 {
   _action_slots = action_slots;
@@ -143,9 +131,4 @@ void Battery::setActionPoints(int action_points)
 void Battery::setActionPointsMax(int action_points_max)
 {
   _action_points_max = action_points_max;
-}
-
-void Battery::setArmorPiece(spArmor armor)
-{
-  _armor_piece = armor;
 }
