@@ -20,6 +20,7 @@ class Armor : public Item
     Armor();
 
     void init(
+      int hitpoints,
       int ballistic_res, 
       int electrical_res, 
       int chemical_ress

@@ -75,6 +75,14 @@ void Hull::init(std::string ID)
         items[i]["brand"].asString()
         );
 
+      //initialize the target
+      Target::init(
+        items[i]["hitpoints"].asInt(),
+        items[i]["ballistic_res"].asInt(),
+        items[i]["electrical_res"].asInt(),
+        items[i]["chemical_res"].asInt()
+        );
+
       //initialize the hull
       init(
         items[i]["ballistic_res"].asInt(),

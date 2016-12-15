@@ -14,16 +14,21 @@ Armor::Armor()
 
 //! Initialize an armor piece with given parameters
 /*!
+\param hitpoints the amount of hitpoints this armor piece has
 \param ballistic_res resistance to ballistic damage of this armor
 \param electrical_res resistance to electrical damage of this armor
 \param chemical_res resistance to chemical damage of this armor
 */
 void Armor::init(
+  int hitpoints,
   int ballistic_res,
   int electrical_res,
   int chemical_res
   )
 {
+  setHitPoints(hitpoints);
+  setHitPointsMax(hitpoints);
+
   setDamageResistance(Damage::Type::Ballistic, ballistic_res);
   setDamageResistance(Damage::Type::Electrical, electrical_res);
   setDamageResistance(Damage::Type::Chemical, chemical_res);
@@ -63,6 +68,8 @@ void Armor::init(std::string ID)
 
       //initialize the armor piece
       init(
+        //initialize the target
+        items[i]["hitpoints"].asInt(),
         items[i]["ballistic_res"].asInt(),
         items[i]["electrical_res"].asInt(),
         items[i]["chemical_res"].asInt()

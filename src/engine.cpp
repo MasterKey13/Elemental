@@ -56,6 +56,15 @@ void Engine::init(std::string ID)
         items[i]["brand"].asString()
         );
 
+      //initialize the target
+      Target::init(
+        items[i]["hitpoints"].asInt(),
+        items[i]["ballistic_res"].asInt(),
+        items[i]["electrical_res"].asInt(),
+        items[i]["chemical_res"].asInt()
+        );
+
+
       //initialize the engine
       init(
         items[i]["evasion"].asInt(),
