@@ -78,7 +78,7 @@ void Ship::setShipPosition(POSITION pos)
       getStage()->getHeight() / 3 + _hull->computeBounds().getHeight() / 2
       );
   }
-  else
+  else if (pos == enemy)
   {
     setPosition(
       getStage()->getWidth() / 6 * 5, 
@@ -92,7 +92,35 @@ void Ship::setShipPosition(POSITION pos)
 
     setRotation(MATH_PI);
   }
+  else
+  {
+    log::messageln("Invalid ship position requested!");
+  }
+}
 
+//!Find the part inside the ship. Return true if found, false if not found
+bool Ship::find(Target* part)
+{
+  //check if it's either the hull, battery or engine
+  if (
+    getHull().get() == part ||
+    getHull()->getBattery().get() == part ||
+    getHull()->getEngine().get() == part
+    )
+  {
+    return true;
+  }
+  
+  //check equipment pieces
+  for (int i = 0; i < getHull()->getMaxEquip(); i++)
+  {
+    if (getHull()->getEquipment()[i].get() == part)
+    {
+      return true;
+    }
+  }
+
+  return false;
 }
 std::string Ship::getName()
 {

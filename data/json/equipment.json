@@ -15,7 +15,8 @@
       "ballistic_dmg": 17,
       "electrical_dmg": 4,
       "chemical_dmg": 14,
-      "action_point_cost": 25
+      "action_point_cost": 25,
+      "self_targetable": false
     },    
     {
       "id": "equipment_tek_cannon2",
@@ -31,7 +32,8 @@
       "ballistic_dmg": 17,
       "electrical_dmg": 4,
       "chemical_dmg": 14,
-      "action_point_cost": 25
+      "action_point_cost": 25,
+      "self_targetable": false
     }
   ]
 }

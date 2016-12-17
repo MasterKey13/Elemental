@@ -42,7 +42,7 @@ void BattleGui::init(spShip player, spShip enemy)
     _action_slots[i]->attachTo(_battle_bar);
   }
 
-  for (int i = 0; i < _player->getHull()->getEquipment().size(); i++)
+  for (size_t i = 0; i < _player->getHull()->getEquipment().size(); i++)
   {
     _equipment[i] = new Sprite();
     _equipment[i]->attachTo(_equip_slots[i]);
@@ -99,8 +99,8 @@ void BattleGui::drawActionSlots()
       _action_slots[i]->setResAnim(resources::battle_ui.getResAnim("action_slot"), 1);
     }
 
-    _action_slots[i]->setPosition(_x_offset, 4);
-    _x_offset += 4 + _action_slots[i]->getWidth();
+    _action_slots[i]->setPosition((float)_x_offset, 4.0f);
+    _x_offset += 4 + (int)_action_slots[i]->getWidth();
   }
 }
 
@@ -113,16 +113,16 @@ void BattleGui::drawEquipmentSlots()
   for (int i = 0; i < _player->getHull()->getMaxEquip(); i++)
   {
     _equip_slots[i]->setResAnim(resources::battle_ui.getResAnim("item_slot"));
-    _equip_slots[i]->setPosition(_x_offset, _battle_bar->getHeight() - _equip_slots[i]->getHeight() - 4);
+    _equip_slots[i]->setPosition((float)_x_offset, _battle_bar->getHeight() - _equip_slots[i]->getHeight() - 4.0f);
 
-    _x_offset += 4 + _equip_slots[i]->getWidth();
+    _x_offset += 4 + (int)_equip_slots[i]->getWidth();
   }
 }
 
 //! Draw the equipment
 void BattleGui::drawEquipment()
 {
-  for (int i = 0; i < _player->getHull()->getEquipment().size(); i++)
+  for (size_t i = 0; i < _player->getHull()->getEquipment().size(); i++)
   {
     _equipment[i]->setResAnim(resources::equipment.getResAnim(_player->getHull()->getEquipment()[i]->getID()));
     _equipment[i]->setPosition(1, 1);
@@ -134,7 +134,7 @@ void BattleGui::drawEquipment()
     {
       if (_target)
       {
-        if (BattleAction::canPerform(_player, _player->getHull()->getEquipment()[i]))
+        if (BattleAction::canPerform(_player, _player->getHull()->getEquipment()[i], _target))
         {
           _battle->addAction(_action, _player->getHull()->getEquipment()[i], _target);
           _battle->checkStatus();
@@ -147,7 +147,6 @@ void BattleGui::drawEquipment()
         log::messageln("No target selected!");
       }
     });
-
   }
 }
 

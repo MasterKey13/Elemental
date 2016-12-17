@@ -8,6 +8,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #include "character.h"
 #include "hull.h"
+#include "target.h"
 
 #include <string>
 #include <cmath>
@@ -45,6 +46,7 @@ class Ship : public Actor
     void setName(std::string name);
     void setHull(spHull hull);
     void setShipPosition(POSITION pos);
+    bool find(Target* part);
 
     //GETTERS
 	  std::string getName();

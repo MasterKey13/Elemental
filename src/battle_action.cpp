@@ -167,12 +167,22 @@ int BattleAction::calculateDamageTarget(int weap_dmg, int armor_res, int target_
 /*!
 \param ship ship using the equipment
 \param equipment the equipment being used
+\param target of the equipment
 */
-bool BattleAction::canPerform(spShip ship, spEquipment equipment)
+bool BattleAction::canPerform(spShip ship, spEquipment equipment, Target* target)
 {
+  //check if the ship's battery has enough action points
   if (ship->getHull()->getBattery()->getActionPoints() >= equipment->getAPCost() &&
       ship->getHull()->getBattery()->getActionSlots() >= 1)
   {
+    //handle self-targeting
+    if (!equipment->isSelfTargetable() &&
+        ship->find(target))
+    {
+      log::messageln("This equipment cannot target its own ship!");
+      return false;
+    }
+
     return true;
   }
   

@@ -127,11 +127,6 @@ void Hull::setEngine(spEngine engine)
     );
 }
 
-void Hull::setSynthesizer(spSynthesizer synth)
-{
-  _synthesizer = synth;
-}
-
 void Hull::setVolumeRemaining(float volume)
 {
   _volume_remaining = volume;
@@ -160,11 +155,6 @@ spBattery Hull::getBattery()
 spEngine Hull::getEngine()
 {
   return _engine;
-}
-
-spSynthesizer Hull::getSynthesizer()
-{
-  return _synthesizer;
 }
 
 float Hull::getVolumeRemaining()

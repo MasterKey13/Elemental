@@ -35,7 +35,7 @@ class BattleAction : public Actor
     int calculateDamageArmor(int weap_dmg, int armor_res);
     int calculateDamageTarget(int weap_dmg, int armor_res, int target_res);
 
-    static bool canPerform(spShip ship, spEquipment equipment);
+    static bool canPerform(spShip ship, spEquipment equipment, Target* target);
 
   private:
     //damages for handling battle action processing

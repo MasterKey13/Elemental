@@ -21,6 +21,7 @@ Equipment::Equipment()
 \param electrical_dmg the amount of ballistic damage this equipment inflicts
 \param chemical_dmg the amount of ballistic damage this equipment inflicts
 \param action_point_cost how much action points it costs to use this equipment
+\param self_targetable whether the equipment can target it's owner's parts
 */
 void Equipment::init(
   int ballistic_res,
@@ -29,7 +30,8 @@ void Equipment::init(
   int ballistic_dmg,
   int electrical_dmg,
   int chemical_dmg,
-  int action_point_cost
+  int action_point_cost,
+  bool self_targetable
   )
 {
   setDamageResistance(Damage::Type::Ballistic, ballistic_res);
@@ -41,6 +43,8 @@ void Equipment::init(
   setDamage(Damage::Type::Chemical, chemical_dmg);
 
   setAPCost(action_point_cost);
+
+  setSelfTargetable(self_targetable);
 }
 
 //! Initialize an item by ID (load from item definition file items.json)
@@ -92,7 +96,8 @@ void Equipment::init(std::string ID)
         items[i]["ballistic_dmg"].asInt(),
         items[i]["electrical_dmg"].asInt(),
         items[i]["chemical_dmg"].asInt(),
-        items[i]["action_point_cost"].asInt()
+        items[i]["action_point_cost"].asInt(),
+        items[i]["self_targetable"].asBool()
         );
 
       //load the defined elemental composition
@@ -112,6 +117,11 @@ int Equipment::getDamageResistance(Damage::Type type)
 int Equipment::getAPCost()
 {
   return _action_point_cost;
+}
+
+bool Equipment::isSelfTargetable()
+{
+  return _self_targetable;
 }
 
 //! Return the amount of damage the weapon deals for the given damage type
@@ -155,4 +165,9 @@ void Equipment::setDamageResistanceDefault()
 void Equipment::setAPCost(int APcost)
 {
   _action_point_cost = APcost;
+}
+
+void Equipment::setSelfTargetable(bool self_targetable)
+{
+  _self_targetable = self_targetable;
 }
