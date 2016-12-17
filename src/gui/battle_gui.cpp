@@ -180,35 +180,45 @@ void BattleGui::drawActionPoints()
 */
 void BattleGui::addEventListeners(spShip player, spShip enemy)
 {
-  //player ship event listeners
-  player->getHull()->addEventListener(TouchEvent::CLICK, [&](Event*)
-  {
-    _target = player->getHull().get();
-  });
+  player->getHull()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickHull));
+  enemy->getHull()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickHull));
 
-  player->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, [&](Event*)
-  {
-    _target = player->getHull()->getBattery().get();
-  });
+  player->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEngine));
+  enemy->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEngine));
 
-  player->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, [&](Event*)
-  {
-    _target = player->getHull()->getEngine().get();
-  });
+  player->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
+  enemy->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
+}
 
-  //Enemy ship event listeners (DOESN'T WORK!)
-  enemy->getHull()->addEventListener(TouchEvent::CLICK, [&](Event*)
-  {
-    _target = enemy->getHull().get();
-  });
+void BattleGui::clickHull(Event* ev)
+{
+  spHull t = safeSpCast<Hull>(ev->currentTarget);
+  _target = t.get();
 
-  enemy->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, [&](Event*)
-  {
-    _target = enemy->getHull()->getBattery().get();
-  });
+  //stops event propagation so it doesn't target what's behind it
+  ev->stopPropagation(); 
 
-  enemy->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, [&](Event*)
-  {
-    _target = enemy->getHull()->getEngine().get();
-  });
+  log::messageln("[TARGET ACQUIRED] %s!", t.get()->getID().c_str());
+}
+
+void BattleGui::clickBattery(Event* ev)
+{
+  spBattery b = safeSpCast<Battery>(ev->currentTarget);
+  _target = b.get();
+
+  //stops event propagation so it doesn't target what's behind it
+  ev->stopPropagation();
+
+  log::messageln("[TARGET ACQUIRED] %s!", b.get()->getID().c_str());
+}
+
+void BattleGui::clickEngine(Event* ev)
+{
+  spEngine e = safeSpCast<Engine>(ev->currentTarget);
+  _target = e.get();
+
+  //stops event propagation so it doesn't target what's behind it
+  ev->stopPropagation();
+
+  log::messageln("[TARGET ACQUIRED] %s!", e.get()->getID().c_str());
 }

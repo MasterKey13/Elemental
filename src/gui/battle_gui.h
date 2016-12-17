@@ -22,13 +22,6 @@ DECLARE_SMART(BattleAction, spBattleAction);
 DECLARE_SMART(Equipment, spEquipment);
 DECLARE_SMART(Hull, spHull);
 
-enum Targets
-{
-  hull,
-  engine,
-  battery
-};
-
 class BattleGui : public Actor
 {
   public:
@@ -43,6 +36,11 @@ class BattleGui : public Actor
     void drawEquipment();
     void drawActionPoints();
     void addEventListeners(spShip player, spShip enemy);
+
+    //event handlers
+    void clickHull(Event* ev);
+    void clickBattery(Event* ev);
+    void clickEngine(Event* ev);
 
   private:
     spBattleAction _action;
