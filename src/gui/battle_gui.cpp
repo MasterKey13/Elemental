@@ -27,7 +27,6 @@ void BattleGui::init(spShip player, spShip enemy)
   //resize vectors
   _equip_slots.resize(_player->getHull()->getMaxEquip());
   _action_slots.resize(_player->getHull()->getBattery()->getActionSlotsMax());
-  _equipment.resize(_player->getHull()->getEquipment().size());
 
   //fill the vectors up with blank sprites according to the ship's capabilities
   for (int i = 0; i < _player->getHull()->getMaxEquip(); i++)
@@ -44,8 +43,7 @@ void BattleGui::init(spShip player, spShip enemy)
 
   for (size_t i = 0; i < _player->getHull()->getEquipment().size(); i++)
   {
-    _equipment[i] = new Sprite();
-    _equipment[i]->attachTo(_equip_slots[i]);
+    _player->getHull()->getEquipment()[i]->attachTo(_equip_slots[i]);
   }
 
   _action_points = new ProgressBar();
@@ -124,29 +122,12 @@ void BattleGui::drawEquipment()
 {
   for (size_t i = 0; i < _player->getHull()->getEquipment().size(); i++)
   {
-    _equipment[i]->setResAnim(resources::equipment.getResAnim(_player->getHull()->getEquipment()[i]->getID()));
-    _equipment[i]->setPosition(1, 1);
-
-    _equipment[i]->removeAllEventListeners();
+    _player->getHull()->getEquipment()[i]->setVisible(true);
+    _player->getHull()->getEquipment()[i]->setPosition(1, 1);
+    _player->getHull()->getEquipment()[i]->removeAllEventListeners();
 
     //add event listener to weapon button
-    _equipment[i]->addEventListener(TouchEvent::CLICK, [&, i](Event*) 
-    {
-      if (_target)
-      {
-        if (BattleAction::canPerform(_player, _player->getHull()->getEquipment()[i], _target))
-        {
-          _battle->addAction(_action, _player->getHull()->getEquipment()[i], _target);
-          _battle->checkStatus();
-
-          drawGUI();
-        }
-      }
-      else
-      {
-        log::messageln("No target selected!");
-      }
-    });
+    _player->getHull()->getEquipment()[i]->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::useEquipment));
   }
 }
 
@@ -187,6 +168,26 @@ void BattleGui::addEventListeners(spShip player, spShip enemy)
 
   player->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
   enemy->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
+}
+
+void BattleGui::useEquipment(Event* ev)
+{
+  spEquipment eq = safeSpCast<Equipment>(ev->currentTarget);
+
+  if (_target)
+  {
+    if (BattleAction::canPerform(_player, eq, _target))
+    {
+      _battle->addAction(_action, eq, _target);
+      _battle->checkStatus();
+
+      drawGUI();
+    }
+  }
+  else
+  {
+    log::messageln("No target selected!");
+  }
 }
 
 void BattleGui::clickHull(Event* ev)

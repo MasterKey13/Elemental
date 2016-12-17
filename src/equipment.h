@@ -56,4 +56,5 @@ class Equipment : public Item, public Target
     int _damage_resistance[3];
     int _damage_absorbtion;
     bool _self_targetable;
+    spSprite _sprite;
 };

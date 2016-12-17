@@ -38,6 +38,7 @@ class BattleGui : public Actor
     void addEventListeners(spShip player, spShip enemy);
 
     //event handlers
+    void useEquipment(Event* ev);
     void clickHull(Event* ev);
     void clickBattery(Event* ev);
     void clickEngine(Event* ev);
@@ -49,7 +50,6 @@ class BattleGui : public Actor
     spShip _player;
     spSprite _battle_bar;
     std::vector<spSprite> _equip_slots;
-    std::vector<spSprite> _equipment;
     std::vector<spSprite> _action_slots;
     spProgressBar _action_points;
     spTextField _action_points_text;

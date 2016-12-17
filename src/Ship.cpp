@@ -112,7 +112,7 @@ bool Ship::find(Target* part)
   }
   
   //check equipment pieces
-  for (int i = 0; i < getHull()->getMaxEquip(); i++)
+  for (int i = 0; i < getHull()->getEquipment().size(); i++)
   {
     if (getHull()->getEquipment()[i].get() == part)
     {

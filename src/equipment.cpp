@@ -10,6 +10,11 @@ Equipment::Equipment()
 {
   setDamageDefault();
   setArmorPiece(nullptr);
+
+  _sprite = new Sprite();
+  _sprite->setPosition(0, 0);
+  addChild(_sprite);
+  setVisible(false);
 }
 
 //! Initialize an equipment with given parameters
@@ -105,6 +110,9 @@ void Equipment::init(std::string ID)
       {
         setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
       }
+
+      //load the sprite
+      _sprite->setResAnim(resources::equipment.getResAnim(getID()));
     }
   }
 }
