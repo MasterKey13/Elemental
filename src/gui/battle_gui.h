@@ -35,7 +35,9 @@ class BattleGui : public Actor
     void drawEquipmentSlots();
     void drawEquipment();
     void drawActionPoints();
-    void addEventListeners(spShip player, spShip enemy);
+    void addEventListeners();
+    void drawStats();
+    void updateHitpointStats();
 
     //event handlers
     void useEquipment(Event* ev);
@@ -43,15 +45,22 @@ class BattleGui : public Actor
     void clickBattery(Event* ev);
     void clickEngine(Event* ev);
 
+    Color getHitpointColor(float hitpoints);
+
   private:
     spBattleAction _action;
     spBattle _battle;
-    int _x_offset;
+    Target* _target;
+
     spShip _player;
+    spShip _enemy;
     spSprite _battle_bar;
     std::vector<spSprite> _equip_slots;
     std::vector<spSprite> _action_slots;
-    spProgressBar _action_points;
+    spColorRectSprite _action_points;
     spTextField _action_points_text;
-    Target* _target;
+    spColorRectSprite _player_stats[3];
+    spColorRectSprite _enemy_stats[3];
+    spTextField _player_stats_text[3];
+    spTextField _enemy_stats_text[3];
 };

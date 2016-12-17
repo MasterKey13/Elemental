@@ -20,15 +20,22 @@ BattleGui::BattleGui(spBattle battle)
 void BattleGui::init(spShip player, spShip enemy)
 {
   _player = player;
+  _enemy = enemy;
 
   _battle_bar = new Sprite();
   _battle_bar->attachTo(this);
+
+  _action_points = new ColorRectSprite();
+  _action_points->attachTo(_battle_bar);
+
+  _action_points_text = new TextField();
+  _action_points_text->attachTo(_battle_bar);
 
   //resize vectors
   _equip_slots.resize(_player->getHull()->getMaxEquip());
   _action_slots.resize(_player->getHull()->getBattery()->getActionSlotsMax());
 
-  //fill the vectors up with blank sprites according to the ship's capabilities
+  //set up equipment and action slots
   for (int i = 0; i < _player->getHull()->getMaxEquip(); i++)
   {
     _equip_slots[i] = new Sprite();
@@ -41,18 +48,29 @@ void BattleGui::init(spShip player, spShip enemy)
     _action_slots[i]->attachTo(_battle_bar);
   }
 
+  //attach equipment onto the GUI
   for (size_t i = 0; i < _player->getHull()->getEquipment().size(); i++)
   {
     _player->getHull()->getEquipment()[i]->attachTo(_equip_slots[i]);
   }
 
-  _action_points = new ProgressBar();
-  _action_points->attachTo(_battle_bar);
+  //set up stat sprites
+  for (int i = 0; i < 3; i++)
+  {
+    _player_stats[i] = new ColorRectSprite();
+    _player_stats[i]->attachTo(this);
 
-  _action_points_text = new TextField();
-  _action_points_text->attachTo(_battle_bar);
+    _player_stats_text[i] = new TextField();
+    _player_stats_text[i]->attachTo(this);
 
-  addEventListeners(player, enemy);
+    _enemy_stats[i] = new ColorRectSprite();
+    _enemy_stats[i]->attachTo(this);
+
+    _enemy_stats_text[i] = new TextField();
+    _enemy_stats_text[i]->attachTo(this);
+  }
+
+  addEventListeners();
   drawGUI();
 }
 
@@ -74,12 +92,15 @@ void BattleGui::drawGUI()
 
   //draw action points
   drawActionPoints();
+
+  //draw stats
+  drawStats();
 }
 
 //! Draw the action slots
 void BattleGui::drawActionSlots()
 {
-  _x_offset = 4;
+  int x_offset = 4;
 
   //set up action slots
   //count how many of these slots are available (ie. active)
@@ -97,8 +118,8 @@ void BattleGui::drawActionSlots()
       _action_slots[i]->setResAnim(resources::battle_ui.getResAnim("action_slot"), 1);
     }
 
-    _action_slots[i]->setPosition((float)_x_offset, 4.0f);
-    _x_offset += 4 + (int)_action_slots[i]->getWidth();
+    _action_slots[i]->setPosition((float)x_offset, 4.0f);
+    x_offset += 4 + (int)_action_slots[i]->getWidth();
   }
 }
 
@@ -106,14 +127,14 @@ void BattleGui::drawActionSlots()
 //! Draw the equipment slots
 void BattleGui::drawEquipmentSlots()
 {
-  _x_offset = 4;
+  int x_offset = 4;
 
   for (int i = 0; i < _player->getHull()->getMaxEquip(); i++)
   {
     _equip_slots[i]->setResAnim(resources::battle_ui.getResAnim("item_slot"));
-    _equip_slots[i]->setPosition((float)_x_offset, _battle_bar->getHeight() - _equip_slots[i]->getHeight() - 4.0f);
+    _equip_slots[i]->setPosition((float)x_offset, _battle_bar->getHeight() - _equip_slots[i]->getHeight() - 4.0f);
 
-    _x_offset += 4 + (int)_equip_slots[i]->getWidth();
+    x_offset += 4 + (int)_equip_slots[i]->getWidth();
   }
 }
 
@@ -134,13 +155,12 @@ void BattleGui::drawEquipment()
 //! Draw the action points
 void BattleGui::drawActionPoints()
 { 
+  float percent = (float)_player->getHull()->getBattery()->getActionPoints() /
+    (float)_player->getHull()->getBattery()->getActionPointsMax();
+
   //progress bar shows how much action points we have left
-  _action_points->setProgress(
-    (float)_player->getHull()->getBattery()->getActionPoints() /
-    (float)_player->getHull()->getBattery()->getActionPointsMax()
-    );
-  _action_points->setResAnim(resources::battle_ui.getResAnim("action_point"));
-  _action_points->setScaleX(_battle_bar->getWidth() / _action_points->getWidth());
+  _action_points->setColor(Color::Blue);
+  _action_points->setSize(_battle_bar->getWidth() * percent, 4);
   _action_points->setPosition(0, -(_action_points->getHeight()));
 
   //text tells us exactly how much we have left
@@ -154,20 +174,173 @@ void BattleGui::drawActionPoints()
 }
 
 //!Set up event handling on the ship pieces for targeting
-/*!
-\param player smart pointer to the player's ship
-\pararm enemy smart pointer to the enemy's ship
-*/
-void BattleGui::addEventListeners(spShip player, spShip enemy)
+void BattleGui::addEventListeners()
 {
-  player->getHull()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickHull));
-  enemy->getHull()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickHull));
+  _player->getHull()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickHull));
+  _enemy->getHull()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickHull));
 
-  player->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEngine));
-  enemy->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEngine));
+  _player->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEngine));
+  _enemy->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEngine));
 
-  player->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
-  enemy->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
+  _player->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
+  _enemy->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
+}
+
+//! Draw the hitpoint bars for hull, battery and engine of both player and enemy
+void BattleGui::drawStats()
+{
+  int x_offset = 6;
+  int y_offset = 6;
+
+  for (int i = 0; i < 3; i++)
+  { 
+    //player stats go on the left top corner
+    _player_stats[i]->setSize(512, 16);
+    _player_stats[i]->setAnchor(0.0f, 0.0f);
+    _player_stats[i]->setPosition(x_offset, y_offset);
+
+    _player_stats_text[i]->setAlign(TextStyle::VerticalAlign::VALIGN_MIDDLE, TextStyle::HorizontalAlign::HALIGN_MIDDLE);
+
+    //enemy stats go on the top right corner
+    _enemy_stats[i]->setSize(512, 16);
+    _enemy_stats[i]->setAnchor(1.0f, 0.0f);
+    _enemy_stats[i]->setPosition(
+      getStage()->getWidth() - x_offset, 
+      y_offset);
+
+    _enemy_stats_text[i]->setAlign(TextStyle::VerticalAlign::VALIGN_MIDDLE, TextStyle::HorizontalAlign::HALIGN_MIDDLE);
+
+    y_offset += _player_stats[i]->getHeight() + 6;
+  }
+
+  updateHitpointStats();
+}
+
+//! Updates the scale and color of hitpoints stats
+void BattleGui::updateHitpointStats()
+{
+  //update hitpoints of hulls
+  _player_stats[0]->addTween(Actor::TweenScaleX(
+    (float)_player->getHull()->getHitPoints() /
+    (float)_player->getHull()->getHitPointsMax()
+    ), 500);
+
+  _enemy_stats[0]->addTween(Actor::TweenScaleX(
+    (float)_enemy->getHull()->getHitPoints() /
+    (float)_enemy->getHull()->getHitPointsMax()
+    ), 500);
+
+  _player_stats[0]->setColor(
+    getHitpointColor(
+      (float)_player->getHull()->getHitPoints() /
+      (float)_player->getHull()->getHitPointsMax()));
+
+  _enemy_stats[0]->setColor(
+    getHitpointColor(
+      (float)_enemy->getHull()->getHitPoints() /
+      (float)_enemy->getHull()->getHitPointsMax()));
+
+  _player_stats_text[0]->setText(
+    "Hull: " + 
+    std::to_string(_player->getHull()->getHitPoints()) + 
+    "/" + 
+    std::to_string(_player->getHull()->getHitPointsMax()));
+
+  _enemy_stats_text[0]->setText(
+    "Hull: " +
+    std::to_string(_enemy->getHull()->getHitPoints()) +
+    "/" +
+    std::to_string(_enemy->getHull()->getHitPointsMax()));
+
+  _player_stats_text[0]->setPosition(
+    _player_stats[0]->getX() + _player_stats[0]->getWidth() / 2, 
+    _player_stats[0]->getY() + _player_stats[0]->getHeight() / 2);
+
+  _enemy_stats_text[0]->setPosition(
+    _enemy_stats[0]->getX() - _enemy_stats[0]->getWidth() / 2, 
+    _enemy_stats[0]->getY() + _enemy_stats[0]->getHeight() / 2);
+
+  //update hitpoints of batteries
+  _player_stats[1]->addTween(Actor::TweenScaleX(
+    (float)_player->getHull()->getBattery()->getHitPoints() /
+    (float)_player->getHull()->getBattery()->getHitPointsMax()
+    ), 500);
+
+  _enemy_stats[1]->addTween(Actor::TweenScaleX(
+    (float)_enemy->getHull()->getBattery()->getHitPoints() /
+    (float)_enemy->getHull()->getBattery()->getHitPointsMax()
+    ), 500);
+
+  _player_stats[1]->setColor(
+    getHitpointColor(
+      (float)_player->getHull()->getBattery()->getHitPoints() /
+      (float)_player->getHull()->getBattery()->getHitPointsMax()));
+
+  _enemy_stats[1]->setColor(
+    getHitpointColor(
+      (float)_enemy->getHull()->getBattery()->getHitPoints() /
+      (float)_enemy->getHull()->getBattery()->getHitPointsMax()));
+
+  _player_stats_text[1]->setText(
+    "Battery: " +
+    std::to_string(_player->getHull()->getBattery()->getHitPoints()) +
+    "/" +
+    std::to_string(_player->getHull()->getBattery()->getHitPointsMax()));
+
+  _enemy_stats_text[1]->setText(
+    "Battery: " +
+    std::to_string(_enemy->getHull()->getBattery()->getHitPoints()) +
+    "/" +
+    std::to_string(_enemy->getHull()->getBattery()->getHitPointsMax()));
+
+  _player_stats_text[1]->setPosition(
+    _player_stats[1]->getX() + _player_stats[1]->getWidth() / 2,
+    _player_stats[1]->getY() + _player_stats[1]->getHeight() / 2);
+
+  _enemy_stats_text[1]->setPosition(
+    _enemy_stats[1]->getX() - _enemy_stats[1]->getWidth() / 2, 
+    _enemy_stats[1]->getY() + _enemy_stats[1]->getHeight() / 2);
+
+  //update hitpoints of engines
+  _player_stats[2]->addTween(Actor::TweenScaleX(
+    (float)_player->getHull()->getEngine()->getHitPoints() /
+    (float)_player->getHull()->getEngine()->getHitPointsMax()
+    ), 500);
+
+  _enemy_stats[2]->addTween(Actor::TweenScaleX(
+    (float)_enemy->getHull()->getEngine()->getHitPoints() /
+    (float)_enemy->getHull()->getEngine()->getHitPointsMax()
+    ), 500);
+
+  _player_stats[2]->setColor(
+    getHitpointColor(
+      (float)_player->getHull()->getEngine()->getHitPoints() /
+      (float)_player->getHull()->getEngine()->getHitPointsMax()));
+
+  _enemy_stats[2]->setColor(
+    getHitpointColor(
+      (float)_enemy->getHull()->getEngine()->getHitPoints() /
+      (float)_enemy->getHull()->getEngine()->getHitPointsMax()));
+
+  _player_stats_text[2]->setText(
+    "Engine: " +
+    std::to_string(_player->getHull()->getEngine()->getHitPoints()) +
+    "/" +
+    std::to_string(_player->getHull()->getEngine()->getHitPointsMax()));
+
+  _enemy_stats_text[2]->setText(
+    "Engine: " +
+    std::to_string(_enemy->getHull()->getEngine()->getHitPoints()) +
+    "/" +
+    std::to_string(_enemy->getHull()->getEngine()->getHitPointsMax()));
+
+  _player_stats_text[2]->setPosition(
+    _player_stats[2]->getX() + _player_stats[2]->getWidth() / 2,
+    _player_stats[2]->getY() + _player_stats[2]->getHeight() / 2);
+
+  _enemy_stats_text[2]->setPosition(
+    _enemy_stats[2]->getX() - _enemy_stats[2]->getWidth() / 2, 
+    _enemy_stats[2]->getY() + _enemy_stats[2]->getHeight() / 2);
 }
 
 void BattleGui::useEquipment(Event* ev)
@@ -221,4 +394,20 @@ void BattleGui::clickEngine(Event* ev)
   ev->stopPropagation();
 
   log::messageln("[TARGET ACQUIRED] %s!", e.get()->getID().c_str());
+}
+
+//! Returns color based on remaining hitpoints (from green->yellow->red)
+/*!
+\param hitpoints float percentage of hitpoints left (1.0f - 0.0f)
+*/
+Color BattleGui::getHitpointColor(float hitpoints)
+{
+  if (hitpoints >= 0.5f)
+  {
+    return Color((1.0f - hitpoints) * 400, 200, 0);
+  }
+  else if (hitpoints < 0.5f)
+  {
+    return Color(200, hitpoints * 400, 0);
+  }
 }

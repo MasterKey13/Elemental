@@ -7,6 +7,5 @@
     <image file="item_slot.png" />
     <image file="battle_bar.png" />
     <image file="action_slot.png" cols="2" />
-    <image file="action_point.png" />
   </atlas>
 </resources>
