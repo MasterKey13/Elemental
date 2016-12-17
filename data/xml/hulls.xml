@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<resources>
+  <set path = "images/hulls" />
+  <set scale_factor = "1.0f" />
+
+  <atlas>
+    <image file="hull_hugh_voyager.png" />
+  </atlas>
+</resources>

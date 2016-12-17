@@ -23,7 +23,7 @@ Battle::Battle()
 */
 void Battle::init(spShip player, spShip enemy, bool player_turn)
 {
-  _gui->init(player);
+  _gui->init(player, enemy);
 
   //determine who attacked first
   if (player_turn)
@@ -41,19 +41,21 @@ void Battle::init(spShip player, spShip enemy, bool player_turn)
 //! Add an action to the action list
 /*!
 \param action a smart pointer to the action performed
+\param equipment a smart pointer to the equipment piece used in the action
+\param target a regular pointer to the target of the action
 */
-void Battle::addAction(spBattleAction action, spEquipment equipment)
+void Battle::addAction(spBattleAction action, spEquipment equipment, Target* target)
 {
   if (_attacker_turn)
   {
     _attacker_actions.push_back(action);
-    Target* t = getDefender()->getHull()->getBattery().get();
+    Target* t = target;
     action->process(_attacker, equipment, t);
   }
   else
   {
     _defender_actions.push_back(action);
-    Target* t = getDefender()->getHull()->getBattery().get();
+    Target* t = target;
     action->process(_defender, equipment, t);
   }
 

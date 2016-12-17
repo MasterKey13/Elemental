@@ -97,6 +97,12 @@ void Hull::init(std::string ID)
         setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
       }
 
+      //load storage bounds
+      for (int k = 0; k < 8; k++)
+      {
+        _reserved_bounds[k] = items[i]["reserved_bounds"][k].asInt();
+      }
+
       //load the sprite
       _sprite->setResAnim(resources::hulls.getResAnim(getID()));
     }
@@ -106,11 +112,19 @@ void Hull::init(std::string ID)
 void Hull::setBattery(spBattery battery)
 {
   _battery = battery;
+  _battery->setPosition(
+    _reserved_bounds[4],
+    _reserved_bounds[5]
+    );
 }
 
 void Hull::setEngine(spEngine engine)
 {
   _engine = engine;
+  _engine->setPosition(
+    _reserved_bounds[0],
+    _reserved_bounds[1]
+    );
 }
 
 void Hull::setSynthesizer(spSynthesizer synth)
@@ -127,7 +141,6 @@ void Hull::setMaxEquip(int max)
 {
   _max_equip = max;
 }
-
 
 std::vector<spItem> Hull::getInventory()
 {

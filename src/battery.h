@@ -8,6 +8,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "item.h"
 #include "armor.h"
 #include "target.h"
+#include "resources.h"
 
 //declare smart pointer
 DECLARE_SMART(Battery, spBattery);
@@ -45,4 +46,5 @@ class Battery : public Item, public Target
     int _action_points_max;
     int _action_slots;
     int _action_slots_max;
+    spSprite _sprite;
 };

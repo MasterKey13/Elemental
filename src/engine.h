@@ -8,6 +8,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "item.h"
 #include "armor.h"
 #include "target.h"
+#include "resources.h"
 
 //declare smart pointer
 DECLARE_SMART(Engine, spEngine);
@@ -33,4 +34,5 @@ class Engine : public Item, public Target
   private:
     int _evasion;
     float _max_weight;
+    spSprite _sprite;
 };

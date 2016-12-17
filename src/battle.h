@@ -25,7 +25,7 @@ class Battle : public Actor
 
     void init(spShip player, spShip enemy, bool player_turn);
 
-    void addAction(spBattleAction action, spEquipment equipment);
+    void addAction(spBattleAction action, spEquipment equipment, Target* target);
     void endTurn();
     void checkStatus();
 

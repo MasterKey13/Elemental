@@ -12,6 +12,8 @@ namespace resources
 	extern Resources battle_ui;
   extern Resources equipment;
   extern Resources hulls;
+  extern Resources engines;
+  extern Resources batteries;
 
 	void load();
 	void free();

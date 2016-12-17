@@ -55,8 +55,8 @@ void Game::init()
   _battery2->init("battery_celladon");
   _weapon2->init("equipment_tek_cannon");
   _hull2->init("hull_hugh_voyager");
-  _hull2->setEngine(_engine);
-  _hull2->setBattery(_battery);
+  _hull2->setEngine(_engine2);
+  _hull2->setBattery(_battery2);
   _hull2->addEquipment(_weapon2);
   _enemy_ship->setShipPosition(POSITION::enemy);
 

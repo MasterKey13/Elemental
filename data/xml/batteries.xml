@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<resources>
+  <set path = "images/batteries" />
+  <set scale_factor = "1.0f" />
+
+  <atlas>
+    <image file="battery_celladon.png" />
+  </atlas>
+</resources>

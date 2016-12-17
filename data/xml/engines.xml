@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<resources>
+  <set path = "images/engines" />
+  <set scale_factor = "1.0f" />
+
+  <atlas>
+    <image file="engine_tracer.png" />
+  </atlas>
+</resources>

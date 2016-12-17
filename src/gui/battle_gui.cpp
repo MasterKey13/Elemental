@@ -9,13 +9,15 @@ BattleGui::BattleGui(spBattle battle)
 {
   _battle = battle;
   _action = new BattleAction();
+  _target = nullptr;
 }
 
 //! Initialize a battle GUI (create all required objects)
 /*!
 \param player smart pointer to the player's ship
+\pararm enemy smart pointer to the enemy's ship
 */
-void BattleGui::init(spShip player)
+void BattleGui::init(spShip player, spShip enemy)
 {
   _player = player;
 
@@ -52,6 +54,7 @@ void BattleGui::init(spShip player)
   _action_points_text = new TextField();
   _action_points_text->attachTo(_battle_bar);
 
+  addEventListeners(player, enemy);
   drawGUI();
 }
 
@@ -129,11 +132,19 @@ void BattleGui::drawEquipment()
     //add event listener to weapon button
     _equipment[i]->addEventListener(TouchEvent::CLICK, [&, i](Event*) 
     {
-      if (BattleAction::canPerform(_player, _player->getHull()->getEquipment()[i]))
+      if (_target)
       {
-        _battle->addAction(_action, _player->getHull()->getEquipment()[i]);
-        _battle->checkStatus();
-        drawGUI();
+        if (BattleAction::canPerform(_player, _player->getHull()->getEquipment()[i]))
+        {
+          _battle->addAction(_action, _player->getHull()->getEquipment()[i], _target);
+          _battle->checkStatus();
+
+          drawGUI();
+        }
+      }
+      else
+      {
+        log::messageln("No target selected!");
       }
     });
 
@@ -160,4 +171,44 @@ void BattleGui::drawActionPoints()
 
   _action_points_text->setText(ap);
   _action_points_text->setPosition(_battle_bar->getWidth() / 2 - _action_points_text->getWidth() / 2, -20);
+}
+
+//!Set up event handling on the ship pieces for targeting
+/*!
+\param player smart pointer to the player's ship
+\pararm enemy smart pointer to the enemy's ship
+*/
+void BattleGui::addEventListeners(spShip player, spShip enemy)
+{
+  //player ship event listeners
+  player->getHull()->addEventListener(TouchEvent::CLICK, [&](Event*)
+  {
+    _target = player->getHull().get();
+  });
+
+  player->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, [&](Event*)
+  {
+    _target = player->getHull()->getBattery().get();
+  });
+
+  player->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, [&](Event*)
+  {
+    _target = player->getHull()->getEngine().get();
+  });
+
+  //Enemy ship event listeners (DOESN'T WORK!)
+  enemy->getHull()->addEventListener(TouchEvent::CLICK, [&](Event*)
+  {
+    _target = enemy->getHull().get();
+  });
+
+  enemy->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, [&](Event*)
+  {
+    _target = enemy->getHull()->getBattery().get();
+  });
+
+  enemy->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, [&](Event*)
+  {
+    _target = enemy->getHull()->getEngine().get();
+  });
 }

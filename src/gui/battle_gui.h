@@ -10,6 +10,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "../ship.h"
 #include "../battle_action.h"
 #include "../hull.h"
+#include "../target.h"
 
 using namespace oxygine;
 
@@ -21,18 +22,27 @@ DECLARE_SMART(BattleAction, spBattleAction);
 DECLARE_SMART(Equipment, spEquipment);
 DECLARE_SMART(Hull, spHull);
 
+enum Targets
+{
+  hull,
+  engine,
+  battery
+};
+
 class BattleGui : public Actor
 {
   public:
     BattleGui(spBattle battle);
 
-    void init(spShip player);
+    void init(spShip player, spShip enemy);
 
+    //drawing methods
     void drawGUI();
     void drawActionSlots();
     void drawEquipmentSlots();
     void drawEquipment();
     void drawActionPoints();
+    void addEventListeners(spShip player, spShip enemy);
 
   private:
     spBattleAction _action;
@@ -45,4 +55,5 @@ class BattleGui : public Actor
     std::vector<spSprite> _action_slots;
     spProgressBar _action_points;
     spTextField _action_points_text;
+    Target* _target;
 };
