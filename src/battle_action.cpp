@@ -119,7 +119,7 @@ void BattleAction::process(spShip attacker, spEquipment weapon, Target* target)
   attacker->getHull()->getBattery()->setActionSlots(
     attacker->getHull()->getBattery()->getActionSlots() - 1);
 
-  log();
+  //log();
 }
 
 //! Helper function to calculate damage to the armor piece

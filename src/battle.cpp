@@ -24,6 +24,7 @@ Battle::Battle()
 void Battle::init(spShip player, spShip enemy, bool player_turn)
 {
   _gui->init(player, enemy);
+  _player = player;
 
   //determine who attacked first
   if (player_turn)
@@ -59,10 +60,13 @@ void Battle::addAction(spBattleAction action, spEquipment equipment, Target* tar
     action->process(_defender, equipment, t);
   }
 
-  log::messageln("ATTACKER:");
-  _attacker->log();
-  log::messageln("DEFENDER:");
-  _defender->log();
+  //check if no more action points and switch turns
+  if (_attacker->getHull()->getBattery()->getActionPoints() == 0 ||
+    _attacker->getHull()->getBattery()->getActionSlots() == 0)
+  {
+    endTurn();
+    log::messageln("Switching turns...");
+  }
 }
 
 //! Ends the turn and switches roles
@@ -73,6 +77,32 @@ void Battle::endTurn()
   spShip temp = _attacker;
   _attacker = _defender;
   _defender = temp;
+
+  //if the player is defending now, remove the ship event listeners
+  if (_player == _defender)
+  {
+    log::messageln("Disabled touch events during enemy turn");
+
+    _attacker->setTouchEnabled(false, false);
+    _defender->setTouchEnabled(false, false);
+
+    for (int i = 0; i < _player->getHull()->getEquipment().size(); i++)
+    {
+      _player->getHull()->getEquipment()[i]->setTouchEnabled(false, false);
+    }
+  }
+  else
+  {
+    log::messageln("Enabled touch events during player turn");
+
+    _attacker->setTouchEnabled(true, true);
+    _defender->setTouchEnabled(true, true);
+
+    for (int i = 0; i < _player->getHull()->getEquipment().size(); i++)
+    {
+      _player->getHull()->getEquipment()[i]->setTouchEnabled(true, true);
+    }
+  }
 }
 
 //! Checks whether the battle ended and handle accordingly

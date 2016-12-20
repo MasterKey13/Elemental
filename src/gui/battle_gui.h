@@ -35,7 +35,6 @@ class BattleGui : public Actor
     void drawEquipmentSlots();
     void drawEquipment();
     void drawActionPoints();
-    void addEventListeners();
     void drawStats();
     void updateHitpointStats();
 
@@ -46,6 +45,10 @@ class BattleGui : public Actor
     void clickEngine(Event* ev);
 
     Color getHitpointColor(float hitpoints);
+
+    //event listeners
+    void addShipEventListeners();
+    void clearTarget();
 
   private:
     spBattleAction _action;

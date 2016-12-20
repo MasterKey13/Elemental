@@ -36,6 +36,7 @@ class Battle : public Actor
   private:
     spShip _attacker;
     spShip _defender;
+    spShip _player;
 
     std::list<spBattleAction> _attacker_actions;
     std::list<spBattleAction> _defender_actions;

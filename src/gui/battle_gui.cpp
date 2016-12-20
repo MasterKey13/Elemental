@@ -70,7 +70,7 @@ void BattleGui::init(spShip player, spShip enemy)
     _enemy_stats_text[i]->attachTo(this);
   }
 
-  addEventListeners();
+  addShipEventListeners();
   drawGUI();
 }
 
@@ -148,7 +148,8 @@ void BattleGui::drawEquipment()
     _player->getHull()->getEquipment()[i]->removeAllEventListeners();
 
     //add event listener to weapon button
-    _player->getHull()->getEquipment()[i]->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::useEquipment));
+    _player->getHull()->getEquipment()[i]->addEventListener
+      (TouchEvent::CLICK, CLOSURE(this, &BattleGui::useEquipment));
   }
 }
 
@@ -174,16 +175,24 @@ void BattleGui::drawActionPoints()
 }
 
 //!Set up event handling on the ship pieces for targeting
-void BattleGui::addEventListeners()
+void BattleGui::addShipEventListeners()
 {
+  log::messageln("Adding event listeners to ships...");
+
   _player->getHull()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickHull));
   _enemy->getHull()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickHull));
 
   _player->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEngine));
-  _enemy->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEngine));
+   _enemy->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEngine));
 
   _player->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
-  _enemy->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
+   _enemy->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
+}
+
+//! Clear the target pointer
+void BattleGui::clearTarget()
+{
+  _target = nullptr;
 }
 
 //! Draw the hitpoint bars for hull, battery and engine of both player and enemy
