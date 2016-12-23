@@ -33,6 +33,8 @@ class Battle : public Actor
     spShip getDefender();
     spShip getAttacker();
 
+    bool isPlayerTurn();
+
   private:
     spShip _attacker;
     spShip _defender;

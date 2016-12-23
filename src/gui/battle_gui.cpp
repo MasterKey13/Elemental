@@ -15,7 +15,7 @@ BattleGui::BattleGui(spBattle battle)
 //! Initialize a battle GUI (create all required objects)
 /*!
 \param player smart pointer to the player's ship
-\pararm enemy smart pointer to the enemy's ship
+\param enemy smart pointer to the enemy's ship
 */
 void BattleGui::init(spShip player, spShip enemy)
 {
@@ -30,6 +30,13 @@ void BattleGui::init(spShip player, spShip enemy)
 
   _action_points_text = new TextField();
   _action_points_text->attachTo(_battle_bar);
+
+  _equipment_info_bar = new Sprite();
+  _equipment_info_bar->attachTo(_battle_bar);
+  _equipment_info_bar->setVisible(false);
+
+  _equipment_info_text = new TextField();
+  _equipment_info_text->attachTo(_equipment_info_bar);
 
   //resize vectors
   _equip_slots.resize(_player->getHull()->getMaxEquip());
@@ -90,6 +97,9 @@ void BattleGui::drawGUI()
   //draw the equipment on the screen
   drawEquipment();
 
+  //draw equipment info piece
+  drawEquipmentInfo();
+
   //draw action points
   drawActionPoints();
 
@@ -147,7 +157,15 @@ void BattleGui::drawEquipment()
     _player->getHull()->getEquipment()[i]->setPosition(1, 1);
     _player->getHull()->getEquipment()[i]->removeAllEventListeners();
 
-    //add event listener to weapon button
+    //add roll over event listener for detailed info on equipment
+    _player->getHull()->getEquipment()[i]->addEventListener
+      (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailEquipmentShow));
+
+    //add roll over event listener for detailed info on equipment
+    _player->getHull()->getEquipment()[i]->addEventListener
+      (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailEquipmentHide));
+
+    //add click event listener to use equipment
     _player->getHull()->getEquipment()[i]->addEventListener
       (TouchEvent::CLICK, CLOSURE(this, &BattleGui::useEquipment));
   }
@@ -352,23 +370,40 @@ void BattleGui::updateHitpointStats()
     _enemy_stats[2]->getY() + _enemy_stats[2]->getHeight() / 2);
 }
 
+//! Draw the window above the battle bar that displays detailed equipment info
+void BattleGui::drawEquipmentInfo()
+{
+  _equipment_info_bar->setResAnim(resources::battle_ui.getResAnim("equipment_info_bar"));
+  _equipment_info_bar->setPosition(0, -(_equipment_info_bar->getHeight() + 30));
+
+  _equipment_info_text->setPosition(5, 5);
+}
+
+//! Handles functionality when equipment is clicked on
 void BattleGui::useEquipment(Event* ev)
 {
   spEquipment eq = safeSpCast<Equipment>(ev->currentTarget);
 
-  if (_target)
+  if (_battle->isPlayerTurn())
   {
-    if (BattleAction::canPerform(_player, eq, _target))
+    if (_target)
     {
-      _battle->addAction(_action, eq, _target);
-      _battle->checkStatus();
+      if (BattleAction::canPerform(_player, eq, _target))
+      {
+        _battle->addAction(_action, eq, _target);
+        _battle->checkStatus();
 
-      drawGUI();
+        drawGUI();
+      }
+    }
+    else
+    {
+      log::messageln("No target selected");
     }
   }
   else
   {
-    log::messageln("No target selected!");
+    log::messageln("It is not your turn yet");
   }
 }
 
@@ -378,7 +413,7 @@ void BattleGui::clickHull(Event* ev)
   _target = t.get();
 
   //stops event propagation so it doesn't target what's behind it
-  ev->stopPropagation(); 
+  ev->stopImmediatePropagation();
 
   log::messageln("[TARGET ACQUIRED] %s!", t.get()->getID().c_str());
 }
@@ -389,7 +424,7 @@ void BattleGui::clickBattery(Event* ev)
   _target = b.get();
 
   //stops event propagation so it doesn't target what's behind it
-  ev->stopPropagation();
+  ev->stopImmediatePropagation();
 
   log::messageln("[TARGET ACQUIRED] %s!", b.get()->getID().c_str());
 }
@@ -400,9 +435,47 @@ void BattleGui::clickEngine(Event* ev)
   _target = e.get();
 
   //stops event propagation so it doesn't target what's behind it
-  ev->stopPropagation();
+  ev->stopImmediatePropagation();
 
   log::messageln("[TARGET ACQUIRED] %s!", e.get()->getID().c_str());
+}
+
+//! Shows details about that equipment piece
+void BattleGui::detailEquipmentShow(Event* ev)
+{
+  spEquipment eq = safeSpCast<Equipment>(ev->currentTarget);
+
+  std::string info = "";
+    info += "Name: ";
+    info += eq->getName().c_str();
+    info += " by ";
+    info += eq->getBrand().c_str();
+    info += "\nDescription: ";
+    info += eq->getDescription();
+    info += "\nAP Cost: ";
+    info += std::to_string(eq->getAPCost());
+    info += "\nDamage: ";
+    info += std::to_string(eq->getDamage(Damage::Type::Ballistic));
+    info += "/";
+    info += std::to_string(eq->getDamage(Damage::Type::Electrical));
+    info += "/";
+    info += std::to_string(eq->getDamage(Damage::Type::Chemical));
+    info += "\nResistances: ";
+    info += std::to_string(eq->getDamageResistance(Damage::Type::Ballistic));
+    info += "/";
+    info += std::to_string(eq->getDamageResistance(Damage::Type::Electrical));
+    info += "/";
+    info += std::to_string(eq->getDamageResistance(Damage::Type::Chemical));
+
+  _equipment_info_text->setText(info);
+
+  _equipment_info_bar->setVisible(true);
+}
+
+//! Hides details about that equipment piece
+void BattleGui::detailEquipmentHide(Event* ev)
+{
+  _equipment_info_bar->setVisible(false);
 }
 
 //! Returns color based on remaining hitpoints (from green->yellow->red)

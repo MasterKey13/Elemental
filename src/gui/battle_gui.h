@@ -37,12 +37,15 @@ class BattleGui : public Actor
     void drawActionPoints();
     void drawStats();
     void updateHitpointStats();
+    void drawEquipmentInfo();
 
     //event handlers
     void useEquipment(Event* ev);
     void clickHull(Event* ev);
     void clickBattery(Event* ev);
     void clickEngine(Event* ev);
+    void detailEquipmentShow(Event* ev);
+    void detailEquipmentHide(Event* ev);
 
     Color getHitpointColor(float hitpoints);
 
@@ -54,9 +57,10 @@ class BattleGui : public Actor
     spBattleAction _action;
     spBattle _battle;
     Target* _target;
-
     spShip _player;
     spShip _enemy;
+
+    //sprites and text
     spSprite _battle_bar;
     std::vector<spSprite> _equip_slots;
     std::vector<spSprite> _action_slots;
@@ -66,4 +70,6 @@ class BattleGui : public Actor
     spColorRectSprite _enemy_stats[3];
     spTextField _player_stats_text[3];
     spTextField _enemy_stats_text[3];
+    spSprite _equipment_info_bar;
+    spTextField _equipment_info_text;
 };

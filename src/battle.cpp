@@ -77,32 +77,6 @@ void Battle::endTurn()
   spShip temp = _attacker;
   _attacker = _defender;
   _defender = temp;
-
-  //if the player is defending now, remove the ship event listeners
-  if (_player == _defender)
-  {
-    log::messageln("Disabled touch events during enemy turn");
-
-    _attacker->setTouchEnabled(false, false);
-    _defender->setTouchEnabled(false, false);
-
-    for (int i = 0; i < _player->getHull()->getEquipment().size(); i++)
-    {
-      _player->getHull()->getEquipment()[i]->setTouchEnabled(false, false);
-    }
-  }
-  else
-  {
-    log::messageln("Enabled touch events during player turn");
-
-    _attacker->setTouchEnabled(true, true);
-    _defender->setTouchEnabled(true, true);
-
-    for (int i = 0; i < _player->getHull()->getEquipment().size(); i++)
-    {
-      _player->getHull()->getEquipment()[i]->setTouchEnabled(true, true);
-    }
-  }
 }
 
 //! Checks whether the battle ended and handle accordingly
@@ -125,4 +99,9 @@ spShip Battle::getDefender()
 spShip Battle::getAttacker()
 {
   return _attacker;
+}
+
+bool Battle::isPlayerTurn()
+{
+  return (_player == _attacker) ? true : false;
 }
