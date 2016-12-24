@@ -1,0 +1,18 @@
+{
+  "npcs":
+  [
+    {
+      "id": "npc_eric_markovic",
+      "first_name": "Eric",
+      "last_name": "Markovic",
+      "nickname": "Erik",
+      "race": "human",
+      "faction": "Earth",
+      "intelligence": 67,
+      "discourse": 33,
+      "strength": 47,
+      "hostility": 38,
+      "bravery": 78
+    }
+  ]
+}

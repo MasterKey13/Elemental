@@ -45,7 +45,11 @@ class BattleGui : public Actor
     void clickBattery(Event* ev);
     void clickEngine(Event* ev);
     void detailEquipmentShow(Event* ev);
-    void detailEquipmentHide(Event* ev);
+    void detailHide(Event* ev);
+    void detailEngineShow(Event* ev);
+    void detailBatteryShow(Event* ev);
+    void detailHullShow(Event* ev);
+    void detailPartHide(Event* ev);
 
     Color getHitpointColor(float hitpoints);
 
@@ -70,6 +74,7 @@ class BattleGui : public Actor
     spColorRectSprite _enemy_stats[3];
     spTextField _player_stats_text[3];
     spTextField _enemy_stats_text[3];
-    spSprite _equipment_info_bar;
-    spTextField _equipment_info_text;
+    spSprite _item_info_bar;
+    spTextField _item_info_text;
+    std::string _hull_text;
 };

@@ -65,18 +65,28 @@ void Battle::addAction(spBattleAction action, spEquipment equipment, Target* tar
     _attacker->getHull()->getBattery()->getActionSlots() == 0)
   {
     endTurn();
-    log::messageln("Switching turns...");
   }
 }
 
 //! Ends the turn and switches roles
 void Battle::endTurn()
 {
+  log::messageln("Switching turns...");
   _attacker_turn = !(_attacker_turn);
   
   spShip temp = _attacker;
   _attacker = _defender;
   _defender = temp;
+
+  //process enemy turn
+  if (!isPlayerTurn())
+  {
+    _defender->processTurn(this, _player);
+    _gui->drawGUI();
+    endTurn();
+  }
+
+  _attacker->resetTurnStats();
 }
 
 //! Checks whether the battle ended and handle accordingly

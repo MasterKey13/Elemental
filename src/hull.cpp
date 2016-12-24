@@ -113,8 +113,8 @@ void Hull::setBattery(spBattery battery)
 {
   _battery = battery;
   _battery->setPosition(
-    _reserved_bounds[4],
-    _reserved_bounds[5]
+    (float)_reserved_bounds[4],
+    (float)_reserved_bounds[5]
     );
 }
 
@@ -122,8 +122,8 @@ void Hull::setEngine(spEngine engine)
 {
   _engine = engine;
   _engine->setPosition(
-    _reserved_bounds[0],
-    _reserved_bounds[1]
+    (float)_reserved_bounds[0],
+    (float)_reserved_bounds[1]
     );
 }
 
@@ -177,7 +177,7 @@ void Hull::addEquipment(spEquipment eq)
   if (std::find(_equipment.begin(), _equipment.end(), eq) == _equipment.end())
   {
     //if the equipment item fits in the vector, add it in
-    if (getEquipment().size() < getMaxEquip())
+    if (getEquipment().size() < (size_t)getMaxEquip())
     {
       _equipment.push_back(eq);
     }

@@ -9,6 +9,8 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "character.h"
 #include "hull.h"
 #include "target.h"
+#include "npc.h"
+#include "battle.h"
 
 #include <string>
 #include <cmath>
@@ -27,6 +29,8 @@ enum POSITION
 //Declare smart pointers
 DECLARE_SMART(Ship, spShip);
 DECLARE_SMART(Hull, spHull);
+DECLARE_SMART(Character, spCharacter);
+DECLARE_SMART(Battle, spBattle);
 
 class Ship : public Actor
 {
@@ -41,18 +45,23 @@ class Ship : public Actor
     void log();
 
     bool isAlive();
+    bool find(Target* part);
+    void processTurn(spBattle battle, spShip enemy);
+    void resetTurnStats();
 
     //SETTERS
     void setName(std::string name);
     void setHull(spHull hull);
     void setShipPosition(POSITION pos);
-    bool find(Target* part);
+    void setPilot(spCharacter pilot);
 
     //GETTERS
 	  std::string getName();
     spHull getHull();
+    spCharacter getPilot();
 
   private:
     std::string _name;
     spHull _hull;
+    spCharacter _pilot;
 };

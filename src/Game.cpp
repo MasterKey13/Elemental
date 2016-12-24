@@ -21,6 +21,8 @@ Game::Game()
   _battery->attachTo(_hull);
   _weapon->attachTo(_hull);
 
+  _eric = new NPC();
+
   _enemy_ship = new Ship();
   _hull2 = new Hull();
   _battery2 = new Battery();
@@ -49,8 +51,12 @@ void Game::init()
   _hull->addEquipment(_weapon);
   _player_ship->setShipPosition(POSITION::player);
 
+  //ENEMY
+  _eric->init("npc_eric_markovic");
+
   //TEST ENEMY SHIP
-  _enemy_ship->init("Enemy Ship", _hull2);
+  _enemy_ship->init("Eric's Ship", _hull2);
+  _enemy_ship->setPilot(_eric);
   _engine2->init("engine_tracer");
   _battery2->init("battery_celladon");
   _weapon2->init("equipment_tek_cannon");

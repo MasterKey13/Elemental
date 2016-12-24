@@ -16,8 +16,26 @@ class NPC : public Character
 {
   public:
 	  NPC();
-	  void init();
+
+	  void init(
+      std::string ID,
+      int hostility,
+      int bravery);
+
+    void init(std::string ID);
+
+    //SETTERS
+    void setID(std::string ID);
+    void setHostility(int hostility);
+    void setBravery(int bravery);
+
+    //GETTERS
+    std::string getID();
+    int getHostility();
+    int getBravery();
 
   private:
-
+    std::string _ID;
+    int _hostility;
+    int _bravery;
 };

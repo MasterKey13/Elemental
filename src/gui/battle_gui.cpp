@@ -10,6 +10,7 @@ BattleGui::BattleGui(spBattle battle)
   _battle = battle;
   _action = new BattleAction();
   _target = nullptr;
+  _hull_text = "";
 }
 
 //! Initialize a battle GUI (create all required objects)
@@ -31,12 +32,12 @@ void BattleGui::init(spShip player, spShip enemy)
   _action_points_text = new TextField();
   _action_points_text->attachTo(_battle_bar);
 
-  _equipment_info_bar = new Sprite();
-  _equipment_info_bar->attachTo(_battle_bar);
-  _equipment_info_bar->setVisible(false);
+  _item_info_bar = new Sprite();
+  _item_info_bar->attachTo(_battle_bar);
+  _item_info_bar->setAlpha(0);
 
-  _equipment_info_text = new TextField();
-  _equipment_info_text->attachTo(_equipment_info_bar);
+  _item_info_text = new TextField();
+  _item_info_text->attachTo(_item_info_bar);
 
   //resize vectors
   _equip_slots.resize(_player->getHull()->getMaxEquip());
@@ -163,7 +164,7 @@ void BattleGui::drawEquipment()
 
     //add roll over event listener for detailed info on equipment
     _player->getHull()->getEquipment()[i]->addEventListener
-      (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailEquipmentHide));
+      (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailHide));
 
     //add click event listener to use equipment
     _player->getHull()->getEquipment()[i]->addEventListener
@@ -195,8 +196,7 @@ void BattleGui::drawActionPoints()
 //!Set up event handling on the ship pieces for targeting
 void BattleGui::addShipEventListeners()
 {
-  log::messageln("Adding event listeners to ships...");
-
+  //click events for targeting
   _player->getHull()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickHull));
   _enemy->getHull()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickHull));
 
@@ -204,7 +204,38 @@ void BattleGui::addShipEventListeners()
    _enemy->getHull()->getEngine()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEngine));
 
   _player->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
-   _enemy->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
+  _enemy->getHull()->getBattery()->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickBattery));
+
+  //roll over/out events for detailed info bar
+  _player->getHull()->addEventListener
+    (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailHullShow));
+  _player->getHull()->addEventListener
+    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailHide));
+
+  _enemy->getHull()->addEventListener
+    (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailHullShow));
+  _enemy->getHull()->addEventListener
+    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailHide));
+
+  _player->getHull()->getBattery()->addEventListener
+    (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailBatteryShow));
+  _player->getHull()->getBattery()->addEventListener
+    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailPartHide));
+
+  _enemy->getHull()->getBattery()->addEventListener
+    (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailBatteryShow));
+  _enemy->getHull()->getBattery()->addEventListener
+    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailPartHide));
+
+  _player->getHull()->getEngine()->addEventListener
+    (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailEngineShow));
+  _player->getHull()->getEngine()->addEventListener
+    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailPartHide));
+
+  _enemy->getHull()->getEngine()->addEventListener
+    (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailEngineShow));
+  _enemy->getHull()->getEngine()->addEventListener
+    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailPartHide));
 }
 
 //! Clear the target pointer
@@ -224,7 +255,7 @@ void BattleGui::drawStats()
     //player stats go on the left top corner
     _player_stats[i]->setSize(512, 16);
     _player_stats[i]->setAnchor(0.0f, 0.0f);
-    _player_stats[i]->setPosition(x_offset, y_offset);
+    _player_stats[i]->setPosition((float)x_offset, (float)y_offset);
 
     _player_stats_text[i]->setAlign(TextStyle::VerticalAlign::VALIGN_MIDDLE, TextStyle::HorizontalAlign::HALIGN_MIDDLE);
 
@@ -232,12 +263,12 @@ void BattleGui::drawStats()
     _enemy_stats[i]->setSize(512, 16);
     _enemy_stats[i]->setAnchor(1.0f, 0.0f);
     _enemy_stats[i]->setPosition(
-      getStage()->getWidth() - x_offset, 
-      y_offset);
+      getStage()->getWidth() - (float)x_offset, 
+      (float)y_offset);
 
     _enemy_stats_text[i]->setAlign(TextStyle::VerticalAlign::VALIGN_MIDDLE, TextStyle::HorizontalAlign::HALIGN_MIDDLE);
 
-    y_offset += _player_stats[i]->getHeight() + 6;
+    y_offset += (int)_player_stats[i]->getHeight() + 6;
   }
 
   updateHitpointStats();
@@ -373,10 +404,10 @@ void BattleGui::updateHitpointStats()
 //! Draw the window above the battle bar that displays detailed equipment info
 void BattleGui::drawEquipmentInfo()
 {
-  _equipment_info_bar->setResAnim(resources::battle_ui.getResAnim("equipment_info_bar"));
-  _equipment_info_bar->setPosition(0, -(_equipment_info_bar->getHeight() + 30));
+  _item_info_bar->setResAnim(resources::battle_ui.getResAnim("equipment_info_bar"));
+  _item_info_bar->setPosition(0, -(_item_info_bar->getHeight() + 30));
 
-  _equipment_info_text->setPosition(5, 5);
+  _item_info_text->setPosition(5, 5);
 }
 
 //! Handles functionality when equipment is clicked on
@@ -440,7 +471,6 @@ void BattleGui::clickEngine(Event* ev)
   log::messageln("[TARGET ACQUIRED] %s!", e.get()->getID().c_str());
 }
 
-//! Shows details about that equipment piece
 void BattleGui::detailEquipmentShow(Event* ev)
 {
   spEquipment eq = safeSpCast<Equipment>(ev->currentTarget);
@@ -467,15 +497,91 @@ void BattleGui::detailEquipmentShow(Event* ev)
     info += "/";
     info += std::to_string(eq->getDamageResistance(Damage::Type::Chemical));
 
-  _equipment_info_text->setText(info);
+  _item_info_text->setText(info);
 
-  _equipment_info_bar->setVisible(true);
+  _item_info_bar->addTween(Actor::TweenAlpha(255), 500);
 }
 
-//! Hides details about that equipment piece
-void BattleGui::detailEquipmentHide(Event* ev)
+void BattleGui::detailHide(Event* ev)
 {
-  _equipment_info_bar->setVisible(false);
+  _item_info_bar->addTween(Actor::TweenAlpha(0), 500);
+}
+
+void BattleGui::detailEngineShow(Event * ev)
+{
+  spEngine en = safeSpCast<Engine>(ev->currentTarget);
+
+  std::string info = "";
+  info += "Name: ";
+  info += en->getName().c_str();
+  info += " by ";
+  info += en->getBrand().c_str();
+  info += "\nDescription: ";
+  info += en->getDescription();
+  info += "\nResistances: ";
+  info += std::to_string(en->getDamageResistance(Damage::Type::Ballistic));
+  info += "/";
+  info += std::to_string(en->getDamageResistance(Damage::Type::Electrical));
+  info += "/";
+  info += std::to_string(en->getDamageResistance(Damage::Type::Chemical));
+
+  _item_info_text->setText(info);
+
+  _item_info_bar->addTween(Actor::TweenAlpha(255), 500);
+}
+
+void BattleGui::detailBatteryShow(Event * ev)
+{
+  spBattery bt = safeSpCast<Battery>(ev->currentTarget);
+
+  std::string info = "";
+  info += "Name: ";
+  info += bt->getName().c_str();
+  info += " by ";
+  info += bt->getBrand().c_str();
+  info += "\nDescription: ";
+  info += bt->getDescription();
+  info += "\nResistances: ";
+  info += std::to_string(bt->getDamageResistance(Damage::Type::Ballistic));
+  info += "/";
+  info += std::to_string(bt->getDamageResistance(Damage::Type::Electrical));
+  info += "/";
+  info += std::to_string(bt->getDamageResistance(Damage::Type::Chemical));
+
+  _item_info_text->setText(info);
+
+  _item_info_bar->addTween(Actor::TweenAlpha(255), 500);
+}
+
+void BattleGui::detailHullShow(Event * ev)
+{
+  spHull hl = safeSpCast<Hull>(ev->currentTarget);
+
+  std::string info = "";
+  info += "Name: ";
+  info += hl->getName().c_str();
+  info += " by ";
+  info += hl->getBrand().c_str();
+  info += "\nDescription: ";
+  info += hl->getDescription();
+  info += "\nResistances: ";
+  info += std::to_string(hl->getDamageResistance(Damage::Type::Ballistic));
+  info += "/";
+  info += std::to_string(hl->getDamageResistance(Damage::Type::Electrical));
+  info += "/";
+  info += std::to_string(hl->getDamageResistance(Damage::Type::Chemical));
+
+  _hull_text = info;
+  _item_info_text->setText(info);
+
+  _item_info_bar->addTween(Actor::TweenAlpha(255), 500);
+}
+
+void BattleGui::detailPartHide(Event* ev)
+{
+  _item_info_text->setText(_hull_text);
+
+  _item_info_bar->addTween(Actor::TweenAlpha(255), 500);
 }
 
 //! Returns color based on remaining hitpoints (from green->yellow->red)

@@ -16,6 +16,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "battle.h"
 #include "gui/battle_gui.h"
 #include "equipment.h"
+#include "npc.h"
 
 using namespace oxygine;
 
@@ -47,6 +48,7 @@ class Game : public Actor
     spBattery _battery;
     spEquipment _weapon;
 
+    spNPC _eric;
     spShip _enemy_ship;
     spHull _hull2;
     spEngine _engine2;

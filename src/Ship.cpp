@@ -98,6 +98,11 @@ void Ship::setShipPosition(POSITION pos)
   }
 }
 
+void Ship::setPilot(spCharacter pilot)
+{
+  _pilot = pilot;
+}
+
 //!Find the part inside the ship. Return true if found, false if not found
 bool Ship::find(Target* part)
 {
@@ -112,7 +117,7 @@ bool Ship::find(Target* part)
   }
   
   //check equipment pieces
-  for (int i = 0; i < getHull()->getEquipment().size(); i++)
+  for (size_t i = 0; i < getHull()->getEquipment().size(); i++)
   {
     if (getHull()->getEquipment()[i].get() == part)
     {
@@ -122,6 +127,28 @@ bool Ship::find(Target* part)
 
   return false;
 }
+
+//! Process turn for the enemy (basic AI)
+/*!
+\param battle smart pointer to the battle
+\param enemy smart pointer to the player ship
+*/
+void Ship::processTurn(spBattle battle, spShip player)
+{
+  log::messageln("PERFORMING ENEMY ACTION...");
+
+  spBattleAction action = new BattleAction();
+
+  battle->addAction(action, getHull()->getEquipment()[0], player->getHull().get());
+  battle->checkStatus();
+}
+
+void Ship::resetTurnStats()
+{
+  getHull()->getBattery()->setActionPoints(getHull()->getBattery()->getActionPointsMax());
+  getHull()->getBattery()->setActionSlots(getHull()->getBattery()->getActionSlotsMax());
+}
+
 std::string Ship::getName()
 {
 	return _name;
@@ -130,4 +157,9 @@ std::string Ship::getName()
 spHull Ship::getHull()
 {
   return _hull;
+}
+
+spCharacter Ship::getPilot()
+{
+  return _pilot;
 }
