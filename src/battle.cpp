@@ -10,7 +10,6 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Battle::Battle()
 {
-  _attacker_turn = true;
   _gui = new BattleGui(this);
   _gui->attachTo(this);
 }
@@ -25,6 +24,7 @@ void Battle::init(spShip player, spShip enemy, bool player_turn)
 {
   _gui->init(player, enemy);
   _player = player;
+  _enemy = enemy;
 
   //determine who attacked first
   if (player_turn)
@@ -47,49 +47,45 @@ void Battle::init(spShip player, spShip enemy, bool player_turn)
 */
 void Battle::addAction(spBattleAction action, spEquipment equipment, Target* target)
 {
-  if (_attacker_turn)
+  if (isPlayerTurn())
   {
-    _attacker_actions.push_back(action);
+    log::messageln("ADDED PLAYER ACTION");
+    _player_actions.push_back(action);
     Target* t = target;
-    action->process(_attacker, equipment, t);
+    action->process(_player, equipment, t);
   }
   else
   {
-    _defender_actions.push_back(action);
+    log::messageln("ADDED ENEMY ACTION");
+    _enemy_actions.push_back(action);
     Target* t = target;
-    action->process(_defender, equipment, t);
+    action->process(_enemy, equipment, t);
   }
 
-  //check if no more action points and switch turns
-  if (_attacker->getHull()->getBattery()->getActionPoints() == 0 ||
-    _attacker->getHull()->getBattery()->getActionSlots() == 0)
-  {
-    endTurn();
-  }
+  _gui->drawGUI();
+
+  checkStatus();
 }
 
-//! Ends the turn and switches roles
+//! Ends the turn by switching roles
 void Battle::endTurn()
-{
-  log::messageln("Switching turns...");
-  _attacker_turn = !(_attacker_turn);
-  
-  spShip temp = _attacker;
-  _attacker = _defender;
-  _defender = temp;
-
-  //process enemy turn
-  if (!isPlayerTurn())
+{  
+  if (isPlayerTurn())
   {
-    _defender->processTurn(this, _player);
-    _gui->drawGUI();
-    endTurn();
+    _attacker = _enemy;
+    _defender = _player;
+  }
+  else
+  {
+    _attacker = _player;
+    _defender = _enemy;
   }
 
-  _attacker->resetTurnStats();
+  resetTurnStats(_attacker);
+  _gui->drawGUI();
 }
 
-//! Checks whether the battle ended and handle accordingly
+//! Checks if the turn or the battle ended and handle accordingly
 void Battle::checkStatus()
 {
   //defender OR attacker are dead
@@ -99,6 +95,21 @@ void Battle::checkStatus()
 
     log::messageln("BATTLE GUI HIDDEN");
   }
+}
+
+//! Reset the action slots and points for the ship at the start of the ship's turn
+/*!
+\param ship a smart pointer to the ship which to reset turn for
+*/
+void Battle::resetTurnStats(spShip ship)
+{
+  ship->getHull()->getBattery()->setActionPoints(ship->getHull()->getBattery()->getActionPointsMax());
+  ship->getHull()->getBattery()->setActionSlots(ship->getHull()->getBattery()->getActionSlotsMax());
+}
+
+void Battle::requestEnemyTurn()
+{
+  _enemy->processTurn(this, _player);
 }
 
 spShip Battle::getDefender()

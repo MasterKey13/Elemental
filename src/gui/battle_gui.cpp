@@ -39,6 +39,9 @@ void BattleGui::init(spShip player, spShip enemy)
   _item_info_text = new TextField();
   _item_info_text->attachTo(_item_info_bar);
 
+  _end_turn_button = new Sprite();
+  _end_turn_button->attachTo(_battle_bar);
+
   //resize vectors
   _equip_slots.resize(_player->getHull()->getMaxEquip());
   _action_slots.resize(_player->getHull()->getBattery()->getActionSlotsMax());
@@ -106,6 +109,9 @@ void BattleGui::drawGUI()
 
   //draw stats
   drawStats();
+
+  //draw end turn button
+  drawEndTurnButton();
 }
 
 //! Draw the action slots
@@ -410,6 +416,23 @@ void BattleGui::drawEquipmentInfo()
   _item_info_text->setPosition(5, 5);
 }
 
+void BattleGui::drawEndTurnButton()
+{
+  _end_turn_button->setResAnim(resources::battle_ui.getResAnim("end_turn"));
+  _end_turn_button->setPosition(_battle_bar->getWidth(), 0);
+  _end_turn_button->removeAllEventListeners();
+  _end_turn_button->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::endTurn));
+
+  if (_battle->isPlayerTurn())
+  {
+    _end_turn_button->setVisible(true);
+  }
+  else
+  {
+    _end_turn_button->setVisible(false);
+  }
+}
+
 //! Handles functionality when equipment is clicked on
 void BattleGui::useEquipment(Event* ev)
 {
@@ -422,9 +445,6 @@ void BattleGui::useEquipment(Event* ev)
       if (BattleAction::canPerform(_player, eq, _target))
       {
         _battle->addAction(_action, eq, _target);
-        _battle->checkStatus();
-
-        drawGUI();
       }
     }
     else
@@ -434,7 +454,7 @@ void BattleGui::useEquipment(Event* ev)
   }
   else
   {
-    log::messageln("It is not your turn yet");
+    log::messageln("It is not your turn");
   }
 }
 
@@ -499,12 +519,12 @@ void BattleGui::detailEquipmentShow(Event* ev)
 
   _item_info_text->setText(info);
 
-  _item_info_bar->addTween(Actor::TweenAlpha(255), 500);
+  _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
 }
 
 void BattleGui::detailHide(Event* ev)
 {
-  _item_info_bar->addTween(Actor::TweenAlpha(0), 500);
+  _item_info_bar->addTween(Actor::TweenAlpha(0), 100);
 }
 
 void BattleGui::detailEngineShow(Event * ev)
@@ -527,7 +547,7 @@ void BattleGui::detailEngineShow(Event * ev)
 
   _item_info_text->setText(info);
 
-  _item_info_bar->addTween(Actor::TweenAlpha(255), 500);
+  _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
 }
 
 void BattleGui::detailBatteryShow(Event * ev)
@@ -550,7 +570,7 @@ void BattleGui::detailBatteryShow(Event * ev)
 
   _item_info_text->setText(info);
 
-  _item_info_bar->addTween(Actor::TweenAlpha(255), 500);
+  _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
 }
 
 void BattleGui::detailHullShow(Event * ev)
@@ -574,14 +594,20 @@ void BattleGui::detailHullShow(Event * ev)
   _hull_text = info;
   _item_info_text->setText(info);
 
-  _item_info_bar->addTween(Actor::TweenAlpha(255), 500);
+  _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
 }
 
 void BattleGui::detailPartHide(Event* ev)
 {
   _item_info_text->setText(_hull_text);
 
-  _item_info_bar->addTween(Actor::TweenAlpha(255), 500);
+  _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
+}
+
+void BattleGui::endTurn(Event * ev)
+{
+  _battle->endTurn();
+  _battle->requestEnemyTurn();
 }
 
 //! Returns color based on remaining hitpoints (from green->yellow->red)

@@ -8,5 +8,6 @@
     <image file="battle_bar.png" />
     <image file="action_slot.png" cols="2" />
     <image file="equipment_info_bar.png" />
+    <image file="end_turn.png" />
   </atlas>
 </resources>

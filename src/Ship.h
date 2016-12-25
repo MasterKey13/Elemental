@@ -47,7 +47,6 @@ class Ship : public Actor
     bool isAlive();
     bool find(Target* part);
     void processTurn(spBattle battle, spShip enemy);
-    void resetTurnStats();
 
     //SETTERS
     void setName(std::string name);

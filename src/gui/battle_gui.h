@@ -38,6 +38,7 @@ class BattleGui : public Actor
     void drawStats();
     void updateHitpointStats();
     void drawEquipmentInfo();
+    void drawEndTurnButton();
 
     //event handlers
     void useEquipment(Event* ev);
@@ -50,6 +51,7 @@ class BattleGui : public Actor
     void detailBatteryShow(Event* ev);
     void detailHullShow(Event* ev);
     void detailPartHide(Event* ev);
+    void endTurn(Event* ev);
 
     Color getHitpointColor(float hitpoints);
 
@@ -77,4 +79,5 @@ class BattleGui : public Actor
     spSprite _item_info_bar;
     spTextField _item_info_text;
     std::string _hull_text;
+    spSprite _end_turn_button;
 };
