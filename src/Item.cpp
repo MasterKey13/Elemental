@@ -43,8 +43,6 @@ void Item::init(
   setName(name);
   setDescription(desc);
   setBrand(brand);
-
-  log();
 }
 
 //! Initialize an item by ID (load from item definition file items.json)

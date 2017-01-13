@@ -10,7 +10,8 @@
       "brand": "Tek Co.",
       "hitpoints": 420,
       "evasion": 3,
-      "max_weight": 22000
+      "max_weight": 22000,
+      "ap_threshold": 2000
     }
   ]
 }

@@ -42,6 +42,12 @@ void BattleGui::init(spShip player, spShip enemy)
   _end_turn_button = new Sprite();
   _end_turn_button->attachTo(_battle_bar);
 
+  _escape_battle_button = new Sprite();
+  _escape_battle_button->attachTo(_battle_bar);
+
+  _escape_battle_ap = new TextField();
+  _escape_battle_ap->attachTo(_battle_bar);
+
   //resize vectors
   _equip_slots.resize(_player->getHull()->getMaxEquip());
   _action_slots.resize(_player->getHull()->getBattery()->getActionSlotsMax());
@@ -92,26 +98,15 @@ void BattleGui::drawGUI()
   _battle_bar->setResAnim(resources::battle_ui.getResAnim("battle_bar"));
   _battle_bar->setPosition(getStage()->getWidth() / 2 - _battle_bar->getWidth() / 2, getStage()->getHeight() - _battle_bar->getHeight());
 
-  //draw action slots
   drawActionSlots();
-
-  //draw equipment slots
   drawEquipmentSlots();
-
-  //draw the equipment on the screen
   drawEquipment();
-
-  //draw equipment info piece
   drawEquipmentInfo();
-
-  //draw action points
   drawActionPoints();
-
-  //draw stats
   drawStats();
-
-  //draw end turn button
   drawEndTurnButton();
+  drawEscapeBattleButton();
+  drawEscapeAPStatus();
 }
 
 //! Draw the action slots
@@ -287,12 +282,12 @@ void BattleGui::updateHitpointStats()
   _player_stats[0]->addTween(Actor::TweenScaleX(
     (float)_player->getHull()->getHitPoints() /
     (float)_player->getHull()->getHitPointsMax()
-    ), 500);
+    ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
   _enemy_stats[0]->addTween(Actor::TweenScaleX(
     (float)_enemy->getHull()->getHitPoints() /
     (float)_enemy->getHull()->getHitPointsMax()
-    ), 500);
+    ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
   _player_stats[0]->setColor(
     getHitpointColor(
@@ -328,12 +323,12 @@ void BattleGui::updateHitpointStats()
   _player_stats[1]->addTween(Actor::TweenScaleX(
     (float)_player->getHull()->getBattery()->getHitPoints() /
     (float)_player->getHull()->getBattery()->getHitPointsMax()
-    ), 500);
+    ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
   _enemy_stats[1]->addTween(Actor::TweenScaleX(
     (float)_enemy->getHull()->getBattery()->getHitPoints() /
     (float)_enemy->getHull()->getBattery()->getHitPointsMax()
-    ), 500);
+    ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
   _player_stats[1]->setColor(
     getHitpointColor(
@@ -369,12 +364,12 @@ void BattleGui::updateHitpointStats()
   _player_stats[2]->addTween(Actor::TweenScaleX(
     (float)_player->getHull()->getEngine()->getHitPoints() /
     (float)_player->getHull()->getEngine()->getHitPointsMax()
-    ), 500);
+    ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
   _enemy_stats[2]->addTween(Actor::TweenScaleX(
     (float)_enemy->getHull()->getEngine()->getHitPoints() /
     (float)_enemy->getHull()->getEngine()->getHitPointsMax()
-    ), 500);
+    ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
   _player_stats[2]->setColor(
     getHitpointColor(
@@ -431,6 +426,36 @@ void BattleGui::drawEndTurnButton()
   {
     _end_turn_button->setVisible(false);
   }
+}
+
+void BattleGui::drawEscapeBattleButton()
+{
+  _escape_battle_button->setResAnim(resources::battle_ui.getResAnim("escape_battle"));
+  _escape_battle_button->setPosition(-(_escape_battle_button->getWidth()), 0);
+
+  _escape_battle_button->setVisible(false);
+  _escape_battle_ap->setVisible(true);
+
+  if (_player->getHull()->getEngine()->getAPEscapePool() >= 
+    _player->getHull()->getEngine()->getAPThreshold())
+  {
+    _escape_battle_button->removeAllEventListeners();
+    _escape_battle_button->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::escapeBattle));
+    
+    _escape_battle_button->setVisible(true);
+    _escape_battle_ap->setVisible(false);
+  }
+}
+
+void BattleGui::drawEscapeAPStatus()
+{
+  std::string ap = "";
+              ap += std::to_string((int)((float)_player->getHull()->getEngine()->getAPEscapePool() / 
+                    (float)_player->getHull()->getEngine()->getAPThreshold() * 100));
+              ap += "%";
+
+  _escape_battle_ap->setHtmlText(ap);
+  _escape_battle_ap->setPosition(-50, 20);
 }
 
 //! Handles functionality when equipment is clicked on
@@ -494,30 +519,35 @@ void BattleGui::clickEngine(Event* ev)
 void BattleGui::detailEquipmentShow(Event* ev)
 {
   spEquipment eq = safeSpCast<Equipment>(ev->currentTarget);
+  TextStyle style;
+  style.multiline = true;
+  style.linesOffset = 2;
 
   std::string info = "";
-    info += "Name: ";
+    info += "<div c='00ff00'>Name:</div> ";
     info += eq->getName().c_str();
     info += " by ";
     info += eq->getBrand().c_str();
-    info += "\nDescription: ";
+    info += "<br/><div c='00ff00'>Description:</div> ";
     info += eq->getDescription();
-    info += "\nAP Cost: ";
+    info += "<br/>AP Cost: ";
     info += std::to_string(eq->getAPCost());
-    info += "\nDamage: ";
+    info += "<br/><div c='00ff00'>Damage:</div> ";
     info += std::to_string(eq->getDamage(Damage::Type::Ballistic));
     info += "/";
     info += std::to_string(eq->getDamage(Damage::Type::Electrical));
     info += "/";
     info += std::to_string(eq->getDamage(Damage::Type::Chemical));
-    info += "\nResistances: ";
+    info += "<br/><div c='00ff00'>Resistances:</div> ";
     info += std::to_string(eq->getDamageResistance(Damage::Type::Ballistic));
     info += "/";
     info += std::to_string(eq->getDamageResistance(Damage::Type::Electrical));
     info += "/";
     info += std::to_string(eq->getDamageResistance(Damage::Type::Chemical));
 
-  _item_info_text->setText(info);
+  _item_info_text->setStyle(style);
+  _item_info_text->setSize(_item_info_bar->getWidth() - 6, _item_info_bar->getHeight() - 5);
+  _item_info_text->setHtmlText(info);
 
   _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
 }
@@ -530,22 +560,27 @@ void BattleGui::detailHide(Event* ev)
 void BattleGui::detailEngineShow(Event * ev)
 {
   spEngine en = safeSpCast<Engine>(ev->currentTarget);
+  TextStyle style;
+  style.multiline = true;
+  style.linesOffset = 2;
 
   std::string info = "";
-  info += "Name: ";
+  info += "<div c='00ff00'>Name:</div> ";
   info += en->getName().c_str();
   info += " by ";
   info += en->getBrand().c_str();
-  info += "\nDescription: ";
+  info += "<br/><div c='00ff00'>Description:</div> ";
   info += en->getDescription();
-  info += "\nResistances: ";
+  info += "<br/><div c='00ff00'>Resistances:</div> ";
   info += std::to_string(en->getDamageResistance(Damage::Type::Ballistic));
   info += "/";
   info += std::to_string(en->getDamageResistance(Damage::Type::Electrical));
   info += "/";
   info += std::to_string(en->getDamageResistance(Damage::Type::Chemical));
 
-  _item_info_text->setText(info);
+  _item_info_text->setStyle(style);
+  _item_info_text->setSize(_item_info_bar->getWidth() - 6, _item_info_bar->getHeight() - 5);
+  _item_info_text->setHtmlText(info);
 
   _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
 }
@@ -553,22 +588,27 @@ void BattleGui::detailEngineShow(Event * ev)
 void BattleGui::detailBatteryShow(Event * ev)
 {
   spBattery bt = safeSpCast<Battery>(ev->currentTarget);
+  TextStyle style;
+  style.multiline = true;
+  style.linesOffset = 2;
 
   std::string info = "";
-  info += "Name: ";
+  info += "<div c='00ff00'>Name:</div> ";
   info += bt->getName().c_str();
   info += " by ";
   info += bt->getBrand().c_str();
-  info += "\nDescription: ";
+  info += "<br/><div c='00ff00'>Description:</div> ";
   info += bt->getDescription();
-  info += "\nResistances: ";
+  info += "<br/><div c='00ff00'>Resistances:</div> ";
   info += std::to_string(bt->getDamageResistance(Damage::Type::Ballistic));
   info += "/";
   info += std::to_string(bt->getDamageResistance(Damage::Type::Electrical));
   info += "/";
   info += std::to_string(bt->getDamageResistance(Damage::Type::Chemical));
 
-  _item_info_text->setText(info);
+  _item_info_text->setStyle(style);
+  _item_info_text->setSize(_item_info_bar->getWidth() - 6, _item_info_bar->getHeight() - 5);
+  _item_info_text->setHtmlText(info);
 
   _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
 }
@@ -576,15 +616,18 @@ void BattleGui::detailBatteryShow(Event * ev)
 void BattleGui::detailHullShow(Event * ev)
 {
   spHull hl = safeSpCast<Hull>(ev->currentTarget);
+  TextStyle style;
+  style.multiline = true;
+  style.linesOffset = 2;
 
   std::string info = "";
-  info += "Name: ";
+  info += "<div c='00ff00'>Name:</div> ";
   info += hl->getName().c_str();
   info += " by ";
   info += hl->getBrand().c_str();
-  info += "\nDescription: ";
+  info += "<br/><div c='00ff00'>Description:</div> ";
   info += hl->getDescription();
-  info += "\nResistances: ";
+  info += "<br/><div c='00ff00'>Resistances:</div> ";
   info += std::to_string(hl->getDamageResistance(Damage::Type::Ballistic));
   info += "/";
   info += std::to_string(hl->getDamageResistance(Damage::Type::Electrical));
@@ -592,14 +635,17 @@ void BattleGui::detailHullShow(Event * ev)
   info += std::to_string(hl->getDamageResistance(Damage::Type::Chemical));
 
   _hull_text = info;
-  _item_info_text->setText(info);
+
+  _item_info_text->setStyle(style);
+  _item_info_text->setSize(_item_info_bar->getWidth() - 6, _item_info_bar->getHeight() - 5);
+  _item_info_text->setHtmlText(info);
 
   _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
 }
 
 void BattleGui::detailPartHide(Event* ev)
 {
-  _item_info_text->setText(_hull_text);
+  _item_info_text->setHtmlText(_hull_text);
 
   _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
 }
@@ -608,6 +654,14 @@ void BattleGui::endTurn(Event * ev)
 {
   _battle->endTurn();
   _battle->requestEnemyTurn();
+}
+
+void BattleGui::escapeBattle(Event * ev)
+{
+  _battle->setBattleFinished(true);
+  _battle->finishBattle();
+
+  log::messageln("ESCAPED FROM BATTLE!");
 }
 
 //! Returns color based on remaining hitpoints (from green->yellow->red)

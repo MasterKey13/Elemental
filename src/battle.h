@@ -28,14 +28,17 @@ class Battle : public Actor
     void addAction(spBattleAction action, spEquipment equipment, Target* target);
     void endTurn();
     void checkStatus();
+    void finishBattle();
     void resetTurnStats(spShip ship);
     void requestEnemyTurn();
+    void setBattleFinished(bool finished);
 
     //GETTERS
     spShip getDefender();
     spShip getAttacker();
 
     bool isPlayerTurn();
+    bool isBattleFinished();
 
   private:
     spShip _attacker;
@@ -45,6 +48,8 @@ class Battle : public Actor
 
     std::list<spBattleAction> _player_actions;
     std::list<spBattleAction> _enemy_actions;
+
+    bool _finished;
 
     spBattleGui _gui;
 };

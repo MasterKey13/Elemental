@@ -10,6 +10,8 @@ Engine::Engine()
 {
   setEvasion(0);
   setArmorPiece(nullptr);
+  setAPThreshold(0);
+  setAPEscapePool(0);
   setMaxWeight(0.0f);
 
   _sprite = new Sprite();
@@ -23,11 +25,13 @@ Engine::Engine()
 //! Initialize an item with given parameters
 /*!
 \param evasion how much evasion this item provides
+\param ap_threshold the amount of action points required to escape a battle
 \param max_weight the maximum amount of weight this engine can safely move (kg)
 */
-void Engine::init(int evasion, float max_weight)
+void Engine::init(int evasion, int ap_threshold, float max_weight)
 {
   setEvasion(evasion);
+  setAPThreshold(ap_threshold);
   setMaxWeight(max_weight);
 }
 
@@ -75,6 +79,7 @@ void Engine::init(std::string ID)
       //initialize the engine
       init(
         items[i]["evasion"].asInt(),
+        items[i]["ap_threshold"].asInt(),
         items[i]["max_weight"].asFloat()
         );
 
@@ -95,9 +100,19 @@ int Engine::getEvasion()
   return _evasion;
 }
 
+int Engine::getAPThreshold()
+{
+  return _ap_threshold;
+}
+
 float Engine::getMaxWeight()
 {
   return _max_weight;
+}
+
+int Engine::getAPEscapePool()
+{
+  return _ap_escape_pool;
 }
 
 void Engine::setEvasion(int evasion)
@@ -105,7 +120,17 @@ void Engine::setEvasion(int evasion)
   _evasion = evasion;
 }
 
+void Engine::setAPThreshold(int threshold)
+{
+  _ap_threshold = threshold;
+}
+
 void Engine::setMaxWeight(float weight)
 {
   _max_weight = weight;
+}
+
+void Engine::setAPEscapePool(int pool)
+{
+  _ap_escape_pool = pool;
 }

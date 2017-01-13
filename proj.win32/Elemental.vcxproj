@@ -128,7 +128,6 @@
     <ClCompile Include="..\src\location.cpp" />
     <ClCompile Include="..\src\mine.cpp" />
     <ClCompile Include="..\src\npc.cpp" />
-    <ClCompile Include="..\src\player.cpp" />
     <ClCompile Include="..\src\resources.cpp" />
     <ClCompile Include="..\src\settlement.cpp" />
     <ClCompile Include="..\src\setup.cpp" />
@@ -153,7 +152,6 @@
     <ClInclude Include="..\src\location.h" />
     <ClInclude Include="..\src\mine.h" />
     <ClInclude Include="..\src\npc.h" />
-    <ClInclude Include="..\src\player.h" />
     <ClInclude Include="..\src\resources.h" />
     <ClInclude Include="..\src\settlement.h" />
     <ClInclude Include="..\src\setup.h" />

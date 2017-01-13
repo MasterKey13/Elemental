@@ -12,6 +12,8 @@ Battle::Battle()
 {
   _gui = new BattleGui(this);
   _gui->attachTo(this);
+  
+  _finished = false;
 }
 
 //! Initialization function for a battle
@@ -72,11 +74,23 @@ void Battle::endTurn()
 {  
   if (isPlayerTurn())
   {
+    //add remaining action points to the AP escape pool
+    _player->getHull()->getEngine()->setAPEscapePool(
+      _player->getHull()->getEngine()->getAPEscapePool() +
+      _player->getHull()->getBattery()->getActionPoints());
+
+    //switch roles
     _attacker = _enemy;
     _defender = _player;
   }
   else
   {
+    //add remaining action points to the AP escape pool
+    _enemy->getHull()->getEngine()->setAPEscapePool(
+      _enemy->getHull()->getEngine()->getAPEscapePool() +
+      _enemy->getHull()->getBattery()->getActionPoints());
+
+    //switch roles
     _attacker = _player;
     _defender = _enemy;
   }
@@ -89,12 +103,18 @@ void Battle::endTurn()
 void Battle::checkStatus()
 {
   //defender OR attacker are dead
-  if (!(_attacker->isAlive()) || !(_defender->isAlive()))
+  if (!(_attacker->isAlive()) || !(_defender->isAlive()) || isBattleFinished())
   {
-    _gui->detach();
-
-    log::messageln("BATTLE GUI HIDDEN");
+    finishBattle();
   }
+}
+
+//! Finishes battle by hiding battle GUI and other stuff
+void Battle::finishBattle()
+{
+  _gui->detach();
+
+  log::messageln("BATTLE FINISHED; GUI HIDDEN");
 }
 
 //! Reset the action slots and points for the ship at the start of the ship's turn
@@ -112,6 +132,11 @@ void Battle::requestEnemyTurn()
   _enemy->processTurn(this, _player);
 }
 
+void Battle::setBattleFinished(bool finished)
+{
+  _finished = finished;
+}
+
 spShip Battle::getDefender()
 {
   return _defender;
@@ -125,4 +150,9 @@ spShip Battle::getAttacker()
 bool Battle::isPlayerTurn()
 {
   return (_player == _attacker) ? true : false;
+}
+
+bool Battle::isBattleFinished()
+{
+  return _finished;
 }

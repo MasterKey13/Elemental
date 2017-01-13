@@ -21,18 +21,25 @@ class Engine : public Item, public Target
   public:
     Engine();
 
-    void init(int evasion, float max_weight);
-
-    void setEvasion(int evasion);
-    void setMaxWeight(float weight);
-
+    void init(int evasion, int ap_threshold, float max_weight);
     void init(std::string ID);
 
+    //SETTERS
+    void setEvasion(int evasion);
+    void setAPThreshold(int threshold);
+    void setMaxWeight(float weight);
+    void setAPEscapePool(int pool);
+
+    //GETTERS
     int getEvasion();
+    int getAPThreshold();
     float getMaxWeight();
+    int getAPEscapePool();
 
   private:
     int _evasion;
+    int _ap_threshold;
     float _max_weight;
     spSprite _sprite;
+    int _ap_escape_pool;
 };
