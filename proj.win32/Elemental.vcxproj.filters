@@ -102,6 +102,9 @@
     <ClCompile Include="..\src\npc.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\battle_ai.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\celestial_body.h">
@@ -171,6 +174,9 @@
       <Filter>Header Files\util</Filter>
     </ClInclude>
     <ClInclude Include="..\src\npc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\battle_ai.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

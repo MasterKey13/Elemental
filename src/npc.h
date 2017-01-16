@@ -20,7 +20,8 @@ class NPC : public Character
 	  void init(
       std::string ID,
       int hostility,
-      int bravery);
+      int bravery,
+      int brutality);
 
     void init(std::string ID);
 
@@ -28,14 +29,17 @@ class NPC : public Character
     void setID(std::string ID);
     void setHostility(int hostility);
     void setBravery(int bravery);
+    void setBrutality(int brutality);
 
     //GETTERS
     std::string getID();
     int getHostility();
     int getBravery();
+    int getBrutality();
 
   private:
     std::string _ID;
     int _hostility;
     int _bravery;
+    int _brutality;
 };

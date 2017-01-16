@@ -11,16 +11,19 @@ NPC::NPC()
   setID("");
   setHostility(0);
   setBravery(0);
+  setBrutality(0);
 }
 
 void NPC::init(
   std::string ID,
   int hostility, 
-  int bravery)
+  int bravery,
+  int brutality)
 {
   setID(ID);
   setHostility(hostility);
   setBravery(bravery);
+  setBrutality(brutality);
 }
 
 void NPC::init(std::string ID)
@@ -57,7 +60,8 @@ void NPC::init(std::string ID)
       init(
         ID,
         npcs[i]["hostility"].asInt(),
-        npcs[i]["bravery"].asInt()
+        npcs[i]["bravery"].asInt(),
+        npcs[i]["brutality"].asInt()
         );
     }
   }
@@ -80,6 +84,11 @@ void NPC::setBravery(int bravery)
   _bravery = bravery;
 }
 
+void NPC::setBrutality(int brutality)
+{
+  _brutality = brutality;
+}
+
 std::string NPC::getID()
 {
   return _ID;
@@ -93,4 +102,9 @@ int NPC::getHostility()
 int NPC::getBravery()
 {
   return _bravery;
+}
+
+int NPC::getBrutality()
+{
+  return _brutality;
 }

@@ -10,5 +10,6 @@
     <image file="equipment_info_bar.png" />
     <image file="end_turn.png" />
     <image file="escape_battle.png" />
+    <image file="pre_escape_battle.png" />
   </atlas>
 </resources>

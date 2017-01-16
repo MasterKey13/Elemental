@@ -48,6 +48,9 @@ void BattleGui::init(spShip player, spShip enemy)
   _escape_battle_ap = new TextField();
   _escape_battle_ap->attachTo(_battle_bar);
 
+  _pre_escape_battle = new Sprite();
+  _pre_escape_battle->attachTo(_battle_bar);
+
   //resize vectors
   _equip_slots.resize(_player->getHull()->getMaxEquip());
   _action_slots.resize(_player->getHull()->getBattery()->getActionSlotsMax());
@@ -435,7 +438,9 @@ void BattleGui::drawEscapeBattleButton()
 
   _escape_battle_button->setVisible(false);
   _escape_battle_ap->setVisible(true);
+  _pre_escape_battle->setVisible(true);
 
+  //if the player has enough Action Points saved up to escape, draw the button
   if (_player->getHull()->getEngine()->getAPEscapePool() >= 
     _player->getHull()->getEngine()->getAPThreshold())
   {
@@ -444,18 +449,27 @@ void BattleGui::drawEscapeBattleButton()
     
     _escape_battle_button->setVisible(true);
     _escape_battle_ap->setVisible(false);
+    _pre_escape_battle->setVisible(false);
   }
 }
 
 void BattleGui::drawEscapeAPStatus()
 {
+  //draw the outline of the percentage place
+  _pre_escape_battle->setResAnim(resources::battle_ui.getResAnim("pre_escape_battle"));
+  _pre_escape_battle->setPosition(_escape_battle_button->getPosition());
+
+  //build percentage string
   std::string ap = "";
               ap += std::to_string((int)((float)_player->getHull()->getEngine()->getAPEscapePool() / 
                     (float)_player->getHull()->getEngine()->getAPThreshold() * 100));
               ap += "%";
 
+  //position the status on the screen
   _escape_battle_ap->setHtmlText(ap);
-  _escape_battle_ap->setPosition(-50, 20);
+  _escape_battle_ap->setHAlign(TextStyle::HALIGN_MIDDLE);
+  _escape_battle_ap->setVAlign(TextStyle::VALIGN_MIDDLE);
+  _escape_battle_ap->setPosition(-_escape_battle_button->getWidth() / 2, _escape_battle_button->getHeight() / 2);
 }
 
 //! Handles functionality when equipment is clicked on
@@ -522,7 +536,7 @@ void BattleGui::detailEquipmentShow(Event* ev)
   TextStyle style;
   style.multiline = true;
   style.linesOffset = 2;
-
+   
   std::string info = "";
     info += "<div c='00ff00'>Name:</div> ";
     info += eq->getName().c_str();
@@ -530,7 +544,7 @@ void BattleGui::detailEquipmentShow(Event* ev)
     info += eq->getBrand().c_str();
     info += "<br/><div c='00ff00'>Description:</div> ";
     info += eq->getDescription();
-    info += "<br/>AP Cost: ";
+    info += "<br/><div c='00ff00'>AP Cost:</div> ";
     info += std::to_string(eq->getAPCost());
     info += "<br/><div c='00ff00'>Damage:</div> ";
     info += std::to_string(eq->getDamage(Damage::Type::Ballistic));

@@ -56,6 +56,7 @@ class BattleGui : public Actor
     void endTurn(Event* ev);
     void escapeBattle(Event* ev);
 
+    //misc methods
     Color getHitpointColor(float hitpoints);
 
     //event listeners
@@ -85,4 +86,5 @@ class BattleGui : public Actor
     spSprite _end_turn_button;
     spSprite _escape_battle_button;
     spTextField _escape_battle_ap;
+    spSprite _pre_escape_battle;
 };
