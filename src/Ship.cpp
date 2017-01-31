@@ -128,20 +128,6 @@ bool Ship::find(Target* part)
   return false;
 }
 
-//! Process turn for the enemy (basic AI)
-/*!
-\param battle smart pointer to the battle
-\param player smart pointer to the player ship
-*/
-void Ship::processTurn(spBattle battle, spShip player)
-{
-  if (BattleAction::canPerform(this, getHull()->getEquipment()[0], player->getHull().get()))
-  {
-    battle->addAction(new BattleAction(), getHull()->getEquipment()[0], player->getHull().get());
-    battle->endTurn();
-  }
-}
-
 std::string Ship::getName()
 {
 	return _name;

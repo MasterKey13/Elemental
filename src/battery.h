@@ -31,15 +31,18 @@ class Battery : public Item, public Target
 
     void init(std::string ID);
 
+    //SETTERS
     void setActionSlots(int action_slots);
     void setActionSlotsMax(int action_slots_max);
     void setActionPoints(int action_points);
     void setActionPointsMax(int action_points_max);
 
+    //GETTERS
     int getActionSlots();
     int getActionSlotsMax();
     int getActionPoints();
     int getActionPointsMax();
+    spSprite getSprite();
 
   private:
     int _action_points;

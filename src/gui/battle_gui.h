@@ -43,7 +43,7 @@ class BattleGui : public Actor
     void drawEscapeAPStatus();
 
     //event handlers
-    void useEquipment(Event* ev);
+    void clickEquipment(Event* ev);
     void clickHull(Event* ev);
     void clickBattery(Event* ev);
     void clickEngine(Event* ev);

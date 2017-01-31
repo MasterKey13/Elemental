@@ -17,6 +17,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "gui/battle_gui.h"
 #include "equipment.h"
 #include "npc.h"
+#include "battle_ai.h"
 
 using namespace oxygine;
 
@@ -24,7 +25,7 @@ using namespace oxygine;
 DECLARE_SMART(Game, spGame);
 DECLARE_SMART(Ship, spShip);
 DECLARE_SMART(Location, spLocation);
-DECLARE_SMART(Character, spCharacter);
+DECLARE_SMART(NPC, spNPC);
 DECLARE_SMART(Item, spItem);
 DECLARE_SMART(CelestialBody, spCelestialBody);
 DECLARE_SMART(Synthesizer, spSynthesizer);
@@ -56,4 +57,5 @@ class Game : public Actor
     spEquipment _weapon2;
 
     spBattle _battle;
+    BattleAI* _battle_ai;
 };

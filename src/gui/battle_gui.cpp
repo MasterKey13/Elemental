@@ -172,7 +172,7 @@ void BattleGui::drawEquipment()
 
     //add click event listener to use equipment
     _player->getHull()->getEquipment()[i]->addEventListener
-      (TouchEvent::CLICK, CLOSURE(this, &BattleGui::useEquipment));
+      (TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEquipment));
   }
 }
 
@@ -441,8 +441,10 @@ void BattleGui::drawEscapeBattleButton()
   _pre_escape_battle->setVisible(true);
 
   //if the player has enough Action Points saved up to escape, draw the button
-  if (_player->getHull()->getEngine()->getAPEscapePool() >= 
-    _player->getHull()->getEngine()->getAPThreshold())
+  if (_player->getHull()->getEngine()->getAPEscapePool() >=
+    _player->getHull()->getEngine()->getAPThreshold() + 
+    (float)_player->getHull()->getEngine()->getHitPointsMax() -
+    (float)_player->getHull()->getEngine()->getHitPoints())
   {
     _escape_battle_button->removeAllEventListeners();
     _escape_battle_button->addEventListener(TouchEvent::CLICK, CLOSURE(this, &BattleGui::escapeBattle));
@@ -461,8 +463,16 @@ void BattleGui::drawEscapeAPStatus()
 
   //build percentage string
   std::string ap = "";
+              ap += std::to_string(_player->getHull()->getEngine()->getAPEscapePool());
+              ap += "/";
+              ap += std::to_string(_player->getHull()->getEngine()->getAPThreshold() +
+                _player->getHull()->getEngine()->getHitPointsMax() -
+                _player->getHull()->getEngine()->getHitPoints());
+              ap += "<br/><br/>";
               ap += std::to_string((int)((float)_player->getHull()->getEngine()->getAPEscapePool() / 
-                    (float)_player->getHull()->getEngine()->getAPThreshold() * 100));
+                    ((float)_player->getHull()->getEngine()->getAPThreshold() + 
+                    (float)_player->getHull()->getEngine()->getHitPointsMax() -
+                    (float)_player->getHull()->getEngine()->getHitPoints()) * 100));
               ap += "%";
 
   //position the status on the screen
@@ -473,7 +483,7 @@ void BattleGui::drawEscapeAPStatus()
 }
 
 //! Handles functionality when equipment is clicked on
-void BattleGui::useEquipment(Event* ev)
+void BattleGui::clickEquipment(Event* ev)
 {
   spEquipment eq = safeSpCast<Equipment>(ev->currentTarget);
 

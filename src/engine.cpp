@@ -115,6 +115,11 @@ int Engine::getAPEscapePool()
   return _ap_escape_pool;
 }
 
+spSprite Engine::getSprite()
+{
+  return _sprite;
+}
+
 void Engine::setEvasion(int evasion)
 {
   _evasion = evasion;

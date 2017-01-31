@@ -170,7 +170,7 @@ int BattleAction::calculateDamageTarget(int weap_dmg, int armor_res, int target_
 bool BattleAction::canPerform(spShip ship, spEquipment equipment, Target* target)
 {
   //check if target is dead
-  if (target->getHitPoints() == 0)
+  if (target->getHitPoints() <= 0)
   {
     log::messageln("Cannot perform this action on dead target.");
     return false;

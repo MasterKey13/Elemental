@@ -167,6 +167,11 @@ int Hull::getMaxEquip()
   return _max_equip;
 }
 
+spSprite Hull::getSprite()
+{
+  return _sprite;
+}
+
 //! Attach a piece of equipment to the hull
 /*!
 \param eq the equipment piece to attach to the hull

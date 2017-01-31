@@ -6,9 +6,11 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #pragma once
 #include "oxygine-framework.h"
 #include "ship.h"
+#include "item.h"
 #include "battle_action.h"
 #include "gui/battle_gui.h"
 #include "target.h"
+#include "battle_ai.h"
 
 using namespace oxygine;
 
@@ -52,4 +54,5 @@ class Battle : public Actor
     bool _finished;
 
     spBattleGui _gui;
+    BattleAI* _AI;
 };

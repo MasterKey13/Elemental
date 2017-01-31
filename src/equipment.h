@@ -49,6 +49,7 @@ class Equipment : public Item, public Target
     int getDamageResistance(Damage::Type type);
     int getAPCost();
     bool isSelfTargetable();
+    spSprite getSprite();
 
   private:
     int _action_point_cost;

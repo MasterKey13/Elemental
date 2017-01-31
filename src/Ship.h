@@ -32,6 +32,8 @@ DECLARE_SMART(Hull, spHull);
 DECLARE_SMART(Character, spCharacter);
 DECLARE_SMART(Battle, spBattle);
 
+class BattleAI;
+
 class Ship : public Actor
 {
   public:
@@ -53,14 +55,18 @@ class Ship : public Actor
     void setHull(spHull hull);
     void setShipPosition(POSITION pos);
     void setPilot(spCharacter pilot);
+    void setBattleAI(BattleAI* battle_ai);
 
     //GETTERS
 	  std::string getName();
     spHull getHull();
     spCharacter getPilot();
+    BattleAI* getBattleAI();
 
   private:
     std::string _name;
     spHull _hull;
     spCharacter _pilot;
+
+    BattleAI* _battle_ai;
 };

@@ -128,7 +128,12 @@ int Battery::getActionPoints()
 
 int Battery::getActionPointsMax()
 {
-  return _action_points_max;
+  return _action_points_max - (_action_points_max * (getHitPointsMax() - getHitPoints()) / (1.6 * getHitPointsMax()));
+}
+
+spSprite Battery::getSprite()
+{
+  return _sprite;
 }
 
 void Battery::setActionSlots(int action_slots)

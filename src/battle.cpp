@@ -5,13 +5,13 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #include "setup.h"
 #include "battle.h"
-#include "item.h"
-#include "gui/battle_gui.h"
 
 Battle::Battle()
 {
   _gui = new BattleGui(this);
   _gui->attachTo(this);
+
+  _AI = new BattleAI();
   
   _finished = false;
 }
@@ -38,7 +38,12 @@ void Battle::init(spShip player, spShip enemy, bool player_turn)
   {
     _attacker = enemy;
     _defender = player;
+    
+    requestEnemyTurn();
   }
+
+  resetTurnStats(_attacker);
+  _gui->drawGUI();
 }
 
 //! Add an action to the action list
@@ -112,6 +117,7 @@ void Battle::checkStatus()
 //! Finishes battle by hiding battle GUI and other stuff
 void Battle::finishBattle()
 {
+  setBattleFinished(true);
   _gui->detach();
 
   log::messageln("BATTLE FINISHED; GUI HIDDEN");
@@ -129,7 +135,8 @@ void Battle::resetTurnStats(spShip ship)
 
 void Battle::requestEnemyTurn()
 {
-  _enemy->processTurn(this, _player);
+  spNPC _enemy_NPC = safeSpCast<NPC>(_enemy->getPilot());
+  _AI->think(_enemy, _player, _enemy_NPC, this);
 }
 
 void Battle::setBattleFinished(bool finished)

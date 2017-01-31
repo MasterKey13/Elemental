@@ -57,6 +57,7 @@ class Hull : public Item, public Target
     spSynthesizer getSynthesizer();
     float getVolumeRemaining();
     int getMaxEquip();
+    spSprite getSprite();
 
     void addEquipment(spEquipment eq);
 

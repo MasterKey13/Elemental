@@ -141,6 +141,11 @@ int Equipment::getDamage(Damage::Type damage_type)
   return _damage[damage_type];
 }
 
+spSprite Equipment::getSprite()
+{
+  return _sprite;
+}
+
 //! Set the amount of damage the weapon deals for given damage type
 /*!
 \param damage_type the damage type for which to the set the damage amount

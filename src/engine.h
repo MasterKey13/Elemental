@@ -35,6 +35,7 @@ class Engine : public Item, public Target
     int getAPThreshold();
     float getMaxWeight();
     int getAPEscapePool();
+    spSprite getSprite();
 
   private:
     int _evasion;
