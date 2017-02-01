@@ -42,6 +42,7 @@ class Battery : public Item, public Target
     int getActionSlotsMax();
     int getActionPoints();
     int getActionPointsMax();
+    int getActionPointsMaxAvailable();
     spSprite getSprite();
 
   private:

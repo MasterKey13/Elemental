@@ -75,6 +75,7 @@ class BattleGui : public Actor
     std::vector<spSprite> _equip_slots;
     std::vector<spSprite> _action_slots;
     spColorRectSprite _action_points;
+    spColorRectSprite _action_points_penalty;
     spTextField _action_points_text;
     spColorRectSprite _player_stats[3];
     spColorRectSprite _enemy_stats[3];

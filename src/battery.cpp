@@ -128,7 +128,15 @@ int Battery::getActionPoints()
 
 int Battery::getActionPointsMax()
 {
-  return _action_points_max - (_action_points_max * (getHitPointsMax() - getHitPoints()) / (1.6 * getHitPointsMax()));
+  return _action_points_max;
+}
+
+int Battery::getActionPointsMaxAvailable()
+{
+  return _action_points_max - 
+    (_action_points_max * 
+      (getHitPointsMax() - getHitPoints()) / 
+      (3.4 * getHitPointsMax()));
 }
 
 spSprite Battery::getSprite()

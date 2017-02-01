@@ -77,24 +77,21 @@ void Battle::addAction(spBattleAction action, spEquipment equipment, Target* tar
 //! Ends the turn by switching roles
 void Battle::endTurn()
 {  
+  //add remaining AP to engine escape pool
+  _attacker->getHull()->getEngine()->setAPEscapePool(
+    _attacker->getHull()->getEngine()->getAPEscapePool() +
+    (_attacker->getHull()->getBattery()->getActionPointsMax() -
+      _attacker->getHull()->getBattery()->getActionPoints() /
+      _attacker->getHull()->getBattery()->getActionPointsMax()));
+
   if (isPlayerTurn())
   {
-    //add remaining action points to the AP escape pool
-    _player->getHull()->getEngine()->setAPEscapePool(
-      _player->getHull()->getEngine()->getAPEscapePool() +
-      _player->getHull()->getBattery()->getActionPoints());
-
     //switch roles
     _attacker = _enemy;
     _defender = _player;
   }
   else
   {
-    //add remaining action points to the AP escape pool
-    _enemy->getHull()->getEngine()->setAPEscapePool(
-      _enemy->getHull()->getEngine()->getAPEscapePool() +
-      _enemy->getHull()->getBattery()->getActionPoints());
-
     //switch roles
     _attacker = _player;
     _defender = _enemy;
@@ -129,7 +126,7 @@ void Battle::finishBattle()
 */
 void Battle::resetTurnStats(spShip ship)
 {
-  ship->getHull()->getBattery()->setActionPoints(ship->getHull()->getBattery()->getActionPointsMax());
+  ship->getHull()->getBattery()->setActionPoints(ship->getHull()->getBattery()->getActionPointsMaxAvailable());
   ship->getHull()->getBattery()->setActionSlots(ship->getHull()->getBattery()->getActionSlotsMax());
 }
 

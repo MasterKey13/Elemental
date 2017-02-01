@@ -28,6 +28,11 @@ void BattleGui::init(spShip player, spShip enemy)
 
   _action_points = new ColorRectSprite();
   _action_points->attachTo(_battle_bar);
+  _action_points->setSize(_battle_bar->getWidth(), 4);
+
+  _action_points_penalty = new ColorRectSprite();
+  _action_points_penalty->attachTo(_battle_bar);
+  _action_points_penalty->setSize(0, 4);
 
   _action_points_text = new TextField();
   _action_points_text->attachTo(_battle_bar);
@@ -138,7 +143,6 @@ void BattleGui::drawActionSlots()
   }
 }
 
-
 //! Draw the equipment slots
 void BattleGui::drawEquipmentSlots()
 {
@@ -182,10 +186,27 @@ void BattleGui::drawActionPoints()
   float percent = (float)_player->getHull()->getBattery()->getActionPoints() /
     (float)_player->getHull()->getBattery()->getActionPointsMax();
 
-  //progress bar shows how much action points we have left
+  float percent_penalty = ((
+    (float)_player->getHull()->getBattery()->getActionPointsMax() - 
+    (float)_player->getHull()->getBattery()->getActionPointsMaxAvailable()) / 
+    (float)_player->getHull()->getBattery()->getActionPointsMax());
+
+  //action points bar shows how many action points we have left
   _action_points->setColor(Color::Blue);
-  _action_points->setSize(_battle_bar->getWidth() * percent, 4);
-  _action_points->setPosition(0, -(_action_points->getHeight()));
+  _action_points->setPosition(0, -_action_points->getHeight());
+  _action_points->addTween(Actor::TweenSize(
+    _battle_bar->getWidth() * percent, 4), 
+    TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
+  
+  //action point penalty bar shows how many action points are unusable
+  _action_points_penalty->setRotation(MATH_PI);
+  _action_points_penalty->setColor(Color::Red);
+  _action_points_penalty->setPosition(_battle_bar->getWidth(), 0);
+
+  _action_points_penalty->addTween(Actor::TweenSize(
+    _battle_bar->getWidth() * percent_penalty,
+    _action_points->getHeight()),
+    TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
   //text tells us exactly how much we have left
   std::string ap = 
