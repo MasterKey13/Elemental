@@ -31,9 +31,13 @@ class BattleGui : public Actor
 
     //drawing methods
     void drawGUI();
+    void drawBattleBar();
+    void drawBattleBarEnemy();
     void drawActionSlots();
-    void drawEquipmentSlots();
-    void drawEquipment();
+    void drawEquipmentSlotsPlayer();
+    void drawEquipmentSlotsEnemy();
+    void drawEquipmentPlayer();
+    void drawEquipmentEnemy();
     void drawActionPoints();
     void drawStats();
     void updateHitpointStats();
@@ -58,29 +62,32 @@ class BattleGui : public Actor
 
     //misc methods
     Color getHitpointColor(float hitpoints);
+    bool isPlayerEquipment(spEquipment eq);
 
     //event listeners
     void addShipEventListeners();
-    void clearTarget();
 
   private:
     spBattleAction _action;
     spBattle _battle;
-    Target* _target;
+    spEquipment _equipment;
     spShip _player;
     spShip _enemy;
 
-    //sprites and text
     spSprite _battle_bar;
     std::vector<spSprite> _equip_slots;
     std::vector<spSprite> _action_slots;
     spColorRectSprite _action_points;
     spColorRectSprite _action_points_penalty;
     spTextField _action_points_text;
+
     spColorRectSprite _player_stats[3];
+    std::vector<spColorRectSprite> _player_equipment_stats;
     spColorRectSprite _enemy_stats[3];
+    std::vector<spColorRectSprite> _enemy_equipment_stats;
     spTextField _player_stats_text[3];
     spTextField _enemy_stats_text[3];
+
     spSprite _item_info_bar;
     spTextField _item_info_text;
     std::string _hull_text;
@@ -88,4 +95,7 @@ class BattleGui : public Actor
     spSprite _escape_battle_button;
     spTextField _escape_battle_ap;
     spSprite _pre_escape_battle;
+
+    spSprite _battle_bar_enemy;
+    std::vector<spSprite> _equip_slots_enemy;
 };

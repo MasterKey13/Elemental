@@ -176,6 +176,12 @@ bool BattleAction::canPerform(spShip ship, spEquipment equipment, Target* target
     return false;
   }
 
+  if (equipment->getHitPoints() <= 0)
+  {
+    log::messageln("Cannot perform action using destroyed equipment.");
+    return false;
+  }
+
   //check if the ship's battery has enough action points
   if (ship->getHull()->getBattery()->getActionPoints() >= equipment->getAPCost() &&
       ship->getHull()->getBattery()->getActionSlots() >= 1)

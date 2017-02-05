@@ -9,7 +9,7 @@ BattleGui::BattleGui(spBattle battle)
 {
   _battle = battle;
   _action = new BattleAction();
-  _target = nullptr;
+  _equipment = nullptr;
   _hull_text = "";
 }
 
@@ -56,15 +56,27 @@ void BattleGui::init(spShip player, spShip enemy)
   _pre_escape_battle = new Sprite();
   _pre_escape_battle->attachTo(_battle_bar);
 
+  _battle_bar_enemy = new Sprite();
+  _battle_bar_enemy->attachTo(this);
+
   //resize vectors
   _equip_slots.resize(_player->getHull()->getMaxEquip());
   _action_slots.resize(_player->getHull()->getBattery()->getActionSlotsMax());
+  _equip_slots_enemy.resize(_enemy->getHull()->getMaxEquip());
+  _player_equipment_stats.resize(_player->getHull()->getMaxEquip());
+  _enemy_equipment_stats.resize(_enemy->getHull()->getMaxEquip());
 
   //set up equipment and action slots
   for (int i = 0; i < _player->getHull()->getMaxEquip(); i++)
   {
     _equip_slots[i] = new Sprite();
     _equip_slots[i]->attachTo(_battle_bar);
+  }
+
+  for (int i = 0; i < _enemy->getHull()->getMaxEquip(); i++)
+  {
+    _equip_slots_enemy[i] = new Sprite();
+    _equip_slots_enemy[i]->attachTo(_battle_bar_enemy);
   }
 
   for (int i = 0; i < _player->getHull()->getBattery()->getActionSlotsMax(); i++)
@@ -77,6 +89,15 @@ void BattleGui::init(spShip player, spShip enemy)
   for (size_t i = 0; i < _player->getHull()->getEquipment().size(); i++)
   {
     _player->getHull()->getEquipment()[i]->attachTo(_equip_slots[i]);
+    _player_equipment_stats[i] = new ColorRectSprite();
+    _player_equipment_stats[i]->attachTo(_equip_slots[i]);
+  }
+
+  for (size_t i = 0; i < _enemy->getHull()->getEquipment().size(); i++)
+  {
+    _enemy->getHull()->getEquipment()[i]->attachTo(_equip_slots_enemy[i]);
+    _enemy_equipment_stats[i] = new ColorRectSprite();
+    _enemy_equipment_stats[i]->attachTo(_equip_slots_enemy[i]);
   }
 
   //set up stat sprites
@@ -99,16 +120,15 @@ void BattleGui::init(spShip player, spShip enemy)
   drawGUI();
 }
 
-//! Draw the GUI on screen (refresh the entire GUI with new information)
 void BattleGui::drawGUI()
 {
-  //battle bar is the piece that holds all of the slots
-  _battle_bar->setResAnim(resources::battle_ui.getResAnim("battle_bar"));
-  _battle_bar->setPosition(getStage()->getWidth() / 2 - _battle_bar->getWidth() / 2, getStage()->getHeight() - _battle_bar->getHeight());
-
+  drawBattleBar();
+  drawBattleBarEnemy();
   drawActionSlots();
-  drawEquipmentSlots();
-  drawEquipment();
+  drawEquipmentSlotsPlayer();
+  drawEquipmentSlotsEnemy();
+  drawEquipmentPlayer();
+  drawEquipmentEnemy();
   drawEquipmentInfo();
   drawActionPoints();
   drawStats();
@@ -117,7 +137,18 @@ void BattleGui::drawGUI()
   drawEscapeAPStatus();
 }
 
-//! Draw the action slots
+void BattleGui::drawBattleBar()
+{
+  _battle_bar->setResAnim(resources::battle_ui.getResAnim("battle_bar"));
+  _battle_bar->setPosition(getStage()->getWidth() / 2 - _battle_bar->getWidth() / 2, getStage()->getHeight() - _battle_bar->getHeight());
+}
+
+void BattleGui::drawBattleBarEnemy()
+{
+  _battle_bar_enemy->setResAnim(resources::battle_ui.getResAnim("battle_bar_enemy"));
+  _battle_bar_enemy->setPosition(getStage()->getWidth() - _battle_bar_enemy->getWidth() - 6, 75);
+}
+
 void BattleGui::drawActionSlots()
 {
   int x_offset = 4;
@@ -143,22 +174,33 @@ void BattleGui::drawActionSlots()
   }
 }
 
-//! Draw the equipment slots
-void BattleGui::drawEquipmentSlots()
+void BattleGui::drawEquipmentSlotsPlayer()
 {
   int x_offset = 4;
 
   for (int i = 0; i < _player->getHull()->getMaxEquip(); i++)
   {
     _equip_slots[i]->setResAnim(resources::battle_ui.getResAnim("item_slot"));
-    _equip_slots[i]->setPosition((float)x_offset, _battle_bar->getHeight() - _equip_slots[i]->getHeight() - 4.0f);
+    _equip_slots[i]->setPosition((float)x_offset, _battle_bar->getHeight() - _equip_slots[i]->getHeight() - 6.0f);
 
     x_offset += 4 + (int)_equip_slots[i]->getWidth();
   }
 }
 
-//! Draw the equipment
-void BattleGui::drawEquipment()
+void BattleGui::drawEquipmentSlotsEnemy()
+{
+  int x_offset = 4;
+
+  for (int i = 0; i < _enemy->getHull()->getMaxEquip(); i++)
+  {
+    _equip_slots_enemy[i]->setResAnim(resources::battle_ui.getResAnim("item_slot"));
+    _equip_slots_enemy[i]->setPosition((float)x_offset, _battle_bar_enemy->getHeight() - _equip_slots_enemy[i]->getHeight() - 6.0f);
+
+    x_offset += 4 + (int)_equip_slots_enemy[i]->getWidth();
+  }
+}
+
+void BattleGui::drawEquipmentPlayer()
 {
   for (size_t i = 0; i < _player->getHull()->getEquipment().size(); i++)
   {
@@ -177,10 +219,51 @@ void BattleGui::drawEquipment()
     //add click event listener to use equipment
     _player->getHull()->getEquipment()[i]->addEventListener
       (TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEquipment));
+
+    //draw the hitpoint bar below the equipment
+    _player_equipment_stats[i]->setPosition(0, _equip_slots[i]->getHeight());
+    _player_equipment_stats[i]->setSize(_equip_slots[i]->getWidth() *
+      (float)_player->getHull()->getEquipment()[i]->getHitPoints() /
+      (float)_player->getHull()->getEquipment()[i]->getHitPointsMax(), 2);
+    _player_equipment_stats[i]->setColor(getHitpointColor(
+      ((float)_player->getHull()->getEquipment()[i]->getHitPoints() /
+       (float)_player->getHull()->getEquipment()[i]->getHitPointsMax()
+      )));
   }
 }
 
-//! Draw the action points
+void BattleGui::drawEquipmentEnemy()
+{
+  for (size_t i = 0; i < _enemy->getHull()->getEquipment().size(); i++)
+  {
+    _enemy->getHull()->getEquipment()[i]->setVisible(true);
+    _enemy->getHull()->getEquipment()[i]->setPosition(1, 1);
+    _enemy->getHull()->getEquipment()[i]->removeAllEventListeners();
+
+    //add roll over event listener for detailed info on equipment
+    _enemy->getHull()->getEquipment()[i]->addEventListener
+      (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailEquipmentShow));
+
+    //add roll over event listener for detailed info on equipment
+    _enemy->getHull()->getEquipment()[i]->addEventListener
+      (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailHide));
+
+    //add click event listener to use equipment
+    _enemy->getHull()->getEquipment()[i]->addEventListener
+      (TouchEvent::CLICK, CLOSURE(this, &BattleGui::clickEquipment));
+
+    //draw the hitpoint bar below the equipment
+    _enemy_equipment_stats[i]->setPosition(0, _equip_slots[i]->getHeight());
+    _enemy_equipment_stats[i]->setSize(_equip_slots[i]->getWidth() *
+      (float)_enemy->getHull()->getEquipment()[i]->getHitPoints() /
+      (float)_enemy->getHull()->getEquipment()[i]->getHitPointsMax(), 2);
+    _enemy_equipment_stats[i]->setColor(getHitpointColor(
+      ((float)_enemy->getHull()->getEquipment()[i]->getHitPoints() /
+       (float)_enemy->getHull()->getEquipment()[i]->getHitPointsMax()
+        )));
+  }
+}
+
 void BattleGui::drawActionPoints()
 { 
   float percent = (float)_player->getHull()->getBattery()->getActionPoints() /
@@ -263,12 +346,6 @@ void BattleGui::addShipEventListeners()
     (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailPartHide));
 }
 
-//! Clear the target pointer
-void BattleGui::clearTarget()
-{
-  _target = nullptr;
-}
-
 //! Draw the hitpoint bars for hull, battery and engine of both player and enemy
 void BattleGui::drawStats()
 {
@@ -278,14 +355,14 @@ void BattleGui::drawStats()
   for (int i = 0; i < 3; i++)
   { 
     //player stats go on the left top corner
-    _player_stats[i]->setSize(512, 16);
+    _player_stats[i]->setSize(364, 16);
     _player_stats[i]->setAnchor(0.0f, 0.0f);
     _player_stats[i]->setPosition((float)x_offset, (float)y_offset);
 
     _player_stats_text[i]->setAlign(TextStyle::VerticalAlign::VALIGN_MIDDLE, TextStyle::HorizontalAlign::HALIGN_MIDDLE);
 
     //enemy stats go on the top right corner
-    _enemy_stats[i]->setSize(512, 16);
+    _enemy_stats[i]->setSize(364, 16);
     _enemy_stats[i]->setAnchor(1.0f, 0.0f);
     _enemy_stats[i]->setPosition(
       getStage()->getWidth() - (float)x_offset, 
@@ -500,65 +577,148 @@ void BattleGui::drawEscapeAPStatus()
   _escape_battle_ap->setHtmlText(ap);
   _escape_battle_ap->setHAlign(TextStyle::HALIGN_MIDDLE);
   _escape_battle_ap->setVAlign(TextStyle::VALIGN_MIDDLE);
-  _escape_battle_ap->setPosition(-_escape_battle_button->getWidth() / 2, _escape_battle_button->getHeight() / 2);
+  _escape_battle_ap->setPosition(-(_escape_battle_button->getWidth()) / 2, _escape_battle_button->getHeight() / 2);
 }
 
 //! Handles functionality when equipment is clicked on
 void BattleGui::clickEquipment(Event* ev)
 {
-  spEquipment eq = safeSpCast<Equipment>(ev->currentTarget);
-
-  if (_battle->isPlayerTurn())
+  //clear the equipment if it's double clicked
+  if (_equipment == safeSpCast<Equipment>(ev->currentTarget))
   {
-    if (_target)
+    _equipment->getSprite()->setColor(Color(255, 255, 255));
+    _equipment = nullptr;
+
+    log::messageln("Deselected equipment");
+  }
+  else if (_equipment)
+  {
+    if (_battle->isPlayerTurn())
     {
-      if (BattleAction::canPerform(_player, eq, _target))
+      if (safeSpCast<Equipment>(ev->currentTarget).get() && _equipment)
       {
-        _battle->addAction(_action, eq, _target);
+        if (BattleAction::canPerform(_player, _equipment, safeSpCast<Equipment>(ev->currentTarget).get()))
+        {
+          _battle->addAction(_action, _equipment, safeSpCast<Equipment>(ev->currentTarget).get());
+        }
+        else
+        {
+          log::messageln("That action cannot be performed!");
+        }
+      }
+      else
+      {
+        log::messageln("Target/equipment pointer not found!");
       }
     }
     else
     {
-      log::messageln("No target selected");
+      log::messageln("It is not the player's turn!");
     }
+
+    //stops event propagation so it doesn't target what's behind it
+    ev->stopImmediatePropagation();
   }
-  else
+  else if (!_equipment && isPlayerEquipment(safeSpCast<Equipment>(ev->currentTarget)))
   {
-    log::messageln("It is not your turn");
+    _equipment = safeSpCast<Equipment>(ev->currentTarget);
+    _equipment->getSprite()->setColor(Color(0,25,0));
+
+    log::messageln("Selected equipment");
   }
 }
 
 void BattleGui::clickHull(Event* ev)
 {
   spHull t = safeSpCast<Hull>(ev->currentTarget);
-  _target = t.get();
+
+  if (_battle->isPlayerTurn())
+  {
+    if (t.get() && _equipment)
+    {
+      if (BattleAction::canPerform(_player, _equipment, t.get()))
+      {
+        _battle->addAction(_action, _equipment, t.get());
+      }
+      else
+      {
+        log::messageln("That action cannot be performed!");
+      }
+    }
+    else
+    {
+      log::messageln("Target/equipment pointer not found!");
+    }
+  }
+  else
+  {
+    log::messageln("It is not the player's turn!");
+  }
 
   //stops event propagation so it doesn't target what's behind it
   ev->stopImmediatePropagation();
-
-  log::messageln("[TARGET ACQUIRED] %s!", t.get()->getID().c_str());
 }
 
 void BattleGui::clickBattery(Event* ev)
 {
   spBattery b = safeSpCast<Battery>(ev->currentTarget);
-  _target = b.get();
+
+  if (_battle->isPlayerTurn())
+  {
+    if (b.get() && _equipment)
+    {
+      if (BattleAction::canPerform(_player, _equipment, b.get()))
+      {
+        _battle->addAction(_action, _equipment, b.get());
+      }
+      else
+      {
+        log::messageln("That action cannot be performed!");
+      }
+    }
+    else
+    {
+      log::messageln("Target/equipment pointer not found!");
+    }
+  }
+  else
+  {
+    log::messageln("It is not the player's turn!");
+  }
 
   //stops event propagation so it doesn't target what's behind it
   ev->stopImmediatePropagation();
-
-  log::messageln("[TARGET ACQUIRED] %s!", b.get()->getID().c_str());
 }
 
 void BattleGui::clickEngine(Event* ev)
 {
   spEngine e = safeSpCast<Engine>(ev->currentTarget);
-  _target = e.get();
+
+  if (_battle->isPlayerTurn())
+  {
+    if (e.get() && _equipment)
+    {
+      if (BattleAction::canPerform(_player, _equipment, e.get()))
+      {
+        _battle->addAction(_action, _equipment, e.get());
+      }
+      else
+      {
+        log::messageln("That action cannot be performed!");
+      }
+    }
+    else
+    {
+      log::messageln("Target/equipment pointer not found!");
+    }
+  }
+  else
+  {
+    log::messageln("It is not the player's turn!");
+  }
 
   //stops event propagation so it doesn't target what's behind it
   ev->stopImmediatePropagation();
-
-  log::messageln("[TARGET ACQUIRED] %s!", e.get()->getID().c_str());
 }
 
 void BattleGui::detailEquipmentShow(Event* ev)
@@ -723,4 +883,20 @@ Color BattleGui::getHitpointColor(float hitpoints)
   {
     return Color(200, hitpoints * 400, 0);
   }
+}
+
+//! Returns true if the equipment eq is owned by player, false otherwise
+bool BattleGui::isPlayerEquipment(spEquipment eq)
+{
+  for (int i = 0; i < _player->getHull()->getEquipment().size(); i++)
+  {
+    log::messageln("Comparing ");
+    if (_player->getHull()->getEquipment()[i] == eq)
+    {
+      return true;
+    }
+  }
+
+  log::messageln("Cannot select non-player equipment for use.");
+  return false;
 }

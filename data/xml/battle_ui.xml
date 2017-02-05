@@ -6,6 +6,7 @@
   <atlas>
     <image file="item_slot.png" />
     <image file="battle_bar.png" />
+    <image file="battle_bar_enemy.png" />
     <image file="action_slot.png" cols="2" />
     <image file="equipment_info_bar.png" />
     <image file="end_turn.png" />
