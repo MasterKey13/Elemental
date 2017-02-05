@@ -8,10 +8,10 @@
       "name": "Bron Basic Protector",
       "desc": "A small armor plate commonly used by civilian cosmotransport vehicles. Designed by Hugh Co. in 2102 in light of a cosmocrime spike, this armor piece is designed to protect small civilian ships against most basic cosmic assault weaponry.",
       "brand": "Hugh Co.",
-      "hitpoints": 260,
-      "ballistic_res": 9,
-      "electrical_res": 5,
-      "chemical_res": 6
+      "hitpoints": 18,
+      "ballistic_res": 2,
+      "electrical_res": 0,
+      "chemical_res": 1
     }
   ]
 }

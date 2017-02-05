@@ -8,10 +8,9 @@
       "name": "Voyager Cosmotransport Hull",
       "desc": "A standard-issue personal cosmotransport hull. Designed by Hugh Co. in 2097, the Voyager is their lightest and most compact frame.",
       "brand": "Hugh Co.",
-      "hitpoints": 770,
+      "hitpoints": 136,
       "ballistic_res": 2,
       "electrical_res": 1,
-      "chemical_res": 0,
       "max_equip": 3,
       "reserved_bounds": [17,17,33,38,46,19,62,36]
     }

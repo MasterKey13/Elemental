@@ -15,6 +15,7 @@ namespace resources
   Resources hulls;
   Resources engines;
   Resources batteries;
+  Resources game_ui;
 
 	void load()
 	{
@@ -24,6 +25,7 @@ namespace resources
     hulls.loadXML("xml/hulls.xml");
     engines.loadXML("xml/engines.xml");
     batteries.loadXML("xml/batteries.xml");
+    game_ui.loadXML("xml/game_ui.xml");
 	}
 
 	void free()
@@ -34,5 +36,6 @@ namespace resources
     hulls.free();
     batteries.free();
     engines.free();
+    game_ui.free();
 	}
 }

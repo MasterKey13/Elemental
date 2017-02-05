@@ -11,6 +11,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "../battle_action.h"
 #include "../hull.h"
 #include "../target.h"
+#include "../game.h"
 
 using namespace oxygine;
 

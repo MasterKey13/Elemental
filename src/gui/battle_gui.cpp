@@ -586,6 +586,11 @@ void BattleGui::clickEquipment(Event* ev)
   //clear the equipment if it's double clicked
   if (_equipment == safeSpCast<Equipment>(ev->currentTarget))
   {
+    //reset cursor back to normal
+    Game::cursor->setResAnim(resources::game_ui.getResAnim("cursor"));
+    Game::cursor->setRotation(0.0f);
+    Game::cursor->setScale(1.0f);
+
     _equipment->getSprite()->setColor(Color(255, 255, 255));
     _equipment = nullptr;
 
@@ -621,6 +626,11 @@ void BattleGui::clickEquipment(Event* ev)
   }
   else if (!_equipment && isPlayerEquipment(safeSpCast<Equipment>(ev->currentTarget)))
   {
+    //make the cursor look like its targeting something
+    Game::cursor->setResAnim(resources::game_ui.getResAnim("cursor_attack"));
+    Game::cursor->addTween(Actor::TweenScale(0.8f), 1500, 0, true);
+    Game::cursor->addTween(Actor::TweenRotation(MATH_PI), 6000, 0, false);
+
     _equipment = safeSpCast<Equipment>(ev->currentTarget);
     _equipment->getSprite()->setColor(Color(0,25,0));
 

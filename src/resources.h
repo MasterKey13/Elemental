@@ -14,6 +14,7 @@ namespace resources
   extern Resources hulls;
   extern Resources engines;
   extern Resources batteries;
+  extern Resources game_ui;
 
 	void load();
 	void free();

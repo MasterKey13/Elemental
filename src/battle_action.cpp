@@ -8,7 +8,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 BattleAction::BattleAction()
 {
-
+  srand(time(NULL));
 }
 
 void BattleAction::log()
@@ -96,21 +96,37 @@ void BattleAction::process(spShip attacker, spEquipment weapon, Target* target)
     armor_chemical_res,
     target->getDamageResistance(Damage::Type::Chemical));
   
-  //deal all of the damage to the armor and target
-  if (target->getArmorPiece())
+  //if the ship doesn't evade the attack
+  if ((rand() % 100 + 1) > attacker->getHull()->getEngine()->getEvasion())
   {
-    target->getArmorPiece()->setHitPoints(
-      target->getArmorPiece()->getHitPoints() -
-      ballistic_dmg_to_armor -
-      electrical_dmg_to_armor -
-      chemical_dmg_to_armor);
-  }
+    //deal the armor damage
+    if (target->getArmorPiece())
+    {
+      target->getArmorPiece()->setHitPoints(
+        target->getArmorPiece()->getHitPoints() -
+        ballistic_dmg_to_armor -
+        electrical_dmg_to_armor -
+        chemical_dmg_to_armor);
 
-  target->setHitPoints(
-    target->getHitPoints() -
-    ballistic_dmg_to_target -
-    electrical_dmg_to_target -
-    chemical_dmg_to_target);
+      log::messageln("The armor blocked %d/%d/%d damage", 
+        ballistic_dmg_to_armor,
+        electrical_dmg_to_armor,
+        chemical_dmg_to_armor);
+    }
+
+    //deal the target damage
+    target->setHitPoints(
+      target->getHitPoints() -
+      ballistic_dmg_to_target -
+      electrical_dmg_to_target -
+      chemical_dmg_to_target);
+
+    log::messageln("The ship was hit by a %s", weapon->getName().c_str());
+  }
+  else
+  {
+    log::messageln("The ship evaded that attack; no damage was dealt");
+  }
 
   //remove the action points and a slot
   attacker->getHull()->getBattery()->setActionPoints(

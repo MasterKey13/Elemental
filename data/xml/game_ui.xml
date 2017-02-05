@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<resources>
+  <set path = "images/game_ui" />
+  <set scale_factor = "1.0f" />
+
+  <atlas>
+    <image file="cursor.png" />
+    <image file="cursor_attack.png" />
+  </atlas>
+</resources>

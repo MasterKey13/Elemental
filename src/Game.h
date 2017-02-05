@@ -38,10 +38,13 @@ class Game : public Actor
   public:
 	  Game();
 
+    static spSprite cursor;
+
 	  void init();
 
   private:
 	  void doUpdate(const UpdateState &us);
+    void updateCursor(Event* ev);
 
 	  spShip _player_ship; 
     spHull _hull;

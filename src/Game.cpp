@@ -6,6 +6,9 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "game.h"
 #include "item.h"
 
+//custom cursor
+spSprite Game::cursor = new Sprite();
+
 Game::Game()
 {
   srand((unsigned int)time(NULL));
@@ -40,6 +43,15 @@ Game::Game()
 
 void Game::init()
 {
+  //custom cursor (default)
+  SDL_ShowCursor(0);
+  Game::cursor->attachTo(getStage());
+  Game::cursor->setAnchor(0.5f, 0.5f);
+  Game::cursor->setResAnim(resources::game_ui.getResAnim("cursor"));
+  Game::cursor->setVisible(true);
+  Game::cursor->setTouchEnabled(false);
+  getStage()->addEventListener(TouchEvent::MOVE, CLOSURE(this, &Game::updateCursor));
+
   //TEST PLAYER SHIP
   _player_ship->init("Player Ship", _hull);
   _engine->init("engine_tracer");
@@ -68,6 +80,12 @@ void Game::init()
 
   //start battle
   _battle->init(_player_ship, _enemy_ship, true);
+}
+
+void Game::updateCursor(Event * ev)
+{
+  TouchEvent* touch = (TouchEvent*)ev;
+  cursor->setPosition(touch->localPosition);
 }
 
 void Game::doUpdate(const UpdateState &us)

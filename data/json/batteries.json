@@ -8,12 +8,10 @@
       "name": "Celladon Cosmotransport Battery",
       "desc": "A classic Celladon battery. Designed by the now-defunct Celladon Inc. in 2097, this battery is known to be very reliable.",
       "brand": "Celladon Inc.",
-      "hitpoints": 175,
-      "ballistic_res": 5,
-      "electrical_res": 8,
-      "chemical_res": 2,
-      "action_slots": 4,
-      "action_points": 440
+      "hitpoints": 57,
+      "electrical_res": 1,
+      "action_slots": 2,
+      "action_points": 47
     }
   ]
 }

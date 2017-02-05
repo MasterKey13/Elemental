@@ -8,7 +8,7 @@
       "name": "Tracer Cosmotransport Engine",
       "desc": "A standard-issue personal cosmotransport engine.\nDesigned by Tek Co. in 2097, this engine has become one of the most common cosmotransport engines on the market.",
       "brand": "Tek Co.",
-      "hitpoints": 420,
+      "hitpoints": 89,
       "evasion": 3,
       "max_weight": 22000,
       "ap_threshold": 2000

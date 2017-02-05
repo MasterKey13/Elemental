@@ -128,13 +128,13 @@ void BattleAI::chooseTarget(spShip self_ship, spShip enemy_ship, spNPC self_NPC,
   if (enemy_battery_hp < enemy_engine_hp &&
     enemy_hull_hp > (enemy_battery_hp + enemy_engine_hp))
   {
-    _choice_scores[decisions::ATTACK_BATTERY] += ((float)enemy_battery_hp / (float)enemy_engine_hp) * (float)(rand() % 100) / 70.0f;
+    _choice_scores[decisions::ATTACK_BATTERY] += ((float)enemy_battery_hp / (float)enemy_engine_hp) * (float)(rand() % 100) / 80.0f;
   }
 
   //assess who can kill who first, and if enemy can kill first, consider attacking the enemy's battery
   if (turns_until_self_dead <= turns_until_enemy_dead)
   {
-    _choice_scores[decisions::ATTACK_BATTERY] += (float)turns_until_enemy_dead - (float)turns_until_self_dead;
+    _choice_scores[decisions::ATTACK_BATTERY] += ((float)turns_until_enemy_dead - (float)turns_until_self_dead) / 3.0f;
   }
 
   //assess and compare enemy's engine and battery hp values and consider attacking its engine
