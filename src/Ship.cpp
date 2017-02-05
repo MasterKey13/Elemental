@@ -128,6 +128,11 @@ bool Ship::find(Target* part)
   return false;
 }
 
+void Ship::checkEquipmentStatus()
+{
+
+}
+
 std::string Ship::getName()
 {
 	return _name;

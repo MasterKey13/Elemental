@@ -51,6 +51,7 @@ class Game : public Actor
     spEngine _engine;
     spBattery _battery;
     spEquipment _weapon;
+    spArmor _player_armor;
 
     spNPC _eric;
     spShip _enemy_ship;

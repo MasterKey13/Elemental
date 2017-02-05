@@ -18,11 +18,13 @@ Game::Game()
   _battery = new Battery();
   _engine = new Engine();
   _weapon = new Equipment();
+  _player_armor = new Armor();
   _player_ship->attachTo(getStage());
   _hull->attachTo(_player_ship);
   _engine->attachTo(_hull);
   _battery->attachTo(_hull);
   _weapon->attachTo(_hull);
+  _player_armor->attachTo(_hull);
 
   _eric = new NPC();
 
@@ -58,10 +60,12 @@ void Game::init()
   _battery->init("battery_celladon");
   _weapon->init("equipment_tek_cannon");
   _hull->init("hull_hugh_voyager");
+  _player_armor->init("armor_bron");
   _hull->setEngine(_engine);
   _hull->setBattery(_battery);
   _hull->addEquipment(_weapon);
   _player_ship->setShipPosition(POSITION::player);
+  _hull2->setArmorPiece(_player_armor);
 
   //ENEMY
   _eric->init("npc_eric_markovic");

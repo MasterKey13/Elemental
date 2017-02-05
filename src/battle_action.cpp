@@ -108,10 +108,17 @@ void BattleAction::process(spShip attacker, spEquipment weapon, Target* target)
         electrical_dmg_to_armor -
         chemical_dmg_to_armor);
 
-      log::messageln("The armor blocked %d/%d/%d damage", 
+      log::messageln("The armor took %d/%d/%d damage!",
         ballistic_dmg_to_armor,
         electrical_dmg_to_armor,
         chemical_dmg_to_armor);
+
+      //remove the armor if it breaks
+      if (target->getArmorPiece()->getHitPoints() <= 0)
+      {
+        target->setArmorPiece(nullptr);
+        log::messageln("Armor piece broke!");
+      }
     }
 
     //deal the target damage
@@ -120,8 +127,6 @@ void BattleAction::process(spShip attacker, spEquipment weapon, Target* target)
       ballistic_dmg_to_target -
       electrical_dmg_to_target -
       chemical_dmg_to_target);
-
-    log::messageln("The ship was hit by a %s", weapon->getName().c_str());
   }
   else
   {
