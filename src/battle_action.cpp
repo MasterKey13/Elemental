@@ -96,12 +96,21 @@ void BattleAction::process(spShip attacker, spEquipment weapon, Target* target)
     armor_chemical_res,
     target->getDamageResistance(Damage::Type::Chemical));
   
+  int damage_difference = 0;
+
   //if the ship doesn't evade the attack
   if ((rand() % 100 + 1) > attacker->getHull()->getEngine()->getEvasion())
   {
     //deal the armor damage
     if (target->getArmorPiece())
     {
+      damage_difference =
+        std::min(
+        target->getArmorPiece()->getHitPoints() -
+        ballistic_dmg_to_armor -
+        electrical_dmg_to_armor -
+        chemical_dmg_to_armor, 0);
+
       target->getArmorPiece()->setHitPoints(
         target->getArmorPiece()->getHitPoints() -
         ballistic_dmg_to_armor -
@@ -126,7 +135,9 @@ void BattleAction::process(spShip attacker, spEquipment weapon, Target* target)
       target->getHitPoints() -
       ballistic_dmg_to_target -
       electrical_dmg_to_target -
-      chemical_dmg_to_target);
+      chemical_dmg_to_target +
+      damage_difference);
+
   }
   else
   {

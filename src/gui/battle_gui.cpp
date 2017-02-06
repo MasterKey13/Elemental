@@ -222,9 +222,10 @@ void BattleGui::drawEquipmentPlayer()
 
     //draw the hitpoint bar below the equipment
     _player_equipment_stats[i]->setPosition(0, _equip_slots[i]->getHeight());
-    _player_equipment_stats[i]->setSize(_equip_slots[i]->getWidth() *
+    _player_equipment_stats[i]->addTween(Actor::TweenSize(_equip_slots[i]->getWidth() *
       (float)_player->getHull()->getEquipment()[i]->getHitPoints() /
-      (float)_player->getHull()->getEquipment()[i]->getHitPointsMax(), 2);
+      (float)_player->getHull()->getEquipment()[i]->getHitPointsMax(), 2
+      ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
     _player_equipment_stats[i]->setColor(getHitpointColor(
       ((float)_player->getHull()->getEquipment()[i]->getHitPoints() /
        (float)_player->getHull()->getEquipment()[i]->getHitPointsMax()
@@ -254,9 +255,10 @@ void BattleGui::drawEquipmentEnemy()
 
     //draw the hitpoint bar below the equipment
     _enemy_equipment_stats[i]->setPosition(0, _equip_slots[i]->getHeight());
-    _enemy_equipment_stats[i]->setSize(_equip_slots[i]->getWidth() *
+    _enemy_equipment_stats[i]->addTween(Actor::TweenSize(_equip_slots[i]->getWidth() *
       (float)_enemy->getHull()->getEquipment()[i]->getHitPoints() /
-      (float)_enemy->getHull()->getEquipment()[i]->getHitPointsMax(), 2);
+      (float)_enemy->getHull()->getEquipment()[i]->getHitPointsMax(), 2
+      ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
     _enemy_equipment_stats[i]->setColor(getHitpointColor(
       ((float)_enemy->getHull()->getEquipment()[i]->getHitPoints() /
        (float)_enemy->getHull()->getEquipment()[i]->getHitPointsMax()
@@ -586,15 +588,7 @@ void BattleGui::clickEquipment(Event* ev)
   //clear the equipment if it's double clicked
   if (_equipment == safeSpCast<Equipment>(ev->currentTarget))
   {
-    //reset cursor back to normal
-    Game::cursor->setResAnim(resources::game_ui.getResAnim("cursor"));
-    Game::cursor->setRotation(0.0f);
-    Game::cursor->setScale(1.0f);
-
-    _equipment->getSprite()->setColor(Color(255, 255, 255));
-    _equipment = nullptr;
-
-    log::messageln("Deselected equipment");
+    deselectEquipment();
   }
   else if (_equipment)
   {
@@ -633,8 +627,6 @@ void BattleGui::clickEquipment(Event* ev)
 
     _equipment = safeSpCast<Equipment>(ev->currentTarget);
     _equipment->getSprite()->setColor(Color(0,25,0));
-
-    log::messageln("Selected equipment");
   }
 }
 
@@ -867,6 +859,8 @@ void BattleGui::detailPartHide(Event* ev)
 
 void BattleGui::endTurn(Event * ev)
 {
+  deselectEquipment();
+
   _battle->endTurn();
   _battle->requestEnemyTurn();
 }
@@ -909,4 +903,16 @@ bool BattleGui::isPlayerEquipment(spEquipment eq)
 
   log::messageln("Cannot select non-player equipment for use.");
   return false;
+}
+
+void BattleGui::deselectEquipment()
+{
+  //reset cursor back to normal
+  Game::cursor->setResAnim(resources::game_ui.getResAnim("cursor"));
+  Game::cursor->setRotation(0.0f);
+  Game::cursor->setScale(1.0f);
+
+  //deselect the equipment
+  _equipment->getSprite()->setColor(Color(255, 255, 255));
+  _equipment = nullptr;
 }

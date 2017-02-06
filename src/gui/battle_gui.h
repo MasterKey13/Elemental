@@ -64,6 +64,7 @@ class BattleGui : public Actor
     //misc methods
     Color getHitpointColor(float hitpoints);
     bool isPlayerEquipment(spEquipment eq);
+    void deselectEquipment();
 
     //event listeners
     void addShipEventListeners();

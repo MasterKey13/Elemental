@@ -13,7 +13,7 @@
       "ballistic_dmg": 3,
       "electrical_dmg": 2,
       "chemical_dmg": 1,
-      "action_point_cost": 7,
+      "action_point_cost": 17,
       "self_targetable": false
     }
   ]
