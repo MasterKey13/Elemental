@@ -357,7 +357,7 @@ void BattleGui::addShipEventListeners()
 //! Draw the hitpoint bars for hull, battery and engine of both player and enemy
 void BattleGui::drawStats()
 {
-  Color armor_color = Color(138, 141, 153);
+  Color armor_color = Color(100, 100, 130);
 
   int x_offset = 6;
   int y_offset = 6;
@@ -1032,12 +1032,15 @@ bool BattleGui::isPlayerEquipment(spEquipment eq)
 
 void BattleGui::deselectEquipment()
 {
-  //reset cursor back to normal
-  Game::cursor->setResAnim(resources::game_ui.getResAnim("cursor"));
-  Game::cursor->setRotation(0.0f);
-  Game::cursor->setScale(1.0f);
+  if (_equipment)
+  {
+    //reset cursor back to normal
+    Game::cursor->setResAnim(resources::game_ui.getResAnim("cursor"));
+    Game::cursor->setRotation(0.0f);
+    Game::cursor->setScale(1.0f);
 
-  //deselect the equipment
-  _equipment->getSprite()->setColor(Color(255, 255, 255));
-  _equipment = nullptr;
+    //deselect the equipment
+    _equipment->getSprite()->setColor(Color(255, 255, 255));
+    _equipment = nullptr;
+  }
 }
