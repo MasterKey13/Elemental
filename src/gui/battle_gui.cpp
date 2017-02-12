@@ -103,17 +103,23 @@ void BattleGui::init(spShip player, spShip enemy)
   //set up stat sprites
   for (int i = 0; i < 3; i++)
   {
-    _player_stats[i] = new ColorRectSprite();
-    _player_stats[i]->attachTo(this);
+    _player_hp_stats[i] = new ColorRectSprite();
+    _player_hp_stats[i]->attachTo(this);
 
-    _player_stats_text[i] = new TextField();
-    _player_stats_text[i]->attachTo(this);
+    _player_armor_stats[i] = new ColorRectSprite();
+    _player_armor_stats[i]->attachTo(this);
 
-    _enemy_stats[i] = new ColorRectSprite();
-    _enemy_stats[i]->attachTo(this);
+    _player_hp_stats_text[i] = new TextField();
+    _player_hp_stats_text[i]->attachTo(this);
 
-    _enemy_stats_text[i] = new TextField();
-    _enemy_stats_text[i]->attachTo(this);
+    _enemy_hp_stats[i] = new ColorRectSprite();
+    _enemy_hp_stats[i]->attachTo(this);
+
+    _enemy_armor_stats[i] = new ColorRectSprite();
+    _enemy_armor_stats[i]->attachTo(this);
+
+    _enemy_hp_stats_text[i] = new TextField();
+    _enemy_hp_stats_text[i]->attachTo(this);
   }
 
   addShipEventListeners();
@@ -351,28 +357,42 @@ void BattleGui::addShipEventListeners()
 //! Draw the hitpoint bars for hull, battery and engine of both player and enemy
 void BattleGui::drawStats()
 {
+  Color armor_color = Color(138, 141, 153);
+
   int x_offset = 6;
   int y_offset = 6;
 
   for (int i = 0; i < 3; i++)
   { 
     //player stats go on the left top corner
-    _player_stats[i]->setSize(364, 16);
-    _player_stats[i]->setAnchor(0.0f, 0.0f);
-    _player_stats[i]->setPosition((float)x_offset, (float)y_offset);
+    _player_hp_stats[i]->setSize(364, 16);
+    _player_hp_stats[i]->setAnchor(0.0f, 0.0f);
+    _player_hp_stats[i]->setPosition((float)x_offset, (float)y_offset);
 
-    _player_stats_text[i]->setAlign(TextStyle::VerticalAlign::VALIGN_MIDDLE, TextStyle::HorizontalAlign::HALIGN_MIDDLE);
+    _player_armor_stats[i]->setSize(364, 16);
+    _player_armor_stats[i]->setAnchor(0.0f, 0.0f);
+    _player_armor_stats[i]->setPosition((float)x_offset, (float)y_offset);
+    _player_armor_stats[i]->setColor(armor_color);
+
+    _player_hp_stats_text[i]->setAlign(TextStyle::VerticalAlign::VALIGN_MIDDLE, TextStyle::HorizontalAlign::HALIGN_MIDDLE);
 
     //enemy stats go on the top right corner
-    _enemy_stats[i]->setSize(364, 16);
-    _enemy_stats[i]->setAnchor(1.0f, 0.0f);
-    _enemy_stats[i]->setPosition(
+    _enemy_hp_stats[i]->setSize(364, 16);
+    _enemy_hp_stats[i]->setAnchor(1.0f, 0.0f);
+    _enemy_hp_stats[i]->setPosition(
       getStage()->getWidth() - (float)x_offset, 
       (float)y_offset);
 
-    _enemy_stats_text[i]->setAlign(TextStyle::VerticalAlign::VALIGN_MIDDLE, TextStyle::HorizontalAlign::HALIGN_MIDDLE);
+    _enemy_armor_stats[i]->setSize(364, 16);
+    _enemy_armor_stats[i]->setAnchor(1.0f, 0.0f);
+    _enemy_armor_stats[i]->setPosition(
+      getStage()->getWidth() - (float)x_offset,
+      (float)y_offset);
+    _enemy_armor_stats[i]->setColor(armor_color);
 
-    y_offset += (int)_player_stats[i]->getHeight() + 6;
+    _enemy_hp_stats_text[i]->setAlign(TextStyle::VerticalAlign::VALIGN_MIDDLE, TextStyle::HorizontalAlign::HALIGN_MIDDLE);
+
+    y_offset += (int)_player_hp_stats[i]->getHeight() + 6;
   }
 
   updateHitpointStats();
@@ -382,127 +402,232 @@ void BattleGui::drawStats()
 void BattleGui::updateHitpointStats()
 {
   //update hitpoints of hulls
-  _player_stats[0]->addTween(Actor::TweenScaleX(
+  _player_hp_stats[0]->addTween(Actor::TweenScaleX(
     (float)_player->getHull()->getHitPoints() /
     (float)_player->getHull()->getHitPointsMax()
     ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
-  _enemy_stats[0]->addTween(Actor::TweenScaleX(
-    (float)_enemy->getHull()->getHitPoints() /
-    (float)_enemy->getHull()->getHitPointsMax()
-    ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
-
-  _player_stats[0]->setColor(
+  _player_hp_stats[0]->setColor(
     getHitpointColor(
       (float)_player->getHull()->getHitPoints() /
       (float)_player->getHull()->getHitPointsMax()));
 
-  _enemy_stats[0]->setColor(
+  _enemy_hp_stats[0]->addTween(Actor::TweenScaleX(
+    (float)_enemy->getHull()->getHitPoints() /
+    (float)_enemy->getHull()->getHitPointsMax()
+    ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
+
+  _enemy_hp_stats[0]->setColor(
     getHitpointColor(
       (float)_enemy->getHull()->getHitPoints() /
       (float)_enemy->getHull()->getHitPointsMax()));
 
-  _player_stats_text[0]->setText(
-    "Hull: " + 
-    std::to_string(_player->getHull()->getHitPoints()) + 
-    "/" + 
+  //if they have armor, show the armor hitpoint stats
+  if (_player->getHull()->getArmorPiece())
+  {
+    _player_armor_stats[0]->addTween(Actor::TweenScaleX(
+      (float)_player->getHull()->getArmorPiece()->getHitPoints() /
+      (float)_player->getHull()->getHitPointsMax()
+      ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
+
+    _player_hp_stats_total[0] = 
+      _player->getHull()->getHitPoints() + 
+      _player->getHull()->getArmorPiece()->getHitPoints();
+  }
+  else
+  {
+    _player_armor_stats[0]->setScaleX(0.0f);
+    _player_hp_stats_total[0] = _player->getHull()->getHitPoints();
+  }
+
+  if (_enemy->getHull()->getArmorPiece())
+  {
+    _enemy_armor_stats[0]->addTween(Actor::TweenScaleX(
+      (float)_enemy->getHull()->getArmorPiece()->getHitPoints() /
+      (float)_enemy->getHull()->getHitPointsMax()
+      ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
+
+    _enemy_hp_stats_total[0] =
+      _enemy->getHull()->getHitPoints() +
+      _enemy->getHull()->getArmorPiece()->getHitPoints();
+  }
+  else
+  {
+    _enemy_armor_stats[0]->setScaleX(0.0f);
+    _enemy_hp_stats_total[0] = _enemy->getHull()->getHitPoints();
+  }
+
+  _player_hp_stats_text[0]->setPosition(
+    _player_hp_stats[0]->getX() + _player_hp_stats[0]->getWidth() / 2,
+    _player_hp_stats[0]->getY() + _player_hp_stats[0]->getHeight() / 2);
+
+  _enemy_hp_stats_text[0]->setPosition(
+    _enemy_hp_stats[0]->getX() - _enemy_hp_stats[0]->getWidth() / 2,
+    _enemy_hp_stats[0]->getY() + _enemy_hp_stats[0]->getHeight() / 2);
+
+  _player_hp_stats_text[0]->setText(
+    "Hull: " +
+    std::to_string(_player_hp_stats_total[0]) +
+    "/" +
     std::to_string(_player->getHull()->getHitPointsMax()));
 
-  _enemy_stats_text[0]->setText(
+  _enemy_hp_stats_text[0]->setText(
     "Hull: " +
-    std::to_string(_enemy->getHull()->getHitPoints()) +
+    std::to_string(_enemy_hp_stats_total[0]) +
     "/" +
     std::to_string(_enemy->getHull()->getHitPointsMax()));
 
-  _player_stats_text[0]->setPosition(
-    _player_stats[0]->getX() + _player_stats[0]->getWidth() / 2, 
-    _player_stats[0]->getY() + _player_stats[0]->getHeight() / 2);
-
-  _enemy_stats_text[0]->setPosition(
-    _enemy_stats[0]->getX() - _enemy_stats[0]->getWidth() / 2, 
-    _enemy_stats[0]->getY() + _enemy_stats[0]->getHeight() / 2);
-
   //update hitpoints of batteries
-  _player_stats[1]->addTween(Actor::TweenScaleX(
+  _player_hp_stats[1]->addTween(Actor::TweenScaleX(
     (float)_player->getHull()->getBattery()->getHitPoints() /
     (float)_player->getHull()->getBattery()->getHitPointsMax()
     ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
-  _enemy_stats[1]->addTween(Actor::TweenScaleX(
+  _enemy_hp_stats[1]->addTween(Actor::TweenScaleX(
     (float)_enemy->getHull()->getBattery()->getHitPoints() /
     (float)_enemy->getHull()->getBattery()->getHitPointsMax()
     ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
-  _player_stats[1]->setColor(
+  _player_hp_stats[1]->setColor(
     getHitpointColor(
       (float)_player->getHull()->getBattery()->getHitPoints() /
       (float)_player->getHull()->getBattery()->getHitPointsMax()));
 
-  _enemy_stats[1]->setColor(
+  _enemy_hp_stats[1]->setColor(
     getHitpointColor(
       (float)_enemy->getHull()->getBattery()->getHitPoints() /
       (float)_enemy->getHull()->getBattery()->getHitPointsMax()));
 
-  _player_stats_text[1]->setText(
+  //if they have armor, show the armor hitpoint stats
+  if (_player->getHull()->getBattery()->getArmorPiece())
+  {
+    _player_armor_stats[1]->addTween(Actor::TweenScaleX(
+      (float)_player->getHull()->getBattery()->getArmorPiece()->getHitPoints() /
+      (float)_player->getHull()->getHitPointsMax()
+      ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
+
+    _player_hp_stats_total[1] =
+      _player->getHull()->getBattery()->getHitPoints() +
+      _player->getHull()->getBattery()->getArmorPiece()->getHitPoints();
+  }
+  else
+  {
+    _player_armor_stats[1]->setScaleX(0.0f);
+    _player_hp_stats_total[1] = _player->getHull()->getBattery()->getHitPoints();
+  }
+
+  if (_enemy->getHull()->getBattery()->getArmorPiece())
+  {
+    _enemy_armor_stats[1]->addTween(Actor::TweenScaleX(
+      (float)_enemy->getHull()->getBattery()->getArmorPiece()->getHitPoints() /
+      (float)_enemy->getHull()->getHitPointsMax()
+      ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
+
+    _enemy_hp_stats_total[1] =
+      _enemy->getHull()->getBattery()->getHitPoints() +
+      _enemy->getHull()->getBattery()->getArmorPiece()->getHitPoints();
+  }
+  else
+  {
+    _enemy_armor_stats[1]->setScaleX(0.0f);
+    _enemy_hp_stats_total[1] = _enemy->getHull()->getBattery()->getHitPoints();
+  }
+
+  _player_hp_stats_text[1]->setPosition(
+    _player_hp_stats[1]->getX() + _player_hp_stats[1]->getWidth() / 2,
+    _player_hp_stats[1]->getY() + _player_hp_stats[1]->getHeight() / 2);
+
+  _enemy_hp_stats_text[1]->setPosition(
+    _enemy_hp_stats[1]->getX() - _enemy_hp_stats[1]->getWidth() / 2, 
+    _enemy_hp_stats[1]->getY() + _enemy_hp_stats[1]->getHeight() / 2);
+
+  _player_hp_stats_text[1]->setText(
     "Battery: " +
-    std::to_string(_player->getHull()->getBattery()->getHitPoints()) +
+    std::to_string(_player_hp_stats_total[1]) +
     "/" +
     std::to_string(_player->getHull()->getBattery()->getHitPointsMax()));
 
-  _enemy_stats_text[1]->setText(
+  _enemy_hp_stats_text[1]->setText(
     "Battery: " +
-    std::to_string(_enemy->getHull()->getBattery()->getHitPoints()) +
+    std::to_string(_enemy_hp_stats_total[1]) +
     "/" +
     std::to_string(_enemy->getHull()->getBattery()->getHitPointsMax()));
 
-  _player_stats_text[1]->setPosition(
-    _player_stats[1]->getX() + _player_stats[1]->getWidth() / 2,
-    _player_stats[1]->getY() + _player_stats[1]->getHeight() / 2);
-
-  _enemy_stats_text[1]->setPosition(
-    _enemy_stats[1]->getX() - _enemy_stats[1]->getWidth() / 2, 
-    _enemy_stats[1]->getY() + _enemy_stats[1]->getHeight() / 2);
-
   //update hitpoints of engines
-  _player_stats[2]->addTween(Actor::TweenScaleX(
+  _player_hp_stats[2]->addTween(Actor::TweenScaleX(
     (float)_player->getHull()->getEngine()->getHitPoints() /
     (float)_player->getHull()->getEngine()->getHitPointsMax()
     ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
-  _enemy_stats[2]->addTween(Actor::TweenScaleX(
+  _enemy_hp_stats[2]->addTween(Actor::TweenScaleX(
     (float)_enemy->getHull()->getEngine()->getHitPoints() /
     (float)_enemy->getHull()->getEngine()->getHitPointsMax()
     ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
 
-  _player_stats[2]->setColor(
+  _player_hp_stats[2]->setColor(
     getHitpointColor(
       (float)_player->getHull()->getEngine()->getHitPoints() /
       (float)_player->getHull()->getEngine()->getHitPointsMax()));
 
-  _enemy_stats[2]->setColor(
+  _enemy_hp_stats[2]->setColor(
     getHitpointColor(
       (float)_enemy->getHull()->getEngine()->getHitPoints() /
       (float)_enemy->getHull()->getEngine()->getHitPointsMax()));
 
-  _player_stats_text[2]->setText(
+  //if they have armor, show the armor hitpoint stats
+  if (_player->getHull()->getEngine()->getArmorPiece())
+  {
+    _player_armor_stats[2]->addTween(Actor::TweenScaleX(
+      (float)_player->getHull()->getEngine()->getArmorPiece()->getHitPoints() /
+      (float)_player->getHull()->getHitPointsMax()
+      ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
+
+    _player_hp_stats_total[2] =
+      _player->getHull()->getEngine()->getHitPoints() +
+      _player->getHull()->getEngine()->getArmorPiece()->getHitPoints();
+  }
+  else
+  {
+    _player_armor_stats[2]->setScaleX(0.0f);
+    _player_hp_stats_total[2] = _player->getHull()->getEngine()->getHitPoints();;
+  }
+
+  if (_enemy->getHull()->getEngine()->getArmorPiece())
+  {
+    _enemy_armor_stats[1]->addTween(Actor::TweenScaleX(
+      (float)_enemy->getHull()->getEngine()->getArmorPiece()->getHitPoints() /
+      (float)_enemy->getHull()->getHitPointsMax()
+      ), TweenOptions(500).loops(1).globalEase(Tween::EASE::ease_outBounce));
+
+    _enemy_hp_stats_total[2] =
+      _enemy->getHull()->getEngine()->getHitPoints() +
+      _enemy->getHull()->getEngine()->getArmorPiece()->getHitPoints();
+  }
+  else
+  {
+    _enemy_armor_stats[2]->setScaleX(0.0f);
+    _enemy_hp_stats_total[2] = _enemy->getHull()->getEngine()->getHitPoints();
+  }
+
+  _player_hp_stats_text[2]->setPosition(
+    _player_hp_stats[2]->getX() + _player_hp_stats[2]->getWidth() / 2,
+    _player_hp_stats[2]->getY() + _player_hp_stats[2]->getHeight() / 2);
+
+  _enemy_hp_stats_text[2]->setPosition(
+    _enemy_hp_stats[2]->getX() - _enemy_hp_stats[2]->getWidth() / 2, 
+    _enemy_hp_stats[2]->getY() + _enemy_hp_stats[2]->getHeight() / 2);
+
+  _player_hp_stats_text[2]->setText(
     "Engine: " +
-    std::to_string(_player->getHull()->getEngine()->getHitPoints()) +
+    std::to_string(_player_hp_stats_total[2]) +
     "/" +
     std::to_string(_player->getHull()->getEngine()->getHitPointsMax()));
 
-  _enemy_stats_text[2]->setText(
+  _enemy_hp_stats_text[2]->setText(
     "Engine: " +
-    std::to_string(_enemy->getHull()->getEngine()->getHitPoints()) +
+    std::to_string(_enemy_hp_stats_total[2]) +
     "/" +
     std::to_string(_enemy->getHull()->getEngine()->getHitPointsMax()));
-
-  _player_stats_text[2]->setPosition(
-    _player_stats[2]->getX() + _player_stats[2]->getWidth() / 2,
-    _player_stats[2]->getY() + _player_stats[2]->getHeight() / 2);
-
-  _enemy_stats_text[2]->setPosition(
-    _enemy_stats[2]->getX() - _enemy_stats[2]->getWidth() / 2, 
-    _enemy_stats[2]->getY() + _enemy_stats[2]->getHeight() / 2);
 }
 
 //! Draw the window above the battle bar that displays detailed equipment info

@@ -83,12 +83,16 @@ class BattleGui : public Actor
     spColorRectSprite _action_points_penalty;
     spTextField _action_points_text;
 
-    spColorRectSprite _player_stats[3];
+    spColorRectSprite _player_hp_stats[3];
+    spColorRectSprite _player_armor_stats[3];
     std::vector<spColorRectSprite> _player_equipment_stats;
-    spColorRectSprite _enemy_stats[3];
+    spColorRectSprite _enemy_hp_stats[3];
+    spColorRectSprite _enemy_armor_stats[3];
     std::vector<spColorRectSprite> _enemy_equipment_stats;
-    spTextField _player_stats_text[3];
-    spTextField _enemy_stats_text[3];
+    spTextField _player_hp_stats_text[3];
+    spTextField _enemy_hp_stats_text[3];
+    int _player_hp_stats_total[3];
+    int _enemy_hp_stats_total[3];
 
     spSprite _item_info_bar;
     spTextField _item_info_text;
