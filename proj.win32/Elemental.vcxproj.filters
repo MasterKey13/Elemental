@@ -31,6 +31,12 @@
     <Filter Include="Source Files\util">
       <UniqueIdentifier>{4787779c-e067-4119-bb6f-f849afde9e48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\net">
+      <UniqueIdentifier>{62d03e5c-8232-4242-a6da-adac5eb8aeb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\net">
+      <UniqueIdentifier>{4065e203-010f-4d39-89d1-1c3bbffd6777}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\game.cpp">
@@ -105,6 +111,9 @@
     <ClCompile Include="..\src\battle_ai.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\net\socket.cpp">
+      <Filter>Source Files\net</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\celestial_body.h">
@@ -178,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="..\src\battle_ai.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\net\socket.h">
+      <Filter>Header Files\net</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -119,6 +119,7 @@
     <ClCompile Include="..\src\celestial_body.cpp" />
     <ClCompile Include="..\src\character.cpp" />
     <ClCompile Include="..\src\container.cpp" />
+    <ClCompile Include="..\src\net\socket.cpp" />
     <ClCompile Include="..\src\target.cpp" />
     <ClCompile Include="..\src\engine.cpp" />
     <ClCompile Include="..\src\equipment.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="..\src\item.h" />
     <ClInclude Include="..\src\location.h" />
     <ClInclude Include="..\src\mine.h" />
+    <ClInclude Include="..\src\net\socket.h" />
     <ClInclude Include="..\src\npc.h" />
     <ClInclude Include="..\src\resources.h" />
     <ClInclude Include="..\src\settlement.h" />
