@@ -72,4 +72,5 @@ class Hull : public Item, public Target
     spSprite _sprite;
     int _engine_bounds[4];
     int _battery_bounds[4];
+    std::vector<int> _equipment_pos;
 };

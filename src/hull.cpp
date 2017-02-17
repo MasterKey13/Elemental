@@ -39,6 +39,8 @@ void Hull::init(
   setDamageResistance(Damage::Type::Ballistic, ballistic_res);
   setDamageResistance(Damage::Type::Electrical, electrical_res);
   setDamageResistance(Damage::Type::Chemical, chemical_res);
+
+  _equipment_pos.resize(max_equip * 2);
   
   setMaxEquip(max_equip);
 }
@@ -96,6 +98,12 @@ void Hull::init(std::string ID)
       {
         _engine_bounds[k] = items[i]["engine_bounds"][k].asInt();
         _battery_bounds[k] = items[i]["battery_bounds"][k].asInt();
+      }
+
+      //load equipment positions
+      for (int l = 0; l < _max_equip * 2; l++)
+      {
+        _equipment_pos[l] = items[i]["equipment_positions"][l].asInt();
       }
 
       //load the sprite
