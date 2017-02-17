@@ -105,12 +105,6 @@ void Equipment::init(std::string ID)
         items[i]["self_targetable"].asBool()
         );
 
-      //load the defined elemental composition
-      for (int j = 0; j < 50; j++)
-      {
-        setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
-      }
-
       //load the sprite
       _sprite->setResAnim(resources::equipment.getResAnim(getID()));
     }

@@ -74,12 +74,6 @@ void Armor::init(std::string ID)
         items[i]["electrical_res"].asInt(),
         items[i]["chemical_res"].asInt()
         );
-
-      //load the defined elemental composition
-      for (int j = 0; j < 50; j++)
-      {
-        setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
-      }
     }
   }
 }

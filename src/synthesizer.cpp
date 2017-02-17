@@ -48,12 +48,6 @@ void Synthesizer::init(std::string ID)
         items[i]["desc"].asCString(),
         items[i]["brand"].asCString()
         );
-
-      //load the defined elemental composition
-      for (int j = 0; j < 50; j++)
-      {
-        setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
-      }
     }
   }
 }

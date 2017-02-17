@@ -91,12 +91,6 @@ void Hull::init(std::string ID)
         items[i]["max_equip"].asInt()
         );
 
-      //load the defined elemental composition
-      for (int j = 0; j < 50; j++)
-      {
-        setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
-      }
-
       //load storage bounds
       for (int k = 0; k < 4; k++)
       {

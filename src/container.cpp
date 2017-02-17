@@ -54,12 +54,6 @@ void Container::init(std::string ID)
 
       //initialize the container
       init(items[i]["capacity"].asInt());
-
-      //load the defined elemental composition
-      for (int j = 0; j < 50; j++)
-      {
-        setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
-      }
     }
   }
 }

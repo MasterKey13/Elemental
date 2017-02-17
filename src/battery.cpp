@@ -99,12 +99,6 @@ void Battery::init(std::string ID)
         items[i]["action_points"].asInt()
         );
 
-      //load the defined elemental composition
-      for (int j = 0; j < 50; j++)
-      {
-        setComposition(j, items[i]["composition"][std::to_string(j)].asInt());
-      }
-
       //load the sprite
       _sprite->setResAnim(resources::batteries.getResAnim(getID()));
     }
