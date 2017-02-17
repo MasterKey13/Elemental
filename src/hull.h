@@ -70,5 +70,6 @@ class Hull : public Item, public Target
     float _volume_remaining;
     int _max_equip;
     spSprite _sprite;
-    int _reserved_bounds[8];
+    int _engine_bounds[4];
+    int _battery_bounds[4];
 };

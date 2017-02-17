@@ -98,9 +98,10 @@ void Hull::init(std::string ID)
       }
 
       //load storage bounds
-      for (int k = 0; k < 8; k++)
+      for (int k = 0; k < 4; k++)
       {
-        _reserved_bounds[k] = items[i]["reserved_bounds"][k].asInt();
+        _engine_bounds[k] = items[i]["engine_bounds"][k].asInt();
+        _battery_bounds[k] = items[i]["battery_bounds"][k].asInt();
       }
 
       //load the sprite
@@ -113,8 +114,8 @@ void Hull::setBattery(spBattery battery)
 {
   _battery = battery;
   _battery->setPosition(
-    (float)_reserved_bounds[4],
-    (float)_reserved_bounds[5]
+    (float)_battery_bounds[0],
+    (float)_battery_bounds[1]
     );
 }
 
@@ -122,8 +123,8 @@ void Hull::setEngine(spEngine engine)
 {
   _engine = engine;
   _engine->setPosition(
-    (float)_reserved_bounds[0],
-    (float)_reserved_bounds[1]
+    (float)_engine_bounds[0],
+    (float)_engine_bounds[1]
     );
 }
 
