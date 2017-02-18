@@ -104,4 +104,6 @@ class BattleGui : public Actor
 
     spSprite _battle_bar_enemy;
     std::vector<spSprite> _equip_slots_enemy;
+
+    Color _damage_color;
 };

@@ -59,6 +59,8 @@ void BattleGui::init(spShip player, spShip enemy)
   _battle_bar_enemy = new Sprite();
   _battle_bar_enemy->attachTo(this);
 
+  _damage_color = Color(255, 175, 175);
+
   //resize vectors
   _equip_slots.resize(_player->getHull()->getMaxEquip());
   _action_slots.resize(_player->getHull()->getBattery()->getActionSlotsMax());
@@ -724,6 +726,7 @@ void BattleGui::clickEquipment(Event* ev)
         if (BattleAction::canPerform(_player, _equipment, safeSpCast<Equipment>(ev->currentTarget).get()))
         {
           _battle->addAction(_action, _equipment, safeSpCast<Equipment>(ev->currentTarget).get());
+          _equipment->getSprite()->addTween(Sprite::TweenColor(_damage_color), 350, 1, true, Tween::ease_inOutExpo);
         }
         else
         {
@@ -766,6 +769,7 @@ void BattleGui::clickHull(Event* ev)
       if (BattleAction::canPerform(_player, _equipment, t.get()))
       {
         _battle->addAction(_action, _equipment, t.get());
+        t->getSprite()->addTween(Sprite::TweenColor(_damage_color), 350, 1, true, Tween::ease_inOutExpo);
       }
       else
       {
@@ -797,6 +801,7 @@ void BattleGui::clickBattery(Event* ev)
       if (BattleAction::canPerform(_player, _equipment, b.get()))
       {
         _battle->addAction(_action, _equipment, b.get());
+        b->getSprite()->addTween(Sprite::TweenColor(_damage_color), 350, 1, true, Tween::ease_inOutExpo);
       }
       else
       {
@@ -828,6 +833,7 @@ void BattleGui::clickEngine(Event* ev)
       if (BattleAction::canPerform(_player, _equipment, e.get()))
       {
         _battle->addAction(_action, _equipment, e.get());
+        e->getSprite()->addTween(Sprite::TweenColor(_damage_color), 350, 1, true, Tween::ease_inOutExpo);
       }
       else
       {

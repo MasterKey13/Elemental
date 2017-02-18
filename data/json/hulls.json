@@ -13,8 +13,8 @@
       "electrical_res": 1,
       "max_equip": 3,
       "equipment_positions": [0,0,0,0,0,0],
-      "engine_bounds": [0,0],
-      "battery_bounds": [0,0]
+      "engine_bounds": [26,17,26],
+      "battery_bounds": [53,20,20]
     }
   ]
 }

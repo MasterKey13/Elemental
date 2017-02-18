@@ -13,6 +13,7 @@ Equipment::Equipment()
 
   _sprite = new Sprite();
   _sprite->setPosition(0, 0);
+  _sprite->setColor(Color::White);
   addChild(_sprite);
   setVisible(false);
 }
