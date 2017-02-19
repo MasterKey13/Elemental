@@ -3,10 +3,10 @@
   [
     {
       "id": "battery_celladon",
-      "volume": 1.5,
-      "weight": 250,
-      "name": "Celladon Cosmotransport Battery",
-      "desc": "A classic Celladon battery. Designed by the now-defunct Celladon Inc. in 2097, this battery is known to be very reliable.",
+      "volume": 1.75,
+      "weight": 750,
+      "name": "Celladon Battery v1",
+      "desc": "The first iteration of the classic Celladon spacecraft battery.",
       "brand": "Celladon Inc.",
       "hitpoints": 57,
       "electrical_res": 1,

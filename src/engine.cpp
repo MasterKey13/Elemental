@@ -17,7 +17,6 @@ Engine::Engine()
   _sprite = new Sprite();
   _sprite->attachTo(this);
   _sprite->setPosition(0, 0);
-  _sprite->setColor(Color::White);
   addChild(_sprite);
 
   computeBounds();

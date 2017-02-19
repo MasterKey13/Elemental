@@ -17,7 +17,6 @@ Hull::Hull()
   _sprite = new Sprite();
   _sprite->attachTo(this);
   _sprite->setPosition(0, 0);
-  _sprite->setColor(Color::White);
   addChild(_sprite);
 
   computeBounds();
@@ -180,6 +179,11 @@ int Hull::getMaxEquip()
 spSprite Hull::getSprite()
 {
   return _sprite;
+}
+
+int Hull::getEquipmentPos(int i)
+{
+  return _equipment_pos[i];
 }
 
 //! Attach a piece of equipment to the hull

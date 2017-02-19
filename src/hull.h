@@ -58,6 +58,7 @@ class Hull : public Item, public Target
     float getVolumeRemaining();
     int getMaxEquip();
     spSprite getSprite();
+    int getEquipmentPos(int i);
 
     void addEquipment(spEquipment eq);
 

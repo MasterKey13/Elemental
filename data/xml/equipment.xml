@@ -5,6 +5,5 @@
 
   <atlas>
     <image file="equipment_tek_cannon.png" />
-    <image file="equipment_tek_cannon2.png" />
   </atlas>
 </resources>

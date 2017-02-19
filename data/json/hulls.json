@@ -3,16 +3,16 @@
   [
     {
       "id": "hull_hugh_voyager",
-      "volume": 150,
+      "volume": 4,
       "weight": 11000,
-      "name": "Voyager Cosmotransport Hull",
-      "desc": "A standard-issue personal cosmotransport hull. Designed by Hugh Co. in 2097, the Voyager is their lightest and most compact frame.",
+      "name": "Voyager Chassis",
+      "desc": "An industry standard in personal spacecraft chassis.",
       "brand": "Hugh Co.",
-      "hitpoints": 136,
+      "hitpoints": 122,
       "ballistic_res": 2,
       "electrical_res": 1,
-      "max_equip": 3,
-      "equipment_positions": [0,0,0,0,0,0],
+      "max_equip": 2,
+      "equipment_positions": [79,0,79,60],
       "engine_bounds": [26,17,26],
       "battery_bounds": [53,20,20]
     }

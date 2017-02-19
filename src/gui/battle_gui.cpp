@@ -60,6 +60,7 @@ void BattleGui::init(spShip player, spShip enemy)
   _battle_bar_enemy->attachTo(this);
 
   _damage_color = Color(255, 175, 175);
+  _hull_over = false;
 
   //resize vectors
   _equip_slots.resize(_player->getHull()->getMaxEquip());
@@ -87,17 +88,15 @@ void BattleGui::init(spShip player, spShip enemy)
     _action_slots[i]->attachTo(_battle_bar);
   }
 
-  //attach equipment onto the GUI
+  //attach equipment onto the ships and GUI
   for (size_t i = 0; i < _player->getHull()->getEquipment().size(); i++)
   {
-    _player->getHull()->getEquipment()[i]->attachTo(_equip_slots[i]);
     _player_equipment_stats[i] = new ColorRectSprite();
     _player_equipment_stats[i]->attachTo(_equip_slots[i]);
   }
 
   for (size_t i = 0; i < _enemy->getHull()->getEquipment().size(); i++)
   {
-    _enemy->getHull()->getEquipment()[i]->attachTo(_equip_slots_enemy[i]);
     _enemy_equipment_stats[i] = new ColorRectSprite();
     _enemy_equipment_stats[i]->attachTo(_equip_slots_enemy[i]);
   }
@@ -212,8 +211,14 @@ void BattleGui::drawEquipmentPlayer()
 {
   for (size_t i = 0; i < _player->getHull()->getEquipment().size(); i++)
   {
+    //position the equipment sprite onto the ship
+    _player->getHull()->getEquipment()[i]->getSprite()->setAnchor(0.5f, 0.5f);
+    _player->getHull()->getEquipment()[i]->setPriority(_player->getHull()->getPriority() - 1);
+    _player->getHull()->getEquipment()[i]->getSprite()->setPosition(
+      _player->getHull()->getEquipmentPos(2 * i), 
+      _player->getHull()->getEquipmentPos(2 * i + 1)
+      );
     _player->getHull()->getEquipment()[i]->setVisible(true);
-    _player->getHull()->getEquipment()[i]->setPosition(1, 1);
     _player->getHull()->getEquipment()[i]->removeAllEventListeners();
 
     //add roll over event listener for detailed info on equipment
@@ -245,9 +250,16 @@ void BattleGui::drawEquipmentEnemy()
 {
   for (size_t i = 0; i < _enemy->getHull()->getEquipment().size(); i++)
   {
+    //position the equipment sprite
+    _enemy->getHull()->getEquipment()[i]->getSprite()->setAnchor(0.5f, 0.5f);
+    _enemy->getHull()->getEquipment()[i]->setPriority(_enemy->getHull()->getPriority() - 1);
+    _enemy->getHull()->getEquipment()[i]->getSprite()->setPosition(
+      _enemy->getHull()->getEquipmentPos(2 * i),
+      _enemy->getHull()->getEquipmentPos(2 * i + 1)
+      );
+
     _enemy->getHull()->getEquipment()[i]->setVisible(true);
-    _enemy->getHull()->getEquipment()[i]->setPosition(1, 1);
-    _enemy->getHull()->getEquipment()[i]->removeAllEventListeners();
+    _enemy->getHull()->getEquipment()[i]->removeAllEventListeners();    
 
     //add roll over event listener for detailed info on equipment
     _enemy->getHull()->getEquipment()[i]->addEventListener
@@ -328,32 +340,32 @@ void BattleGui::addShipEventListeners()
   _player->getHull()->addEventListener
     (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailHullShow));
   _player->getHull()->addEventListener
-    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailHide));
+    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailHullHide));
 
   _enemy->getHull()->addEventListener
     (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailHullShow));
   _enemy->getHull()->addEventListener
+    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailHullHide));
+
+  _player->getHull()->getBattery()->addEventListener
+    (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailBatteryShow));
+  _player->getHull()->getBattery()->addEventListener
     (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailHide));
 
-  _player->getHull()->getBattery()->addEventListener
-    (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailBatteryShow));
-  _player->getHull()->getBattery()->addEventListener
-    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailPartHide));
-
   _enemy->getHull()->getBattery()->addEventListener
     (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailBatteryShow));
   _enemy->getHull()->getBattery()->addEventListener
-    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailPartHide));
+    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailHide));
 
   _player->getHull()->getEngine()->addEventListener
     (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailEngineShow));
   _player->getHull()->getEngine()->addEventListener
-    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailPartHide));
+    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailHide));
 
   _enemy->getHull()->getEngine()->addEventListener
     (TouchEvent::OVER, CLOSURE(this, &BattleGui::detailEngineShow));
   _enemy->getHull()->getEngine()->addEventListener
-    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailPartHide));
+    (TouchEvent::OUT, CLOSURE(this, &BattleGui::detailHide));
 }
 
 //! Draw the hitpoint bars for hull, battery and engine of both player and enemy
@@ -721,12 +733,16 @@ void BattleGui::clickEquipment(Event* ev)
   {
     if (_battle->isPlayerTurn())
     {
-      if (safeSpCast<Equipment>(ev->currentTarget).get() && _equipment)
+      spEquipment eq = safeSpCast<Equipment>(ev->currentTarget);
+
+      if (eq.get() && _equipment)
       {
-        if (BattleAction::canPerform(_player, _equipment, safeSpCast<Equipment>(ev->currentTarget).get()))
+        if (BattleAction::canPerform(_player, _equipment, eq.get()))
         {
-          _battle->addAction(_action, _equipment, safeSpCast<Equipment>(ev->currentTarget).get());
-          _equipment->getSprite()->addTween(Sprite::TweenColor(_damage_color), 350, 1, true, Tween::ease_inOutExpo);
+          _battle->addAction(_action, _equipment, eq.get());
+
+          spTween tween = eq.get()->getSprite()->addTween(Sprite::TweenColor(_damage_color), 250, 1, true, Tween::ease_inOutExpo);
+          tween->setDoneCallback(CLOSURE(this, &BattleGui::resetColors));
         }
         else
         {
@@ -754,7 +770,6 @@ void BattleGui::clickEquipment(Event* ev)
     Game::cursor->addTween(Actor::TweenRotation(MATH_PI), 6000, 0, false);
 
     _equipment = safeSpCast<Equipment>(ev->currentTarget);
-    _equipment->getSprite()->setColor(Color(0,25,0));
   }
 }
 
@@ -769,7 +784,9 @@ void BattleGui::clickHull(Event* ev)
       if (BattleAction::canPerform(_player, _equipment, t.get()))
       {
         _battle->addAction(_action, _equipment, t.get());
-        t->getSprite()->addTween(Sprite::TweenColor(_damage_color), 350, 1, true, Tween::ease_inOutExpo);
+        
+        spTween tween = t.get()->getSprite()->addTween(Sprite::TweenColor(_damage_color), 250, 1, true, Tween::ease_inOutExpo);
+        tween->setDoneCallback(CLOSURE(this, &BattleGui::resetColors));
       }
       else
       {
@@ -801,7 +818,9 @@ void BattleGui::clickBattery(Event* ev)
       if (BattleAction::canPerform(_player, _equipment, b.get()))
       {
         _battle->addAction(_action, _equipment, b.get());
-        b->getSprite()->addTween(Sprite::TweenColor(_damage_color), 350, 1, true, Tween::ease_inOutExpo);
+        
+        spTween tween = b.get()->getSprite()->addTween(Sprite::TweenColor(_damage_color), 250, 1, true, Tween::ease_inOutExpo);
+        tween->setDoneCallback(CLOSURE(this, &BattleGui::resetColors));
       }
       else
       {
@@ -833,7 +852,9 @@ void BattleGui::clickEngine(Event* ev)
       if (BattleAction::canPerform(_player, _equipment, e.get()))
       {
         _battle->addAction(_action, _equipment, e.get());
-        e->getSprite()->addTween(Sprite::TweenColor(_damage_color), 350, 1, true, Tween::ease_inOutExpo);
+        
+        spTween tween = e.get()->getSprite()->addTween(Sprite::TweenColor(_damage_color), 250, 1, true, Tween::ease_inOutExpo);
+        tween->setDoneCallback(CLOSURE(this, &BattleGui::resetColors));
       }
       else
       {
@@ -892,7 +913,16 @@ void BattleGui::detailEquipmentShow(Event* ev)
 
 void BattleGui::detailHide(Event* ev)
 {
-  _item_info_bar->addTween(Actor::TweenAlpha(0), 100);
+  if (_hull_over)
+  {
+    _item_info_text->setHtmlText(_hull_text);
+
+    _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
+  }
+  else
+  {
+    _item_info_bar->addTween(Actor::TweenAlpha(0), 100);
+  }
 }
 
 void BattleGui::detailEngineShow(Event * ev)
@@ -953,6 +983,8 @@ void BattleGui::detailBatteryShow(Event * ev)
 
 void BattleGui::detailHullShow(Event * ev)
 {
+  _hull_over = true;
+
   spHull hl = safeSpCast<Hull>(ev->currentTarget);
   TextStyle style;
   style.multiline = true;
@@ -981,11 +1013,10 @@ void BattleGui::detailHullShow(Event * ev)
   _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
 }
 
-void BattleGui::detailPartHide(Event* ev)
+void BattleGui::detailHullHide(Event* ev)
 {
-  _item_info_text->setHtmlText(_hull_text);
-
-  _item_info_bar->addTween(Actor::TweenAlpha(255), 100);
+  _hull_over = false;
+  _item_info_bar->addTween(Actor::TweenAlpha(0), 100);
 }
 
 void BattleGui::endTurn(Event * ev)
@@ -1048,5 +1079,27 @@ void BattleGui::deselectEquipment()
     //deselect the equipment
     _equipment->getSprite()->setColor(Color(255, 255, 255));
     _equipment = nullptr;
+  }
+}
+
+//! Reset all spaceship part colors back to normal after damage tweens
+void BattleGui::resetColors(Event* ev)
+{
+  _player->getHull()->getSprite()->setColor(Color::White);
+  _player->getHull()->getEngine()->getSprite()->setColor(Color::White);
+  _player->getHull()->getBattery()->getSprite()->setColor(Color::White);
+
+  for (size_t i = 0; i < _player->getHull()->getEquipment().size(); i++)
+  {
+    _player->getHull()->getEquipment()[i]->getSprite()->setColor(Color::White);
+  }
+
+  _enemy->getHull()->getSprite()->setColor(Color::White);
+  _enemy->getHull()->getEngine()->getSprite()->setColor(Color::White);
+  _enemy->getHull()->getBattery()->getSprite()->setColor(Color::White);
+
+  for (size_t i = 0; i < _enemy->getHull()->getEquipment().size(); i++)
+  {
+    _enemy->getHull()->getEquipment()[i]->getSprite()->setColor(Color::White);
   }
 }

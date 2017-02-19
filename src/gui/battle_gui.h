@@ -57,9 +57,10 @@ class BattleGui : public Actor
     void detailEngineShow(Event* ev);
     void detailBatteryShow(Event* ev);
     void detailHullShow(Event* ev);
-    void detailPartHide(Event* ev);
+    void detailHullHide(Event* ev);
     void endTurn(Event* ev);
     void escapeBattle(Event* ev);
+    void resetColors(Event* ev);
 
     //misc methods
     Color getHitpointColor(float hitpoints);
@@ -78,6 +79,7 @@ class BattleGui : public Actor
 
     spSprite _battle_bar;
     std::vector<spSprite> _equip_slots;
+    std::vector<spSprite> _equip_slots_enemy;
     std::vector<spSprite> _action_slots;
     spColorRectSprite _action_points;
     spColorRectSprite _action_points_penalty;
@@ -103,7 +105,7 @@ class BattleGui : public Actor
     spSprite _pre_escape_battle;
 
     spSprite _battle_bar_enemy;
-    std::vector<spSprite> _equip_slots_enemy;
 
     Color _damage_color;
+    bool _hull_over;
 };
