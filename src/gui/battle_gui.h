@@ -5,6 +5,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 #pragma once
 #include "oxygine-framework.h"
+#include "game_gui.h"
 #include "../battle.h"
 #include "../resources.h"
 #include "../ship.h"
@@ -32,18 +33,8 @@ class BattleGui : public Actor
 
     //drawing methods
     void drawGUI();
-    void drawBattleBar();
-    void drawBattleBarEnemy();
     void drawActionSlots();
-    void drawEquipmentSlotsPlayer();
-    void drawEquipmentSlotsEnemy();
-    void drawEquipmentPlayer();
-    void drawEquipmentEnemy();
     void drawActionPoints();
-    void drawStats();
-    void updateHitpointStats();
-    void drawEquipmentInfo();
-    void drawEndTurnButton();
     void drawEscapeBattleButton();
     void drawEscapeAPStatus();
 
@@ -52,18 +43,11 @@ class BattleGui : public Actor
     void clickHull(Event* ev);
     void clickBattery(Event* ev);
     void clickEngine(Event* ev);
-    void detailEquipmentShow(Event* ev);
-    void detailHide(Event* ev);
-    void detailEngineShow(Event* ev);
-    void detailBatteryShow(Event* ev);
-    void detailHullShow(Event* ev);
-    void detailHullHide(Event* ev);
     void endTurn(Event* ev);
     void escapeBattle(Event* ev);
     void resetColors(Event* ev);
 
     //misc methods
-    Color getHitpointColor(float hitpoints);
     bool isPlayerEquipment(spEquipment eq);
     void deselectEquipment();
 
@@ -71,41 +55,23 @@ class BattleGui : public Actor
     void addShipEventListeners();
 
   private:
+    spShip _player;
+    spShip _enemy;
     spBattleAction _action;
     spBattle _battle;
     spEquipment _equipment;
-    spShip _player;
-    spShip _enemy;
 
+    //battle bar
     spSprite _battle_bar;
-    std::vector<spSprite> _equip_slots;
-    std::vector<spSprite> _equip_slots_enemy;
-    std::vector<spSprite> _action_slots;
     spColorRectSprite _action_points;
     spColorRectSprite _action_points_penalty;
     spTextField _action_points_text;
+    std::vector<spSprite> _action_slots;
 
-    spColorRectSprite _player_hp_stats[3];
-    spColorRectSprite _player_armor_stats[3];
-    std::vector<spColorRectSprite> _player_equipment_stats;
-    spColorRectSprite _enemy_hp_stats[3];
-    spColorRectSprite _enemy_armor_stats[3];
-    std::vector<spColorRectSprite> _enemy_equipment_stats;
-    spTextField _player_hp_stats_text[3];
-    spTextField _enemy_hp_stats_text[3];
-    int _player_hp_stats_total[3];
-    int _enemy_hp_stats_total[3];
-
-    spSprite _item_info_bar;
-    spTextField _item_info_text;
     std::string _hull_text;
-    spSprite _end_turn_button;
     spSprite _escape_battle_button;
     spTextField _escape_battle_ap;
     spSprite _pre_escape_battle;
 
-    spSprite _battle_bar_enemy;
-
     Color _damage_color;
-    bool _hull_over;
 };

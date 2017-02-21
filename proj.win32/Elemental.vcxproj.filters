@@ -114,6 +114,9 @@
     <ClCompile Include="..\src\net\socket.cpp">
       <Filter>Source Files\net</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\gui\game_gui.cpp">
+      <Filter>Source Files\gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\celestial_body.h">
@@ -190,6 +193,9 @@
     </ClInclude>
     <ClInclude Include="..\src\net\socket.h">
       <Filter>Header Files\net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\gui\game_gui.h">
+      <Filter>Header Files\gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

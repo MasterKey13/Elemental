@@ -199,6 +199,15 @@ void Hull::addEquipment(spEquipment eq)
     if (getEquipment().size() < (size_t)getMaxEquip())
     {
       _equipment.push_back(eq);
+
+      //place equipment onto the hull
+      eq->attachTo(this);
+      eq->setPosition(
+        _equipment_pos[std::distance(_equipment.begin(), 
+          std::find(_equipment.begin(), _equipment.end(), eq))], 
+        _equipment_pos[std::distance(_equipment.begin(),
+          std::find(_equipment.begin(), _equipment.end(), eq)) + 1]);
+      eq->setPriority(getPriority() - 1);
     }
     else
     {

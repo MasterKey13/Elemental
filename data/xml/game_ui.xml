@@ -6,5 +6,7 @@
   <atlas>
     <image file="cursor.png" />
     <image file="cursor_attack.png" />
+    <image file="equipment_bar.png" />
+    <image file="item_slot.png" />
   </atlas>
 </resources>

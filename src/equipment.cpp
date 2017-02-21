@@ -12,9 +12,10 @@ Equipment::Equipment()
   setArmorPiece(nullptr);
 
   _sprite = new Sprite();
+  _sprite->attachTo(this);
+  _sprite->setAnchor(0.5f, 0.5f);
   _sprite->setPosition(0, 0);
   addChild(_sprite);
-  setVisible(false);
 }
 
 //! Initialize an equipment with given parameters

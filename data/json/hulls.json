@@ -12,7 +12,7 @@
       "ballistic_res": 2,
       "electrical_res": 1,
       "max_equip": 2,
-      "equipment_positions": [79,0,79,60],
+      "equipment_positions": [86,2,86,58],
       "engine_bounds": [26,17,26],
       "battery_bounds": [53,20,20]
     }

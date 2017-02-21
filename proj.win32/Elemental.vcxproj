@@ -119,6 +119,7 @@
     <ClCompile Include="..\src\celestial_body.cpp" />
     <ClCompile Include="..\src\character.cpp" />
     <ClCompile Include="..\src\container.cpp" />
+    <ClCompile Include="..\src\gui\game_gui.cpp" />
     <ClCompile Include="..\src\net\socket.cpp" />
     <ClCompile Include="..\src\target.cpp" />
     <ClCompile Include="..\src\engine.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="..\src\equipment.h" />
     <ClInclude Include="..\src\game.h" />
     <ClInclude Include="..\src\gui\battle_gui.h" />
+    <ClInclude Include="..\src\gui\game_gui.h" />
     <ClInclude Include="..\src\hull.h" />
     <ClInclude Include="..\src\item.h" />
     <ClInclude Include="..\src\location.h" />

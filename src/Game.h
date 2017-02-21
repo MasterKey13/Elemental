@@ -18,6 +18,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "equipment.h"
 #include "npc.h"
 #include "battle_ai.h"
+#include "gui/game_gui.h"
 
 using namespace oxygine;
 
@@ -32,19 +33,17 @@ DECLARE_SMART(Synthesizer, spSynthesizer);
 DECLARE_SMART(Battle, spBattle);
 DECLARE_SMART(Equipment, spEquipment);
 DECLARE_SMART(Mine, spMine);
+DECLARE_SMART(GameGui, spGameGui);
 
 class Game : public Actor
 {
   public:
-	  Game();
-
-    static spSprite cursor;
+    Game();
 
 	  void init();
 
   private:
 	  void doUpdate(const UpdateState &us);
-    void updateCursor(Event* ev);
 
 	  spShip _player_ship; 
     spHull _hull;
@@ -62,4 +61,6 @@ class Game : public Actor
 
     spBattle _battle;
     BattleAI* _battle_ai;
+
+    spGameGui _game_gui;
 };

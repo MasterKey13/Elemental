@@ -4,12 +4,8 @@
   <set scale_factor = "1.0f" />
 
   <atlas>
-    <image file="item_slot.png" />
     <image file="battle_bar.png" />
-    <image file="battle_bar_enemy.png" />
     <image file="action_slot.png" cols="2" />
-    <image file="equipment_info_bar.png" />
-    <image file="end_turn.png" />
     <image file="escape_battle.png" />
     <image file="pre_escape_battle.png" />
   </atlas>
