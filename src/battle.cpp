@@ -8,8 +8,8 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 
 Battle::Battle()
 {
-  _gui = new BattleGui(this);
-  _gui->attachTo(this);
+  _battle_gui = new BattleGui(this);
+  _battle_gui->attachTo(this);
 
   _AI = new BattleAI();
   
@@ -18,13 +18,15 @@ Battle::Battle()
 
 //! Initialization function for a battle
 /*!
+\param smart pointer to the game GUI
 \param player a smart pointer to the player's ship
 \param enemy a smart pointer to the enemy's ship
 \param player_turn true if player initiated the battle
 */
-void Battle::init(spShip player, spShip enemy, bool player_turn)
+void Battle::init(spGameGui game_gui, spShip player, spShip enemy, bool player_turn)
 {
-  _gui->init(player, enemy);
+  _battle_gui->init(game_gui, player, enemy);
+  _game_gui = game_gui;
   _player = player;
   _enemy = enemy;
 
@@ -43,7 +45,9 @@ void Battle::init(spShip player, spShip enemy, bool player_turn)
   }
 
   resetTurnStats(_attacker);
-  _gui->drawGUI();
+
+  _battle_gui->drawGUI();
+  _game_gui->drawGUI();
 }
 
 //! Add an action to the action list
@@ -69,7 +73,8 @@ void Battle::addAction(spBattleAction action, spEquipment equipment, Target* tar
     action->process(_enemy, equipment, t);
   }
 
-  _gui->drawGUI();
+  _battle_gui->drawGUI();
+  _game_gui->drawGUI();
 
   checkStatus();
 }
@@ -98,7 +103,9 @@ void Battle::endTurn()
   }
 
   resetTurnStats(_attacker);
-  _gui->drawGUI();
+
+  _battle_gui->drawGUI();
+  _game_gui->drawGUI();
 }
 
 //! Checks if the turn or the battle ended and handle accordingly
@@ -115,7 +122,7 @@ void Battle::checkStatus()
 void Battle::finishBattle()
 {
   setBattleFinished(true);
-  _gui->detach();
+  _battle_gui->detach();
 
   log::messageln("BATTLE FINISHED; GUI HIDDEN");
 }

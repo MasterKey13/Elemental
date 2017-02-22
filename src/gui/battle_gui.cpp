@@ -14,11 +14,13 @@ BattleGui::BattleGui(spBattle battle)
 
 //! Initialize a battle GUI (create all required objects)
 /*!
+\param game_gui smart pointer to game GUI
 \param player smart pointer to the player's ship
 \param enemy smart pointer to the enemy's ship
 */
-void BattleGui::init(spShip player, spShip enemy)
+void BattleGui::init(spGameGui game_gui, spShip player, spShip enemy)
 {
+  _game_gui = game_gui;
   _player = player;
   _enemy = enemy;
 
@@ -63,10 +65,21 @@ void BattleGui::init(spShip player, spShip enemy)
 
 void BattleGui::drawGUI()
 {
+  drawBattleBar();
   drawActionSlots();
   drawActionPoints();
   drawEscapeBattleButton();
   drawEscapeAPStatus();
+}
+
+void BattleGui::drawBattleBar()
+{
+  _battle_bar->setResAnim(resources::battle_ui.getResAnim("battle_bar"));
+  _battle_bar->setAnchor(0.5f, 0.5f);
+  _battle_bar->setPosition(
+    getStage()->getWidth() / 2, 
+    getStage()->getHeight() - _battle_bar->getHeight() / 2 - _game_gui->getYMargin()
+    );
 }
 
 void BattleGui::drawActionSlots()
@@ -89,7 +102,10 @@ void BattleGui::drawActionSlots()
       _action_slots[i]->setResAnim(resources::battle_ui.getResAnim("action_slot"), 1);
     }
 
-    _action_slots[i]->setPosition((float)x_offset, 4.0f);
+    //position the action slots on the battle bar
+    _action_slots[i]->setPosition((float)x_offset, 
+      _battle_bar->getHeight() / 2 - _action_slots[i]->getHeight() / 2);
+
     x_offset += 4 + (int)_action_slots[i]->getWidth();
   }
 }

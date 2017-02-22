@@ -69,6 +69,9 @@ void GameGui::init(spShip player)
     _player_hp_stats_text[i]->attachTo(getStage());
   }
 
+  _x_margin = 8;
+  _y_margin = 8;
+
   drawGUI();
 }
 
@@ -128,33 +131,42 @@ void GameGui::drawGUI()
   drawEquipmentBarPlayer();
   drawEquipmentSlotsPlayer();
 
+  updateHitpointStatsPlayer();
+
   if (_enemy)
   {
     drawStatsEnemy();
     drawEquipmentBarEnemy();
     drawEquipmentSlotsEnemy();
+
+    updateHitpointStatsEnemy();
   }
 }
 
 //! Draw the hitpoint bars for hull, battery and engine of both player and enemy
 void GameGui::drawStatsPlayer()
 {
-  int x_offset = 6;
-  int y_offset = 6;
+  int y_offset = _y_margin;
 
   for (int i = 0; i < 3; i++)
   {
     //player stats go on the left top corner
-    _player_hp_stats[i]->setSize(364, 16);
+    _player_hp_stats[i]->setSize(_equipment_bar_player->getWidth(), 16);
     _player_hp_stats[i]->setAnchor(0.0f, 0.0f);
-    _player_hp_stats[i]->setPosition((float)x_offset, (float)y_offset);
+    _player_hp_stats[i]->setPosition(_x_margin, y_offset);
 
-    _player_armor_stats[i]->setSize(364, 16);
+    _player_armor_stats[i]->setSize(_player_hp_stats[i]->getWidth(), 16);
     _player_armor_stats[i]->setAnchor(0.0f, 0.0f);
-    _player_armor_stats[i]->setPosition((float)x_offset, (float)y_offset);
+    _player_armor_stats[i]->setPosition(_x_margin, y_offset);
     _player_armor_stats[i]->setColor(_armor_color);
 
-    _player_hp_stats_text[i]->setAlign(TextStyle::VerticalAlign::VALIGN_MIDDLE, TextStyle::HorizontalAlign::HALIGN_MIDDLE);
+    _player_hp_stats_text[i]->setAlign(
+      TextStyle::VerticalAlign::VALIGN_MIDDLE, 
+      TextStyle::HorizontalAlign::HALIGN_MIDDLE
+      );
+    _player_hp_stats_text[i]->setPosition(
+      _player_hp_stats[i]->getX() + _player_hp_stats[0]->getWidth() / 2,
+      _player_hp_stats[i]->getY() + _player_hp_stats[0]->getHeight() / 2);
   
     y_offset += (int)_player_hp_stats[i]->getHeight() + 6;
   }
@@ -164,26 +176,31 @@ void GameGui::drawStatsPlayer()
 
 void GameGui::drawStatsEnemy()
 {
-  int x_offset = 6;
-  int y_offset = 6;
+  int y_offset = _y_margin;
 
   for (int i = 0; i < 3; i++)
   {
     //enemy stats go on the top right corner
-    _enemy_hp_stats[i]->setSize(364, 16);
+    _enemy_hp_stats[i]->setSize(_equipment_bar_enemy->getWidth(), 16);
     _enemy_hp_stats[i]->setAnchor(1.0f, 0.0f);
     _enemy_hp_stats[i]->setPosition(
-      getStage()->getWidth() - (float)x_offset,
+      getStage()->getWidth() - _x_margin,
       (float)y_offset);
 
-    _enemy_armor_stats[i]->setSize(364, 16);
+    _enemy_armor_stats[i]->setSize(_enemy_hp_stats[i]->getWidth(), 16);
     _enemy_armor_stats[i]->setAnchor(1.0f, 0.0f);
     _enemy_armor_stats[i]->setPosition(
-      getStage()->getWidth() - (float)x_offset,
+      getStage()->getWidth() - _x_margin,
       (float)y_offset);
     _enemy_armor_stats[i]->setColor(_armor_color);
 
-    _enemy_hp_stats_text[i]->setAlign(TextStyle::VerticalAlign::VALIGN_MIDDLE, TextStyle::HorizontalAlign::HALIGN_MIDDLE);
+    _enemy_hp_stats_text[i]->setAlign(
+      TextStyle::VerticalAlign::VALIGN_MIDDLE, 
+      TextStyle::HorizontalAlign::HALIGN_MIDDLE
+      );  
+    _enemy_hp_stats_text[i]->setPosition(
+        _enemy_hp_stats[i]->getX() - _enemy_hp_stats[0]->getWidth() / 2,
+        _enemy_hp_stats[i]->getY() + _enemy_hp_stats[0]->getHeight() / 2);
 
     y_offset += (int)_enemy_hp_stats[i]->getHeight() + 6;
   }
@@ -194,13 +211,19 @@ void GameGui::drawStatsEnemy()
 void GameGui::drawEquipmentBarPlayer()
 {
   _equipment_bar_player->setResAnim(resources::game_ui.getResAnim("equipment_bar"));
-  _equipment_bar_player->setPosition(6, 75);
+  _equipment_bar_player->setPosition(
+    _x_margin, 
+    getStage()->getHeight() - _equipment_bar_player->getHeight() - _y_margin
+    );
 }
 
 void GameGui::drawEquipmentBarEnemy()
 {
   _equipment_bar_enemy->setResAnim(resources::game_ui.getResAnim("equipment_bar"));
-  _equipment_bar_enemy->setPosition(getStage()->getWidth() - _equipment_bar_enemy->getWidth() - 6, 75);
+  _equipment_bar_enemy->setPosition(
+    getStage()->getWidth() - _equipment_bar_enemy->getWidth() - _x_margin, 
+    getStage()->getHeight() - _equipment_bar_enemy->getHeight() - _y_margin
+    );
 }
 
 void GameGui::drawEquipmentSlotsPlayer()
@@ -229,6 +252,11 @@ void GameGui::drawEquipmentSlotsEnemy()
 
     x_offset += 4 + (int)_equip_slots_enemy[i]->getWidth();
   }
+}
+
+int GameGui::getYMargin()
+{
+  return _y_margin;
 }
 
 //! Updates the scale and color of hitpoints stats for player
@@ -262,10 +290,6 @@ void GameGui::updateHitpointStatsPlayer()
     _player_armor_stats[0]->setScaleX(0.0f);
     _player_hp_stats_total[0] = _player->getHull()->getHitPoints();
   }
-
-  _player_hp_stats_text[0]->setPosition(
-    _player_hp_stats[0]->getX() + _player_hp_stats[0]->getWidth() / 2,
-    _player_hp_stats[0]->getY() + _player_hp_stats[0]->getHeight() / 2);
 
   _player_hp_stats_text[0]->setText(
     "Hull: " +
@@ -302,10 +326,6 @@ void GameGui::updateHitpointStatsPlayer()
     _player_hp_stats_total[1] = _player->getHull()->getBattery()->getHitPoints();
   }
 
-  _player_hp_stats_text[1]->setPosition(
-    _player_hp_stats[1]->getX() + _player_hp_stats[1]->getWidth() / 2,
-    _player_hp_stats[1]->getY() + _player_hp_stats[1]->getHeight() / 2);
-
   _player_hp_stats_text[1]->setText(
     "Battery: " +
     std::to_string(_player_hp_stats_total[1]) +
@@ -340,10 +360,6 @@ void GameGui::updateHitpointStatsPlayer()
     _player_armor_stats[2]->setScaleX(0.0f);
     _player_hp_stats_total[2] = _player->getHull()->getEngine()->getHitPoints();;
   }
-
-  _player_hp_stats_text[2]->setPosition(
-    _player_hp_stats[2]->getX() + _player_hp_stats[2]->getWidth() / 2,
-    _player_hp_stats[2]->getY() + _player_hp_stats[2]->getHeight() / 2);
 
   _player_hp_stats_text[2]->setText(
     "Engine: " +
@@ -383,9 +399,6 @@ void GameGui::updateHitpointStatsEnemy()
     _enemy_armor_stats[0]->setScaleX(0.0f);
     _enemy_hp_stats_total[0] = _enemy->getHull()->getHitPoints();
   }
-  _enemy_hp_stats_text[0]->setPosition(
-    _enemy_hp_stats[0]->getX() - _enemy_hp_stats[0]->getWidth() / 2,
-    _enemy_hp_stats[0]->getY() + _enemy_hp_stats[0]->getHeight() / 2);
 
   _enemy_hp_stats_text[0]->setText(
     "Hull: " +
@@ -422,10 +435,6 @@ void GameGui::updateHitpointStatsEnemy()
     _enemy_hp_stats_total[1] = _enemy->getHull()->getBattery()->getHitPoints();
   }
 
-  _enemy_hp_stats_text[1]->setPosition(
-    _enemy_hp_stats[1]->getX() - _enemy_hp_stats[1]->getWidth() / 2,
-    _enemy_hp_stats[1]->getY() + _enemy_hp_stats[1]->getHeight() / 2);
-
   _enemy_hp_stats_text[1]->setText(
     "Battery: " +
     std::to_string(_enemy_hp_stats_total[1]) +
@@ -459,10 +468,6 @@ void GameGui::updateHitpointStatsEnemy()
     _enemy_armor_stats[2]->setScaleX(0.0f);
     _enemy_hp_stats_total[2] = _enemy->getHull()->getEngine()->getHitPoints();
   }
-
-  _enemy_hp_stats_text[2]->setPosition(
-    _enemy_hp_stats[2]->getX() - _enemy_hp_stats[2]->getWidth() / 2,
-    _enemy_hp_stats[2]->getY() + _enemy_hp_stats[2]->getHeight() / 2);
 
   _enemy_hp_stats_text[2]->setText(
     "Engine: " +

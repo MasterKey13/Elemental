@@ -36,6 +36,8 @@ class GameGui : public Actor
     void drawEquipmentSlotsPlayer();
     void drawEquipmentSlotsEnemy();
 
+    int getYMargin();
+
   private:
     spShip _player;
     spShip _enemy;
@@ -57,6 +59,8 @@ class GameGui : public Actor
     spTextField _enemy_hp_stats_text[3];
     int _player_hp_stats_total[3];
     int _enemy_hp_stats_total[3];
+    int _x_margin;
+    int _y_margin;
 
     //misc
     Color getHitpointColor(float hitpoints);

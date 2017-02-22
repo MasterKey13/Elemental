@@ -23,16 +23,18 @@ DECLARE_SMART(Battle, spBattle);
 DECLARE_SMART(BattleAction, spBattleAction);
 DECLARE_SMART(Equipment, spEquipment);
 DECLARE_SMART(Hull, spHull);
+DECLARE_SMART(GameGui, spGameGui);
 
 class BattleGui : public Actor
 {
   public:
     BattleGui(spBattle battle);
 
-    void init(spShip player, spShip enemy);
+    void init(spGameGui game_gui, spShip player, spShip enemy);
 
     //drawing methods
     void drawGUI();
+    void drawBattleBar();
     void drawActionSlots();
     void drawActionPoints();
     void drawEscapeBattleButton();
@@ -55,8 +57,10 @@ class BattleGui : public Actor
     void addShipEventListeners();
 
   private:
+    spGameGui _game_gui;
     spShip _player;
     spShip _enemy;
+
     spBattleAction _action;
     spBattle _battle;
     spEquipment _equipment;

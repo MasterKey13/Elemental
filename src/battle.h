@@ -9,6 +9,7 @@ License: http://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
 #include "item.h"
 #include "battle_action.h"
 #include "gui/battle_gui.h"
+#include "gui/game_gui.h"
 #include "target.h"
 #include "battle_ai.h"
 
@@ -17,6 +18,7 @@ using namespace oxygine;
 //Declare smart pointers
 DECLARE_SMART(Battle, spBattle);
 DECLARE_SMART(BattleGui, spBattleGui);
+DECLARE_SMART(GameGui, spGameGui);
 DECLARE_SMART(Ship, spShip);
 DECLARE_SMART(Target, spTarget);
 
@@ -25,7 +27,7 @@ class Battle : public Actor
   public:
     Battle();
 
-    void init(spShip player, spShip enemy, bool player_turn);
+    void init(spGameGui game_gui, spShip player, spShip enemy, bool player_turn);
 
     void addAction(spBattleAction action, spEquipment equipment, Target* target);
     void endTurn();
@@ -53,6 +55,7 @@ class Battle : public Actor
 
     bool _finished;
 
-    spBattleGui _gui;
+    spGameGui _game_gui;
+    spBattleGui _battle_gui;
     BattleAI* _AI;
 };

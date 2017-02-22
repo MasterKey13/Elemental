@@ -10,6 +10,9 @@ Game::Game()
 {
   srand((unsigned int)time(NULL));
 
+  _battle = new Battle();
+  _battle->attachTo(getStage());
+
   _player_ship = new Ship();
   _hull = new Hull();
   _battery = new Battery();
@@ -33,8 +36,6 @@ Game::Game()
   _engine2->attachTo(_hull2);
   _battery2->attachTo(_hull2);
   _weapon2->attachTo(_hull2);
-  _battle = new Battle();
-  _battle->attachTo(getStage());
 }
 
 void Game::init()
@@ -70,7 +71,7 @@ void Game::init()
   _game_gui->init(_player_ship, _enemy_ship);
 
   //start battle
-  _battle->init(_player_ship, _enemy_ship, true);
+  _battle->init(_game_gui, _player_ship, _enemy_ship, true);
 }
 
 void Game::doUpdate(const UpdateState &us)
